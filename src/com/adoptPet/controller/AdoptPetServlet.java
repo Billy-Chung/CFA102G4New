@@ -217,7 +217,7 @@ public class AdoptPetServlet extends HttpServlet {
 				String adoptPetComeForm = req.getParameter("adopt_pet_come_form");
 				String adoptPetHaveSignReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-)]*$";
 				java.sql.Date adoptPetJoinDate = null;			
-				String adoptPetChip = req.getParameter("adopt_pet_chip");
+				String adoptPetChip = req.getParameter("adopt_pet_chip");				
 				String adoptPetJoinReason = req.getParameter("adopt_pet_join_reason");
 				String captureAddress = req.getParameter("capture_address");
 				String adoptPetSterilization = req.getParameter("adopt_pet_sterilization");
@@ -342,7 +342,7 @@ public class AdoptPetServlet extends HttpServlet {
 				
 //				資料錯誤return
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("adoptPetVO", adoptPet);					
+					req.setAttribute("adoptPetVO2", adoptPet);					
 					RequestDispatcher failureView = req.getRequestDispatcher("/front_end/adoptPet/updateAdoptPetForm.jsp");
 					failureView.forward(req, res);
 					return;
