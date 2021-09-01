@@ -93,17 +93,15 @@
 								aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-							<FORM METHOD="post" ACTION="addPet.do" name="newPet">
-								<%@ include file="addPet.jsp"%>
-							</FORM>
+							<%@ include file="addPet.jsp"%>
 						</div>
 					</div>
 				</div>
 			</div>
-			
+
 			<c:if test="${not empty errorMsgs}">
 				<font style="color: red">新增有誤，請重新新增</font>
-				
+
 			</c:if>
 
 			<!-- 當前寵物清單搜尋列 -->
@@ -119,7 +117,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 
 			<%@ include file="page1.file"%>
 			<c:forEach var="AdoptPetVO" items="${list}" begin="<%=pageIndex%>"
@@ -174,11 +172,37 @@
 							</c:if>
 						</FORM>
 
+						<button type="button" class="btn btn-outline-primary"
+							data-bs-toggle="modal" data-bs-target="#newPhoto">新增寵物照片</button>
+
+
+						<div class="modal fade" id="newPhoto" data-bs-backdrop="static"
+							data-bs-keyboard="false" tabindex="-1"
+							aria-labelledby="staticBackdropLabel" aria-hidden="true">
+							<div class="modal-dialog modal-xl">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="staticBackdropLabel">新增寵物照片</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<%@ include file="addPetPhoto2.jsp"%>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<FORM METHOD="post" ACTION="addPetPhoto.do">
+							<input type="hidden" name="adopt_pet_no"
+								value="${AdoptPetVO.adopt_pet_no}"> <input type="hidden"
+								name="action" value="findByadoptPetNo">
+							<button type="submit" class="btn btn-outline-warning">查詢該寵物照片</button>
+						</FORM>	
 					</div>
 				</div>
 			</c:forEach>
 		</div>
-
 	</div>
 
 

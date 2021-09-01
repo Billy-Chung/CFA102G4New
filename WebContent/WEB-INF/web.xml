@@ -25,6 +25,15 @@
   	<servlet-name>AdoptPet</servlet-name>
   	<url-pattern>/front_end/adoptPet/addPet.do</url-pattern>
   </servlet-mapping>  
+  
+   <servlet>
+  	<servlet-name>AdoptPetPhoto</servlet-name>
+  	<servlet-class>com.adoptPetPhoto.controller.AdoptPetPhotoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AdoptPetPhoto</servlet-name>
+  	<url-pattern>/front_end/adoptPet/addPetPhoto.do</url-pattern>
+  </servlet-mapping> 
  
   
   
