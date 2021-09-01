@@ -6,8 +6,8 @@
 <%@ page import="com.adoptPetPhoto.model.*"%>
 
 <%
-	List<AdoptPetPhotoVO> list = (List<AdoptPetPhotoVO>) request.getAttribute("adoptMemberPhotoList");
-	pageContext.setAttribute("list", list);
+	Map<String, String> map = (Map<String, String>) request.getAttribute("adoptMemberPhotoMap");
+	pageContext.setAttribute("map", map);
 %>
 
 
@@ -29,11 +29,11 @@
 </head>
 
 
-<c:forEach var="AdoptPetVO" items="${list}">
+<c:forEach var="map" items="${map}">
 
 	<div class="card pdct_card" style="width: 18rem;">
-		<img src="images/dog1.jpg" class="card-img-top" alt="狗">
-		<div class="card-body">123</div>
+		<img src="data:image/jpg;base64,${map.value}">
+		<div class="card-body">${map.key}</div>
 	</div>
 </c:forEach>
 

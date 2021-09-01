@@ -18,7 +18,7 @@
 		</ul>
 	</c:if>
 
-	<input type="hidden" name="adopt_meb_no" value="1"> <input
+	<input type="hidden" name="adopt_meb_no" value="2"> <input
 		type="hidden" name="gen_meb_no" value="">
 
 	<div class="form-floating mb-3">
