@@ -50,13 +50,10 @@
 			<FORM METHOD="post"
 				ACTION="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do">
 				<input type="hidden" name="adoptPetNo"
-					value="${list.adopt_pet_photo_no}">
-					
-					<input type="hidden" name="adoptPetCoverState"
-					value="${list.adopt_pet_cover_state}">
-					
-					 <input type="hidden"
-					name="action" value="update">
+					value="${list.adopt_pet_photo_no}"> <input type="hidden"
+					name="adoptPetCoverState" value="${list.adopt_pet_cover_state}">
+
+				<input type="hidden" name="action" value="update">
 				<c:if test="${list.adopt_pet_cover_state == 0}">
 					<button type="submit" class="btn btn-outline-success">修改為封面圖</button>
 				</c:if>
@@ -68,6 +65,11 @@
 		</div>
 	</div>
 </c:forEach>
+
+<a href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp">
+	<button type="button" class="btn btn-outline-danger"
+		data-bs-dismiss="modal">回首頁</button>
+</a>
 
 
 
