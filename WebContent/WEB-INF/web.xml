@@ -23,7 +23,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>AdoptPet</servlet-name>
-  	<url-pattern>/addPet.do</url-pattern>
+  	<url-pattern>/adoptPet/addPet.do</url-pattern>
   </servlet-mapping>  
   
    <servlet>
@@ -32,7 +32,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>AdoptPetPhoto</servlet-name>
-  	<url-pattern>/addPetPhoto.do</url-pattern>
+  	<url-pattern>/adoptPet/addPetPhoto.do</url-pattern>
   </servlet-mapping> 
  
   

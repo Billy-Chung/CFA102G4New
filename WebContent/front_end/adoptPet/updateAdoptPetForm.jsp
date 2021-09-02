@@ -27,7 +27,7 @@
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="addPet.do">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adoptPet/addPet.do"">
 
 		<div class="form-floating mb-3">
 			<input type="text" class="form-control" name="gen_meb_no"
@@ -125,7 +125,7 @@
 			value="<%=adoptPet2.getAdopt_pet_no()%>">
 
 		<div class="modal-footer">
-			<a href="/CFA102G4New/front_end/adoptPet/adoptPet.jsp">
+			<a href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp">
 				<button type="button" class="btn btn-outline-danger"
 					data-bs-dismiss="modal">回首頁</button>
 			</a>

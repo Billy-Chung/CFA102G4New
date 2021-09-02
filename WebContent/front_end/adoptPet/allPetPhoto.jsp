@@ -6,10 +6,8 @@
 <%@ page import="com.adoptPetPhoto.model.*"%>
 
 <%
-	Map<String, String> map = (Map<String, String>) request.getAttribute("adoptMemberPhotoMap");
-	Integer adoptPetNo = (Integer) request.getAttribute("adoptPetNo");
-	pageContext.setAttribute("map", map);
-	pageContext.setAttribute("adoptPetNo", adoptPetNo);
+	List<AdoptPetPhotoVO> list = (List<AdoptPetPhotoVO>) request.getAttribute("adoptMemberPhotoList");
+	pageContext.setAttribute("list", list);
 %>
 
 
@@ -26,20 +24,48 @@
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous">
 <link
-	href="/CFA102G4New/front_end/adoptPet/fontawesome-free-5.15.4-web/css/all.css"
+	href="<%=request.getContextPath()%>/front_end/adoptPet/fontawesome-free-5.15.4-web/css/all.css"
 	rel="stylesheet">
-<link href="/CFA102G4New/front_end/adoptPet/petView.css"
+<link
+	href="<%=request.getContextPath()%>/front_end/adoptPet/petView.css"
 	rel="stylesheet">
 <script defer
-	src="/CFA102G4New/front_end/adoptPet/fontawesome-free-5.15.4-web/js/all.js"></script>
+	src="<%=request.getContextPath()%>/front_end/adoptPet/fontawesome-free-5.15.4-web/js/all.js"></script>
 </head>
 
 
-<c:forEach var="map" items="${map}">
+<c:forEach var="list" items="${list}">
 
 	<div class="card pdct_card" style="width: 18rem;">
-		<img src="data:image/jpg;base64,${map.value}">
-		<div class="card-body">${map.key}</div>
+		<img
+			src="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do?action=allPhoto&PK=${list.adopt_pet_photo_no}">
+		<div class="card-body">
+			<FORM METHOD="post"
+				ACTION="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do">
+				<input type="hidden" name="adoptPetNo"
+					value="${list.adopt_pet_photo_no}"> <input type="hidden"
+					name="action" value="deletePhoto">
+				<button type="submit" class="btn btn-outline-danger">刪除該照片</button>
+			</FORM>
+			<FORM METHOD="post"
+				ACTION="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do">
+				<input type="hidden" name="adoptPetNo"
+					value="${list.adopt_pet_photo_no}">
+					
+					<input type="hidden" name="adoptPetCoverState"
+					value="${list.adopt_pet_cover_state}">
+					
+					 <input type="hidden"
+					name="action" value="update">
+				<c:if test="${list.adopt_pet_cover_state == 0}">
+					<button type="submit" class="btn btn-outline-success">修改為封面圖</button>
+				</c:if>
+				<c:if test="${list.adopt_pet_cover_state == 1}">
+					<button type="submit" class="btn btn-outline-danger">移除封面圖</button>
+				</c:if>
+
+			</FORM>
+		</div>
 	</div>
 </c:forEach>
 

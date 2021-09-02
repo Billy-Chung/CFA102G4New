@@ -24,12 +24,12 @@
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous">
 <link
-	href="/CFA102G4New/front_end/adoptPet/fontawesome-free-5.15.4-web/css/all.css"
+	href="<%=request.getContextPath()%>/front_end/adoptPet/fontawesome-free-5.15.4-web/css/all.css"
 	rel="stylesheet">
-<link href="/CFA102G4New/front_end/adoptPet/petView.css"
+<link href="<%=request.getContextPath()%>/front_end/adoptPet/petView.css"
 	rel="stylesheet">
 <script defer
-	src="/CFA102G4New/front_end/adoptPet/fontawesome-free-5.15.4-web/js/all.js"></script>
+	src="<%=request.getContextPath()%>/front_end/adoptPet/fontawesome-free-5.15.4-web/js/all.js"></script>
 </head>
 
 <body>
@@ -126,16 +126,15 @@
 			<c:forEach var="AdoptPetVO" items="${list}" begin="<%=pageIndex%>"
 				end="<%=pageIndex+rowsPerPage-1%>">
 
-				<div class="card pdct_card" style="width: 18rem;">
-					<img src="/CFA102G4New/front_end/adoptPet/images/dog1.jpg"
-						class="card-img-top" alt="狗">
+				<div class="card pdct_card" style="width: 18rem;">				
+					<img src="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do?action=cover&PK=${AdoptPetVO.adopt_pet_no}" class="card-img-top" alt="photo">
 					<div class="card-body">
 						<h5 class="card-title">${AdoptPetVO.adopt_pet_breeds}</h5>
 						<p class="card-text">${AdoptPetVO.adopt_pet_gender}</p>
 
 
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/addPet.do">
+							ACTION="<%=request.getContextPath()%>/adoptPet/addPet.do">
 							<input type="hidden" name="adoptPetNo"
 								value="${AdoptPetVO.adopt_pet_no}"> <input type="hidden"
 								name="action" value="getOne_For_Update">
@@ -143,7 +142,7 @@
 						</FORM>
 
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/addPet.do">
+							ACTION="<%=request.getContextPath()%>/adoptPet/addPet.do">
 							<input type="hidden" name="adopt_pet_no"
 								value="${AdoptPetVO.adopt_pet_no}"> <input type="hidden"
 								name="gen_meb_no" value="${AdoptPetVO.gen_meb_no}"> <input
@@ -203,7 +202,7 @@
 						</div>
 
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/addPetPhoto.do">
+							ACTION="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do">
 							<input type="hidden" name="adopt_pet_no"
 								value="${AdoptPetVO.adopt_pet_no}"> <input type="hidden"
 								name="action" value="findByadoptPetNo">

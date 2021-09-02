@@ -13,7 +13,7 @@
 	</c:if>
 </c:if>
 
-<FORM action="<%=request.getContextPath()%>/addPetPhoto.do"
+<FORM action="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do"
 	method="post" enctype="multipart/form-data">
 
 	<input type="hidden" name="adopt_pet_no" value="${param.adopt_pet_no}">
@@ -21,6 +21,8 @@
 	<div class="form-floating mb-3">
 		<input type="file" class="form-control" name="adopt_pet_photo">
 	</div>
+	
+	<input type="hidden" name="adopt_pet_cover_state" value="0">
 
 	<input type="hidden" name="action" value="addNewPetPhoto">
 

@@ -8,7 +8,11 @@ public interface AdoptPetPhoto_interface {
 	
 	public void update(AdoptPetPhotoVO adoptPetPhoto);
 	
-	public void delete(Integer adopt_pet_photo_no);
+	public void delete(Integer adopt_pet_photo_no);	
+	
+	public AdoptPetPhotoVO findByPK(Integer adopt_pet_photo_no);
+	
+	public AdoptPetPhotoVO findByPhotoCover(Integer adopt_pet_photo_no);
 
 	public List<AdoptPetPhotoVO> findByadoptPetNo(Integer adopt_pet_no);
 	
