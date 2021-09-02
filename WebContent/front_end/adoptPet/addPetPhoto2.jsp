@@ -2,22 +2,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:if test="${not empty errorMsgs}">
-		<c:if test="${errorMsgs.containsKey('errorPhoto')}">
-			<font style="color: red">請修正以下錯誤:</font>
-			<ul>
-				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color: red">${message.value}</li>
-				</c:forEach>
+	<c:if test="${errorMsgs.containsKey('errorPhoto')}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message.value}</li>
+			</c:forEach>
 
-			</ul>
-		</c:if>
+		</ul>
 	</c:if>
+</c:if>
 
-<FORM action="addPetPhoto.do" method="post"
-	enctype="multipart/form-data">
+<FORM action="<%=request.getContextPath()%>/addPetPhoto.do"
+	method="post" enctype="multipart/form-data">
 
-	<input type="hidden" name="adopt_pet_no"
-		value="${AdoptPetVO.adopt_pet_no}">
+	<input type="hidden" name="adopt_pet_no" value="${param.adopt_pet_no}">
 
 	<div class="form-floating mb-3">
 		<input type="file" class="form-control" name="adopt_pet_photo">

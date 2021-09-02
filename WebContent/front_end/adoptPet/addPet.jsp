@@ -6,7 +6,7 @@
 	AdoptPetVO adoptPet = (AdoptPetVO) request.getAttribute("adoptPetVO");
 %>
 
-<FORM METHOD="post" ACTION="addPet.do" name="newPet">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/addPet.do" name="newPet">
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">

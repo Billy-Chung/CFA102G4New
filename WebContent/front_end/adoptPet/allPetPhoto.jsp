@@ -25,9 +25,13 @@
 	rel="stylesheet"
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous">
-<link href="fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet">
-<link href="petView.css" rel="stylesheet">
-<script defer src="fontawesome-free-5.15.4-web/js/all.js"></script>
+<link
+	href="/CFA102G4New/front_end/adoptPet/fontawesome-free-5.15.4-web/css/all.css"
+	rel="stylesheet">
+<link href="/CFA102G4New/front_end/adoptPet/petView.css"
+	rel="stylesheet">
+<script defer
+	src="/CFA102G4New/front_end/adoptPet/fontawesome-free-5.15.4-web/js/all.js"></script>
 </head>
 
 
@@ -35,7 +39,7 @@
 
 	<div class="card pdct_card" style="width: 18rem;">
 		<img src="data:image/jpg;base64,${map.value}">
-		<div class="card-body">${adoptPetNo}</div>
+		<div class="card-body">${map.key}</div>
 	</div>
 </c:forEach>
 

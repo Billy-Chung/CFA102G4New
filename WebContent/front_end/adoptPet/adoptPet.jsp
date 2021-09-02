@@ -23,9 +23,13 @@
 	rel="stylesheet"
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous">
-<link href="fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet">
-<link href="petView.css" rel="stylesheet">
-<script defer src="fontawesome-free-5.15.4-web/js/all.js"></script>
+<link
+	href="/CFA102G4New/front_end/adoptPet/fontawesome-free-5.15.4-web/css/all.css"
+	rel="stylesheet">
+<link href="/CFA102G4New/front_end/adoptPet/petView.css"
+	rel="stylesheet">
+<script defer
+	src="/CFA102G4New/front_end/adoptPet/fontawesome-free-5.15.4-web/js/all.js"></script>
 </head>
 
 <body>
@@ -100,7 +104,7 @@
 			</div>
 
 			<c:if test="${not empty errorMsgs}">
-				<font style="color: red">新增有誤，請重新新增</font>				
+				<font style="color: red">新增有誤，請重新新增</font>
 			</c:if>
 
 			<!-- 當前寵物清單搜尋列 -->
@@ -123,20 +127,23 @@
 				end="<%=pageIndex+rowsPerPage-1%>">
 
 				<div class="card pdct_card" style="width: 18rem;">
-					<img src="images/dog1.jpg" class="card-img-top" alt="狗">
+					<img src="/CFA102G4New/front_end/adoptPet/images/dog1.jpg"
+						class="card-img-top" alt="狗">
 					<div class="card-body">
 						<h5 class="card-title">${AdoptPetVO.adopt_pet_breeds}</h5>
 						<p class="card-text">${AdoptPetVO.adopt_pet_gender}</p>
 
 
-						<FORM METHOD="post" ACTION="addPet.do">
+						<FORM METHOD="post"
+							ACTION="<%=request.getContextPath()%>/addPet.do">
 							<input type="hidden" name="adoptPetNo"
 								value="${AdoptPetVO.adopt_pet_no}"> <input type="hidden"
 								name="action" value="getOne_For_Update">
 							<button type="submit" class="btn btn-outline-info">修改詳細資訊</button>
 						</FORM>
 
-						<FORM METHOD="post" ACTION="addPet.do">
+						<FORM METHOD="post"
+							ACTION="<%=request.getContextPath()%>/addPet.do">
 							<input type="hidden" name="adopt_pet_no"
 								value="${AdoptPetVO.adopt_pet_no}"> <input type="hidden"
 								name="gen_meb_no" value="${AdoptPetVO.gen_meb_no}"> <input
@@ -172,10 +179,10 @@
 						</FORM>
 
 						<button type="button" class="btn btn-outline-primary"
-							data-bs-toggle="modal" data-bs-target="#newPhoto">新增寵物照片</button>
+							data-bs-toggle="modal" data-bs-target="#newPhoto${AdoptPetVO.adopt_pet_no}">新增寵物照片</button>
 
 
-						<div class="modal fade" id="newPhoto" data-bs-backdrop="static"
+						<div class="modal fade" id="newPhoto${AdoptPetVO.adopt_pet_no}" data-bs-backdrop="static"
 							data-bs-keyboard="false" tabindex="-1"
 							aria-labelledby="staticBackdropLabel" aria-hidden="true">
 							<div class="modal-dialog modal-xl">
@@ -186,13 +193,17 @@
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-										<%@ include file="addPetPhoto2.jsp"%>
+										<jsp:include page="addPetPhoto2.jsp">
+											<jsp:param name="adopt_pet_no"
+												value="${AdoptPetVO.adopt_pet_no}" />
+										</jsp:include>
 									</div>
 								</div>
 							</div>
 						</div>
 
-						<FORM METHOD="post" ACTION="addPetPhoto.do">
+						<FORM METHOD="post"
+							ACTION="<%=request.getContextPath()%>/addPetPhoto.do">
 							<input type="hidden" name="adopt_pet_no"
 								value="${AdoptPetVO.adopt_pet_no}"> <input type="hidden"
 								name="action" value="findByadoptPetNo">

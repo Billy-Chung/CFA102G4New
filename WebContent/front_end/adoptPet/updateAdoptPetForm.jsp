@@ -125,7 +125,7 @@
 			value="<%=adoptPet2.getAdopt_pet_no()%>">
 
 		<div class="modal-footer">
-			<a href="adoptPet.jsp">
+			<a href="/CFA102G4New/front_end/adoptPet/adoptPet.jsp">
 				<button type="button" class="btn btn-outline-danger"
 					data-bs-dismiss="modal">回首頁</button>
 			</a>

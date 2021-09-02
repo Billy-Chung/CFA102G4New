@@ -68,8 +68,6 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 				String base64Img = Base64.getEncoder().encodeToString(photo);
 				imgMap.put(newAdoptPetNo,base64Img);
 			}		
-			
-			req.setAttribute("adoptPetNo", adoptPetNo);
 			req.setAttribute("adoptMemberPhotoMap", imgMap);
 			String url = "/front_end/adoptPet/allPetPhoto.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
