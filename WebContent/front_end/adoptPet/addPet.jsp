@@ -10,12 +10,15 @@
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message.value}</li>
-			</c:forEach>
-		</ul>
+		<c:if test="${!errorMsgs.containsKey('errorPhoto')}">
+			<font style="color: red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message.value}</li>
+				</c:forEach>
+
+			</ul>
+		</c:if>
 	</c:if>
 
 	<input type="hidden" name="adopt_meb_no" value="2"> <input

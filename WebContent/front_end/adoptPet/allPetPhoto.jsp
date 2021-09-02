@@ -7,7 +7,9 @@
 
 <%
 	Map<String, String> map = (Map<String, String>) request.getAttribute("adoptMemberPhotoMap");
+	Integer adoptPetNo = (Integer) request.getAttribute("adoptPetNo");
 	pageContext.setAttribute("map", map);
+	pageContext.setAttribute("adoptPetNo", adoptPetNo);
 %>
 
 
@@ -33,7 +35,7 @@
 
 	<div class="card pdct_card" style="width: 18rem;">
 		<img src="data:image/jpg;base64,${map.value}">
-		<div class="card-body">${map.key}</div>
+		<div class="card-body">${adoptPetNo}</div>
 	</div>
 </c:forEach>
 

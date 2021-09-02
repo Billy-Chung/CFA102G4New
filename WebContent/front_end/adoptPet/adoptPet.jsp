@@ -100,8 +100,7 @@
 			</div>
 
 			<c:if test="${not empty errorMsgs}">
-				<font style="color: red">新增有誤，請重新新增</font>
-
+				<font style="color: red">新增有誤，請重新新增</font>				
 			</c:if>
 
 			<!-- 當前寵物清單搜尋列 -->
@@ -198,7 +197,7 @@
 								value="${AdoptPetVO.adopt_pet_no}"> <input type="hidden"
 								name="action" value="findByadoptPetNo">
 							<button type="submit" class="btn btn-outline-warning">查詢該寵物照片</button>
-						</FORM>	
+						</FORM>
 					</div>
 				</div>
 			</c:forEach>
