@@ -9,8 +9,8 @@ public class SvrTest {
 	public static void main(String[] args) {
 		
 		//新增
-//		StoredValRecodeVO svr = new StoredValRecodeVO();
-//		StoredValRecodeDAO_Interface svrdao = new StoredValRecodeDAO();
+//		StoredValRecordVO svr = new StoredValRecordVO();
+//		StoredValRecordDAO_Interface svrdao = new StoredValRecordDAO();
 //		svr.setStored_val_recode_no(6);
 //		svr.setGer_meb_no(2);
 //		svr.setStored_val_date(java.sql.Date.valueOf("2016-01-01"));
@@ -20,8 +20,8 @@ public class SvrTest {
 //		System.out.println("新增成功");
 		
 		//更新
-//		StoredValRecodeVO svr = new StoredValRecodeVO();
-//		StoredValRecodeDAO_Interface svrdao = new StoredValRecodeDAO();
+//		StoredValRecordVO svr = new StoredValRecordVO();
+//		StoredValRecordDAO_Interface svrdao = new StoredValRecordDAO();
 //		svr.setStored_val_recode_no(6);
 //		svr.setGer_meb_no(2);
 //		svr.setStored_val_date(java.sql.Date.valueOf("2016-01-01"));
@@ -32,15 +32,15 @@ public class SvrTest {
 //		System.out.println("更新成功");
 		
 		//刪除
-//		StoredValRecodeVO svr = new StoredValRecodeVO();
-//		StoredValRecodeDAO_Interface svrdao = new StoredValRecodeDAO();
+//		StoredValRecordVO svr = new StoredValRecordVO();
+//		StoredValRecordDAO_Interface svrdao = new StoredValRecordDAO();
 //		svrdao.delete(6);
 //		System.out.println("刪除成功");
 		
 		
 		//查詢單一
-//		StoredValRecodeDAO_Interface svrdao = new StoredValRecodeDAO();
-//		StoredValRecodeVO svr = svrdao.findByPrimaryKey(2);
+//		StoredValRecordDAO_Interface svrdao = new StoredValRecordDAO();
+//		StoredValRecordVO svr = svrdao.findByPrimaryKey(2);
 //		System.out.print(svr.getStored_val_recode_no() + ",");
 //		System.out.print(svr.getGer_meb_no() + ",");
 //		System.out.print(svr.getStored_val_date() + ",");
@@ -48,9 +48,9 @@ public class SvrTest {
 //		System.out.println();
 		
 		//查詢全部
-		StoredValRecodeDAO_Interface svrdao = new StoredValRecodeDAO();
-		List<StoredValRecodeVO> svrlist = svrdao.getAll();
-		for (StoredValRecodeVO svr : svrlist) {
+		StoredValRecordDAO_Interface svrdao = new StoredValRecordDAO();
+		List<StoredValRecordVO> svrlist = svrdao.getAll();
+		for (StoredValRecordVO svr : svrlist) {
 			System.out.print(svr.getStored_val_recode_no() + ",");
 			System.out.print(svr.getGer_meb_no() + ",");
 			System.out.print(svr.getStored_val_date() + ",");

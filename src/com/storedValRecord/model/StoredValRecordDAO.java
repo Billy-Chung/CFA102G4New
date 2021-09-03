@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.adoptMemberReport.model.AdoptMemberReportVO;
 
-public class StoredValRecodeDAO implements StoredValRecodeDAO_Interface {
+public class StoredValRecordDAO implements StoredValRecordDAO_Interface {
 
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	public static final String URL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
@@ -32,7 +32,7 @@ public class StoredValRecodeDAO implements StoredValRecodeDAO_Interface {
 	}
 	
 	@Override
-	public void insert(StoredValRecodeVO svrVO) {
+	public void insert(StoredValRecordVO svrVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
@@ -70,7 +70,7 @@ public class StoredValRecodeDAO implements StoredValRecodeDAO_Interface {
 	}
 
 	@Override
-	public void update(StoredValRecodeVO svrVO) {
+	public void update(StoredValRecordVO svrVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
@@ -144,11 +144,11 @@ public class StoredValRecodeDAO implements StoredValRecodeDAO_Interface {
 	}
 
 	@Override
-	public StoredValRecodeVO findByPrimaryKey(Integer svrno) {
+	public StoredValRecordVO findByPrimaryKey(Integer svrno) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		StoredValRecodeVO svrVO = null;
+		StoredValRecordVO svrVO = null;
 		
 		try {
 			con = DriverManager.getConnection(URL,USER,PASSWORD);
@@ -158,7 +158,7 @@ public class StoredValRecodeDAO implements StoredValRecodeDAO_Interface {
 			
 			while(rs.next()) {
 			//進來代表有查到資料,就用一個Dept的Bean來包裝著查詢出來的部門資料
-				svrVO = new StoredValRecodeVO();
+				svrVO = new StoredValRecordVO();
 				svrVO.setStored_val_recode_no(svrno);
 				svrVO.setGer_meb_no(rs.getInt("GEN_MEB_NO"));
 				svrVO.setStored_val_date(rs.getDate("STORED_VAL_DATE"));
@@ -200,11 +200,11 @@ public class StoredValRecodeDAO implements StoredValRecodeDAO_Interface {
 	}
 
 	@Override
-	public List<StoredValRecodeVO> getAll() {
+	public List<StoredValRecordVO> getAll() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List <StoredValRecodeVO> svrList = new ArrayList<>();
+		List <StoredValRecordVO> svrList = new ArrayList<>();
 		
 		try {
 			
@@ -214,7 +214,7 @@ public class StoredValRecodeDAO implements StoredValRecodeDAO_Interface {
 			
 			while(rs.next()) {
 			//進來代表有查到資料,就用一個Dept的Bean來包裝著查詢出來的部門資料
-				StoredValRecodeVO svrVO = new StoredValRecodeVO();
+				StoredValRecordVO svrVO = new StoredValRecordVO();
 				svrVO.setStored_val_recode_no(rs.getInt("STORED_VAL_RECORD_NO"));
 				svrVO.setGer_meb_no(rs.getInt("GEN_MEB_NO"));
 				svrVO.setStored_val_date(rs.getDate("STORED_VAL_DATE"));

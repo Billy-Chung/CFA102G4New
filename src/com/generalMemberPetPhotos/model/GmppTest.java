@@ -4,12 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
-import com.generalMemberPet.model.GeneralMemberPetDAO;
-import com.generalMemberPet.model.GeneralMemberPetDAO_Interface;
-import com.generalMemberPet.model.GeneralMemberPetVO;
-import com.storedValRecord.model.StoredValRecodeDAO;
-import com.storedValRecord.model.StoredValRecodeDAO_Interface;
-import com.storedValRecord.model.StoredValRecodeVO;
+
 
 public class GmppTest {
 

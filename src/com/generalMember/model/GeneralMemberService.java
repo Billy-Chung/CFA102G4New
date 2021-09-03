@@ -10,7 +10,7 @@ public class GeneralMemberService {
 		dao = new GeneralMemberDAO();
 	}
 
-	public GeneralMemberVO addGeneralMember(String meb_name,String phone,java.sql.Date birthday,byte[] photo,String comment,String address,String email,String account,String password,String gender,Integer meb_money,String post_permission,Integer ger_meb_no) 
+	public GeneralMemberVO addGeneralMember(String meb_name,String phone,Date birthday,byte[] photo,String comment,String address,String email,String account,String password,String gender,Integer meb_money,String post_permission,Integer ger_meb_no) 
 	{
 		GeneralMemberVO gmVO = new GeneralMemberVO();
 		
@@ -38,7 +38,7 @@ public class GeneralMemberService {
 		dao.insert(gmVO);
 	}
 	
-	public GeneralMemberVO updateGeneralMember(String meb_name,String phone,java.sql.Date birthday,byte[] photo,String comment,String address,String email,String account,String password,String gender,Integer meb_money,String post_permission,Integer ger_meb_no) {
+	public GeneralMemberVO updateGeneralMember(String meb_name,String phone,Date birthday,byte[] photo,String comment,String address,String email,String account,String password,String gender,Integer meb_money,String post_permission,Integer ger_meb_no) {
 		GeneralMemberVO gmVO = new GeneralMemberVO();
 		
 		gmVO.setGer_meb_no(ger_meb_no);

@@ -3,7 +3,7 @@ package com.storedValRecord.model;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class StoredValRecodeVO implements Serializable {
+public class StoredValRecordVO implements Serializable {
 	private Integer stored_val_recode_no;
 	private Integer ger_meb_no;
 	private Date stored_val_date;
