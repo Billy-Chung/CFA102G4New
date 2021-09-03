@@ -1,7 +1,6 @@
 package com.promotions.model;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,7 +40,6 @@ public class promotionsDAO implements promotionsDAO_interface {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei", "David", "123456");
 			pstmt = con.prepareStatement(INSERT_STMT);//新增
 			int i=1;
-			
 //			pstmt.setInt(i++, promotions.getPromot_no()); //自動生成流水號不可用set
 			pstmt.setString(i++, promotions.getPromot_name());
 			pstmt.setDate(i++, promotions.getPromot_date_start());
@@ -124,7 +122,7 @@ public class promotionsDAO implements promotionsDAO_interface {
 	}	  
 	
 	@Override
-	public void delete(int promot_no) {
+	public void delete(Integer promot_no) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 	
@@ -158,7 +156,7 @@ public class promotionsDAO implements promotionsDAO_interface {
 	}	
 
 	@Override
-	public promotionsVO findByPromotNoPk(int promot_no) {
+	public promotionsVO findByPromotNoPk(Integer promot_no) {
 		promotionsVO promotions = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -183,7 +181,7 @@ public class promotionsDAO implements promotionsDAO_interface {
 				promotions.setPromot_discount(rs.getString("promot_discount"));
 				promotions.setPromot_reduce(rs.getString("promot_reduce"));
 				promotions.setPromot_comment(rs.getString("promot_comment"));
-				promotions.setPromot_photo(rs.getBytes("promot_photo()"));
+				promotions.setPromot_photo(rs.getBytes("promot_photo"));
 			}
 
 		} catch (SQLException se) {
@@ -241,7 +239,7 @@ public class promotionsDAO implements promotionsDAO_interface {
 				promotions.setPromot_discount(rs.getString("promot_discount"));
 				promotions.setPromot_reduce(rs.getString("promot_reduce"));
 				promotions.setPromot_comment(rs.getString("promot_comment"));
-				promotions.setPromot_photo(rs.getBytes("promot_photo()"));	
+				promotions.setPromot_photo(rs.getBytes("promot_photo"));	
 				promotionsList.add(promotions);
 			}
 

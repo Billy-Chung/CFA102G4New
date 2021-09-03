@@ -30,21 +30,21 @@ public class productDAO implements productDAO_interface {
 	}
 
 	@Override
-	public void insert(productVO amrVO) {
+	public void insert(productVO pVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
 		try {
 			conn = DriverManager.getConnection(URL,USER,PASSWORD);
 			pst = conn.prepareStatement(INSERT_SQL);
-			pst.setInt(1,amrVO.getProduct_no());
-			pst.setInt(2,amrVO.getProduct_type_no());
-			pst.setString(3,amrVO.getProduct_name());
-			pst.setInt(4,amrVO.getProduct_price());
-			pst.setString(5,amrVO.getProduct_comment());
-			pst.setString(6,amrVO.getProduct_status());
-			pst.setInt(7,amrVO.getProduct_all_stars());
-			pst.setInt(8,amrVO.getProduct_all_comments());
+			pst.setInt(1,pVO.getProduct_no());
+			pst.setInt(2,pVO.getProduct_type_no());
+			pst.setString(3,pVO.getProduct_name());
+			pst.setInt(4,pVO.getProduct_price());
+			pst.setString(5,pVO.getProduct_comment());
+			pst.setString(6,pVO.getProduct_status());
+			pst.setInt(7,pVO.getProduct_all_stars());
+			pst.setInt(8,pVO.getProduct_all_comments());
 			pst.executeUpdate();
 			
 		}catch(SQLException se) {
@@ -69,7 +69,7 @@ public class productDAO implements productDAO_interface {
 	}
 
 	@Override
-	public void update(productVO amrVO) {
+	public void update(productVO pVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
@@ -77,14 +77,14 @@ public class productDAO implements productDAO_interface {
 			conn = DriverManager.getConnection(URL,USER,PASSWORD);
 			pst = conn.prepareStatement(UPDATE_SQL);
 			
-			pst.setInt(1,amrVO.getProduct_type_no());
-			pst.setString(2,amrVO.getProduct_name());
-			pst.setInt(3,amrVO.getProduct_price());
-			pst.setString(4,amrVO.getProduct_comment());
-			pst.setString(5,amrVO.getProduct_status());
-			pst.setInt(6,amrVO.getProduct_all_stars());
-			pst.setInt(7,amrVO.getProduct_all_comments());
-			pst.setInt(8,amrVO.getProduct_no());
+			pst.setInt(1,pVO.getProduct_type_no());
+			pst.setString(2,pVO.getProduct_name());
+			pst.setInt(3,pVO.getProduct_price());
+			pst.setString(4,pVO.getProduct_comment());
+			pst.setString(5,pVO.getProduct_status());
+			pst.setInt(6,pVO.getProduct_all_stars());
+			pst.setInt(7,pVO.getProduct_all_comments());
+			pst.setInt(8,pVO.getProduct_no());
 			pst.executeUpdate();
 			
 		}catch(SQLException se) {
@@ -109,7 +109,7 @@ public class productDAO implements productDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer amrno) {
+	public void delete(Integer PRODUCT_NO) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -118,7 +118,7 @@ public class productDAO implements productDAO_interface {
 			con = DriverManager.getConnection(URL,USER,PASSWORD);
 			pstmt = con.prepareStatement(DELETE_SQL);
 			
-			pstmt.setInt(1,amrno);
+			pstmt.setInt(1,PRODUCT_NO);
 			
 			pstmt.executeUpdate();
 			
@@ -144,28 +144,28 @@ public class productDAO implements productDAO_interface {
 	}
 
 	@Override
-	public productVO findByPrimaryKey(Integer amrno) {
+	public productVO findByPrimaryKey(Integer PRODUCT_NO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		productVO amrVO = null;
+		productVO pVO = null;
 		
 		try {
 			con = DriverManager.getConnection(URL,USER,PASSWORD);
 			pstmt = con.prepareStatement(FIND_BY_DEPTNO_SQL);
-			pstmt.setInt(1,amrno);
+			pstmt.setInt(1,PRODUCT_NO);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				amrVO = new productVO();
-				amrVO.setProduct_no(amrno);
-				amrVO.setProduct_type_no(rs.getInt("PRODUCT_TYPE_NO"));
-				amrVO.setProduct_name(rs.getString("PRODUCT_NAME"));
-				amrVO.setProduct_price(rs.getInt("PRODUCT_PRICE"));
-				amrVO.setProduct_comment(rs.getString("PRODUCT_COMMENT"));
-				amrVO.setProduct_status(rs.getString("PRODUCT_STATUS"));
-				amrVO.setProduct_all_stars(rs.getInt("PRODUCT_ALL_STARS"));
-				amrVO.setProduct_all_comments(rs.getInt("PRODUCT_ALL_COMMENTS"));
+				pVO = new productVO();
+				pVO.setProduct_no(PRODUCT_NO);
+				pVO.setProduct_type_no(rs.getInt("PRODUCT_TYPE_NO"));
+				pVO.setProduct_name(rs.getString("PRODUCT_NAME"));
+				pVO.setProduct_price(rs.getInt("PRODUCT_PRICE"));
+				pVO.setProduct_comment(rs.getString("PRODUCT_COMMENT"));
+				pVO.setProduct_status(rs.getString("PRODUCT_STATUS"));
+				pVO.setProduct_all_stars(rs.getInt("PRODUCT_ALL_STARS"));
+				pVO.setProduct_all_comments(rs.getInt("PRODUCT_ALL_COMMENTS"));
 			}
 			
 		} catch(SQLException se) {
@@ -196,7 +196,7 @@ public class productDAO implements productDAO_interface {
 			}
 		}
 		
-		return amrVO;
+		return pVO;
 	}
 
 	@Override
@@ -204,7 +204,7 @@ public class productDAO implements productDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List <productVO> amrList = new ArrayList<>();
+		List <productVO> pList = new ArrayList<>();
 		
 		try {
 			
@@ -213,16 +213,16 @@ public class productDAO implements productDAO_interface {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				productVO amrVO = new productVO();
-				amrVO.setProduct_no(rs.getInt("PRODUCT_NO"));
-				amrVO.setProduct_type_no(rs.getInt("PRODUCT_TYPE_NO"));
-				amrVO.setProduct_name(rs.getString("PRODUCT_NAME"));
-				amrVO.setProduct_price(rs.getInt("PRODUCT_PRICE"));
-				amrVO.setProduct_comment(rs.getString("PRODUCT_COMMENT"));
-				amrVO.setProduct_status(rs.getString("PRODUCT_STATUS"));
-				amrVO.setProduct_all_stars(rs.getInt("PRODUCT_ALL_STARS"));
-				amrVO.setProduct_all_comments(rs.getInt("PRODUCT_ALL_COMMENTS"));
-				amrList.add(amrVO);
+				productVO pVO = new productVO();
+				pVO.setProduct_no(rs.getInt("PRODUCT_NO"));
+				pVO.setProduct_type_no(rs.getInt("PRODUCT_TYPE_NO"));
+				pVO.setProduct_name(rs.getString("PRODUCT_NAME"));
+				pVO.setProduct_price(rs.getInt("PRODUCT_PRICE"));
+				pVO.setProduct_comment(rs.getString("PRODUCT_COMMENT"));
+				pVO.setProduct_status(rs.getString("PRODUCT_STATUS"));
+				pVO.setProduct_all_stars(rs.getInt("PRODUCT_ALL_STARS"));
+				pVO.setProduct_all_comments(rs.getInt("PRODUCT_ALL_COMMENTS"));
+				pList.add(pVO);
 			}
 			
 		} catch(SQLException se) {
@@ -253,7 +253,7 @@ public class productDAO implements productDAO_interface {
 			}
 		}
 
-		return amrList;
+		return pList;
 		
 	}
 }

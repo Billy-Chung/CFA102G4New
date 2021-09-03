@@ -30,15 +30,15 @@ public class productTypeDAO implements productTypeDAO_interface{
 	}
 
 	@Override
-	public void insert(productTypeVO amrVO) {
+	public void insert(productTypeVO ptVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
 		try {
 			conn = DriverManager.getConnection(URL,USER,PASSWORD);
 			pst = conn.prepareStatement(INSERT_SQL);
-			pst.setInt(1,amrVO.getProduct_type_no());
-			pst.setString(2,amrVO.getProduct_type_name());
+			pst.setInt(1,ptVO.getProduct_type_no());
+			pst.setString(2,ptVO.getProduct_type_name());
 			pst.executeUpdate();
 			
 		}catch(SQLException se) {
@@ -63,7 +63,7 @@ public class productTypeDAO implements productTypeDAO_interface{
 	}
 
 	@Override
-	public void update(productTypeVO amrVO) {
+	public void update(productTypeVO ptVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
@@ -71,8 +71,8 @@ public class productTypeDAO implements productTypeDAO_interface{
 			conn = DriverManager.getConnection(URL,USER,PASSWORD);
 			pst = conn.prepareStatement(UPDATE_SQL);
 			
-			pst.setInt(1,amrVO.getProduct_type_no());
-			pst.setString(2,amrVO.getProduct_type_name());
+			pst.setInt(1,ptVO.getProduct_type_no());
+			pst.setString(2,ptVO.getProduct_type_name());
 			pst.executeUpdate();
 			
 		}catch(SQLException se) {
@@ -97,7 +97,7 @@ public class productTypeDAO implements productTypeDAO_interface{
 	}
 
 	@Override
-	public void delete(Integer amrno) {
+	public void delete(Integer PRODUCT_TYPE_NO) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -106,7 +106,7 @@ public class productTypeDAO implements productTypeDAO_interface{
 			con = DriverManager.getConnection(URL,USER,PASSWORD);
 			pstmt = con.prepareStatement(DELETE_SQL);
 			
-			pstmt.setInt(1,amrno);
+			pstmt.setInt(1,PRODUCT_TYPE_NO);
 			
 			pstmt.executeUpdate();
 			
@@ -132,22 +132,22 @@ public class productTypeDAO implements productTypeDAO_interface{
 	}
 
 	@Override
-	public productTypeVO findByPrimaryKey(Integer amrno) {
+	public productTypeVO findByPrimaryKey(Integer PRODUCT_TYPE_NO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		productTypeVO amrVO = null;
+		productTypeVO ptVO = null;
 		
 		try {
 			con = DriverManager.getConnection(URL,USER,PASSWORD);
 			pstmt = con.prepareStatement(FIND_BY_DEPTNO_SQL);
-			pstmt.setInt(1,amrno);
+			pstmt.setInt(1,PRODUCT_TYPE_NO);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				amrVO = new productTypeVO();
-				amrVO.setProduct_type_no(amrno);
-				amrVO.setProduct_type_name(rs.getString("PRODUCT_TYPE_NAME"));
+				ptVO = new productTypeVO();
+				ptVO.setProduct_type_no(PRODUCT_TYPE_NO);
+				ptVO.setProduct_type_name(rs.getString("PRODUCT_TYPE_NAME"));
 			}
 			
 		} catch(SQLException se) {
@@ -178,7 +178,7 @@ public class productTypeDAO implements productTypeDAO_interface{
 			}
 		}
 		
-		return amrVO;
+		return ptVO;
 	}
 
 	@Override
@@ -186,7 +186,7 @@ public class productTypeDAO implements productTypeDAO_interface{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List <productTypeVO> amrList = new ArrayList<>();
+		List <productTypeVO> ptList = new ArrayList<>();
 		
 		try {
 			
@@ -195,10 +195,10 @@ public class productTypeDAO implements productTypeDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				productTypeVO amrVO = new productTypeVO();
-				amrVO.setProduct_type_no(rs.getInt("PRODUCT_TYPE_NO"));
-				amrVO.setProduct_type_name(rs.getString("PRODUCT_TYPE_NAME"));
-				amrList.add(amrVO);
+				productTypeVO ptVO = new productTypeVO();
+				ptVO.setProduct_type_no(rs.getInt("PRODUCT_TYPE_NO"));
+				ptVO.setProduct_type_name(rs.getString("PRODUCT_TYPE_NAME"));
+				ptList.add(ptVO);
 			}
 			
 		} catch(SQLException se) {
@@ -229,7 +229,7 @@ public class productTypeDAO implements productTypeDAO_interface{
 			}
 		}
 
-		return amrList;
+		return ptList;
 		
 	}
 }

@@ -30,7 +30,7 @@ public class trackProductDAO implements trackProductDAO_interface {
 	}
 
 	@Override
-	public void insert(trackProductVO fpVO) {
+	public void insert(trackProductVO tpVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
@@ -38,8 +38,8 @@ public class trackProductDAO implements trackProductDAO_interface {
 			conn = DriverManager.getConnection(URL,USER,PASSWORD);
 			pst = conn.prepareStatement(INSERT_SQL);
 			
-			pst.setInt(1,fpVO.getGen_meb_no());
-			pst.setInt(2,fpVO.getProduct_no());
+			pst.setInt(1,tpVO.getGen_meb_no());
+			pst.setInt(2,tpVO.getProduct_no());
 			pst.executeUpdate();
 			
 		}catch(SQLException se) {
@@ -64,7 +64,7 @@ public class trackProductDAO implements trackProductDAO_interface {
 	}
 
 	@Override
-	public void update(trackProductVO fpVO) {
+	public void update(trackProductVO tpVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
@@ -72,8 +72,8 @@ public class trackProductDAO implements trackProductDAO_interface {
 			conn = DriverManager.getConnection(URL,USER,PASSWORD);
 			pst = conn.prepareStatement(UPDATE_SQL);
 			
-			pst.setInt(1,fpVO.getProduct_no());
-			pst.setInt(2,fpVO.getGen_meb_no());
+			pst.setInt(1,tpVO.getProduct_no());
+			pst.setInt(2,tpVO.getGen_meb_no());
 			pst.executeUpdate();
 			
 		}catch(SQLException se) {
@@ -98,15 +98,15 @@ public class trackProductDAO implements trackProductDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer gmno,Integer apno) {
+	public void delete(Integer GEN_MEB_NO,Integer PRODUCT_NO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			con = DriverManager.getConnection(URL,USER,PASSWORD);
 			pstmt = con.prepareStatement(DELETE_SQL);
-			pstmt.setInt(1,gmno);
-			pstmt.setInt(2,apno);
+			pstmt.setInt(1,GEN_MEB_NO);
+			pstmt.setInt(2,PRODUCT_NO);
 			pstmt.executeUpdate();
 			
 		}catch(SQLException e) {
@@ -131,23 +131,23 @@ public class trackProductDAO implements trackProductDAO_interface {
 	}
 
 	@Override
-	public trackProductVO findByPrimaryKey(Integer gmno, Integer apno) {
+	public trackProductVO findByPrimaryKey(Integer GEN_MEB_NO, Integer PRODUCT_NO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		trackProductVO fpVO = null;
+		trackProductVO tpVO = null;
 		
 		try {
 			con = DriverManager.getConnection(URL,USER,PASSWORD);
 			pstmt = con.prepareStatement(FIND_BY_DEPTNO_SQL);
-			pstmt.setInt(1,gmno);
-			pstmt.setInt(2,apno);
+			pstmt.setInt(1,GEN_MEB_NO);
+			pstmt.setInt(2,PRODUCT_NO);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 
-				fpVO = new trackProductVO();
-				fpVO.setGen_meb_no(gmno);
-				fpVO.setProduct_no(rs.getInt("PRODUCT_NO"));
+				tpVO = new trackProductVO();
+				tpVO.setGen_meb_no(GEN_MEB_NO);
+				tpVO.setProduct_no(PRODUCT_NO);
 			}
 			
 		} catch(SQLException se) {
@@ -178,7 +178,7 @@ public class trackProductDAO implements trackProductDAO_interface {
 			}
 		}
 		
-		return fpVO;
+		return tpVO;
 	}
 
 	@Override
@@ -186,7 +186,7 @@ public class trackProductDAO implements trackProductDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List <trackProductVO> fpList = new ArrayList<>();
+		List <trackProductVO> tpList = new ArrayList<>();
 		
 		try {
 			
@@ -196,10 +196,10 @@ public class trackProductDAO implements trackProductDAO_interface {
 			
 			while(rs.next()) {
 
-				trackProductVO fpVO = new trackProductVO();
-				fpVO.setGen_meb_no(rs.getInt("GEN_MEB_NO"));
-				fpVO.setProduct_no(rs.getInt("PRODUCT_NO"));
-				fpList.add(fpVO);
+				trackProductVO tpVO = new trackProductVO();
+				tpVO.setGen_meb_no(rs.getInt("GEN_MEB_NO"));
+				tpVO.setProduct_no(rs.getInt("PRODUCT_NO"));
+				tpList.add(tpVO);
 			}
 			
 		} catch(SQLException se) {
@@ -230,6 +230,6 @@ public class trackProductDAO implements trackProductDAO_interface {
 			}
 		}
 		
-		return fpList;
+		return tpList;
 	}
 }

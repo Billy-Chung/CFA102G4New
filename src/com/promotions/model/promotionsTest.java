@@ -11,12 +11,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
-
-
-
-
-
 public class promotionsTest {
 
 	public static void main(String[] args) {
@@ -24,49 +18,49 @@ public class promotionsTest {
 		promotionsDAO_interface dao = new promotionsDAO();
 		
 		
-//		// 新增
-//		promotionsVO promotions1 = new promotionsVO();//promotionsVO()
-////		promotions1.setPromot_no(4);//自動生成流水號
-//		promotions1.setPromot_name("盛大開幕，期間限定大Fun送");
-//		promotions1.setPromot_date_start(java.sql.Date.valueOf("2021-08-24"));
-//		promotions1.setPromot_date_end(java.sql.Date.valueOf("2021-09-15"));
-//		promotions1.setPromot_status("2");
-//		promotions1.setPromot_type("0");
-//		promotions1.setPromot_discount_type("1");
-//		promotions1.setPromot_discount("9");//想為空
-//		promotions1.setPromot_reduce("100");
-//		promotions1.setPromot_comment("寵一而忠開幕特別企劃商品滿額折200");
-//		
-//		try {
-//		byte[]pic=getPictureByteArray("images/promotions1.png");
-//		promotions1.setPromot_photo(pic);
-//		}catch (IOException e) {			
-//			e.printStackTrace();
-//		}		
-//		dao.add(promotions1);
-//		System.out.println("新增成功");
-		
-		// 修改
-		promotionsVO promotions2 = new promotionsVO();
-		promotions2.setPromot_no(1);//修改目標
-		promotions2.setPromot_name("盛大開幕(好評延長)");
-		promotions2.setPromot_date_start(java.sql.Date.valueOf("2021-09-16"));
-		promotions2.setPromot_date_end(java.sql.Date.valueOf("2021-09-24"));
-		promotions2.setPromot_status("1");
-		promotions2.setPromot_type("0");
-		promotions2.setPromot_discount_type("0");
-		promotions2.setPromot_discount("8.8");
-		promotions2.setPromot_reduce("200");//想為空
-		promotions2.setPromot_comment("寵一而忠開幕特別企劃商品全館9折");
+		// 新增
+		promotionsVO promotions1 = new promotionsVO();//promotionsVO()
+//		promotions1.setPromot_no(4);//自動生成流水號
+		promotions1.setPromot_name("盛大開幕，期間限定大Fun送");
+		promotions1.setPromot_date_start(java.sql.Date.valueOf("2021-08-24"));
+		promotions1.setPromot_date_end(java.sql.Date.valueOf("2021-09-15"));
+		promotions1.setPromot_status("2");
+		promotions1.setPromot_type("0");
+		promotions1.setPromot_discount_type("1");
+		promotions1.setPromot_discount("9");//想為空
+		promotions1.setPromot_reduce("100");
+		promotions1.setPromot_comment("寵一而忠開幕特別企劃商品滿額折200");
 		
 		try {
-		byte[]pic=getPictureByteArray("images/promotions2.png");
-		promotions2.setPromot_photo(pic);
+		byte[]pic=getPictureByteArray("images/promotions1.png");
+		promotions1.setPromot_photo(pic);
 		}catch (IOException e) {			
 			e.printStackTrace();
-		}
-		dao.update(promotions2);
-		System.out.println("更新成功");
+		}		
+		dao.add(promotions1);
+		System.out.println("新增成功");
+		
+		// 修改
+//		promotionsVO promotions2 = new promotionsVO();
+//		promotions2.setPromot_no(1);//修改目標
+//		promotions2.setPromot_name("盛大開幕(好評延長)");
+//		promotions2.setPromot_date_start(java.sql.Date.valueOf("2021-09-16"));
+//		promotions2.setPromot_date_end(java.sql.Date.valueOf("2021-09-24"));
+//		promotions2.setPromot_status("1");
+//		promotions2.setPromot_type("0");
+//		promotions2.setPromot_discount_type("0");
+//		promotions2.setPromot_discount("8.8");
+//		promotions2.setPromot_reduce("200");//想為空
+//		promotions2.setPromot_comment("寵一而忠開幕特別企劃商品全館9折");
+//		
+//		try {
+//		byte[]pic=getPictureByteArray("images/promotions2.png");
+//		promotions2.setPromot_photo(pic);
+//		}catch (IOException e) {			
+//			e.printStackTrace();
+//		}
+//		dao.update(promotions2);
+//		System.out.println("更新成功");
 
 //		// 刪除，有綁FK參考表要先砍
 //		dao.delete(1);
@@ -105,14 +99,14 @@ public class promotionsTest {
 }
 
 	//	將照片顯示出來
-	public static void readPicture(byte[] bytes) throws IOException {
-		String imgurl = "images/promotions1.png";
-		FileOutputStream fos = new FileOutputStream(imgurl);
-		fos.write(bytes);
-		fos.flush();
-		fos.close();
-	}	
-
+//	public static void readPicture(byte[] bytes) throws IOException {
+//		String imgurl = "images/promotions1.png";
+//		FileOutputStream fos = new FileOutputStream(imgurl);
+//		fos.write(bytes);
+//		fos.flush();
+//		fos.close();
+//	}	
+//
 	//新增照片 使用byte[]方式
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		FileInputStream fis = new FileInputStream(path);

@@ -8,8 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.logistics.model.logisticsDAO_interface;
-import com.logistics.model.logisticsVO;
+
 
 public class pay_methodDAO implements pay_methodDAO_interface{
 	

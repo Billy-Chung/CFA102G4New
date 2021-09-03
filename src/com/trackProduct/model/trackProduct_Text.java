@@ -5,37 +5,42 @@ import java.util.List;
 public class trackProduct_Text {
 
 	public static void main(String[] args) {
-		
-		trackProductVO tp = new trackProductVO();
-		trackProductDAO_interface tpdao = new trackProductDAO();
+
+		trackProductDAO tpdao = new trackProductDAO();
 		
 		//新增
-//		tp.setGen_meb_no(1);
-//		tp.setProduct_no(1);
-//		tpdao.insert(tp);
-//		System.out.println("新增成功");
+		trackProductVO tp1 = new trackProductVO();
+		tp1.setGen_meb_no(11);
+		tp1.setProduct_no(12);
+		tpdao.insert(tp1);
+		System.out.println("新增成功");
+		System.out.println("---------------------");
 		
 		//更新
-//		tp.setGen_meb_no(1);
-//		tp.setProduct_no(2);
-//		tpdao.update(tp);
-//		System.out.println("更新成功");
+		trackProductVO tp2 = new trackProductVO();
+		tp2.setGen_meb_no(11);
+		tp2.setProduct_no(13);
+		tpdao.update(tp2);
+		System.out.println("更新成功");
+		System.out.println("---------------------");
 		
 		//刪除
-//		tpdao.delete(1,2);
-//		System.out.println("刪除成功");
+		tpdao.delete(11,13);
+		System.out.println("刪除成功");
+		System.out.println("---------------------");
 		
 		//查詢單一
-//		trackProductVO tp1 = tpdao.findByPrimaryKey(2,3);
-//		System.out.print(tp1.getGen_meb_no() + ",");
-//		System.out.print(tp1.getProduct_no() + ",");
-//		System.out.println();
+		trackProductVO tp3 = tpdao.findByPrimaryKey(1,1);
+		System.out.print(tp3.getGen_meb_no() + ",");
+		System.out.print(tp3.getProduct_no());
+		System.out.println();
+		System.out.println("---------------------");
 		
 		//查詢全部
 		List<trackProductVO> list = tpdao.getAll();
-		for (trackProductVO tp2 : list) {
-			System.out.print(tp2.getGen_meb_no() + ",");
-			System.out.print(tp2.getProduct_no());
+		for (trackProductVO tp4 : list) {
+			System.out.print(tp4.getGen_meb_no() + ",");
+			System.out.print(tp4.getProduct_no());
 			System.out.println();
 		}
 	}

@@ -30,16 +30,16 @@ public class productPhotosDAO implements productPhotosDAO_interface {
 	}
 
 	@Override
-	public void insert(productPhotosVO amrVO) {
+	public void insert(productPhotosVO ppVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
 		try {
 			conn = DriverManager.getConnection(URL,USER,PASSWORD);
 			pst = conn.prepareStatement(INSERT_SQL);
-			pst.setInt(1,amrVO.getProduct_photo_no());
-			pst.setInt(2,amrVO.getProduct_no());
-			pst.setBytes(3,amrVO.getProduct_photo());
+			pst.setInt(1,ppVO.getProduct_photo_no());
+			pst.setInt(2,ppVO.getProduct_no());
+			pst.setBytes(3,ppVO.getProduct_photo());
 			pst.executeUpdate();
 			
 		}catch(SQLException se) {
@@ -64,7 +64,7 @@ public class productPhotosDAO implements productPhotosDAO_interface {
 	}
 
 	@Override
-	public void update(productPhotosVO amrVO) {
+	public void update(productPhotosVO ppVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
@@ -72,9 +72,9 @@ public class productPhotosDAO implements productPhotosDAO_interface {
 			conn = DriverManager.getConnection(URL,USER,PASSWORD);
 			pst = conn.prepareStatement(UPDATE_SQL);
 			
-			pst.setInt(1,amrVO.getProduct_no());
-			pst.setBytes(2,amrVO.getProduct_photo());
-			pst.setInt(3,amrVO.getProduct_photo_no());
+			pst.setInt(1,ppVO.getProduct_no());
+			pst.setBytes(2,ppVO.getProduct_photo());
+			pst.setInt(3,ppVO.getProduct_photo_no());
 			pst.executeUpdate();
 			
 		}catch(SQLException se) {
@@ -99,7 +99,7 @@ public class productPhotosDAO implements productPhotosDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer amrno) {
+	public void delete(Integer PRODUCT_PHOTO_NO) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -108,7 +108,7 @@ public class productPhotosDAO implements productPhotosDAO_interface {
 			con = DriverManager.getConnection(URL,USER,PASSWORD);
 			pstmt = con.prepareStatement(DELETE_SQL);
 			
-			pstmt.setInt(1,amrno);
+			pstmt.setInt(1,PRODUCT_PHOTO_NO);
 			
 			pstmt.executeUpdate();
 			
@@ -134,23 +134,23 @@ public class productPhotosDAO implements productPhotosDAO_interface {
 	}
 
 	@Override
-	public productPhotosVO findByPrimaryKey(Integer amrno) {
+	public productPhotosVO findByPrimaryKey(Integer PRODUCT_PHOTO_NO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		productPhotosVO amrVO = null;
+		productPhotosVO ppVO = null;
 		
 		try {
 			con = DriverManager.getConnection(URL,USER,PASSWORD);
 			pstmt = con.prepareStatement(FIND_BY_DEPTNO_SQL);
-			pstmt.setInt(1,amrno);
+			pstmt.setInt(1,PRODUCT_PHOTO_NO);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				amrVO = new productPhotosVO();
-				amrVO.setProduct_photo_no(amrno);
-				amrVO.setProduct_no(rs.getInt("PRODUCT_NO"));
-				amrVO.setProduct_photo(rs.getBytes("PRODUCT_PHOTO"));
+				ppVO = new productPhotosVO();
+				ppVO.setProduct_photo_no(PRODUCT_PHOTO_NO);
+				ppVO.setProduct_no(rs.getInt("PRODUCT_NO"));
+				ppVO.setProduct_photo(rs.getBytes("PRODUCT_PHOTO"));
 			}
 			
 		} catch(SQLException se) {
@@ -181,7 +181,7 @@ public class productPhotosDAO implements productPhotosDAO_interface {
 			}
 		}
 		
-		return amrVO;
+		return ppVO;
 	}
 
 	@Override
@@ -189,7 +189,7 @@ public class productPhotosDAO implements productPhotosDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List <productPhotosVO> amrList = new ArrayList<>();
+		List <productPhotosVO> ppList = new ArrayList<>();
 		
 		try {
 			
@@ -198,11 +198,11 @@ public class productPhotosDAO implements productPhotosDAO_interface {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				productPhotosVO amrVO = new productPhotosVO();
-				amrVO.setProduct_photo_no(rs.getInt("PRODUCT_PHOTO_NO"));
-				amrVO.setProduct_no(rs.getInt("PRODUCT_NO"));
-				amrVO.setProduct_photo(rs.getBytes("PRODUCT_PHOTO"));
-				amrList.add(amrVO);
+				productPhotosVO ppVO = new productPhotosVO();
+				ppVO.setProduct_photo_no(rs.getInt("PRODUCT_PHOTO_NO"));
+				ppVO.setProduct_no(rs.getInt("PRODUCT_NO"));
+				ppVO.setProduct_photo(rs.getBytes("PRODUCT_PHOTO"));
+				ppList.add(ppVO);
 			}
 			
 		} catch(SQLException se) {
@@ -233,7 +233,7 @@ public class productPhotosDAO implements productPhotosDAO_interface {
 			}
 		}
 
-		return amrList;
+		return ppList;
 		
 	}
 }

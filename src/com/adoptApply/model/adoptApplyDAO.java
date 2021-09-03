@@ -30,21 +30,21 @@ public class adoptApplyDAO implements adoptApplyDAO_interface {
 	}
 
 	@Override
-	public void insert(adoptApplyVO amrVO) {
+	public void insert(adoptApplyVO aaVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
 		try {
 			conn = DriverManager.getConnection(URL,USER,PASSWORD);
 			pst = conn.prepareStatement(INSERT_SQL);
-			pst.setInt(1,amrVO.getAdopt_apply_no());
-			pst.setInt(2,amrVO.getAdopt_meb_no());
-			pst.setInt(3,amrVO.getGen_meb_no());
-			pst.setInt(4,amrVO.getAdopt_pet_no());
-			pst.setString(5,amrVO.getAdopt_audit_state());
-			pst.setString(6,amrVO.getAdopt_apply_people_id());
-			pst.setDate(7,amrVO.getAdopt_apply_date());
-			pst.setString(8,amrVO.getAdopt_apply_state());
+			pst.setInt(1,aaVO.getAdopt_apply_no());
+			pst.setInt(2,aaVO.getAdopt_meb_no());
+			pst.setInt(3,aaVO.getGen_meb_no());
+			pst.setInt(4,aaVO.getAdopt_pet_no());
+			pst.setString(5,aaVO.getAdopt_audit_state());
+			pst.setString(6,aaVO.getAdopt_apply_people_id());
+			pst.setDate(7,aaVO.getAdopt_apply_date());
+			pst.setString(8,aaVO.getAdopt_apply_state());
 			pst.executeUpdate();
 			
 		}catch(SQLException se) {
@@ -69,7 +69,7 @@ public class adoptApplyDAO implements adoptApplyDAO_interface {
 	}
 
 	@Override
-	public void update(adoptApplyVO amrVO) {
+	public void update(adoptApplyVO aaVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
@@ -77,14 +77,14 @@ public class adoptApplyDAO implements adoptApplyDAO_interface {
 			conn = DriverManager.getConnection(URL,USER,PASSWORD);
 			pst = conn.prepareStatement(UPDATE_SQL);
 			
-			pst.setInt(1,amrVO.getAdopt_meb_no());
-			pst.setInt(2,amrVO.getGen_meb_no());
-			pst.setInt(3,amrVO.getAdopt_pet_no());
-			pst.setString(4,amrVO.getAdopt_audit_state());
-			pst.setString(5,amrVO.getAdopt_apply_people_id());
-			pst.setDate(6,amrVO.getAdopt_apply_date());
-			pst.setString(7,amrVO.getAdopt_apply_state());
-			pst.setInt(8,amrVO.getAdopt_apply_no());
+			pst.setInt(1,aaVO.getAdopt_meb_no());
+			pst.setInt(2,aaVO.getGen_meb_no());
+			pst.setInt(3,aaVO.getAdopt_pet_no());
+			pst.setString(4,aaVO.getAdopt_audit_state());
+			pst.setString(5,aaVO.getAdopt_apply_people_id());
+			pst.setDate(6,aaVO.getAdopt_apply_date());
+			pst.setString(7,aaVO.getAdopt_apply_state());
+			pst.setInt(8,aaVO.getAdopt_apply_no());
 			pst.executeUpdate();
 			
 		}catch(SQLException se) {
@@ -109,7 +109,7 @@ public class adoptApplyDAO implements adoptApplyDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer amrno) {
+	public void delete(Integer ADOPT_APPLY_NO) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -118,7 +118,7 @@ public class adoptApplyDAO implements adoptApplyDAO_interface {
 			con = DriverManager.getConnection(URL,USER,PASSWORD);
 			pstmt = con.prepareStatement(DELETE_SQL);
 			
-			pstmt.setInt(1,amrno);
+			pstmt.setInt(1,ADOPT_APPLY_NO);
 			pstmt.executeUpdate();
 			
 		}catch(SQLException e) {
@@ -143,28 +143,28 @@ public class adoptApplyDAO implements adoptApplyDAO_interface {
 	}
 
 	@Override
-	public adoptApplyVO findByPrimaryKey(Integer amrno) {
+	public adoptApplyVO findByPrimaryKey(Integer ADOPT_APPLY_NO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		adoptApplyVO amrVO = null;
+		adoptApplyVO aaVO = null;
 		
 		try {
 			con = DriverManager.getConnection(URL,USER,PASSWORD);
 			pstmt = con.prepareStatement(FIND_BY_DEPTNO_SQL);
-			pstmt.setInt(1,amrno);
+			pstmt.setInt(1,ADOPT_APPLY_NO);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				amrVO = new adoptApplyVO();
-				amrVO.setAdopt_apply_no(amrno);
-				amrVO.setAdopt_meb_no(rs.getInt("ADOPT_MEB_NO"));
-				amrVO.setGen_meb_no(rs.getInt("GEN_MEB_NO"));
-				amrVO.setAdopt_pet_no(rs.getInt("ADOPT_PET_NO"));
-				amrVO.setAdopt_audit_state(rs.getString("ADOPT_AUDIT_STATE"));
-				amrVO.setAdopt_apply_people_id(rs.getString("ADOPT_APPLY_PEOPLE_ID"));
-				amrVO.setAdopt_apply_date(rs.getDate("ADOPT_APPLY_DATE"));
-				amrVO.setAdopt_apply_state(rs.getString("ADOPT_APPLY_STATE"));
+				aaVO = new adoptApplyVO();
+				aaVO.setAdopt_apply_no(ADOPT_APPLY_NO);
+				aaVO.setAdopt_meb_no(rs.getInt("ADOPT_MEB_NO"));
+				aaVO.setGen_meb_no(rs.getInt("GEN_MEB_NO"));
+				aaVO.setAdopt_pet_no(rs.getInt("ADOPT_PET_NO"));
+				aaVO.setAdopt_audit_state(rs.getString("ADOPT_AUDIT_STATE"));
+				aaVO.setAdopt_apply_people_id(rs.getString("ADOPT_APPLY_PEOPLE_ID"));
+				aaVO.setAdopt_apply_date(rs.getDate("ADOPT_APPLY_DATE"));
+				aaVO.setAdopt_apply_state(rs.getString("ADOPT_APPLY_STATE"));
 			}
 			
 		} catch(SQLException se) {
@@ -195,7 +195,7 @@ public class adoptApplyDAO implements adoptApplyDAO_interface {
 			}
 		}
 		
-		return amrVO;
+		return aaVO;
 	}
 
 	@Override
@@ -203,7 +203,7 @@ public class adoptApplyDAO implements adoptApplyDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List <adoptApplyVO> amrList = new ArrayList<>();
+		List <adoptApplyVO> aaList = new ArrayList<>();
 		
 		try {
 			
@@ -212,16 +212,16 @@ public class adoptApplyDAO implements adoptApplyDAO_interface {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				adoptApplyVO amrVO = new adoptApplyVO();
-				amrVO.setAdopt_apply_no(rs.getInt("ADOPT_APPLY_NO"));
-				amrVO.setAdopt_meb_no(rs.getInt("ADOPT_MEB_NO"));
-				amrVO.setGen_meb_no(rs.getInt("GEN_MEB_NO"));
-				amrVO.setAdopt_pet_no(rs.getInt("ADOPT_PET_NO"));
-				amrVO.setAdopt_audit_state(rs.getString("ADOPT_AUDIT_STATE"));
-				amrVO.setAdopt_apply_people_id(rs.getString("ADOPT_APPLY_PEOPLE_ID"));
-				amrVO.setAdopt_apply_date(rs.getDate("ADOPT_APPLY_DATE"));
-				amrVO.setAdopt_apply_state(rs.getString("ADOPT_APPLY_STATE"));
-				amrList.add(amrVO);
+				adoptApplyVO aaVO = new adoptApplyVO();
+				aaVO.setAdopt_apply_no(rs.getInt("ADOPT_APPLY_NO"));
+				aaVO.setAdopt_meb_no(rs.getInt("ADOPT_MEB_NO"));
+				aaVO.setGen_meb_no(rs.getInt("GEN_MEB_NO"));
+				aaVO.setAdopt_pet_no(rs.getInt("ADOPT_PET_NO"));
+				aaVO.setAdopt_audit_state(rs.getString("ADOPT_AUDIT_STATE"));
+				aaVO.setAdopt_apply_people_id(rs.getString("ADOPT_APPLY_PEOPLE_ID"));
+				aaVO.setAdopt_apply_date(rs.getDate("ADOPT_APPLY_DATE"));
+				aaVO.setAdopt_apply_state(rs.getString("ADOPT_APPLY_STATE"));
+				aaList.add(aaVO);
 			}
 			
 		} catch(SQLException se) {
@@ -252,7 +252,7 @@ public class adoptApplyDAO implements adoptApplyDAO_interface {
 			}
 		}
 
-		return amrList;
+		return aaList;
 		
 	}
 }

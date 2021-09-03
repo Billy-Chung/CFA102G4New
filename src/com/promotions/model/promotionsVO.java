@@ -3,13 +3,9 @@ package com.promotions.model;
 import java.io.Serializable;
 import java.sql.Date;
 
-
-
-
-
 //VO，Value Object 值物件，每個表格對應一個VO
 public class promotionsVO implements Serializable {
-	private int promot_no;
+	private Integer promot_no;
 	private String promot_name;	
 	private Date promot_date_start;
 	private Date promot_date_end;
@@ -19,15 +15,12 @@ public class promotionsVO implements Serializable {
 	private String promot_discount;
 	private String promot_reduce;	
 	private String promot_comment;
-	
 	private byte[] promot_photo;//存LONGBLOB  type_img
 	
-	
-	
-	public int getPromot_no() {
+	public Integer getPromot_no() {
 		return promot_no;
 	}
-	public void setPromot_no(int promot_no) {
+	public void setPromot_no(Integer promot_no) {
 		this.promot_no = promot_no;
 	}
 	public String getPromot_name() {
@@ -90,7 +83,10 @@ public class promotionsVO implements Serializable {
 	public void setPromot_photo(byte[] promot_photo) {
 		this.promot_photo = promot_photo;
 	}
-
+	
+	
+	
+	
 	
 	
 }

@@ -63,7 +63,7 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 
 //				front_end/adoptMember/images/dog1.jpg
 				FileInputStream fis = new FileInputStream(
-						getServletContext().getRealPath("front_end/adoptMember/images/hi.jpg"));
+						getServletContext().getRealPath("front_end/adoptMember/images/dog1.jpg"));
 				byte[] buffer = new byte[fis.available()];
 				fis.read(buffer);
 				fis.close();

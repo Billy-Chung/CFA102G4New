@@ -6,37 +6,43 @@ public class productType_Text {
 	
 public static void main(String[] args) {
 		
-		productTypeVO pt = new productTypeVO();
-		productTypeDAO_interface ptdao = new productTypeDAO();
+		productTypeDAO ptdao = new productTypeDAO();
 		
 		//新增
-//		pt.setProduct_type_no(3);
-//		pt.setProduct_type_name("綜合寵物飼料");
-//		ptdao.insert(pt);
-//		System.out.println("新增成功");
+		productTypeVO pt1 = new productTypeVO();
+		pt1.setProduct_type_no(11);
+		pt1.setProduct_type_name("寵物保險");
+		ptdao.insert(pt1);
+		System.out.println("新增成功");
+		System.out.println("---------------------");
 		
 		//更新
-//		pt.setProduct_type_no(2);
-//		pt.setProduct_type_name("主子的滿漢全席");
-//		ptdao.update(pt);
-//		System.out.println("更新成功");
+		productTypeVO pt2 = new productTypeVO();
+		pt2.setProduct_type_no(11);
+		pt2.setProduct_type_name("寵物醫療");
+		ptdao.update(pt2);
+		System.out.println("更新成功");
+		System.out.println("---------------------");
 		
 		//刪除單一
-//		ptdao.delete(2);
-//		System.out.println("刪除成功");
+		ptdao.delete(2);
+		System.out.println("刪除成功");
+		System.out.println("---------------------");
 		
 		//查詢單一
-//		productTypeVO pt1 = ptdao.findByPrimaryKey(1);
-//		System.out.print(pt1.getProduct_type_no() + ",");
-//		System.out.print(pt1.getProduct_type_name() + ",");
-//		System.out.println();
+		productTypeVO pt3 = ptdao.findByPrimaryKey(1);
+		System.out.print(pt3.getProduct_type_no() + ",");
+		System.out.print(pt3.getProduct_type_name());
+		System.out.println();
+		System.out.println("---------------------");
 		
 		//查詢全部
 		List<productTypeVO> list = ptdao.getAll();
-		for (productTypeVO pt2 : list) {
-			System.out.print(pt2.getProduct_type_no() + ",");
-			System.out.print(pt2.getProduct_type_name() + ",");
+		for (productTypeVO pt4 : list) {
+			System.out.print(pt4.getProduct_type_no() + ",");
+			System.out.print(pt4.getProduct_type_name());
 			System.out.println();
+			System.out.println("---------------------");
 		}
 	}
 }
