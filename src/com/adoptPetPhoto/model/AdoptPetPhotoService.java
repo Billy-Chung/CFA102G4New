@@ -1,7 +1,5 @@
 package com.adoptPetPhoto.model;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 

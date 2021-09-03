@@ -1,36 +1,40 @@
 package com.adoptMember.model;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 
-	private static final String SQL_URL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
-	private static final String SQL_USER = "David";
-	private static final String SQL_PASSWORD = "123456";
 	private static final String INSERT_SQL = "insert into ADOPT_MEMBER (ADOPT_MEB_NAME,ADOPT_MEB_COMMENT,ADOPT_MEB_PHOTO,ADOPT_MEB_ADDRESS,ADOPT_MEB_PHONE,ADOPT_MEB_EMAIL,ADOPT_MEB_ACCOUNT,ADOPT_MEB_PASSWORD,ADOPT_MEB_STATE,ADOPT_MEB_AUTH,ADOPT_MEB_HOLIDAY,ADOPT_MEB_LIMIT) values(?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE_SQL = "update ADOPT_MEMBER set ADOPT_MEB_NAME = ?, ADOPT_MEB_COMMENT = ?, ADOPT_MEB_PHOTO = ?, ADOPT_MEB_ADDRESS = ?, ADOPT_MEB_PHONE = ?, ADOPT_MEB_EMAIL = ?, ADOPT_MEB_ACCOUNT = ?, ADOPT_MEB_PASSWORD = ?, ADOPT_MEB_STATE = ?, ADOPT_MEB_AUTH = ?, ADOPT_MEB_HOLIDAY = ?, ADOPT_MEB_LIMIT = ? where ADOPT_MEB_NO = ?";
 	private static final String FIND_BY_PK = "SELECT * FROM ADOPT_MEMBER WHERE ADOPT_MEB_NO = ?";
 	private static final String FIND_BY_NAME = "SELECT * FROM ADOPT_MEMBER WHERE ADOPT_MEB_NAME like ?";
 	private static final String SELECT_ALL = "SELECT * FROM ADOPT_MEMBER";
 
+	private static DataSource ds = null;
 	static {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/David");
+		} catch (NamingException e) {
+			e.printStackTrace();
 		}
 	}
 
 	public AdoptMemberVO insert(AdoptMemberVO adoptMember) {
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		Connection con = null;
+		try {
+			con = ds.getConnection();
 			String[] cols = { "adopt_meb_no" };
 			PreparedStatement pstmt = createInsertPreparedStatement(con, adoptMember, INSERT_SQL, cols);
 			pstmt.executeUpdate();
@@ -40,64 +44,111 @@ public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 				adoptMember.setAdopt_meb_no(key);
 			}
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return adoptMember;
 	}
 
 	public void update(AdoptMemberVO adoptMember) {
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		Connection con = null;
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = createUpdatePreparedStatement(con, adoptMember, UPDATE_SQL);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 	}
 
 	@Override
 	public AdoptMemberVO findByAdoptMebNoPK(Integer adopt_meb_no) {
+		Connection con = null;
 		AdoptMemberVO adoptMember = null;
 
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(FIND_BY_PK);
 			pstmt.setInt(1, adopt_meb_no);
 			ResultSet rs = pstmt.executeQuery();
 			adoptMember = selectOneAdoptMemberByNo(rs);
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return adoptMember;
 	}
 
 	@Override
 	public List<AdoptMemberVO> findByAdoptMebName(String adopt_meb_name) {
+		Connection con = null;
 		List<AdoptMemberVO> adoptMemberList = new ArrayList<>();
 
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(FIND_BY_NAME);
 			pstmt.setString(1, "%" + adopt_meb_name + "%");
 			ResultSet rs = pstmt.executeQuery();
 			adoptMemberList = selectAdoptMemberByName(adoptMemberList, rs);
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return adoptMemberList;
 	}
 
 	@Override
 	public List<AdoptMemberVO> getAllAdoptMeb() {
+		Connection con = null;
 		List<AdoptMemberVO> adoptMemberList = new ArrayList<>();
 
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(SELECT_ALL);
 			ResultSet rs = pstmt.executeQuery();
 			adoptMemberList = selectAllAdoptMember(adoptMemberList, rs);
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return adoptMemberList;
 	}
-
 
 	private PreparedStatement createInsertPreparedStatement(Connection con, AdoptMemberVO adoptMember, String SQL,
 			String[] cols) throws SQLException {
@@ -158,7 +209,7 @@ public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException("A database method error occured. " + e.getMessage());
 		}
 
 		return adoptMember;
@@ -185,7 +236,7 @@ public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 				adoptMemberList.add(adoptMember);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException("A database method error occured. " + e.getMessage());
 		}
 
 		return adoptMemberList;
@@ -211,7 +262,7 @@ public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 				adoptMemberList.add(adoptMember);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException("A database method error occured. " + e.getMessage());
 		}
 		return adoptMemberList;
 	}

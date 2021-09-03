@@ -1,7 +1,6 @@
 package com.adoptPet.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,31 +8,36 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.adoptMember.model.AdoptMemberVO;
-import com.petClassList.model.PetClassListVO;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 
 public class AdoptPetDAO implements AdoptPet_interface {
+
 	
-	private static final String SQL_URL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
-	private static final String SQL_USER = "David";
-	private static final String SQL_PASSWORD = "123456";
 	private static final String INSERT_SQL = "insert into ADOPT_PET (ADOPT_MEB_NO,GEN_MEB_NO,ADOPT_PET_BREEDS,ADOPT_PET_GENDER,ADOPT_PET_COME_FORM,ADOPT_PET_JOIN_DATE,ADOPT_PET_CHIP,ADOPT_PET_JOIN_REASON,CAPTURE_ADDRESS,ADOPT_PET_STERILIZATION,CONTAIN_NUMBER,ADOPT_PET_COLOR,ADOPT_PET_STATE) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE_SQL = "update ADOPT_PET set GEN_MEB_NO = ?, ADOPT_PET_BREEDS = ?, ADOPT_PET_GENDER = ?, ADOPT_PET_COME_FORM = ?, ADOPT_PET_JOIN_DATE = ?, ADOPT_PET_CHIP = ?, ADOPT_PET_JOIN_REASON = ?, CAPTURE_ADDRESS = ?, ADOPT_PET_STERILIZATION = ?, CONTAIN_NUMBER = ?, ADOPT_PET_COLOR = ?, ADOPT_PET_STATE = ? where ADOPT_PET_NO = ?";
 	private static final String FIND_BY_PK = "SELECT * FROM ADOPT_PET WHERE ADOPT_PET_NO = ?";
 	private static final String FIND_BY_FK = "SELECT * FROM ADOPT_PET WHERE ADOPT_MEB_NO = ?";
 	private static final String SELECT_ALL = "SELECT * FROM ADOPT_PET";
-	
+
+	private static DataSource ds = null;
 	static {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/David");
+		} catch (NamingException e) {
+			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public AdoptPetVO insert(AdoptPetVO adoptPet) {
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		Connection con = null;
+		try {
+			con = ds.getConnection();
 			String[] cols = { "adopt_meb_no" };
 			PreparedStatement pstmt = createInsertPreparedStatement(con, adoptPet, INSERT_SQL, cols);
 			pstmt.executeUpdate();
@@ -43,67 +47,115 @@ public class AdoptPetDAO implements AdoptPet_interface {
 				adoptPet.setAdopt_meb_no(key);
 			}
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return adoptPet;
 	}
-	
+
 	@Override
 	public void update(AdoptPetVO adoptPet) {
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		Connection con = null;
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = createUpdatePreparedStatement(con, adoptPet, UPDATE_SQL);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
-		
+
 	}
-	
+
 	@Override
 	public AdoptPetVO findByAdoptPetNoPK(Integer adopt_pet_no) {
+		Connection con = null;
 		AdoptPetVO adoptPet = null;
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(FIND_BY_PK);
 			pstmt.setInt(1, adopt_pet_no);
 			ResultSet rs = pstmt.executeQuery();
 			adoptPet = selectOneAdoptPetByNo(rs);
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return adoptPet;
 	}
-	
+
 	@Override
 	public List<AdoptPetVO> findByAdoptMebNo(Integer adopt_meb_no) {
+		Connection con = null;
 		List<AdoptPetVO> adoptPetList = new ArrayList<>();
-		
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(FIND_BY_FK);
 			pstmt.setInt(1, adopt_meb_no);
 			ResultSet rs = pstmt.executeQuery();
-			adoptPetList = selectAdoptPetByMebNo(adoptPetList,rs);
+			adoptPetList = selectAdoptPetByMebNo(adoptPetList, rs);
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return adoptPetList;
 	}
-	
+
 	@Override
 	public List<AdoptPetVO> getAllAdoptPet() {
+		Connection con = null;
 		List<AdoptPetVO> adoptPetList = new ArrayList<>();
 
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(SELECT_ALL);
 			ResultSet rs = pstmt.executeQuery();
 			adoptPetList = selectAllAdoptPet(adoptPetList, rs);
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return adoptPetList;
 	}
-	
-	private List<AdoptPetVO> selectAllAdoptPet (List<AdoptPetVO> adoptPetList, ResultSet rs) {
-		
+
+	private List<AdoptPetVO> selectAllAdoptPet(List<AdoptPetVO> adoptPetList, ResultSet rs) {
+
 		try {
 			while (rs.next()) {
 				AdoptPetVO adoptPet = new AdoptPetVO();
@@ -124,18 +176,17 @@ public class AdoptPetDAO implements AdoptPet_interface {
 				adoptPetList.add(adoptPet);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException("A database method error occured. " + e.getMessage());
 		}
 		return adoptPetList;
-		
-		
+
 	}
 
 	private PreparedStatement createInsertPreparedStatement(Connection con, AdoptPetVO adoptPet, String SQL,
 			String[] cols) throws SQLException {
 		PreparedStatement pstmt = con.prepareStatement(SQL, cols);
 		pstmt.setInt(1, adoptPet.getAdopt_meb_no());
-		
+
 		if (adoptPet.getGen_meb_no() == 0) {
 			pstmt.setNull(2, Types.NULL);
 		} else {
@@ -155,11 +206,11 @@ public class AdoptPetDAO implements AdoptPet_interface {
 		return pstmt;
 	}
 
-	private PreparedStatement createUpdatePreparedStatement(Connection con, AdoptPetVO adoptPet, String SQL
-			) throws SQLException {
-		
-		PreparedStatement pstmt = con.prepareStatement(SQL);		
-		
+	private PreparedStatement createUpdatePreparedStatement(Connection con, AdoptPetVO adoptPet, String SQL)
+			throws SQLException {
+
+		PreparedStatement pstmt = con.prepareStatement(SQL);
+
 		if (adoptPet.getGen_meb_no() == 0) {
 			pstmt.setNull(1, Types.NULL);
 		} else {
@@ -198,17 +249,17 @@ public class AdoptPetDAO implements AdoptPet_interface {
 				adoptPet.setContain_number(rs.getString("CONTAIN_NUMBER"));
 				adoptPet.setAdopt_pet_color(rs.getString("ADOPT_PET_COLOR"));
 				adoptPet.setAdopt_pet_state(rs.getString("ADOPT_PET_STATE"));
-	
+
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException("A database method error occured. " + e.getMessage());
 		}
-		
+
 		return adoptPet;
 	}
 
 	private List<AdoptPetVO> selectAdoptPetByMebNo(List<AdoptPetVO> adoptPetList, ResultSet rs) {
-		
+
 		try {
 			while (rs.next()) {
 				AdoptPetVO adoptPet = new AdoptPetVO();
@@ -229,17 +280,9 @@ public class AdoptPetDAO implements AdoptPet_interface {
 				adoptPetList.add(adoptPet);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException("A database method error occured. " + e.getMessage());
 		}
 		return adoptPetList;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
