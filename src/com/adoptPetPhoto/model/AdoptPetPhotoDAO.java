@@ -1,22 +1,20 @@
 package com.adoptPetPhoto.model;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-import com.adoptMemberNews.model.AdoptMemberNewsVo;
+
 
 public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 
-	private static final String SQL_URL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
-	private static final String SQL_USER = "David";
-	private static final String SQL_PASSWORD = "123456";
 	private static final String INSERT_SQL = "insert into ADOPT_PET_PHOTO (ADOPT_PET_NO,ADOPT_PET_PHOTO,ADOPT_PET_COVER_STATE,ADOPT_PET_COVER_CHANGE_TIME) values(?,?,?,?)";
 	private static final String UPDATE_SQL = "update ADOPT_PET_PHOTO set ADOPT_PET_COVER_STATE = ?, adopt_pet_cover_change_time = ? where ADOPT_PET_PHOTO_NO = ?";
 	private static final String DELETE_SQL = "delete from ADOPT_PET_PHOTO where ADOPT_PET_PHOTO_NO = ?";
@@ -24,17 +22,21 @@ public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 	private static final String FIND_BY_PK = "SELECT * FROM ADOPT_PET_PHOTO WHERE ADOPT_PET_PHOTO_NO = ?";
 	private static final String FIND_ADOPT_PET_COVER_STATE = "SELECT * FROM ADOPT_PET_PHOTO WHERE ADOPT_PET_NO = ? and ADOPT_PET_COVER_STATE = 1 order by adopt_pet_cover_change_time desc limit 1";
 
+	private static DataSource ds = null;
 	static {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/David");
+		} catch (NamingException e) {
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public AdoptPetPhotoVO insert(AdoptPetPhotoVO adoptPetPhoto) {
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		Connection con = null;
+		try {
+			con = ds.getConnection();
 			String[] cols = { "ADOPT_PET_PHOTO_NO" };
 			PreparedStatement pstmt = createInsertPreparedStatement(con, adoptPetPhoto, INSERT_SQL, cols);
 			pstmt.executeUpdate();
@@ -44,71 +46,129 @@ public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 				adoptPetPhoto.setAdopt_pet_photo_no(key);
 			}
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return adoptPetPhoto;
 	}
 
 	@Override
 	public void update(AdoptPetPhotoVO adoptPetPhoto) {
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		Connection con = null;
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = createUpdatePreparedStatement(con, adoptPetPhoto, UPDATE_SQL);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 	}
 
 	@Override
 	public void delete(Integer adopt_pet_photo_no) {
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		Connection con = null;
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = createDeletePreparedStatement(con, adopt_pet_photo_no, DELETE_SQL);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 
 	}
 
 	@Override
 	public AdoptPetPhotoVO findByPhotoCover(Integer adopt_pet_photo_no) {
+		Connection con = null;
 		AdoptPetPhotoVO photoCover = null;
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(FIND_ADOPT_PET_COVER_STATE);
 			pstmt.setInt(1, adopt_pet_photo_no);
 			ResultSet rs = pstmt.executeQuery();
 			photoCover = selectPhotoCover(rs);
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return photoCover;
 	}
 
 	@Override
 	public AdoptPetPhotoVO findByPK(Integer adopt_pet_photo_no) {
+		Connection con = null;
 		AdoptPetPhotoVO photo = null;
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(FIND_BY_PK);
 			pstmt.setInt(1, adopt_pet_photo_no);
 			ResultSet rs = pstmt.executeQuery();
 			photo = selectOneByPK(rs);
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return photo;
 	}
 
 	@Override
 	public List<AdoptPetPhotoVO> findByadoptPetNo(Integer adopt_pet_no) {
+		Connection con = null;
 		List<AdoptPetPhotoVO> adoptMemberPhotoList = new ArrayList<>();
 
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(FIND_BY_PET_NO);
 			pstmt.setInt(1, adopt_pet_no);
 			ResultSet rs = pstmt.executeQuery();
 			adoptMemberPhotoList = selectAdoptMebPhotos(adoptMemberPhotoList, rs);
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return adoptMemberPhotoList;
 	}
@@ -126,7 +186,7 @@ public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 	private PreparedStatement createUpdatePreparedStatement(Connection con, AdoptPetPhotoVO adoptPetPhoto, String SQL)
 			throws SQLException {
 		PreparedStatement pstmt = con.prepareStatement(SQL);
-		pstmt.setString(1, adoptPetPhoto.getAdopt_pet_cover_state());		
+		pstmt.setString(1, adoptPetPhoto.getAdopt_pet_cover_state());
 		pstmt.setTimestamp(2, adoptPetPhoto.getAdopt_pet_cover_change_time());
 		pstmt.setInt(3, adoptPetPhoto.getAdopt_pet_photo_no());
 		return pstmt;
@@ -152,7 +212,7 @@ public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 				adoptMemberPhotoList.add(adoptPetPhoto);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException("A database method error occured. " + e.getMessage());
 		}
 		return adoptMemberPhotoList;
 	}
@@ -168,7 +228,7 @@ public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 				photoCover.setAdopt_pet_cover_change_time(rs.getTimestamp("ADOPT_PET_COVER_CHANGE_TIME"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException("A database method error occured. " + e.getMessage());
 		}
 		return photoCover;
 	}
@@ -185,7 +245,7 @@ public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException("A database method error occured. " + e.getMessage());
 		}
 		return photo;
 	}

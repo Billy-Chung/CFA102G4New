@@ -1,7 +1,6 @@
 package com.petClassList.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,27 +8,33 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 public class PetClassListDAO implements PetClassList_interface {
 
-	private static final String SQL_URL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
-	private static final String SQL_USER = "David";
-	private static final String SQL_PASSWORD = "123456";
 	private static final String INSERT_SQL = "insert into PET_CLASS_LIST (ADOPT_PET_NO,PET_CLASS_NO,GEN_MEB_PET_NO,PET_CLASS_LIST_STATE) values(?,?,?,?)";
 	private static final String UPDATE_SQL = "update PET_CLASS_LIST set GEN_MEB_PET_NO = ?, PET_CLASS_LIST_STATE = ? where PET_CLASS_LIST_NO = ?";
 	private static final String FIND_BY_PET_NO = "SELECT * FROM PET_CLASS_LIST WHERE ADOPT_PET_NO = ?";
 	private static final String FIND_BY_CLASS_NO = "SELECT * FROM PET_CLASS_LIST WHERE PET_CLASS_NO = ?";
 
+	private static DataSource ds = null;
 	static {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/David");
+		} catch (NamingException e) {
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public PetClassListVO insert(PetClassListVO petClassList) {
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		Connection con = null;
+		try {
+			con = ds.getConnection();
 			String[] cols = { "PET_CLASS_LIST_NO" };
 			PreparedStatement pstmt = createInsertPreparedStatement(con, petClassList, INSERT_SQL, cols);
 			pstmt.executeUpdate();
@@ -39,48 +44,86 @@ public class PetClassListDAO implements PetClassList_interface {
 				petClassList.setPet_class_list_no(key);
 			}
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return petClassList;
 	}
 
 	@Override
 	public void update(PetClassListVO petClassList) {
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		Connection con = null;
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = createUpdatePreparedStatement(con, petClassList, UPDATE_SQL);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 
 	}
 
 	@Override
 	public List<PetClassListVO> findByAdoptPetNo(Integer adopt_pat_no) {
+		Connection con = null;
 		List<PetClassListVO> petClassLists = new ArrayList<>();
 
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(FIND_BY_PET_NO);
 			pstmt.setInt(1, adopt_pat_no);
 			ResultSet rs = pstmt.executeQuery();
 			petClassLists = selectPetClassListByFK(petClassLists, rs);
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return petClassLists;
 	}
 
 	@Override
 	public List<PetClassListVO> findByPetClassNo(Integer pet_class_no) {
+		Connection con = null;
 		List<PetClassListVO> petClassLists = new ArrayList<>();
 
-		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+		try {
+			con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(FIND_BY_CLASS_NO);
 			pstmt.setInt(1, pet_class_no);
 			ResultSet rs = pstmt.executeQuery();
 			petClassLists = selectPetClassListByFK(petClassLists, rs);
 		} catch (SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 		return petClassLists;
 	}
@@ -111,7 +154,7 @@ public class PetClassListDAO implements PetClassList_interface {
 				petClassLists.add(petClassList);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException("A database method error occured. " + e.getMessage());
 		}
 		return petClassLists;
 	}
@@ -120,7 +163,7 @@ public class PetClassListDAO implements PetClassList_interface {
 			throws SQLException {
 		PreparedStatement pstmt = con.prepareStatement(SQL);
 		pstmt.setInt(1, petClassList.getGen_meb_pet_no());
-		pstmt.setString(2, petClassList.getPet_class_list_state());	
+		pstmt.setString(2, petClassList.getPet_class_list_state());
 		pstmt.setInt(3, petClassList.getPet_class_list_no());
 		return pstmt;
 	}
