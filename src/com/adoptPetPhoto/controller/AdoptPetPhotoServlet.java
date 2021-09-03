@@ -34,7 +34,7 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 			AdoptPetPhotoService adoptPetPhotoService = new AdoptPetPhotoService();
 			AdoptPetPhotoVO petPhotos = adoptPetPhotoService.findByPK(PK);
 			byte[] petPhoto = petPhotos.getAdopt_pet_photo();
-			ServletOutputStream out = res.getOutputStream();
+			ServletOutputStream out = res.getOutputStream();		
 			out.write(petPhoto);
 			out.close();
 		}
