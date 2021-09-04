@@ -44,15 +44,6 @@
   	<url-pattern>/promotions/addpromotions.do</url-pattern>
   </servlet-mapping>
   
-   <servlet>
-  	<servlet-name>promotions</servlet-name>
-  	<servlet-class>com.promotions.controller.promotionsServlet</servlet-class>
-  </servlet>
-   <servlet-mapping>
-  	<servlet-name>promotions</servlet-name>
-  	<url-pattern>/promotions/addpromotions222222.do</url-pattern>
-  </servlet-mapping>
-  
   
 </web-app>
 
