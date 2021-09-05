@@ -37,7 +37,7 @@
                       <li>
                         <div class="timeline-panel">
                           <div class="media me-2">
-                            <img alt="image" width="50" src="../back_CSS/images/avatar/1.jpg">
+                            <img alt="image" width="50" src="<%=request.getContextPath()%>/back_end/back_CSS/images/avatar/1.jpg">
                           </div>
                           <div class="media-body">
                             <h6 class="mb-1">Dr sultads Send you Photo</h6>
@@ -70,7 +70,7 @@
                       <li>
                         <div class="timeline-panel">
                           <div class="media me-2">
-                            <img alt="image" width="50" src="../back_CSS/images/avatar/1.jpg">
+                            <img alt="image" width="50" src="<%=request.getContextPath()%>/back_end/back_CSS/images/avatar/1.jpg">
                           </div>
                           <div class="media-body">
                             <h6 class="mb-1">Dr sultads Send you Photo</h6>
@@ -109,7 +109,7 @@
 
               <li class="nav-item dropdown header-profile">
                 <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-                  <img src="../back_CSS/images/profile/pic1.jpg" alt="">
+                  <img src="<%=request.getContextPath()%>/back_end/back_CSS/images/profile/pic1.jpg" alt="">
                   <div class="header-info ms-3">
                     <span>John Doe</span>
                     <small>Superadmin</small>

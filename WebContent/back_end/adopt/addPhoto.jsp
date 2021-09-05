@@ -16,7 +16,7 @@
 <FORM action="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do"
 	method="post" enctype="multipart/form-data">
 
-	<input type="hidden" name="adopt_pet_no" value="${param.adopt_pet_no}">
+	<input type="hidden" name="adopt_pet_no" value="${AdoptPetVO.adopt_pet_no}">
 
 	<div class="input-group mb-3">
 		<span class="input-group-text">上傳新圖片!!</span>
@@ -29,8 +29,8 @@
 		type="hidden" name="action" value="addNewPetPhoto">
 
 	<div class="modal-footer">
-		<button type="button" class="btn btn-danger light"
+		<button type="submit" class="btn btn-danger light"
 			data-bs-dismiss="modal">關閉</button>
-		<button type="button" class="btn light btn-secondary">新增圖片</button>
+		<button type="submit" class="btn light btn-secondary">新增圖片</button>
 	</div>
 </FORM>

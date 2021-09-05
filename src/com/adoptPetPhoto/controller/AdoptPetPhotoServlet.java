@@ -63,7 +63,7 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 
 //				front_end/adoptMember/images/dog1.jpg
 				FileInputStream fis = new FileInputStream(
-						getServletContext().getRealPath("front_end/adoptMember/images/dog1.jpg"));
+						getServletContext().getRealPath("back_end/adopt/image/dog1.jpg"));
 				byte[] buffer = new byte[fis.available()];
 				fis.read(buffer);
 				fis.close();
@@ -96,12 +96,12 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 				in.close();
 				AdoptPetPhotoService adoptPetPhotoService = new AdoptPetPhotoService();
 				adoptPetPhotoService.insertAdoptPetPhoto(adoptPetNo, buf, adoptPetCoverState,changeTime);
-				String url = "/front_end/adoptPet/adoptPet.jsp";
+				String url = "/back_end/adopt/adoptPet.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 			} else {
 				errorMsgs.put("errorPhoto", "請選擇要新增的圖片!!");
-				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/adoptPet/adoptPet.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
 				failureView.forward(req, res);
 			}
 
@@ -120,8 +120,8 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 //				imgMap.put(newAdoptPetNo,base64Img);
 //			}		
 			req.setAttribute("adoptMemberPhotoList", adoptMemberPhotoList);
-			String url = "/front_end/adoptPet/allPetPhoto.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			String url = "/back_end/adopt/allPetPhoto.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 
@@ -133,8 +133,8 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 //			List<AdoptPetPhotoVO> adoptMemberPhotoList = adoptPetPhotoService.findByadoptPetNo(adoptPetNo);
 //			req.setAttribute("adoptMemberPhotoList", adoptMemberPhotoList);
 //			String url = "/front_end/adoptPet/allPetPhoto.jsp";			
-			String url = "/front_end/adoptPet/adoptPet.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			String url = "/back_end/adopt/adoptPet.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 
@@ -147,8 +147,8 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 			newState = (adoptPetCoverState == 0 ? 1 : 0);
 			AdoptPetPhotoService adoptPetPhotoService = new AdoptPetPhotoService();
 			adoptPetPhotoService.updateAdoptPetPhoto(newState.toString(),changeTime, adoptPetNo);
-			String url = "/front_end/adoptPet/adoptPet.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			String url = "/back_end/adopt/adoptPet.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 

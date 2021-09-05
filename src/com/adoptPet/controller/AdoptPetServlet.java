@@ -156,7 +156,7 @@ public class AdoptPetServlet extends HttpServlet {
 //				資料錯誤return
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("adoptPetVO", adoptPet);
-					RequestDispatcher failureView = req.getRequestDispatcher("/front_end/adoptPet/adoptPet.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -166,13 +166,13 @@ public class AdoptPetServlet extends HttpServlet {
 						adoptPetJoinDate, adoptPetChip, adoptPetJoinReason, captureAddress, adoptPetSterilization,
 						containNumber, adoptPetColor, adoptPetState);
 
-				String url = "/front_end/adoptPet/adoptPet.jsp";
+				String url = "/back_end/adopt/adoptPet.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 
 			} catch (Exception e) {
 				errorMsgs.put("Exception", e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/adoptPet/adoptPet.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
 				failureView.forward(req, res);
 			}
 
@@ -197,7 +197,7 @@ public class AdoptPetServlet extends HttpServlet {
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/adoptPet/adoptPet.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -355,7 +355,7 @@ public class AdoptPetServlet extends HttpServlet {
 				
 				
 				
-				String url = "/front_end/adoptPet/adoptPet.jsp";
+				String url = "/back_end/adopt/adoptPet.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 
@@ -502,7 +502,7 @@ public class AdoptPetServlet extends HttpServlet {
 //				資料錯誤return
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("adoptPetVO", adoptPet);					
-					RequestDispatcher failureView = req.getRequestDispatcher("/front_end/adoptPet/adoptPet.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -514,14 +514,14 @@ public class AdoptPetServlet extends HttpServlet {
 				
 				
 				
-				String url = "/front_end/adoptPet/adoptPet.jsp";
+				String url = "/back_end/adopt/adoptPet.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 
 			} 
 			catch (Exception e) {
 				errorMsgs.put("Exception", e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/adoptPet/adoptPet.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
 				failureView.forward(req, res);
 			}			
 		}
