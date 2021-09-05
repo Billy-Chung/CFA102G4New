@@ -58,7 +58,7 @@
     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/promotions/addpromotions.do" >
         <b>輸入活動編號 (ex.1~10...):</b>
         <input type="text" name="promot_no">
-        <input type="hidden" name="action" value="getOne_For_Display">
+        <input type="hidden" name="action" value="getOne_For_Display"> <%--controller Servlet --%>>
         <input type="submit" value="送出">
     </FORM>
   </li>

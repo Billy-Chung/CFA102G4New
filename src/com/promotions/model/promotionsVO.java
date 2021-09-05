@@ -3,8 +3,8 @@ package com.promotions.model;
 import java.io.Serializable;
 import java.sql.Date;
 
-//VO，Value Object 值物件，每個表格對應一個VO
-public class promotionsVO implements Serializable {
+//VO，Value Object 值物件，每個表格對應一個VO，Java Bean
+public class promotionsVO implements Serializable {//implements實作 Serializable序列化，將物件永久保存，空介面
 	private Integer promot_no;
 	private String promot_name;	
 	private Date promot_date_start;
@@ -17,11 +17,11 @@ public class promotionsVO implements Serializable {
 	private String promot_comment;
 	private byte[] promot_photo;//存LONGBLOB  type_img
 	
-	public Integer getPromot_no() {
+	public Integer getPromot_no() {//client->server request
 		return promot_no;
 	}
-	public void setPromot_no(Integer promot_no) {
-		this.promot_no = promot_no;
+	public void setPromot_no(Integer promot_no) {//server->client response
+		this.promot_no = promot_no; //
 	}
 	public String getPromot_name() {
 		return promot_name;

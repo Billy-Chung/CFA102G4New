@@ -30,7 +30,9 @@ public class promotionsService {
 		promotionsVO.setPromot_comment(promot_comment);
 		promotionsVO.setPromot_photo(promot_photo);
 		dao.add(promotionsVO);
+	
 		return promotionsVO;
+	
 	}
 	
 	//更新

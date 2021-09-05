@@ -10,7 +10,7 @@ import java.util.List;
 
 
 //此類別實作DAO interface，並將資料庫操作細節封裝起來
-public class promotionsDAO implements promotionsDAO_interface {
+public class promotionsDAO implements promotionsDAO_interface {//implements實作
 	
 //	private static final String SQL = "";
 	private static final String INSERT_STMT = "insert into PROMOTIONS(promot_name, promot_date_start, promot_date_end, promot_status, promot_type, PROMOT_DISCOUNT_TYPE, promot_discount, promot_reduce, promot_comment , promot_photo) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
