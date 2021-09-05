@@ -34,9 +34,12 @@
 <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/back_end/back_CSS/vendor/star-rating/star-rating-svg.css">
-<link href="<%=request.getContextPath()%>/back_end/back_CSS/vendor/jquery-nice-select/css/nice-select.css"
+<link
+	href="<%=request.getContextPath()%>/back_end/back_CSS/vendor/jquery-nice-select/css/nice-select.css"
 	rel="stylesheet">
-<link href="<%=request.getContextPath()%>/back_end/back_CSS/css/style.css" rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/back_end/back_CSS/css/style.css"
+	rel="stylesheet">
 
 <style>
 .toServlet {
@@ -47,9 +50,13 @@
 	margin: 0 40% 0 43%;
 }
 
-.imgSize{
-	width:100%;
-	height:100%;	
+.inmid2 {
+	margin: 0 50% 0 25%;
+}
+
+.imgSize {
+	width: 100%;
+	height: 100%;
 }
 </style>
 
@@ -111,8 +118,32 @@
         ***********************************-->
 		<div class="content-body">
 			<c:if test="${not empty errorMsgs}">
-				<font style="color: red">新增有誤，請重新新增</font>
+				<c:if test="${errorMsgs.containsKey('errorPhoto')}">
+					<div class="col-xl-6 inmid2">
+						<div
+							class="alert alert-danger left-icon-big alert-dismissible fade show">
+							<button type="button" class="btn-close" data-bs-dismiss="alert"
+								aria-label="btn-close">
+								<span><i class="mdi mdi-btn-close"></i></span>
+							</button>
+							<div class="media">
+								<div class="alert-left-icon-big">
+									<span><i class="mdi mdi-alert"></i></span>
+								</div>
+								<div class="media-body">
+									<h5 class="mt-1 mb-2">請修正以下錯誤:</h5>
+									<c:forEach var="message" items="${errorMsgs}">
+										<p class="mb-0">${message.value}</p>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
 			</c:if>
+
+
+
 			<div class="container-fluid">
 				<div class="row page-titles">
 					<li class="nav-item">
@@ -249,14 +280,14 @@
 
 													<form class="toServlet" method="post"
 														action="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do">
-													<input type="hidden" name="adopt_pet_no"
-														value="${AdoptPetVO.adopt_pet_no}"> <input
-														type="hidden" name="action" value="findByadoptPetNo">
-													<button type="submit"
-														class="btn btn-rounded btn-outline-warning">
-														<span class="btn-icon-start text-warning"><i
-															class="fa fa-share-alt color-secondary"></i> </span>查看所有照片
-													</button>
+														<input type="hidden" name="adopt_pet_no"
+															value="${AdoptPetVO.adopt_pet_no}"> <input
+															type="hidden" name="action" value="findByadoptPetNo">
+														<button type="submit"
+															class="btn btn-rounded btn-outline-warning">
+															<span class="btn-icon-start text-warning"><i
+																class="fa fa-share-alt color-secondary"></i> </span>查看所有照片
+														</button>
 													</form>
 
 												</div>
@@ -291,13 +322,18 @@
     ***********************************-->
 
 				<!-- Rating -->
-				<script src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/global/global.min.js"></script>
+				<script
+					src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/global/global.min.js"></script>
 				<script
 					src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-				<script src="<%=request.getContextPath()%>/back_end/back_CSS/js/custom.min.js"></script>
-				<script src="<%=request.getContextPath()%>/back_end/back_CSS/js/deznav-init.js"></script>
-				<script src="<%=request.getContextPath()%>/back_end/back_CSS/js/demo.js"></script>
-				<script src="<%=request.getContextPath()%>/back_end/back_CSS/js/styleSwitcher.js"></script>
+				<script
+					src="<%=request.getContextPath()%>/back_end/back_CSS/js/custom.min.js"></script>
+				<script
+					src="<%=request.getContextPath()%>/back_end/back_CSS/js/deznav-init.js"></script>
+				<script
+					src="<%=request.getContextPath()%>/back_end/back_CSS/js/demo.js"></script>
+				<script
+					src="<%=request.getContextPath()%>/back_end/back_CSS/js/styleSwitcher.js"></script>
 </body>
 
 </html>
