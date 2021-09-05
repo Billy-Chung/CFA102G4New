@@ -44,6 +44,14 @@
   	<url-pattern>/promotions/addpromotions.do</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+	<servlet-name>GeneralMemberServlet</servlet-name>
+	<servlet-class>com.generalMember.controller.GeneralMemberServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>GeneralMemberServlet</servlet-name>
+	<url-pattern>/gm/gm.do</url-pattern>
+  </servlet-mapping>
   
 </web-app>
 

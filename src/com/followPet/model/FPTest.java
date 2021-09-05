@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.adoptMemberReport.model.AdoptMemberReportVO;
 
-public class FPTest {
+public class FpTest {
 
 	public static void main(String[] args) {
 		//新增
