@@ -62,7 +62,7 @@
     <!--**********************************
             Header start
         ***********************************-->
-     <%@ include file="../backend_page/Header.jsp"%>
+     <%@ include file="../backend_page/head.jsp"%>
     <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
