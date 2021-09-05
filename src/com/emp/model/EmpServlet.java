@@ -21,7 +21,7 @@ public class EmpServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-		if ("getAll".equals(action)) {
+		if ("getemp".equals(action)) {
 			/***************************開始查詢資料 ****************************************/
 			EmpDAO dao = new EmpDAO();
 			List<EmpVO> list = dao.getemp();
@@ -74,7 +74,7 @@ public class EmpServlet extends HttpServlet {
 				
 				/***************************2.開始查詢資料*****************************************/
 				EmpDAO dao = new EmpDAO();
-				EmpVO empVO = dao.findByEmpNoPK(emp_no);
+				EmpVO empVO = dao.findByEmpNoPK(empno);
 				if (empVO == null) {
 					errorMsgs.add("查無資料");
 				}
