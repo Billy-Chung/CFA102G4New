@@ -148,13 +148,13 @@
 
 			<div class="container-fluid">
 				<div class="row page-titles">
-					<li class="nav-item">
+					
 						<div class="input-group search-area">
-							<input type="text" class="form-control" placeholder="Search here">
+							<input type="text" class="form-control" placeholder="以晶片號尋找">
 							<span class="input-group-text"><a
 								href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
 						</div>
-					</li>
+					
 				</div>
 				<div class="row">
 					<%@ include file="page1.file"%>

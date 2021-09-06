@@ -113,7 +113,7 @@
 					<c:forEach var="list" items="${list}">
 
 
-						<div class="col-xl-3">
+						<div class="col-xl-4">
 							<div class="card">
 								<img class="card-img-top img-fluid imgSize"
 									src="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do?action=allPhoto&PK=${list.adopt_pet_photo_no}"
@@ -132,7 +132,7 @@
 										</button>
 									</form>
 
-									<form method="post"
+									<form  method="post"
 										action="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do">
 
 										<input type="hidden" name="adoptPetNo"

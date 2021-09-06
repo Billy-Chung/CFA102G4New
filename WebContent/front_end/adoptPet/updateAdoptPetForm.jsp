@@ -27,7 +27,7 @@
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adoptPet/addPet.do"">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adoptPet/addPet.do">
 
 		<div class="form-floating mb-3">
 			<input type="text" class="form-control" name="gen_meb_no"

@@ -3,7 +3,7 @@
 <%@ page import="com.adoptPet.model.*"%>
 
 <%
-	AdoptPetVO adoptPet = (AdoptPetVO) request.getAttribute("adoptPetVO");
+	AdoptPetVO adoptPet2 = (AdoptPetVO) request.getAttribute("adoptPetVO2");
 %>
 
 <!DOCTYPE html>
@@ -38,14 +38,13 @@
 <link
 	href="<%=request.getContextPath()%>/back_end/back_CSS/css/style.css"
 	rel="stylesheet">
-	
-	<style>
-		.myright {
 
-			margin-left: 80%;
-		}
-	</style>
-	
+<style>
+.myright {
+	margin-left: 80%;
+}
+</style>
+
 </head>
 
 <body>
@@ -82,44 +81,51 @@
 				</c:if>
 
 				<div class="row">
+					<div class="row page-titles">
+						<a
+							href="<%=request.getContextPath()%>/back_end/adopt/adoptPet.jsp"><button
+								type="button" class="btn light btn-dark">
+								回首頁<span class="btn-icon-end"><i class="fa fa-star"></i></span>
+							</button></a>
+					</div>
 					<div class="col-xl-12 col-lg-12">
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title">新增寵物</h4>
+								<h4 class="card-title">修改寵物</h4>
 							</div>
 							<div class="card-body">
 								<div class="basic-form">
 									<form method="POST"
-										action="<%=request.getContextPath()%>/adoptPet/addPet.do"
-										name="newPet">
+										action="<%=request.getContextPath()%>/adoptPet/addPet.do">
 										<input type="hidden" name="adopt_meb_no" value="2"> <input
 											type="hidden" name="gen_meb_no" value="">
 
+										<div class="mb-3 row">
+											<label class="col-sm-3 col-form-label">新增領養會員</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" name="gen_meb_no"
+													placeholder="請輸入領養會員編號"
+													value="<%=(adoptPet2.getGen_meb_no() == 0) ? "" : adoptPet2.getGen_meb_no()%>">
+											</div>
+										</div>
 
 										<div class="mb-3 row">
 											<label class="col-sm-3 col-form-label">領養寵物品種</label>
 											<div class="col-sm-9">
 												<input type="text" class="form-control"
 													name="adopt_pet_breeds" placeholder="請填入領養寵物品種"
-													value="<%=(adoptPet == null) ? "" : adoptPet.getAdopt_pet_breeds()%>">
+													value="<%=(adoptPet2 == null) ? "" : adoptPet2.getAdopt_pet_breeds()%>">
 											</div>
 										</div>
 
-
-										<fieldset class="mb-3">
-											<div class="row">
-												<label class="col-form-label col-sm-3 pt-0">寵物性別</label>
-												<div class="col-sm-9">
-												
-													<div class="form-check">
-														<label class="radio-inline me-3"><input
-															type="radio" name="adopt_pet_gender" value="公" > 公</label>
-														<label class="radio-inline me-3"><input
-															type="radio" name="adopt_pet_gender" value="母"> 母</label>
-													</div>
-												</div>
+										<div class="mb-3 row">
+											<label class="col-sm-3 col-form-label">寵物性別</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control"
+													name="adopt_pet_gender" placeholder="請填入寵物性別"
+													value="<%=(adoptPet2 == null) ? "" : adoptPet2.getAdopt_pet_gender()%>">
 											</div>
-										</fieldset>
+										</div>
 
 
 										<div class="mb-3 row">
@@ -127,7 +133,7 @@
 											<div class="col-sm-9">
 												<input type="text" class="form-control"
 													name="adopt_pet_come_form" placeholder="請填入來源"
-													value="<%=(adoptPet == null) ? "" : adoptPet.getAdopt_pet_come_form()%>">
+													value="<%=(adoptPet2 == null) ? "" : adoptPet2.getAdopt_pet_come_form()%>">
 											</div>
 										</div>
 
@@ -136,7 +142,7 @@
 											<div class="col-sm-9">
 												<input type="Date" class="form-control"
 													name="adopt_pet_join_date" placeholder="請填入入所日期"
-													value="<%=(adoptPet == null) ? "" : adoptPet.getAdopt_pet_join_date()%>">
+													value="<%=(adoptPet2 == null) ? "" : adoptPet2.getAdopt_pet_join_date()%>">
 											</div>
 										</div>
 
@@ -145,7 +151,7 @@
 											<div class="col-sm-9">
 												<input type="text" class="form-control"
 													name="adopt_pet_chip" placeholder="請填入晶片號碼"
-													value="<%=(adoptPet == null) ? "" : adoptPet.getAdopt_pet_chip()%>">
+													value="<%=(adoptPet2 == null) ? "" : adoptPet2.getAdopt_pet_chip()%>">
 											</div>
 										</div>
 
@@ -154,7 +160,7 @@
 											<div class="col-sm-9">
 												<input type="text" class="form-control"
 													name="adopt_pet_join_reason" placeholder="請填入進所原因"
-													value="<%=(adoptPet == null) ? "" : adoptPet.getAdopt_pet_join_reason()%>">
+													value="<%=(adoptPet2 == null) ? "" : adoptPet2.getAdopt_pet_join_reason()%>">
 											</div>
 										</div>
 
@@ -163,30 +169,26 @@
 											<div class="col-sm-9">
 												<input type="text" class="form-control"
 													name="capture_address" placeholder="請填入捕獲地址"
-													value="<%=(adoptPet == null) ? "" : adoptPet.getCapture_address()%>">
+													value="<%=(adoptPet2 == null) ? "" : adoptPet2.getCapture_address()%>">
 											</div>
-										</div>										
-										
-										<fieldset class="mb-3">
-											<div class="row">
-												<label class="col-form-label col-sm-3 pt-0">是否絕育</label>
-												<div class="col-sm-9">
-													<div class="form-check">
-														<label class="radio-inline me-3"><input
-															type="radio" name="adopt_pet_sterilization" value="是"> 以絕育</label>
-														<label class="radio-inline me-3"><input
-															type="radio" name="adopt_pet_sterilization" value="否"> 未絕育</label>
-													</div>
-												</div>
+										</div>
+
+
+										<div class="mb-3 row">
+											<label class="col-sm-3 col-form-label">是否絕育</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control"
+													name="capture_address" placeholder="是否絕育"
+													value="<%=(adoptPet2 == null) ? "" : adoptPet2.getAdopt_pet_sterilization()%>">
 											</div>
-										</fieldset>
+										</div>
 
 										<div class="mb-3 row">
 											<label class="col-sm-3 col-form-label">收容編號</label>
 											<div class="col-sm-9">
 												<input type="text" class="form-control"
 													name="contain_number" placeholder="請填入收容編號"
-													value="<%=(adoptPet == null) ? "" : adoptPet.getContain_number()%>">
+													value="<%=(adoptPet2 == null) ? "" : adoptPet2.getContain_number()%>">
 											</div>
 										</div>
 
@@ -196,17 +198,22 @@
 											<div class="col-sm-9">
 												<input type="text" class="form-control"
 													name="adopt_pet_color" placeholder="請填入毛色"
-													value="<%=(adoptPet == null) ? "" : adoptPet.getAdopt_pet_color()%>">
+													value="<%=(adoptPet2 == null) ? "" : adoptPet2.getAdopt_pet_color()%>">
 											</div>
 										</div>
 
 
-										<input type="hidden" name="adopt_pet_state" value="0">
-										<input type="hidden" name="action" value="addPet">
+										<input type="hidden" class="form-control"
+											name="adopt_pet_state"
+											value="<%=(adoptPet2 == null) ? "" : adoptPet2.getAdopt_pet_state()%>">
+
+										<input type="hidden" name="action" value="update"> <input
+											type="hidden" name="adopt_pet_no"
+											value="<%=adoptPet2.getAdopt_pet_no()%>">
 
 										<div class="mb-3 row myright">
 											<div class="col-sm-10">
-												<button type="submit" class="btn light btn-secondary">新增寵物</button>
+												<button type="submit" class="btn light btn-secondary">送出修改</button>
 											</div>
 										</div>
 									</form>

@@ -50,18 +50,6 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 				out.close();
 			} catch (NullPointerException np) {
 
-//					File fi1 = new File("CFA102G4/WebContent/front_end/adoptMember/images/dog1.jpg");
-//					File fi2 = new File("/CFA102G4/WebContent/front_end/adoptMember/images/dog1.jpg");
-//					File fi3 = new File("TestWorkspace/CFA102G4/WebContent/front_end/adoptMember/images/dog1.jpg");
-//					File fi4 = new File("/TestWorkspaceCFA102G4/WebContent/front_end/adoptMember/images/dog1.jpg");
-//					File fi5 = new File("C:/TestWorkspace/CFA102G4/WebContent/front_end/adoptMember/images/dog1.jpg");
-//				System.out.println("1"+fi1.exists()); f
-//				System.out.println("2"+fi2.exists()); f
-//				System.out.println("3"+fi3.exists()); f
-//				System.out.println("4"+fi4.exists()); f
-//				System.out.println("5"+fi5.exists()); t		
-
-//				front_end/adoptMember/images/dog1.jpg
 				FileInputStream fis = new FileInputStream(
 						getServletContext().getRealPath("back_end/adopt/image/dog1.jpg"));
 				byte[] buffer = new byte[fis.available()];

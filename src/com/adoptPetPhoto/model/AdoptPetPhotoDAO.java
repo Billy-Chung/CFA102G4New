@@ -206,7 +206,7 @@ public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 				AdoptPetPhotoVO adoptPetPhoto = new AdoptPetPhotoVO();
 				adoptPetPhoto.setAdopt_pet_photo_no(rs.getInt("ADOPT_PET_PHOTO_NO"));
 				adoptPetPhoto.setAdopt_pet_no(rs.getInt("ADOPT_PET_NO"));
-				adoptPetPhoto.setAdopt_pet_photo(rs.getBytes("ADOPT_PET_PHOTO"));
+//				adoptPetPhoto.setAdopt_pet_photo(rs.getBytes("ADOPT_PET_PHOTO"));
 				adoptPetPhoto.setAdopt_pet_cover_state(rs.getString("ADOPT_PET_COVER_STATE"));
 				adoptPetPhoto.setAdopt_pet_cover_change_time(rs.getTimestamp("ADOPT_PET_COVER_CHANGE_TIME"));
 				adoptMemberPhotoList.add(adoptPetPhoto);
