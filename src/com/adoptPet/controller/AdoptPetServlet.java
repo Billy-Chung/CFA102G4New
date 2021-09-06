@@ -156,7 +156,7 @@ public class AdoptPetServlet extends HttpServlet {
 //				資料錯誤return
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("adoptPetVO", adoptPet);
-					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/addPet.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -172,7 +172,7 @@ public class AdoptPetServlet extends HttpServlet {
 
 			} catch (Exception e) {
 				errorMsgs.put("Exception", e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/addPet.jsp");
 				failureView.forward(req, res);
 			}
 

@@ -40,6 +40,7 @@
 <link
 	href="<%=request.getContextPath()%>/back_end/back_CSS/css/style.css"
 	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
 <style>
 .toServlet {
@@ -58,6 +59,7 @@
 	width: 100%;
 	height: 100%;
 }
+
 </style>
 
 </head>
@@ -319,7 +321,23 @@
 
 				<!--**********************************
         Scripts
-    ***********************************-->
+    *********************************
+    
+    **-->
+				<script>
+					$('#isNew').on('change', function(e) {
+						const file = this.files[0];
+
+						const fr = new FileReader();
+						fr.onload = function(e) {
+							$('#isNewPhoto').attr('src', e.target.result);
+						};
+
+						// 使用 readAsDataURL 將圖片轉成 Base64
+						fr.readAsDataURL(file);
+					});
+				</script>
+
 
 				<!-- Rating -->
 				<script

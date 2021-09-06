@@ -9,8 +9,8 @@
               <span class="nav-text">寵物資料管理</span>
             </a>
             <ul aria-expanded="false">
-              <li><a href="index.html">寵物清單</a></li>
-              <li><a href="index.html">新增寵物</a></li>
+              <li><a href="<%=request.getContextPath()%>/back_end/adopt/adoptPet.jsp">寵物清單</a></li>
+              <li><a href="<%=request.getContextPath()%>/back_end/adopt/addPet.jsp">新增寵物</a></li>
             </ul>
 
           </li>
