@@ -198,7 +198,12 @@
 														<input type="hidden" name="adoptPetNo"
 															value="${AdoptPetVO.adopt_pet_no}"> <input
 															type="hidden" name="action" value="getOne_For_Update">
-
+														<input type="hidden" name="requestURL"
+															value="<%=request.getServletPath()%>">
+														<!--送出本網頁的路徑給Controller-->
+														<input type="hidden" name="whichPage"
+															value="<%=whichPage%>">
+														<!--送出當前是第幾頁給Controller-->
 
 														<button type="submit"
 															class="btn btn-rounded btn-outline-secondary">
@@ -237,7 +242,13 @@
 															value="${AdoptPetVO.adopt_pet_color}"> <input
 															type="hidden" name="adopt_pet_state"
 															value="${AdoptPetVO.adopt_pet_state}"> <input
-															type="hidden" name="action" value="delete">
+															type="hidden" name="action" value="delete"> <input
+															type="hidden" name="requestURL"
+															value="<%=request.getServletPath()%>">
+														<!--送出本網頁的路徑給Controller-->
+														<input type="hidden" name="whichPage"
+															value="<%=whichPage%>">
+														<!--送出當前是第幾頁給Controller-->
 
 														<c:if test="${AdoptPetVO.adopt_pet_state == 0}">
 															<button type="submit"
@@ -284,6 +295,12 @@
 														<input type="hidden" name="adopt_pet_no"
 															value="${AdoptPetVO.adopt_pet_no}"> <input
 															type="hidden" name="action" value="findByadoptPetNo">
+														<input type="hidden" name="requestURL"
+															value="<%=request.getServletPath()%>">
+														<!--送出本網頁的路徑給Controller-->
+														<input type="hidden" name="whichPage"
+															value="<%=whichPage%>">
+														<!--送出當前是第幾頁給Controller-->
 														<button type="submit"
 															class="btn btn-rounded btn-outline-warning">
 															<span class="btn-icon-start text-warning"><i
@@ -324,19 +341,7 @@
     *********************************
     
     **-->
-	<script>
-		$('#isNew').on('change', function(e) {
-			const file = this.files[0];
-
-			const fr = new FileReader();
-			fr.onload = function(e) {
-				$('#isNewPhoto').attr('src', e.target.result);
-			};
-
-			// 使用 readAsDataURL 將圖片轉成 Base64
-			fr.readAsDataURL(file);
-		});
-	</script>
+	
 
 
 	<!-- Rating -->

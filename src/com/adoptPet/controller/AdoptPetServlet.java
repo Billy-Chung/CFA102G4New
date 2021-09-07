@@ -181,6 +181,7 @@ public class AdoptPetServlet extends HttpServlet {
 		if ("getOne_For_Update".equals(action)) {		
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs2", errorMsgs);
+					
 
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
@@ -206,6 +207,7 @@ public class AdoptPetServlet extends HttpServlet {
 
 			Map<String, String> errorMsgs = new LinkedHashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			String requestURL = req.getParameter("requestURL");
 		
 			try {	
 			
@@ -355,7 +357,7 @@ public class AdoptPetServlet extends HttpServlet {
 				
 				
 				
-				String url = "/back_end/adopt/adoptPet.jsp";
+				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 
@@ -371,6 +373,7 @@ public class AdoptPetServlet extends HttpServlet {
 			
 			Map<String, String> errorMsgs = new LinkedHashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			String requestURL = req.getParameter("requestURL");
 		
 			try {							
 				Integer adoptPetNo = new Integer(req.getParameter("adopt_pet_no"));	
@@ -514,7 +517,7 @@ public class AdoptPetServlet extends HttpServlet {
 				
 				
 				
-				String url = "/back_end/adopt/adoptPet.jsp";
+				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 

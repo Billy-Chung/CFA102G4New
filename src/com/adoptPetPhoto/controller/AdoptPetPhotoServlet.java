@@ -71,6 +71,7 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 			Map<String, String> errorMsgs = new LinkedHashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			Part photo = req.getPart("adopt_pet_photo");
+			String requestURL = req.getParameter("requestURL");
 
 			Integer adoptPetNo = new Integer(req.getParameter("adopt_pet_no"));
 			String adoptPetCoverState = new String(req.getParameter("adopt_pet_cover_state"));
@@ -84,12 +85,12 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 				in.close();
 				AdoptPetPhotoService adoptPetPhotoService = new AdoptPetPhotoService();
 				adoptPetPhotoService.insertAdoptPetPhoto(adoptPetNo, buf, adoptPetCoverState,changeTime);
-				String url = "/back_end/adopt/adoptPet.jsp";
+				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 			} else {
 				errorMsgs.put("errorPhoto", "請選擇要新增的圖片!!");
-				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher(requestURL);
 				failureView.forward(req, res);
 			}
 
@@ -107,21 +108,24 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 //				String base64Img = Base64.getEncoder().encodeToString(photo);
 //				imgMap.put(newAdoptPetNo,base64Img);
 //			}		
-			req.setAttribute("adoptMemberPhotoList", adoptMemberPhotoList);
+			req.setAttribute("adoptMemberPhotoList", adoptMemberPhotoList);			
 			String url = "/back_end/adopt/allPetPhoto.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 
 		if ("deletePhoto".equals(action)) {
+			Integer adoptPetPhotoNo = new Integer(req.getParameter("adoptPetPhotoNo"));
 			Integer adoptPetNo = new Integer(req.getParameter("adoptPetNo"));
 			AdoptPetPhotoService adoptPetPhotoService = new AdoptPetPhotoService();
-			adoptPetPhotoService.deleteAdoptPetPhoto(adoptPetNo);
+			adoptPetPhotoService.deleteAdoptPetPhoto(adoptPetPhotoNo);		
+			List<AdoptPetPhotoVO> adoptMemberPhotoList = adoptPetPhotoService.findByadoptPetNo(adoptPetNo);
 //			forward是空白頁
 //			List<AdoptPetPhotoVO> adoptMemberPhotoList = adoptPetPhotoService.findByadoptPetNo(adoptPetNo);
 //			req.setAttribute("adoptMemberPhotoList", adoptMemberPhotoList);
-//			String url = "/front_end/adoptPet/allPetPhoto.jsp";			
-			String url = "/back_end/adopt/adoptPet.jsp";
+//			String url = "/front_end/adoptPet/allPetPhoto.jsp";	
+			req.setAttribute("adoptMemberPhotoList",adoptMemberPhotoList );
+			String url = "/back_end/adopt/allPetPhoto.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -129,13 +133,14 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 		if ("update".equals(action)) {
 			Integer newState = null;
 			Integer adoptPetNo = new Integer(req.getParameter("adoptPetNo"));
+			String requestURL = req.getParameter("requestURL");
 			Integer adoptPetCoverState = new Integer(req.getParameter("adoptPetCoverState"));
 			Date date = new Date();
 			Timestamp changeTime = new Timestamp(date.getTime());
 			newState = (adoptPetCoverState == 0 ? 1 : 0);
 			AdoptPetPhotoService adoptPetPhotoService = new AdoptPetPhotoService();
 			adoptPetPhotoService.updateAdoptPetPhoto(newState.toString(),changeTime, adoptPetNo);
-			String url = "/back_end/adopt/adoptPet.jsp";
+			String url = requestURL;
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}

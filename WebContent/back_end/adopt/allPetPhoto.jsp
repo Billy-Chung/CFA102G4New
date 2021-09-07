@@ -121,9 +121,14 @@
 								<div class="card-footer">
 									<form class="card-link float-end" method="post"
 										action="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do">
-										<input type="hidden" name="adoptPetNo"
+										<input type="hidden" name="adoptPetPhotoNo"
 											value="${list.adopt_pet_photo_no}"> <input
-											type="hidden" name="action" value="deletePhoto">
+											type="hidden" name="adoptPetNo"
+											value="${list.adopt_pet_no}"> <input
+											type="hidden" name="action" value="deletePhoto"> <input
+											type="hidden" name="requestURL"
+											value="<%=request.getParameter("requestURL")%>">
+										<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
 
 										<button type="submit"
 											class="btn btn-rounded btn-outline-danger">
@@ -132,14 +137,19 @@
 										</button>
 									</form>
 
-									<form  method="post"
+									<form method="post"
 										action="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do">
 
 										<input type="hidden" name="adoptPetNo"
 											value="${list.adopt_pet_photo_no}"> <input
 											type="hidden" name="adoptPetCoverState"
 											value="${list.adopt_pet_cover_state}"> <input
-											type="hidden" name="action" value="update">
+											type="hidden" name="action" value="update"> <input
+											type="hidden" name="requestURL"
+											value="<%=request.getParameter("requestURL")%>">
+										<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
+										<input type="hidden" name="whichPage"
+											value="<%=request.getParameter("whichPage")%>">
 
 
 										<c:if test="${list.adopt_pet_cover_state == 0}">

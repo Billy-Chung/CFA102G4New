@@ -116,22 +116,24 @@
 													name="adopt_pet_breeds" placeholder="請填入領養寵物品種"
 													value="<%=(adoptPet2 == null) ? "" : adoptPet2.getAdopt_pet_breeds()%>">
 											</div>
-										</div>										
-										
+										</div>
+
 										<fieldset class="mb-3">
 											<div class="row">
 												<label class="col-form-label col-sm-3 pt-0">寵物性別</label>
-												<div class="col-sm-9">												
+												<div class="col-sm-9">
 													<div class="form-check">
 														<label class="radio-inline me-3"><input
-															type="radio" id="adopt_pet_genderMan" name="adopt_pet_gender" value="公" > 公</label>
-														<label class="radio-inline me-3"><input
-															type="radio" id="adopt_pet_genderWoman" name="adopt_pet_gender" value="母"> 母</label>
+															type="radio" id="adopt_pet_genderMan"
+															name="adopt_pet_gender" value="公"> 公</label> <label
+															class="radio-inline me-3"><input type="radio"
+															id="adopt_pet_genderWoman" name="adopt_pet_gender"
+															value="母"> 母</label>
 													</div>
 												</div>
 											</div>
 										</fieldset>
-										
+
 
 
 										<div class="mb-3 row">
@@ -177,22 +179,24 @@
 													name="capture_address" placeholder="請填入捕獲地址"
 													value="<%=(adoptPet2 == null) ? "" : adoptPet2.getCapture_address()%>">
 											</div>
-										</div>										
-										
+										</div>
+
 										<fieldset class="mb-3">
 											<div class="row">
 												<label class="col-form-label col-sm-3 pt-0">是否絕育</label>
-												<div class="col-sm-9">												
+												<div class="col-sm-9">
 													<div class="form-check">
 														<label class="radio-inline me-3"><input
-															type="radio" id="isSterilization" name="adopt_pet_sterilization" value="是" > 是</label>
-														<label class="radio-inline me-3"><input
-															type="radio" id="noSterilization" name="adopt_pet_sterilization" value="否"> 否</label>
+															type="radio" id="isSterilization"
+															name="adopt_pet_sterilization" value="是"> 是</label> <label
+															class="radio-inline me-3"><input type="radio"
+															id="noSterilization" name="adopt_pet_sterilization"
+															value="否"> 否</label>
 													</div>
 												</div>
 											</div>
-										</fieldset>						
-								
+										</fieldset>
+
 										<div class="mb-3 row">
 											<label class="col-sm-3 col-form-label">收容編號</label>
 											<div class="col-sm-9">
@@ -219,7 +223,13 @@
 
 										<input type="hidden" name="action" value="update"> <input
 											type="hidden" name="adopt_pet_no"
-											value="<%=adoptPet2.getAdopt_pet_no()%>">
+											value="<%=adoptPet2.getAdopt_pet_no()%>"> <input
+											type="hidden" name="requestURL"
+											value="<%=request.getParameter("requestURL")%>">
+										<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
+										<input type="hidden" name="whichPage"
+											value="<%=request.getParameter("whichPage")%>">
+										<!--只用於:istAllEmp.jsp-->
 
 										<div class="mb-3 row myright">
 											<div class="col-sm-10">
@@ -237,27 +247,32 @@
 		</div>
 		<%@ include file="../backend_page/footer.jsp"%>
 	</div>
-	
-	<script>		
-	if(<%=("公").equals(adoptPet2.getAdopt_pet_gender())%>){		
-		document.getElementById("adopt_pet_genderMan").checked = true;
-		
-	}else if (<%=("母").equals(adoptPet2.getAdopt_pet_gender())%>){	
-		document.getElementById("adopt_pet_genderWoman").checked = true;
-	}
-	
-	
-	
-	if(<%=("是").equals(adoptPet2.getAdopt_pet_sterilization())%>){
-		document.getElementById("isSterilization").checked = true;		
-	}else if(<%=("否").equals(adoptPet2.getAdopt_pet_sterilization())%>){
-		document.getElementById("noSterilization").checked = true;
-	}
-	
+
+	<script>
+		if (
+	<%=("公").equals(adoptPet2.getAdopt_pet_gender())%>
+		) {
+			document.getElementById("adopt_pet_genderMan").checked = true;
+
+		} else if (
+	<%=("母").equals(adoptPet2.getAdopt_pet_gender())%>
+		) {
+			document.getElementById("adopt_pet_genderWoman").checked = true;
+		}
+
+		if (
+	<%=("是").equals(adoptPet2.getAdopt_pet_sterilization())%>
+		) {
+			document.getElementById("isSterilization").checked = true;
+		} else if (
+	<%=("否").equals(adoptPet2.getAdopt_pet_sterilization())%>
+		) {
+			document.getElementById("noSterilization").checked = true;
+		}
 	</script>
-	
-	
-	
+
+
+
 
 	<script
 		src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/global/global.min.js"></script>
