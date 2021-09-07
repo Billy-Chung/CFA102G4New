@@ -38,14 +38,13 @@
 <link
 	href="<%=request.getContextPath()%>/back_end/back_CSS/css/style.css"
 	rel="stylesheet">
-	
-	<style>
-		.myright {
 
-			margin-left: 80%;
-		}
-	</style>
-	
+<style>
+.myright {
+	margin-left: 80%;
+}
+</style>
+
 </head>
 
 <body>
@@ -103,19 +102,17 @@
 													name="adopt_pet_breeds" placeholder="請填入領養寵物品種"
 													value="<%=(adoptPet == null) ? "" : adoptPet.getAdopt_pet_breeds()%>">
 											</div>
-										</div>
-
-
+										</div>				
+										
 										<fieldset class="mb-3">
 											<div class="row">
 												<label class="col-form-label col-sm-3 pt-0">寵物性別</label>
-												<div class="col-sm-9">
-												
+												<div class="col-sm-9">												
 													<div class="form-check">
 														<label class="radio-inline me-3"><input
-															type="radio" name="adopt_pet_gender" value="公" > 公</label>
+															type="radio" id="adopt_pet_genderMan" name="adopt_pet_gender" value="公" > 公</label>
 														<label class="radio-inline me-3"><input
-															type="radio" name="adopt_pet_gender" value="母"> 母</label>
+															type="radio" id="adopt_pet_genderWoman" name="adopt_pet_gender" value="母"> 母</label>
 													</div>
 												</div>
 											</div>
@@ -165,21 +162,21 @@
 													name="capture_address" placeholder="請填入捕獲地址"
 													value="<%=(adoptPet == null) ? "" : adoptPet.getCapture_address()%>">
 											</div>
-										</div>										
+										</div>					
 										
 										<fieldset class="mb-3">
 											<div class="row">
 												<label class="col-form-label col-sm-3 pt-0">是否絕育</label>
-												<div class="col-sm-9">
+												<div class="col-sm-9">												
 													<div class="form-check">
 														<label class="radio-inline me-3"><input
-															type="radio" name="adopt_pet_sterilization" value="是"> 以絕育</label>
+															type="radio" id="isSterilization" name="adopt_pet_sterilization" value="是" > 是</label>
 														<label class="radio-inline me-3"><input
-															type="radio" name="adopt_pet_sterilization" value="否"> 未絕育</label>
+															type="radio" id="noSterilization" name="adopt_pet_sterilization" value="否"> 否</label>
 													</div>
 												</div>
 											</div>
-										</fieldset>
+										</fieldset>	
 
 										<div class="mb-3 row">
 											<label class="col-sm-3 col-form-label">收容編號</label>
@@ -220,6 +217,23 @@
 		</div>
 		<%@ include file="../backend_page/footer.jsp"%>
 	</div>
+	
+	<script>		
+	if(<%=("公").equals((adoptPet == null) ? "" :adoptPet.getAdopt_pet_gender())%>){		
+		document.getElementById("adopt_pet_genderMan").checked = true;
+		
+	}else if (<%=("母").equals((adoptPet == null) ? "" :adoptPet.getAdopt_pet_gender())%>){	
+		document.getElementById("adopt_pet_genderWoman").checked = true;
+	}	
+	
+	
+	if(<%=("是").equals((adoptPet == null) ? "" :adoptPet.getAdopt_pet_sterilization())%>){
+		document.getElementById("isSterilization").checked = true;		
+	}else if(<%=("否").equals((adoptPet == null) ? "" :adoptPet.getAdopt_pet_sterilization())%>){
+		document.getElementById("noSterilization").checked = true;
+	}
+	
+	</script>
 
 	<script
 		src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/global/global.min.js"></script>

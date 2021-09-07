@@ -7,7 +7,7 @@
 
 <%
 	AdoptPetDAO dao = new AdoptPetDAO();
-	List<AdoptPetVO> list = dao.getAllAdoptPet();
+	List<AdoptPetVO> list = dao.findByAdoptMebNo(2);
 	pageContext.setAttribute("list", list);
 %>
 
@@ -59,7 +59,6 @@
 	width: 100%;
 	height: 100%;
 }
-
 </style>
 
 </head>
@@ -148,13 +147,13 @@
 
 			<div class="container-fluid">
 				<div class="row page-titles">
-					
-						<div class="input-group search-area">
-							<input type="text" class="form-control" placeholder="以晶片號尋找">
-							<span class="input-group-text"><a
-								href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
-						</div>
-					
+
+					<div class="input-group search-area">
+						<input type="text" class="form-control" placeholder="以晶片號尋找">
+						<span class="input-group-text"><a href="javascript:void(0)"><i
+								class="flaticon-381-search-2"></i></a></span>
+					</div>
+
 				</div>
 				<div class="row">
 					<%@ include file="page1.file"%>
@@ -312,46 +311,47 @@
 					<!--**********************************
             Footer end
         ***********************************-->
-
-
 				</div>
-				<!--**********************************
+
+			</div>
+			<!--**********************************
         Main wrapper end
     ***********************************-->
-
-				<!--**********************************
+		</div>
+	</div>
+	<!--**********************************
         Scripts
     *********************************
     
     **-->
-				<script>
-					$('#isNew').on('change', function(e) {
-						const file = this.files[0];
+	<script>
+		$('#isNew').on('change', function(e) {
+			const file = this.files[0];
 
-						const fr = new FileReader();
-						fr.onload = function(e) {
-							$('#isNewPhoto').attr('src', e.target.result);
-						};
+			const fr = new FileReader();
+			fr.onload = function(e) {
+				$('#isNewPhoto').attr('src', e.target.result);
+			};
 
-						// 使用 readAsDataURL 將圖片轉成 Base64
-						fr.readAsDataURL(file);
-					});
-				</script>
+			// 使用 readAsDataURL 將圖片轉成 Base64
+			fr.readAsDataURL(file);
+		});
+	</script>
 
 
-				<!-- Rating -->
-				<script
-					src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/global/global.min.js"></script>
-				<script
-					src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-				<script
-					src="<%=request.getContextPath()%>/back_end/back_CSS/js/custom.min.js"></script>
-				<script
-					src="<%=request.getContextPath()%>/back_end/back_CSS/js/deznav-init.js"></script>
-				<script
-					src="<%=request.getContextPath()%>/back_end/back_CSS/js/demo.js"></script>
-				<script
-					src="<%=request.getContextPath()%>/back_end/back_CSS/js/styleSwitcher.js"></script>
+	<!-- Rating -->
+	<script
+		src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/global/global.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/back_end/back_CSS/js/custom.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/back_end/back_CSS/js/deznav-init.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/back_end/back_CSS/js/demo.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/back_end/back_CSS/js/styleSwitcher.js"></script>
 </body>
 
 </html>
