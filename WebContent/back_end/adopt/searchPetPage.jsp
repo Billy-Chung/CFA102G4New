@@ -6,12 +6,9 @@
 <%@ page import="com.adoptPetPhoto.model.*"%>
 
 <%
-	AdoptPetDAO dao = new AdoptPetDAO();
-	List<AdoptPetVO> list = dao.findByAdoptMebNo(2);
-	pageContext.setAttribute("list", list);
+	List<AdoptPetVO> list2 = (List<AdoptPetVO>) request.getAttribute("searchList");
+	pageContext.setAttribute("list", list2);
 %>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -93,9 +90,6 @@
             Chat box End
         ***********************************-->
 
-
-
-
 		<!--**********************************
             Header start
         ***********************************-->
@@ -142,21 +136,16 @@
 			<div class="container-fluid">
 				<div class="row page-titles ">
 
-					<form method="post"
-						action="<%=request.getContextPath()%>/adoptPet/addPet.do">
-						<div class="input-group search-area">
-							<input type="text" class="form-control" name="whichChip"
-								placeholder="以晶片號尋找"> <input type="hidden" name="action"
-								value="searchFromChip"> <span class="input-group-text">
-								<button type="submit"
-									class="btn btn-rounded btn-outline-success">搜尋</button>
-							</span>
-						</div>
-					</form>
+					<a href="<%=request.getContextPath()%>/back_end/adopt/adoptPet.jsp"><button
+							type="button" class="btn light btn-dark">
+							返回清單<span class="btn-icon-end"><i class="fa fa-star"></i></span>
+						</button></a>
 
 				</div>
 				<div class="row">
-					<%@ include file="page1.file"%>
+
+
+					<%@ include file="page3.file"%>
 
 					<%@ include file="petCard.jsp"%>
 
@@ -164,14 +153,11 @@
             Content body end
         ***********************************-->
 
-					<%@ include file="page2.file"%>
+					<%@ include file="page4.file"%>
 					<!--**********************************
             Footer start
         ***********************************-->
 					<%@ include file="../backend_page/footer.jsp"%>
-					<!--**********************************
-            Footer end
-        ***********************************-->
 
 				</div>
 

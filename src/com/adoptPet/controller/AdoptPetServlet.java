@@ -3,6 +3,7 @@ package com.adoptPet.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,8 +23,8 @@ public class AdoptPetServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		
-		if ("addPet".equals(action)) {		
+
+		if ("addPet".equals(action)) {
 			Map<String, String> errorMsgs = new LinkedHashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
@@ -178,10 +179,9 @@ public class AdoptPetServlet extends HttpServlet {
 
 		}
 
-		if ("getOne_For_Update".equals(action)) {		
+		if ("getOne_For_Update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs2", errorMsgs);
-					
 
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
@@ -208,18 +208,18 @@ public class AdoptPetServlet extends HttpServlet {
 			Map<String, String> errorMsgs = new LinkedHashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			String requestURL = req.getParameter("requestURL");
-		
-			try {	
-			
-				Integer adoptPetNo = new Integer(req.getParameter("adopt_pet_no"));									
-				Integer genMebNo = null;			
+
+			try {
+
+				Integer adoptPetNo = new Integer(req.getParameter("adopt_pet_no"));
+				Integer genMebNo = null;
 				String adoptPetBreeds = req.getParameter("adopt_pet_breeds");
 				String adoptPetNoSignReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]*$";
 				String adoptPetGender = req.getParameter("adopt_pet_gender");
 				String adoptPetComeForm = req.getParameter("adopt_pet_come_form");
 				String adoptPetHaveSignReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-)]*$";
-				java.sql.Date adoptPetJoinDate = null;			
-				String adoptPetChip = req.getParameter("adopt_pet_chip");				
+				java.sql.Date adoptPetJoinDate = null;
+				String adoptPetChip = req.getParameter("adopt_pet_chip");
 				String adoptPetJoinReason = req.getParameter("adopt_pet_join_reason");
 				String captureAddress = req.getParameter("capture_address");
 				String adoptPetSterilization = req.getParameter("adopt_pet_sterilization");
@@ -229,10 +229,10 @@ public class AdoptPetServlet extends HttpServlet {
 				String adoptPetState = req.getParameter("adopt_pet_state");
 
 //				一般會員FK
-				
+
 				if (req.getParameter("gen_meb_no").trim().isEmpty()) {
 					genMebNo = 0;
-				}else {
+				} else {
 					genMebNo = new Integer(req.getParameter("gen_meb_no").trim());
 				}
 
@@ -255,25 +255,22 @@ public class AdoptPetServlet extends HttpServlet {
 				} else if (!adoptPetComeForm.trim().matches(adoptPetHaveSignReg)) {
 					errorMsgs.put("adoptPetComeForm", "領養寵物來源: 只能是中、英文字母、數字、_和-符號!!");
 				}
-			
 
 //				入所日期
-				try {					
+				try {
 					adoptPetJoinDate = java.sql.Date.valueOf(req.getParameter("adopt_pet_join_date").trim());
 				} catch (IllegalArgumentException e) {
 					long miliseconds = System.currentTimeMillis();
 					java.sql.Date date = new java.sql.Date(miliseconds);
 					adoptPetJoinDate = date;
 				}
-			
 
 //				晶片號碼
-				if (adoptPetChip.trim().length() == 0) {					
+				if (adoptPetChip.trim().length() == 0) {
 					errorMsgs.put("adoptPetChip", "請輸入領養寵物晶片號碼!!");
 				} else if (!adoptPetChip.trim().matches(adoptPetNoChinessReg)) {
 					errorMsgs.put("adoptPetChip", "領養寵物晶片號碼: 只能是英文字母和數字!!");
 				}
-			
 
 //				進所原因
 				if (adoptPetJoinReason.trim().length() == 0) {
@@ -281,7 +278,6 @@ public class AdoptPetServlet extends HttpServlet {
 				} else if (!adoptPetJoinReason.trim().matches(adoptPetNoSignReg)) {
 					errorMsgs.put("adoptPetJoinReason", "領養寵物進所原因: 只能是中、英文字母!!");
 				}
-			
 
 //				捕獲地址
 				if (captureAddress.trim().length() == 0) {
@@ -289,14 +285,11 @@ public class AdoptPetServlet extends HttpServlet {
 				} else if (!captureAddress.trim().matches(adoptPetHaveSignReg)) {
 					errorMsgs.put("errorMsgs", "領養寵物捕獲地址: 只能是中、英文字母、數字、_和-符號!!");
 				}
-			
-
 
 //				是否絕育
 				if (adoptPetSterilization == null) {
 					adoptPetSterilization = "是否絕育未知";
 				}
-			
 
 //				收容編號
 
@@ -305,7 +298,6 @@ public class AdoptPetServlet extends HttpServlet {
 				} else if (!containNumber.trim().matches(adoptPetNoChinessReg)) {
 					errorMsgs.put("containNumber", "領養寵物收容編號: 只能是英文字母和數字!!");
 				}
-		
 
 //				毛色				
 				if (adoptPetColor.trim().length() == 0) {
@@ -313,7 +305,6 @@ public class AdoptPetServlet extends HttpServlet {
 				} else if (!adoptPetColor.trim().matches(adoptPetNoSignReg)) {
 					errorMsgs.put("adoptPetBreeds", "領養寵物毛色: 只能是中、英文字母!!");
 				}
-
 
 //				寵物領養狀態
 
@@ -325,38 +316,35 @@ public class AdoptPetServlet extends HttpServlet {
 				} catch (Exception e) {
 					errorMsgs.put("adoptPetStatetest", "寵物領養狀態: 請勿竄改資料!");
 				}
-				
-		
-				AdoptPetVO adoptPet = new AdoptPetVO();						
-				adoptPet.setGen_meb_no(genMebNo);		
-				adoptPet.setAdopt_pet_breeds(adoptPetBreeds);		
-				adoptPet.setAdopt_pet_gender(adoptPetGender);			
-				adoptPet.setAdopt_pet_come_form(adoptPetComeForm);				
-				adoptPet.setAdopt_pet_join_date(adoptPetJoinDate);			
-				adoptPet.setAdopt_pet_chip(adoptPetChip);			
-				adoptPet.setAdopt_pet_join_reason(adoptPetJoinReason);			
-				adoptPet.setCapture_address(captureAddress);				
-				adoptPet.setAdopt_pet_sterilization(adoptPetSterilization);				
-				adoptPet.setContain_number(containNumber);			
-				adoptPet.setAdopt_pet_color(adoptPetColor);			
-				adoptPet.setAdopt_pet_state(adoptPetState);			
+
+				AdoptPetVO adoptPet = new AdoptPetVO();
+				adoptPet.setGen_meb_no(genMebNo);
+				adoptPet.setAdopt_pet_breeds(adoptPetBreeds);
+				adoptPet.setAdopt_pet_gender(adoptPetGender);
+				adoptPet.setAdopt_pet_come_form(adoptPetComeForm);
+				adoptPet.setAdopt_pet_join_date(adoptPetJoinDate);
+				adoptPet.setAdopt_pet_chip(adoptPetChip);
+				adoptPet.setAdopt_pet_join_reason(adoptPetJoinReason);
+				adoptPet.setCapture_address(captureAddress);
+				adoptPet.setAdopt_pet_sterilization(adoptPetSterilization);
+				adoptPet.setContain_number(containNumber);
+				adoptPet.setAdopt_pet_color(adoptPetColor);
+				adoptPet.setAdopt_pet_state(adoptPetState);
 				adoptPet.setAdopt_pet_no(adoptPetNo);
-				
+
 //				資料錯誤return
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("adoptPetVO2", adoptPet);					
+					req.setAttribute("adoptPetVO2", adoptPet);
 					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/updatePet.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 
 				AdoptPetService adoptPetSvc = new AdoptPetService();
-				adoptPetSvc.updateAdoptPet(genMebNo, adoptPetBreeds, adoptPetGender, adoptPetComeForm,
-						adoptPetJoinDate, adoptPetChip, adoptPetJoinReason, captureAddress, adoptPetSterilization,
-						containNumber, adoptPetColor, adoptPetState,adoptPetNo);
-				
-				
-				
+				adoptPetSvc.updateAdoptPet(genMebNo, adoptPetBreeds, adoptPetGender, adoptPetComeForm, adoptPetJoinDate,
+						adoptPetChip, adoptPetJoinReason, captureAddress, adoptPetSterilization, containNumber,
+						adoptPetColor, adoptPetState, adoptPetNo);
+
 				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
@@ -367,23 +355,22 @@ public class AdoptPetServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
-		
-		if ("delete".equals(action)) {			
-			
+
+		if ("delete".equals(action)) {
+
 			Map<String, String> errorMsgs = new LinkedHashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			String requestURL = req.getParameter("requestURL");
-		
-			try {							
-				Integer adoptPetNo = new Integer(req.getParameter("adopt_pet_no"));	
-				Integer genMebNo = null;			
+
+			try {
+				Integer adoptPetNo = new Integer(req.getParameter("adopt_pet_no"));
+				Integer genMebNo = null;
 				String adoptPetBreeds = req.getParameter("adopt_pet_breeds");
 				String adoptPetNoSignReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]*$";
 				String adoptPetGender = req.getParameter("adopt_pet_gender");
 				String adoptPetComeForm = req.getParameter("adopt_pet_come_form");
 				String adoptPetHaveSignReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-)]*$";
-				java.sql.Date adoptPetJoinDate = null;			
+				java.sql.Date adoptPetJoinDate = null;
 				String adoptPetChip = req.getParameter("adopt_pet_chip");
 				String adoptPetJoinReason = req.getParameter("adopt_pet_join_reason");
 				String captureAddress = req.getParameter("capture_address");
@@ -391,20 +378,20 @@ public class AdoptPetServlet extends HttpServlet {
 				String containNumber = req.getParameter("contain_number");
 				String adoptPetNoChinessReg = "^[(a-zA-Z0-9)]*$";
 				String adoptPetColor = req.getParameter("adopt_pet_color");
-				
-				Integer adoptPetState = new Integer(req.getParameter("adopt_pet_state"));				
-				
-				if(adoptPetState == 0) {
-					adoptPetState = 1;					
-				}else {
-					adoptPetState = 0;					
+
+				Integer adoptPetState = new Integer(req.getParameter("adopt_pet_state"));
+
+				if (adoptPetState == 0) {
+					adoptPetState = 1;
+				} else {
+					adoptPetState = 0;
 				}
 
 //				一般會員FK
-				
+
 				if (req.getParameter("gen_meb_no").trim().isEmpty()) {
 					genMebNo = 0;
-				}else {
+				} else {
 					genMebNo = new Integer(req.getParameter("gen_meb_no").trim());
 				}
 
@@ -427,17 +414,15 @@ public class AdoptPetServlet extends HttpServlet {
 				} else if (!adoptPetComeForm.trim().matches(adoptPetHaveSignReg)) {
 					errorMsgs.put("adoptPetComeForm", "領養寵物來源: 只能是中、英文字母、數字、_和-符號!!");
 				}
-			
 
 //				入所日期
-				try {					
+				try {
 					adoptPetJoinDate = java.sql.Date.valueOf(req.getParameter("adopt_pet_join_date").trim());
 				} catch (IllegalArgumentException e) {
 					long miliseconds = System.currentTimeMillis();
 					java.sql.Date date = new java.sql.Date(miliseconds);
 					adoptPetJoinDate = date;
 				}
-			
 
 //				晶片號碼
 				if (adoptPetChip.trim().length() == 0) {
@@ -445,7 +430,6 @@ public class AdoptPetServlet extends HttpServlet {
 				} else if (!adoptPetChip.trim().matches(adoptPetNoChinessReg)) {
 					errorMsgs.put("adoptPetChip", "領養寵物晶片號碼: 只能是英文字母和數字!!");
 				}
-			
 
 //				進所原因
 				if (adoptPetJoinReason.trim().length() == 0) {
@@ -453,7 +437,6 @@ public class AdoptPetServlet extends HttpServlet {
 				} else if (!adoptPetJoinReason.trim().matches(adoptPetNoSignReg)) {
 					errorMsgs.put("adoptPetJoinReason", "領養寵物進所原因: 只能是中、英文字母!!");
 				}
-			
 
 //				捕獲地址
 				if (captureAddress.trim().length() == 0) {
@@ -461,14 +444,11 @@ public class AdoptPetServlet extends HttpServlet {
 				} else if (!captureAddress.trim().matches(adoptPetHaveSignReg)) {
 					errorMsgs.put("errorMsgs", "領養寵物捕獲地址: 只能是中、英文字母、數字、_和-符號!!");
 				}
-			
-
 
 //				是否絕育
 				if (adoptPetSterilization == null) {
 					adoptPetSterilization = "是否絕育未知";
 				}
-			
 
 //				收容編號
 
@@ -477,7 +457,6 @@ public class AdoptPetServlet extends HttpServlet {
 				} else if (!containNumber.trim().matches(adoptPetNoChinessReg)) {
 					errorMsgs.put("containNumber", "領養寵物收容編號: 只能是英文字母和數字!!");
 				}
-		
 
 //				毛色				
 				if (adoptPetColor.trim().length() == 0) {
@@ -485,48 +464,79 @@ public class AdoptPetServlet extends HttpServlet {
 				} else if (!adoptPetColor.trim().matches(adoptPetNoSignReg)) {
 					errorMsgs.put("adoptPetBreeds", "領養寵物毛色: 只能是中、英文字母!!");
 				}
-		
-		
-				AdoptPetVO adoptPet = new AdoptPetVO();						
-				adoptPet.setGen_meb_no(genMebNo);		
-				adoptPet.setAdopt_pet_breeds(adoptPetBreeds);		
-				adoptPet.setAdopt_pet_gender(adoptPetGender);			
-				adoptPet.setAdopt_pet_come_form(adoptPetComeForm);				
-				adoptPet.setAdopt_pet_join_date(adoptPetJoinDate);			
-				adoptPet.setAdopt_pet_chip(adoptPetChip);			
-				adoptPet.setAdopt_pet_join_reason(adoptPetJoinReason);			
-				adoptPet.setCapture_address(captureAddress);				
-				adoptPet.setAdopt_pet_sterilization(adoptPetSterilization);				
-				adoptPet.setContain_number(containNumber);			
-				adoptPet.setAdopt_pet_color(adoptPetColor);			
-				adoptPet.setAdopt_pet_state(adoptPetState.toString());			
+
+				AdoptPetVO adoptPet = new AdoptPetVO();
+				adoptPet.setGen_meb_no(genMebNo);
+				adoptPet.setAdopt_pet_breeds(adoptPetBreeds);
+				adoptPet.setAdopt_pet_gender(adoptPetGender);
+				adoptPet.setAdopt_pet_come_form(adoptPetComeForm);
+				adoptPet.setAdopt_pet_join_date(adoptPetJoinDate);
+				adoptPet.setAdopt_pet_chip(adoptPetChip);
+				adoptPet.setAdopt_pet_join_reason(adoptPetJoinReason);
+				adoptPet.setCapture_address(captureAddress);
+				adoptPet.setAdopt_pet_sterilization(adoptPetSterilization);
+				adoptPet.setContain_number(containNumber);
+				adoptPet.setAdopt_pet_color(adoptPetColor);
+				adoptPet.setAdopt_pet_state(adoptPetState.toString());
 				adoptPet.setAdopt_pet_no(adoptPetNo);
-				
+
 //				資料錯誤return
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("adoptPetVO", adoptPet);					
+					req.setAttribute("adoptPetVO", adoptPet);
 					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 
 				AdoptPetService adoptPetSvc = new AdoptPetService();
-				adoptPetSvc.updateAdoptPet(genMebNo, adoptPetBreeds, adoptPetGender, adoptPetComeForm,
-						adoptPetJoinDate, adoptPetChip, adoptPetJoinReason, captureAddress, adoptPetSterilization,
-						containNumber, adoptPetColor, adoptPetState.toString(),adoptPetNo);
-				
-				
-				
+				adoptPetSvc.updateAdoptPet(genMebNo, adoptPetBreeds, adoptPetGender, adoptPetComeForm, adoptPetJoinDate,
+						adoptPetChip, adoptPetJoinReason, captureAddress, adoptPetSterilization, containNumber,
+						adoptPetColor, adoptPetState.toString(), adoptPetNo);
+
 				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 
-			} 
-			catch (Exception e) {
+			} catch (Exception e) {
 				errorMsgs.put("Exception", e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
 				failureView.forward(req, res);
-			}			
+			}
+		}
+
+		if (("searchFromChip").equals(action)) {
+			Map<String, String> errorMsgs = new LinkedHashMap<>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				String searchWord = req.getParameter("whichChip");
+				
+				if (searchWord.trim().length() == 0) {					
+					errorMsgs.put("seachFile", "搜尋的晶片號碼請勿留空!!");
+				}
+				
+				if (!errorMsgs.isEmpty()) {				
+					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				
+				
+				AdoptPetService adoptPetSvc = new AdoptPetService();
+				List<AdoptPetVO> searchPet = adoptPetSvc.getAll();
+				List<AdoptPetVO> searchList = new ArrayList<>();
+				searchList = searchPet.stream().filter(p -> p.getAdopt_pet_chip().contains(searchWord))
+						.collect(Collectors.toList());
+				req.setAttribute("searchList", searchList);
+				String url = "/back_end/adopt/searchPetPage.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+				successView.forward(req, res);
+			} catch (Exception e) {
+				errorMsgs.put("Exception", e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
+				failureView.forward(req, res);
+			}
 		}
 
 	}

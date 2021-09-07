@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%  int rowsPerPage = 6;  
+<%  int rowsPerPage = 2;  
     int rowNumber=0;      
     int pageNumber=0;       
     int whichPage=1;      
@@ -8,7 +8,7 @@
 %>
 
 <%  
-    rowNumber=list.size();
+    rowNumber=list2.size();
     if (rowNumber%rowsPerPage !=0)
          pageNumber=rowNumber/rowsPerPage + 1;
     else pageNumber=rowNumber/rowsPerPage;    
@@ -19,7 +19,6 @@
 %>
 
 <%  try {
-System.out.println(request.getParameter("whichPage"));
        whichPage = Integer.parseInt(request.getParameter("whichPage"));
        pageIndex=pageIndexArray[whichPage-1];
     } catch (NumberFormatException e) { 
