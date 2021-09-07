@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Web_pade_data_interface {
 
-	public void insert(Web_pade_dataVO web_pade_data_no);
+	public Web_pade_dataVO insert(Web_pade_dataVO web_pade_data_no);
 
 	public void update(Web_pade_dataVO web_pade_data_no);
 

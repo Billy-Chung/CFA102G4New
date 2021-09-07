@@ -22,7 +22,7 @@ public class EmpPurviewDAO implements EmpPurviewDAO_interface {
 	private static final String DELETE = "DELETE FROM EMP_PURVIEW where EMP_NO = ?";
 	private static final String UPDATE = "UPDATE EMP_PURVIEW set FUNCTION_NO =?  where EMP_NO =?,FUNCTION_NO =?";
 
-	public void insert(EmpPurviewVO emp_purview) {
+	public EmpPurviewVO insert(EmpPurviewVO emp_purview) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -60,6 +60,7 @@ public class EmpPurviewDAO implements EmpPurviewDAO_interface {
 				}
 			}
 		}
+		return emp_purview;
 
 	}
 

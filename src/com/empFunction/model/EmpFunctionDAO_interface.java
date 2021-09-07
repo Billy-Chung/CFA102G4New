@@ -4,7 +4,7 @@ import java.util.*;
 
 public interface EmpFunctionDAO_interface {
 	
-	public void insert(EmpFunctionVO emp_function);
+	public EmpFunctionVO insert(EmpFunctionVO emp_function);
 	
 	public void update(EmpFunctionVO emp_function);
 	

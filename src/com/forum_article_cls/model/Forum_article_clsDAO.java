@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Forum_article_clsDOA implements Forum_article_clsDOA_interface {
+public class Forum_article_clsDAO implements Forum_article_clsDAO_interface {
 
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
@@ -21,7 +21,7 @@ public class Forum_article_clsDOA implements Forum_article_clsDOA_interface {
 	private static final String DELETE = "DELETE FROM FORUM_ARTICLE_CLS where FORUM_ARTICLE_CLS_NO = ?";
 	private static final String UPDATE = "UPDATE FORUM_ARTICLE_CLS set FORUM_ARTICLE_CLS_NAME=? where FORUM_ARTICLE_CLS_NO = ?";
 
-	public void insert(Forum_article_clsVO Forum_article_cls) {
+	public Forum_article_clsVO insert(Forum_article_clsVO Forum_article_cls) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -58,6 +58,7 @@ public class Forum_article_clsDOA implements Forum_article_clsDOA_interface {
 				}
 			}
 		}
+		return Forum_article_cls;
 
 	}
 
@@ -259,7 +260,7 @@ public class Forum_article_clsDOA implements Forum_article_clsDOA_interface {
 
 	public static void main(String[] args) {
 
-		Forum_article_clsDOA dao = new Forum_article_clsDOA();
+		Forum_article_clsDAO dao = new Forum_article_clsDAO();
 
 //		// 新增
 //		Forum_article_clsVO Forum_article_clsVO1 = new Forum_article_clsVO();

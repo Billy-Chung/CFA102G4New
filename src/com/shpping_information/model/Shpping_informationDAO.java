@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.emp.model.EmpVO;
+
 
 public class Shpping_informationDAO implements Shpping_informationDAO_interface {
 
@@ -27,7 +27,7 @@ public class Shpping_informationDAO implements Shpping_informationDAO_interface 
 	private static final String UPDATE = "UPDATE SHOPPING_INFORMATION set SHOPPING_IMG=?,SHOPPING_DATA=?,SHOPPING_TEL=?,SHOPPING_FAX=?,SHOPPING_ADD=? where SHOPPING_INFORMATION_NO = ?";
 
 	@Override
-	public void insert(Shpping_informationVO shopping_information) {
+	public Shpping_informationVO insert(Shpping_informationVO shopping_information) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -69,6 +69,7 @@ public class Shpping_informationDAO implements Shpping_informationDAO_interface 
 				}
 			}
 		}
+		return shopping_information;
 
 	}
 

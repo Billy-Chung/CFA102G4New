@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface EmpDAO_interface {
 	
-	public void insert(EmpVO emp);
+	public EmpVO insert(EmpVO emp);
 	
 	public void update(EmpVO emp);
 	

@@ -16,7 +16,7 @@ public class EmpFunctionDAO implements EmpFunctionDAO_interface {
 	private static final String UPDATE = "UPDATE EMP_FUNCTION set FUNCTION_NAME=? where FUNCTION_NO = ?";
 
 	@Override
-	public void insert(EmpFunctionVO emp_function) {
+	public EmpFunctionVO insert(EmpFunctionVO emp_function) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -55,6 +55,7 @@ public class EmpFunctionDAO implements EmpFunctionDAO_interface {
 				}
 			}
 		}
+		return emp_function;
 
 	}
 

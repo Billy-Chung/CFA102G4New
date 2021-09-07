@@ -6,7 +6,7 @@ import java.util.List;
 public interface Shpping_informationDAO_interface {
 
 
-	public void insert(Shpping_informationVO shopping_information_no);
+	public Shpping_informationVO insert(Shpping_informationVO shopping_information_no);
 	
 	public void update(Shpping_informationVO shopping_information_no);
 	

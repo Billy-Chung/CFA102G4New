@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Forum_article_reportDAO_interface {
 
-	public void insert(Forum_article_reportVO forum_article_report);
+	public Forum_article_reportVO insert(Forum_article_reportVO forum_article_report);
 
 	public void update(Forum_article_reportVO forum_article_report);
 

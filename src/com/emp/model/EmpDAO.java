@@ -24,7 +24,7 @@ public class EmpDAO implements EmpDAO_interface{
 		private static final String UPDATE = 
 			"UPDATE emp set EMP_ACCOUNT=?, EMP_PASSWORD=?, EMP_NAME=?, EMP_ON_JOB=?, EMP_IMG=?, EMP_MAIL=?, EMP_PHONE=?, EMP_GENDER=?, EMP_DAY=?, EMP_ADD=?, EMP_SCHOOL=?, EMP_DATE=? where EMP_NO= ?";
 		
-		public void insert(EmpVO emp) {
+		public EmpVO insert(EmpVO emp) {
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -75,6 +75,7 @@ public class EmpDAO implements EmpDAO_interface{
 					}
 				}
 			}
+			return emp;
 
 		}
 					
@@ -321,9 +322,9 @@ public class EmpDAO implements EmpDAO_interface{
 			return list;
 		}
 		
-		public static void main(String[] args) throws IOException {
-
-			EmpDAO dao = new EmpDAO();
+//		public static void main(String[] args) throws IOException {
+//
+//			EmpDAO dao = new EmpDAO();
 		
 			// 新增
 //			EmpVO empVO1 = new EmpVO();
@@ -400,7 +401,7 @@ public class EmpDAO implements EmpDAO_interface{
 //				System.out.print(aEmp.getEmp_date() + ",");
 //				System.out.println();
 //			}
-			}
+//			}
 
 		public static byte[] getPictureByteArray(String path) throws IOException {
 			FileInputStream fis = new FileInputStream(path);

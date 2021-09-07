@@ -3,9 +3,9 @@ package com.forum_article_cls.model;
 import java.util.List;
 
 
-public interface Forum_article_clsDOA_interface {
+public interface Forum_article_clsDAO_interface {
 
-		public void insert(Forum_article_clsVO FORUM_ARTICLE_CLS);
+		public Forum_article_clsVO insert(Forum_article_clsVO FORUM_ARTICLE_CLS);
 		
 		public void update(Forum_article_clsVO FORUM_ARTICLE_CLS);
 		

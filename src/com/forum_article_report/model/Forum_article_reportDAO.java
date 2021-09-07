@@ -24,7 +24,7 @@ public class Forum_article_reportDAO implements Forum_article_reportDAO_interfac
 	private static final String UPDATE = "UPDATE forum_article_report set FORUM_ARTICLE_NO=?,GEN_MEB_NO=?,FORUM_COMM_REPORT_COM=?,FORUM_COMM_REPORT_STATE=?,FORUM_COMM_REPORT_DATE=? where ARTICLE_REPORT_NO = ?";
 
 	@Override
-	public void insert(Forum_article_reportVO forum_article_report) {
+	public Forum_article_reportVO insert(Forum_article_reportVO forum_article_report) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -65,6 +65,7 @@ public class Forum_article_reportDAO implements Forum_article_reportDAO_interfac
 				}
 			}
 		}
+		return forum_article_report;
 
 	}
 

@@ -24,7 +24,7 @@ public class NewsDAO implements NewsDAO_interface {
 	private static final String UPDATE = "UPDATE NEWS set NEWS_DATE=?,NEWS_STATE=?,NEWS_DATA=?,NEWS_IMG=? where NEWS_NO = ?";
 
 	@Override
-	public void insert(NewsVO news) {
+	public NewsVO insert(NewsVO news) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -66,6 +66,7 @@ public class NewsDAO implements NewsDAO_interface {
 				}
 			}
 		}
+		return news;
 
 	}
 

@@ -22,7 +22,7 @@ public class Web_pade_dataDAO implements Web_pade_data_interface {
 	private static final String DELETE = "DELETE FROM WEB_PADE_DATA where WEB_PADE_DATA_NO = ?";
 	private static final String UPDATE = "UPDATE WEB_PADE_DATA set WEB_PADE_DATA=?,WEB_PADE_DATE=? where WEB_PADE_DATA_NO = ?";
 
-	public void insert(Web_pade_dataVO web_pade_data_no) {
+	public Web_pade_dataVO insert(Web_pade_dataVO web_pade_data_no) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -61,6 +61,7 @@ public class Web_pade_dataDAO implements Web_pade_data_interface {
 				}
 			}
 		}
+		return web_pade_data_no;
 
 	}
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface NewsDAO_interface {
 
-public void insert(NewsVO news);
+public NewsVO insert(NewsVO news);
 	
 	public void update(NewsVO news);
 	
