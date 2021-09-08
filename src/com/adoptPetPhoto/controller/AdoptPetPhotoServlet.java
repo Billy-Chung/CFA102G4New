@@ -7,10 +7,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.adoptPet.model.AdoptPetService;
+import com.adoptPet.model.AdoptPetVO;
 import com.adoptPetPhoto.model.AdoptPetPhotoService;
 import com.adoptPetPhoto.model.AdoptPetPhotoVO;
 
@@ -34,7 +38,7 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 			AdoptPetPhotoService adoptPetPhotoService = new AdoptPetPhotoService();
 			AdoptPetPhotoVO petPhotos = adoptPetPhotoService.findByPK(PK);
 			byte[] petPhoto = petPhotos.getAdopt_pet_photo();
-			ServletOutputStream out = res.getOutputStream();		
+			ServletOutputStream out = res.getOutputStream();
 			out.write(petPhoto);
 			out.close();
 		}
@@ -77,14 +81,24 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 			String adoptPetCoverState = new String(req.getParameter("adopt_pet_cover_state"));
 			Date date = new Date();
 			Timestamp changeTime = new Timestamp(date.getTime());
-			
+
 			InputStream in = photo.getInputStream();
 			if (in.available() != 0) {
 				byte[] buf = new byte[in.available()];
 				in.read(buf);
 				in.close();
 				AdoptPetPhotoService adoptPetPhotoService = new AdoptPetPhotoService();
-				adoptPetPhotoService.insertAdoptPetPhoto(adoptPetNo, buf, adoptPetCoverState,changeTime);
+				adoptPetPhotoService.insertAdoptPetPhoto(adoptPetNo, buf, adoptPetCoverState, changeTime);
+				if (requestURL.equals("/back_end/adopt/searchPetPage.jsp")) {
+					AdoptPetService adoptPetSvc = new AdoptPetService();
+					List<AdoptPetVO> searchPet = adoptPetSvc.getAll();
+					List<AdoptPetVO> searchList = new ArrayList<>();
+					searchList = searchPet.stream()
+							.filter(p -> p.getAdopt_pet_chip().contains(req.getParameter("whichChip")))
+							.collect(Collectors.toList());
+
+					req.setAttribute("searchList", searchList);
+				}
 				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
@@ -108,7 +122,7 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 //				String base64Img = Base64.getEncoder().encodeToString(photo);
 //				imgMap.put(newAdoptPetNo,base64Img);
 //			}		
-			req.setAttribute("adoptMemberPhotoList", adoptMemberPhotoList);			
+			req.setAttribute("adoptMemberPhotoList", adoptMemberPhotoList);
 			String url = "/back_end/adopt/allPetPhoto.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -118,13 +132,13 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 			Integer adoptPetPhotoNo = new Integer(req.getParameter("adoptPetPhotoNo"));
 			Integer adoptPetNo = new Integer(req.getParameter("adoptPetNo"));
 			AdoptPetPhotoService adoptPetPhotoService = new AdoptPetPhotoService();
-			adoptPetPhotoService.deleteAdoptPetPhoto(adoptPetPhotoNo);		
+			adoptPetPhotoService.deleteAdoptPetPhoto(adoptPetPhotoNo);
 			List<AdoptPetPhotoVO> adoptMemberPhotoList = adoptPetPhotoService.findByadoptPetNo(adoptPetNo);
 //			forward是空白頁
 //			List<AdoptPetPhotoVO> adoptMemberPhotoList = adoptPetPhotoService.findByadoptPetNo(adoptPetNo);
 //			req.setAttribute("adoptMemberPhotoList", adoptMemberPhotoList);
 //			String url = "/front_end/adoptPet/allPetPhoto.jsp";	
-			req.setAttribute("adoptMemberPhotoList",adoptMemberPhotoList );
+			req.setAttribute("adoptMemberPhotoList", adoptMemberPhotoList);
 			String url = "/back_end/adopt/allPetPhoto.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -139,7 +153,19 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 			Timestamp changeTime = new Timestamp(date.getTime());
 			newState = (adoptPetCoverState == 0 ? 1 : 0);
 			AdoptPetPhotoService adoptPetPhotoService = new AdoptPetPhotoService();
-			adoptPetPhotoService.updateAdoptPetPhoto(newState.toString(),changeTime, adoptPetNo);
+			adoptPetPhotoService.updateAdoptPetPhoto(newState.toString(), changeTime, adoptPetNo);
+
+			if (requestURL.equals("/back_end/adopt/searchPetPage.jsp")) {
+				AdoptPetService adoptPetSvc = new AdoptPetService();
+				List<AdoptPetVO> searchPet = adoptPetSvc.getAll();
+				List<AdoptPetVO> searchList = new ArrayList<>();
+				searchList = searchPet.stream()
+						.filter(p -> p.getAdopt_pet_chip().contains(req.getParameter("whichChip")))
+						.collect(Collectors.toList());
+
+				req.setAttribute("searchList", searchList);
+			}
+
 			String url = requestURL;
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);

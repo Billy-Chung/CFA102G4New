@@ -5,20 +5,20 @@
     <%if (rowsPerPage<rowNumber) {%>
 
       <li class="page-item page-indicator">
-        <a class="page-link" href="<%=request.getRequestURI()%>?whichPage=1">
+        <a class="page-link" href="<%=request.getContextPath()%>/adoptPet/addPet.do?whichPage=1&action=searchFromChip&whichChip=<%=request.getParameter("whichChip")%>">
           <i class="la la-angle-left"></i></a>
       </li>
 
 
       <%for (int i=1; i<=pageNumber; i++){%>
-        <li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=<%=i%>">
+        <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/adoptPet/addPet.do?whichPage=<%=i%>&action=searchFromChip&whichChip=<%=request.getParameter("whichChip")%>">
             <%=i%>
           </a></li>
         <%}%>
 
 
           <li class="page-item page-indicator"><a class="page-link"
-              href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>"><i class="la la-angle-right"></i></a></li>
+              href="<%=request.getContextPath()%>/adoptPet/addPet.do?whichPage=<%=pageNumber%>&action=searchFromChip&whichChip=<%=request.getParameter("whichChip")%>"><i class="la la-angle-right"></i></a></li>
 
           <%}%>
 

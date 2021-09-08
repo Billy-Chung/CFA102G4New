@@ -31,8 +31,7 @@
             </a>
             <ul aria-expanded="false">
               <li><a href="./chart-flot.html">預約看寵物</a></li>
-              <li><a href="./chart-morris.html">領養申請</a></li>
-              <li><a href="./chart-chartjs.html">追蹤寵物近況</a></li>
+              <li><a href="./chart-morris.html">領養申請</a></li>        
             </ul>
           </li>
         </ul>

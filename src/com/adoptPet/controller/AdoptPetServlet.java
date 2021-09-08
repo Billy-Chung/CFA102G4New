@@ -344,7 +344,15 @@ public class AdoptPetServlet extends HttpServlet {
 				adoptPetSvc.updateAdoptPet(genMebNo, adoptPetBreeds, adoptPetGender, adoptPetComeForm, adoptPetJoinDate,
 						adoptPetChip, adoptPetJoinReason, captureAddress, adoptPetSterilization, containNumber,
 						adoptPetColor, adoptPetState, adoptPetNo);
+				if (requestURL.equals("/back_end/adopt/searchPetPage.jsp")) {
+					List<AdoptPetVO> searchPet = adoptPetSvc.getAll();
+					List<AdoptPetVO> searchList = new ArrayList<>();
+					searchList = searchPet.stream()
+							.filter(p -> p.getAdopt_pet_chip().contains(req.getParameter("whichChip")))
+							.collect(Collectors.toList());
 
+					req.setAttribute("searchList", searchList);
+				}
 				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
@@ -493,6 +501,16 @@ public class AdoptPetServlet extends HttpServlet {
 						adoptPetChip, adoptPetJoinReason, captureAddress, adoptPetSterilization, containNumber,
 						adoptPetColor, adoptPetState.toString(), adoptPetNo);
 
+				if (requestURL.equals("/back_end/adopt/searchPetPage.jsp")) {
+					List<AdoptPetVO> searchPet = adoptPetSvc.getAll();
+					List<AdoptPetVO> searchList = new ArrayList<>();
+					searchList = searchPet.stream()
+							.filter(p -> p.getAdopt_pet_chip().contains(req.getParameter("whichChip")))
+							.collect(Collectors.toList());
+
+					req.setAttribute("searchList", searchList);
+				}
+
 				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
@@ -505,24 +523,23 @@ public class AdoptPetServlet extends HttpServlet {
 		}
 
 		if (("searchFromChip").equals(action)) {
+		
 			Map<String, String> errorMsgs = new LinkedHashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			try {
+//			try {
 				String searchWord = req.getParameter("whichChip");
-				
-				if (searchWord.trim().length() == 0) {					
+
+				if (searchWord.trim().length() == 0) {
 					errorMsgs.put("seachFile", "搜尋的晶片號碼請勿留空!!");
 				}
-				
-				if (!errorMsgs.isEmpty()) {				
+
+				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
 					failureView.forward(req, res);
 					return;
 				}
-				
-				
-				
+
 				AdoptPetService adoptPetSvc = new AdoptPetService();
 				List<AdoptPetVO> searchPet = adoptPetSvc.getAll();
 				List<AdoptPetVO> searchList = new ArrayList<>();
@@ -532,11 +549,11 @@ public class AdoptPetServlet extends HttpServlet {
 				String url = "/back_end/adopt/searchPetPage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
-			} catch (Exception e) {
-				errorMsgs.put("Exception", e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.put("Exception", e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 
 	}

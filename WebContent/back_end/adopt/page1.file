@@ -19,7 +19,6 @@
 %>
 
 <%  try {
-System.out.println(request.getParameter("whichPage"));
        whichPage = Integer.parseInt(request.getParameter("whichPage"));
        pageIndex=pageIndexArray[whichPage-1];
     } catch (NumberFormatException e) { 

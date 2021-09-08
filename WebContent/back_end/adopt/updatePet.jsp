@@ -228,8 +228,9 @@
 											value="<%=request.getParameter("requestURL")%>">
 										<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
 										<input type="hidden" name="whichPage"
-											value="<%=request.getParameter("whichPage")%>">
-										<!--只用於:istAllEmp.jsp-->
+											value="<%=request.getParameter("whichPage")%>"> <input
+											type="hidden" name="whichChip"
+											value="<%=request.getParameter("whichChip")%>">
 
 										<div class="mb-3 row myright">
 											<div class="col-sm-10">

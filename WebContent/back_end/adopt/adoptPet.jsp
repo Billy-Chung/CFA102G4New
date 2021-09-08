@@ -7,7 +7,7 @@
 
 <%
 	AdoptPetDAO dao = new AdoptPetDAO();
-	List<AdoptPetVO> list = dao.findByAdoptMebNo(2);
+	List<AdoptPetVO> list = dao.getAllAdoptPet();
 	pageContext.setAttribute("list", list);
 %>
 

@@ -150,6 +150,7 @@
 										<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
 										<input type="hidden" name="whichPage"
 											value="<%=request.getParameter("whichPage")%>">
+											
 
 
 										<c:if test="${list.adopt_pet_cover_state == 0}">

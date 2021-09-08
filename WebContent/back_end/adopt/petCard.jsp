@@ -46,6 +46,8 @@
 									<!--送出本網頁的路徑給Controller-->
 									<input type="hidden" name="whichPage" value="<%=whichPage%>">
 									<!--送出當前是第幾頁給Controller-->
+									<input type="hidden" name="whichChip"
+										value="<%=request.getParameter("whichChip")%>">
 
 									<button type="submit"
 										class="btn btn-rounded btn-outline-secondary">
@@ -89,6 +91,8 @@
 									<!--送出本網頁的路徑給Controller-->
 									<input type="hidden" name="whichPage" value="<%=whichPage%>">
 									<!--送出當前是第幾頁給Controller-->
+									<input type="hidden" name="whichChip"
+										value="<%=request.getParameter("whichChip")%>">
 
 									<c:if test="${AdoptPetVO.adopt_pet_state == 0}">
 										<button type="submit"
@@ -139,6 +143,8 @@
 									<!--送出本網頁的路徑給Controller-->
 									<input type="hidden" name="whichPage" value="<%=whichPage%>">
 									<!--送出當前是第幾頁給Controller-->
+									<input type="hidden" name="whichChip"
+										value="<%=request.getParameter("whichChip")%>">
 									<button type="submit"
 										class="btn btn-rounded btn-outline-warning">
 										<span class="btn-icon-start text-warning"><i
