@@ -111,8 +111,8 @@
                 <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
                   <img src="<%=request.getContextPath()%>/back_end/back_CSS/images/profile/pic1.jpg" alt="">
                   <div class="header-info ms-3">
-                    <span>John Doe</span>
-                    <small>Superadmin</small>
+                    <span>${admin.adopt_meb_name}</span>
+                    <small>${admin.adopt_meb_email}</small>
                   </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
@@ -134,7 +134,7 @@
                     </svg>
                     <span class="ms-2">google信箱 </span>
                   </a>
-                  <a href="#" class="dropdown-item ai-icon">
+                  <a href="<%=request.getContextPath()%>/loginhandler?action=logout" class="dropdown-item ai-icon">
                     <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18"
                       viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                       stroke-linejoin="round">

@@ -28,9 +28,9 @@ public class LoginFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
-		Object account = session.getAttribute("account");
+		Object admin = session.getAttribute("admin");
 		
-		if(account == null) {
+		if(admin == null) {
 			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath()+"/back_end/login/login.jsp");
 			return;
