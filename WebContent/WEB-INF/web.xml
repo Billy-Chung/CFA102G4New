@@ -34,6 +34,15 @@
   	<servlet-name>AdoptPetPhoto</servlet-name>
   	<url-pattern>/adoptPet/addPetPhoto.do</url-pattern>
   </servlet-mapping> 
+  
+  <servlet>
+  	<servlet-name>AdoptMeb</servlet-name>
+  	<servlet-class>com.adoptMember.controller.AdoptMemberServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AdoptMeb</servlet-name>
+  	<url-pattern>/adoptMeb/adoptMeb.do</url-pattern>
+  </servlet-mapping> 
  
  <servlet>
   	<servlet-name>promotions</servlet-name>

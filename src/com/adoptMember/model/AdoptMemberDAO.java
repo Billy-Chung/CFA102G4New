@@ -247,6 +247,7 @@ public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 		try {
 			while (rs.next()) {
 				AdoptMemberVO adoptMember = new AdoptMemberVO();
+				adoptMember.setAdopt_meb_no(rs.getInt("ADOPT_MEB_NO"));
 				adoptMember.setAdopt_meb_name(rs.getString("ADOPT_MEB_NAME"));
 				adoptMember.setAdopt_meb_comment(rs.getString("ADOPT_MEB_COMMENT"));
 				adoptMember.setAdopt_meb_photo(rs.getBytes("ADOPT_MEB_PHOTO"));
