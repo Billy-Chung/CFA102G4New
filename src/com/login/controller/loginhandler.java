@@ -45,9 +45,9 @@ public class loginhandler extends HttpServlet {
 			Map<String, String> errorMsgs = new LinkedHashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			List<AdoptMemberVO> passMeb = allowUser(account, password);
-			if (passMeb.size() == 0) {				
+			if (passMeb.size() == 0) {			
 				errorMsgs.put("errorPhoto", "帳號密碼錯誤，請重新輸入!");
-				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath() +"/back_end/login/login.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/login/login.jsp");
 				failureView.forward(req, res);
 				return;
 			} else {
