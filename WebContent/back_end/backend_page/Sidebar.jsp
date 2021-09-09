@@ -20,8 +20,8 @@
             </a>
             <ul aria-expanded="false">
               <li><a href="<%=request.getContextPath()%>/adoptMeb/adoptMeb.do?action=gotoUpdate&adoptMebNo=${admin.adopt_meb_no}">機構資訊修改</a></li>
-              <li><a href="./app-profile.html">最新消息管理</a></li>
-              <li><a href="./post-details.html">可預約時段修改</a></li>
+              <li><a href="#">最新消息管理</a></li>
+              <li><a href="<%=request.getContextPath()%>/adoptMeb/adoptMeb.do?action=gotoUpdateTime&adoptMebNo=${admin.adopt_meb_no}">可預約時段修改</a></li>
 
             </ul>
           </li>

@@ -262,9 +262,9 @@
 		</div>
 	</div>
 
-	</div>
+
 	<%@ include file="../backend_page/footer.jsp"%>
-	</div>
+
 	<script>
 		$('#isChange').on('change', function(e) {
 			const file = this.files[0];

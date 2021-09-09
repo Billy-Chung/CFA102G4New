@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -35,6 +36,16 @@ public class AdoptMemberServlet extends HttpServlet {
 			AdoptMemberVO adoptMemberVO = adoptMemberSvc.findByAdoptMebNoPK(adoptMebNo);		
 			req.setAttribute("adoptMemberVO", adoptMemberVO); 
 			String url = "/back_end/adoptMember/adoptMember.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		}		
+//		還沒寫好
+		if(("gotoUpdateTime").equals(action)) {			
+			Integer adoptMebNo = new Integer(req.getParameter("adoptMebNo"));
+			AdoptMemberService adoptMemberSvc = new AdoptMemberService();
+			AdoptMemberVO adoptMemberVO = adoptMemberSvc.findByAdoptMebNoPK(adoptMebNo);		
+			req.setAttribute("adoptMemberVO", adoptMemberVO); 
+			String url = "/back_end/adoptMember/adoptMemberTime.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -184,6 +195,49 @@ public class AdoptMemberServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 
+		}
+		
+		
+		if ("updateMebTime".equals(action)) {	
+			StringBuilder adoptMebHoliday = new StringBuilder();
+			String [] ifDay = req.getParameterValues("ifDay");		
+			for(int d = 1; d < 8; d++) {
+				String s=Integer.toString(d);
+				if(Arrays.stream(ifDay).anyMatch(s::equals)) {
+					adoptMebHoliday.append(1);
+				}else {
+					adoptMebHoliday.append(0);
+				}
+			}				
+			StringBuilder adoptMebLimit = new StringBuilder();			
+			for(int i = 0; i <24;i++) {
+				adoptMebLimit.append(req.getParameter("time"+i)) ;
+			}
+			Integer PK = new Integer(req.getParameter("adoptMebNo"));
+			AdoptMemberService adoptMemberSvc = new AdoptMemberService();
+			AdoptMemberVO mebData = adoptMemberSvc.findByAdoptMebNoPK(PK);
+			String name = mebData.getAdopt_meb_name();
+			String comment = mebData.getAdopt_meb_comment();
+			byte [] photo = mebData.getAdopt_meb_photo();
+			String address = mebData.getAdopt_meb_address();
+			String phone = mebData.getAdopt_meb_phone();
+			String email = mebData.getAdopt_meb_email();
+			String accoun = mebData.getAdopt_meb_account();
+			String password = mebData.getAdopt_meb_password();
+			String state = mebData.getAdopt_meb_state();
+			String auth = mebData.getAdopt_meb_auth();				
+			String adoptMebHolidays = adoptMebHoliday.toString();
+			String adoptMebLimits = adoptMebLimit.toString();
+			
+			adoptMemberSvc.updateAdoptMember(name, comment, photo, address, phone,
+					email, accoun, password, state, auth, adoptMebHolidays,
+					adoptMebLimits, PK);
+		
+			AdoptMemberVO newMebData = adoptMemberSvc.findByAdoptMebNoPK(PK);
+			req.setAttribute("adoptMemberVO", newMebData);
+			String url = "/back_end/adoptMember/adoptMemberTime.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
 		}
 
 	}
