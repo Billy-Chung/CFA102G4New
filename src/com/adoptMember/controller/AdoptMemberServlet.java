@@ -39,7 +39,7 @@ public class AdoptMemberServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}		
-//		還沒寫好
+
 		if(("gotoUpdateTime").equals(action)) {			
 			Integer adoptMebNo = new Integer(req.getParameter("adoptMebNo"));
 			AdoptMemberService adoptMemberSvc = new AdoptMemberService();

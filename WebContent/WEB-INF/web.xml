@@ -43,6 +43,17 @@
   	<servlet-name>AdoptMeb</servlet-name>
   	<url-pattern>/adoptMeb/adoptMeb.do</url-pattern>
   </servlet-mapping> 
+  
+   <servlet>
+  	<servlet-name>petClass</servlet-name>
+  	<servlet-class>com.petClass.controller.PetClassServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>petClass</servlet-name>
+  	<url-pattern>/petClass/petClass.do</url-pattern>
+  </servlet-mapping> 
+  
+  
  
  <servlet>
   	<servlet-name>promotions</servlet-name>
