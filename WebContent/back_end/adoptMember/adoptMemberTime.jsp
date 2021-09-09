@@ -50,6 +50,9 @@
 	height: 30%;
 	margin-left: 30%;
 }
+.scroll{
+	overflow:auto;
+}
 </style>
 
 </head>
@@ -92,330 +95,643 @@
 					<div class="row page-titles">
 						<a
 							href="<%=request.getContextPath()%>/back_end/adopt/adoptPet.jsp"><button
-								type="button" class="btn light btn-dark">
+								type="button" class="btn light btn-dark ">
 								回首頁<span class="btn-icon-end"><i class="fa fa-star"></i></span>
 							</button></a>
 					</div>
-					<form>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">凌晨12點</label>
-								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
+					<div class="card scroll ">
+						<div class="card-header">
+							<h4 class="card-title">可預約時段修改</h4>
 						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">凌晨1點</label>
+						<div class="card-body">
+							<form>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">凌晨12點-凌晨1點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">凌晨2點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">凌晨1點-凌晨2點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">凌晨3點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">凌晨2點-凌晨3點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">凌晨4點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">凌晨3點-凌晨4點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" placeholder="請輸入該時段上限">
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">凌晨5點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">凌晨4點-凌晨5點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">早上6點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">凌晨5點-早上6點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">早上7點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">早上6點-早上7點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">早上8點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">早上7點-早上8點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">早上9點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">早上8點-早上9點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">早上10點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">早上9點-早上10點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">早上11點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">早上10點-早上11點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">中午12點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">早上11點-中午12點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="passtextword" class="form-control"
-									placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">下午1點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">中午12點-下午1點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">下午2點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">下午1點-下午2點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">下午3點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">下午2點-下午3點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">下午4點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">下午3點-下午4點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">下午5點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">下午4點-下午5點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">晚上6點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">下午5點-晚上6點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">晚上7點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">晚上6點-晚上7點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">晚上8點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">晚上7點-晚上8點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">晚上9點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">晚上8點-晚上9點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">晚上10點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">晚上9點-晚上10點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col-xl-4 col-xxl-6 col-6">
-								<div class="form-check custom-checkbox mb-3 checkbox-success">
-									<input type="checkbox" class="form-check-input" checked
-										id="customCheckBox3" required> <label
-										class="form-check-label" for="customCheckBox3">晚上11點</label>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">晚上10點-晚上11點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" placeholder="請輸入該時段上限">
-							</div>
-						</div>
+								<div class="mb-3 row">
+									<div class="col-xl-4 col-xxl-6 col-6">
+										<div class="form-check custom-checkbox mb-3 checkbox-success">
+											<input type="checkbox" class="form-check-input" checked
+												id="customCheckBox3" required>
+											<h4 class="form-check-label">晚上11點-凌晨12點</h4>
+										</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="mb-3 ">
+											<h5 class="form-label">該時段預約人數上限:</h5>
+											<select class="default-select  form-control wide">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+												<option>9</option>
+											</select>
+										</div>
+									</div>
+								</div>
 
-						<div class="mb-3 row myright">
-							<div class="col-sm-10">
-								<button type="submit" class="btn light btn-secondary">送出修改</button>
-							</div>
+								<div class="mb-3 row  myright">
+									<div class="col-sm-10">
+										<button type="submit" class="btn light btn-secondary">送出修改</button>
+									</div>
+								</div>
+								
+							</form>
 						</div>
-					</form>
-
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
 
-
 	<%@ include file="../backend_page/footer.jsp"%>
-	</div>
-	<script>
-		$('#isChange').on('change', function(e) {
-			const file = this.files[0];
-
-			const fr = new FileReader();
-			fr.onload = function(e) {
-				console.log(111);
-				$('#isChangePhoto').attr('src', e.target.result);
-			};
-			// 使用 readAsDataURL 將圖片轉成 Base64
-			fr.readAsDataURL(file);
-		});
-	</script>
 
 
 
