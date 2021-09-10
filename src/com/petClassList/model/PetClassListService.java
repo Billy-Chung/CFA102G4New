@@ -1,5 +1,6 @@
 package com.petClassList.model;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class PetClassListService {
@@ -10,14 +11,14 @@ public class PetClassListService {
 	}
 
 	public PetClassListVO insertPetClassList(Integer adopt_pat_no, Integer pet_class_no, Integer gen_meb_pet_no,
-			String pet_class_list_state) {
+			String pet_class_list_state, Connection con) {
 		PetClassListVO petClassList = new PetClassListVO();
 
 		petClassList.setAdopt_pat_no(adopt_pat_no);
 		petClassList.setPet_class_no(pet_class_no);
 		petClassList.setGen_meb_pet_no(gen_meb_pet_no);
 		petClassList.setPet_class_list_state(pet_class_list_state);
-		petClassList = dao.insert(petClassList);
+		petClassList = dao.insert(petClassList,con);
 
 		return petClassList;
 	}

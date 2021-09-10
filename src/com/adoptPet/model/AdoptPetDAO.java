@@ -13,10 +13,11 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.petClassList.model.PetClassListDAO;
+import com.petClassList.model.PetClassListService;
 
 public class AdoptPetDAO implements AdoptPet_interface {
 
-	
 	private static final String INSERT_SQL = "insert into ADOPT_PET (ADOPT_MEB_NO,GEN_MEB_NO,ADOPT_PET_BREEDS,ADOPT_PET_GENDER,ADOPT_PET_COME_FORM,ADOPT_PET_JOIN_DATE,ADOPT_PET_CHIP,ADOPT_PET_JOIN_REASON,CAPTURE_ADDRESS,ADOPT_PET_STERILIZATION,CONTAIN_NUMBER,ADOPT_PET_COLOR,ADOPT_PET_STATE) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE_SQL = "update ADOPT_PET set GEN_MEB_NO = ?, ADOPT_PET_BREEDS = ?, ADOPT_PET_GENDER = ?, ADOPT_PET_COME_FORM = ?, ADOPT_PET_JOIN_DATE = ?, ADOPT_PET_CHIP = ?, ADOPT_PET_JOIN_REASON = ?, CAPTURE_ADDRESS = ?, ADOPT_PET_STERILIZATION = ?, CONTAIN_NUMBER = ?, ADOPT_PET_COLOR = ?, ADOPT_PET_STATE = ? where ADOPT_PET_NO = ?";
 	private static final String FIND_BY_PK = "SELECT * FROM ADOPT_PET WHERE ADOPT_PET_NO = ?";
@@ -34,19 +35,35 @@ public class AdoptPetDAO implements AdoptPet_interface {
 	}
 
 	@Override
-	public AdoptPetVO insert(AdoptPetVO adoptPet) {
+	public AdoptPetVO insert(AdoptPetVO adoptPet, String[] petClassNoBox) {
 		Connection con = null;
 		try {
 			con = ds.getConnection();
-			String[] cols = { "adopt_meb_no" };
+			con.setAutoCommit(false);
+			String[] cols = { "ADOPT_PET_NO" };
 			PreparedStatement pstmt = createInsertPreparedStatement(con, adoptPet, INSERT_SQL, cols);
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
 				int key = rs.getInt(1);
-				adoptPet.setAdopt_meb_no(key);
+				adoptPet.setAdopt_pet_no(key);
 			}
+
+			PetClassListService petClassListSvc = new PetClassListService();			
+			for (String petClassNo : petClassNoBox) {
+				Integer pNo = new Integer(petClassNo);				
+				petClassListSvc.insertPetClassList(adoptPet.getAdopt_pet_no(), pNo, null, "1",con);
+			}
+			con.commit();
+			con.setAutoCommit(true);
 		} catch (SQLException se) {
+			if (con != null) {
+				try {				
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (con != null) {

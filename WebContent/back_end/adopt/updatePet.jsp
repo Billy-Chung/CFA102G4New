@@ -1,9 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.adoptPet.model.*"%>
+<%@ page import="com.petClassList.model.*"%>
+<%@ page import="com.petClass.model.*"%>
+<%@ page import="java.util.*"%>
 
 <%
 	AdoptPetVO adoptPet2 = (AdoptPetVO) request.getAttribute("adoptPetVO2");
+	PetClassDAO dao = new PetClassDAO();
+	List<PetClassVO> petClass = dao.getAllpetClass();
+	pageContext.setAttribute("petClass", petClass);
 %>
 
 <!DOCTYPE html>
@@ -214,6 +220,44 @@
 													name="adopt_pet_color" placeholder="請填入毛色"
 													value="<%=(adoptPet2 == null) ? "" : adoptPet2.getAdopt_pet_color()%>">
 											</div>
+										</div>
+
+										<div class="mb-3 row">
+											<label class=" col-form-label">寵物分類</label>
+											<c:forEach var="petClass" items="${petClass}">
+												<c:forEach var="thisPetClass" items="${thisPetClass}">
+													<c:if
+														test="${petClass.pet_class_no == thisPetClass.pet_class_no && petClass.pet_class_state != 0}">
+														<div class="col-xl-2 col-xxl-2 col-2 offset-md-3">
+															<div
+																class="form-check custom-checkbox mb-3 checkbox-success">
+																<input type="checkbox" class="form-check-input"
+																	id="petClassNoCheckBox${petClass.pet_class_no}"
+																	name="petClassNo" value="${petClass.pet_class_no}"
+																	checked> <label class="form-check-label"
+																	for="customCheckBox1">${petClass.pet_class_name}
+																</label>
+															</div>
+														</div>
+													</c:if>
+												</c:forEach>
+											</c:forEach>
+											<c:forEach var="allPetClass" items="${allPetClass}">
+												<c:if test="${allPetClass.pet_class_state != 0}">
+													<div class="col-xl-2 col-xxl-2 col-2 offset-md-3">
+														<div
+															class="form-check custom-checkbox mb-3 checkbox-success">
+															<input type="checkbox" class="form-check-input"
+																id="petClassNoCheckBox${allPetClass.pet_class_no}"
+																name="petClassNo" value="${allPetClass.pet_class_no}">
+															<label class="form-check-label" for="customCheckBox${allPetClass.pet_class_no}">${allPetClass.pet_class_name}
+															</label>
+														</div>
+													</div>
+												</c:if>
+											</c:forEach>
+
+
 										</div>
 
 

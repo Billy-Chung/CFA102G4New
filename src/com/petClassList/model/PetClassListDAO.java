@@ -31,29 +31,21 @@ public class PetClassListDAO implements PetClassList_interface {
 	}
 
 	@Override
-	public PetClassListVO insert(PetClassListVO petClassList) {
-		Connection con = null;
-		try {
-			con = ds.getConnection();
-			String[] cols = { "PET_CLASS_LIST_NO" };
-			PreparedStatement pstmt = createInsertPreparedStatement(con, petClassList, INSERT_SQL, cols);
-			pstmt.executeUpdate();
-			ResultSet rs = pstmt.getGeneratedKeys();
-			if (rs.next()) {
-				int key = rs.getInt(1);
-				petClassList.setPet_class_list_no(key);
-			}
+	public PetClassListVO insert(PetClassListVO petClassList,Connection con) {		
+		try {		
+			PreparedStatement pstmt = createInsertPreparedStatement(con, petClassList, INSERT_SQL);
+			pstmt.executeUpdate();			
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-		} finally {
 			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
+				try {					
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured.111 "
+							+ excep.getMessage());
 				}
 			}
-		}
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} 
 		return petClassList;
 	}
 
@@ -128,9 +120,8 @@ public class PetClassListDAO implements PetClassList_interface {
 		return petClassLists;
 	}
 
-	private PreparedStatement createInsertPreparedStatement(Connection con, PetClassListVO petClassList, String SQL,
-			String[] cols) throws SQLException {
-		PreparedStatement pstmt = con.prepareStatement(SQL, cols);
+	private PreparedStatement createInsertPreparedStatement(Connection con, PetClassListVO petClassList, String SQL) throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(SQL);
 		pstmt.setInt(1, petClassList.getAdopt_pat_no());
 		pstmt.setInt(2, petClassList.getPet_class_no());
 		if (petClassList.getGen_meb_pet_no() == null) {

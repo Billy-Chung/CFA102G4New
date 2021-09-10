@@ -1,9 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.adoptPet.model.*"%>
+<%@ page import="com.petClass.model.*"%>
+<%@ page import="java.util.*"%>
 
 <%
 	AdoptPetVO adoptPet = (AdoptPetVO) request.getAttribute("adoptPetVO");
+%>
+<%
+	PetClassDAO dao = new PetClassDAO();
+	List<PetClassVO> petClass = dao.getAllpetClass();
+	pageContext.setAttribute("petClass", petClass);
 %>
 
 <!DOCTYPE html>
@@ -102,17 +109,19 @@
 													name="adopt_pet_breeds" placeholder="請填入領養寵物品種"
 													value="<%=(adoptPet == null) ? "" : adoptPet.getAdopt_pet_breeds()%>">
 											</div>
-										</div>				
-										
+										</div>
+
 										<fieldset class="mb-3">
 											<div class="row">
 												<label class="col-form-label col-sm-3 pt-0">寵物性別</label>
-												<div class="col-sm-9">												
+												<div class="col-sm-9">
 													<div class="form-check">
 														<label class="radio-inline me-3"><input
-															type="radio" id="adopt_pet_genderMan" name="adopt_pet_gender" value="公" > 公</label>
-														<label class="radio-inline me-3"><input
-															type="radio" id="adopt_pet_genderWoman" name="adopt_pet_gender" value="母"> 母</label>
+															type="radio" id="adopt_pet_genderMan"
+															name="adopt_pet_gender" value="公"> 公</label> <label
+															class="radio-inline me-3"><input type="radio"
+															id="adopt_pet_genderWoman" name="adopt_pet_gender"
+															value="母"> 母</label>
 													</div>
 												</div>
 											</div>
@@ -162,21 +171,23 @@
 													name="capture_address" placeholder="請填入捕獲地址"
 													value="<%=(adoptPet == null) ? "" : adoptPet.getCapture_address()%>">
 											</div>
-										</div>					
-										
+										</div>
+
 										<fieldset class="mb-3">
 											<div class="row">
 												<label class="col-form-label col-sm-3 pt-0">是否絕育</label>
-												<div class="col-sm-9">												
+												<div class="col-sm-9">
 													<div class="form-check">
 														<label class="radio-inline me-3"><input
-															type="radio" id="isSterilization" name="adopt_pet_sterilization" value="是" > 是</label>
-														<label class="radio-inline me-3"><input
-															type="radio" id="noSterilization" name="adopt_pet_sterilization" value="否"> 否</label>
+															type="radio" id="isSterilization"
+															name="adopt_pet_sterilization" value="是"> 是</label> <label
+															class="radio-inline me-3"><input type="radio"
+															id="noSterilization" name="adopt_pet_sterilization"
+															value="否"> 否</label>
 													</div>
 												</div>
 											</div>
-										</fieldset>	
+										</fieldset>
 
 										<div class="mb-3 row">
 											<label class="col-sm-3 col-form-label">收容編號</label>
@@ -195,6 +206,25 @@
 													name="adopt_pet_color" placeholder="請填入毛色"
 													value="<%=(adoptPet == null) ? "" : adoptPet.getAdopt_pet_color()%>">
 											</div>
+										</div>
+
+										<div class="mb-3 row">
+											<label class=" col-form-label">寵物分類</label>
+											<c:forEach var="petClass" items="${petClass}">
+												<c:if test="${petClass.pet_class_state == 1}">
+													<div class="col-xl-2 col-xxl-2 col-2 offset-md-3">
+														<div
+															class="form-check custom-checkbox mb-3 checkbox-success">
+															<input type="checkbox" class="form-check-input"
+																id="petClassNoCheckBox" name="petClassNo"
+																value="${petClass.pet_class_no}"> <label
+																class="form-check-label" for="customCheckBox1">${petClass.pet_class_name}
+															</label>
+														</div>
+													</div>
+												</c:if>
+											</c:forEach>
+
 										</div>
 
 
@@ -217,22 +247,28 @@
 		</div>
 		<%@ include file="../backend_page/footer.jsp"%>
 	</div>
-	
-	<script>		
-	if(<%=("公").equals((adoptPet == null) ? "" :adoptPet.getAdopt_pet_gender())%>){		
-		document.getElementById("adopt_pet_genderMan").checked = true;
-		
-	}else if (<%=("母").equals((adoptPet == null) ? "" :adoptPet.getAdopt_pet_gender())%>){	
-		document.getElementById("adopt_pet_genderWoman").checked = true;
-	}	
-	
-	
-	if(<%=("是").equals((adoptPet == null) ? "" :adoptPet.getAdopt_pet_sterilization())%>){
-		document.getElementById("isSterilization").checked = true;		
-	}else if(<%=("否").equals((adoptPet == null) ? "" :adoptPet.getAdopt_pet_sterilization())%>){
-		document.getElementById("noSterilization").checked = true;
-	}
-	
+
+	<script>
+		if (
+	<%=("公").equals((adoptPet == null) ? "" : adoptPet.getAdopt_pet_gender())%>
+		) {
+			document.getElementById("adopt_pet_genderMan").checked = true;
+
+		} else if (
+	<%=("母").equals((adoptPet == null) ? "" : adoptPet.getAdopt_pet_gender())%>
+		) {
+			document.getElementById("adopt_pet_genderWoman").checked = true;
+		}
+
+		if (
+	<%=("是").equals((adoptPet == null) ? "" : adoptPet.getAdopt_pet_sterilization())%>
+		) {
+			document.getElementById("isSterilization").checked = true;
+		} else if (
+	<%=("否").equals((adoptPet == null) ? "" : adoptPet.getAdopt_pet_sterilization())%>
+		) {
+			document.getElementById("noSterilization").checked = true;
+		}
 	</script>
 
 	<script

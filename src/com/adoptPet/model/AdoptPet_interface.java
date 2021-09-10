@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface AdoptPet_interface {
 	
-	public AdoptPetVO insert(AdoptPetVO adoptPet);
+	public AdoptPetVO insert(AdoptPetVO adoptPet,String [] petClassNoBox);
 	
 	public void update(AdoptPetVO adoptPet);
 	

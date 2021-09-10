@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.adoptPet.model.AdoptPetService;
 import com.adoptPet.model.AdoptPetVO;
+import com.petClass.model.PetClassService;
+import com.petClass.model.PetClassVO;
+import com.petClassList.model.PetClassListService;
+import com.petClassList.model.PetClassListVO;
 
 public class AdoptPetServlet extends HttpServlet {
 
@@ -45,7 +49,7 @@ public class AdoptPetServlet extends HttpServlet {
 				String adoptPetNoChinessReg = "^[(a-zA-Z0-9)]*$";
 				String adoptPetColor = req.getParameter("adopt_pet_color");
 				String adoptPetState = req.getParameter("adopt_pet_state");
-
+				String[] petClassNoBox = req.getParameterValues("petClassNo");
 //				領養會員FK
 				try {
 					adoptMebNo = new Integer(req.getParameter("adopt_meb_no").trim());
@@ -165,7 +169,7 @@ public class AdoptPetServlet extends HttpServlet {
 				AdoptPetService adoptPetSvc = new AdoptPetService();
 				adoptPetSvc.insertAdoptPet(adoptMebNo, genMebNo, adoptPetBreeds, adoptPetGender, adoptPetComeForm,
 						adoptPetJoinDate, adoptPetChip, adoptPetJoinReason, captureAddress, adoptPetSterilization,
-						containNumber, adoptPetColor, adoptPetState);
+						containNumber, adoptPetColor, adoptPetState, petClassNoBox);
 
 				String url = "/back_end/adopt/adoptPet.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
@@ -189,14 +193,34 @@ public class AdoptPetServlet extends HttpServlet {
 				/*************************** 2.開始查詢資料 ****************************************/
 				AdoptPetService adoptPetService = new AdoptPetService();
 				AdoptPetVO adoptPetVO = adoptPetService.findByAdoptPetNoPK(adoptMebNo);
+				PetClassListService petClassListService = new PetClassListService();
+			
+				List<PetClassListVO> thisPetClass = petClassListService.findByAdoptPetNo(adoptMebNo);
+				PetClassService petClassService = new PetClassService();
+				List<PetClassVO> allPetClass = petClassService.getAll();
+				List<PetClassVO> myPetClass = new ArrayList();
+
+				for(PetClassVO petClass:allPetClass) {
+					for(PetClassListVO petClassList:thisPetClass) {
+						if(petClass.getPet_class_no() == petClassList.getPet_class_no()) {
+							myPetClass.add(petClass);
+						}
+					}
+				}				
+				allPetClass.removeAll(myPetClass);
+				
+
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				req.setAttribute("adoptPetVO2", adoptPetVO); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("adoptPetVO2", adoptPetVO);	
+				req.setAttribute("allPetClass", allPetClass);					
+				req.setAttribute("thisPetClass", thisPetClass);
 				String url = "/back_end/adopt/updatePet.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
+			
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
 				failureView.forward(req, res);
@@ -523,32 +547,32 @@ public class AdoptPetServlet extends HttpServlet {
 		}
 
 		if (("searchFromChip").equals(action)) {
-		
+
 			Map<String, String> errorMsgs = new LinkedHashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 //			try {
-				String searchWord = req.getParameter("whichChip");
+			String searchWord = req.getParameter("whichChip");
 
-				if (searchWord.trim().length() == 0) {
-					errorMsgs.put("seachFile", "搜尋的晶片號碼請勿留空!!");
-				}
+			if (searchWord.trim().length() == 0) {
+				errorMsgs.put("seachFile", "搜尋的晶片號碼請勿留空!!");
+			}
 
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
-					failureView.forward(req, res);
-					return;
-				}
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
+				failureView.forward(req, res);
+				return;
+			}
 
-				AdoptPetService adoptPetSvc = new AdoptPetService();
-				List<AdoptPetVO> searchPet = adoptPetSvc.getAll();
-				List<AdoptPetVO> searchList = new ArrayList<>();
-				searchList = searchPet.stream().filter(p -> p.getAdopt_pet_chip().contains(searchWord))
-						.collect(Collectors.toList());
-				req.setAttribute("searchList", searchList);
-				String url = "/back_end/adopt/searchPetPage.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				successView.forward(req, res);
+			AdoptPetService adoptPetSvc = new AdoptPetService();
+			List<AdoptPetVO> searchPet = adoptPetSvc.getAll();
+			List<AdoptPetVO> searchList = new ArrayList<>();
+			searchList = searchPet.stream().filter(p -> p.getAdopt_pet_chip().contains(searchWord))
+					.collect(Collectors.toList());
+			req.setAttribute("searchList", searchList);
+			String url = "/back_end/adopt/searchPetPage.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			successView.forward(req, res);
 //			} catch (Exception e) {
 //				errorMsgs.put("Exception", e.getMessage());
 //				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");

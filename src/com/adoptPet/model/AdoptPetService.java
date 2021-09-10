@@ -13,7 +13,7 @@ public class AdoptPetService {
 	public AdoptPetVO insertAdoptPet(Integer adopt_meb_no, Integer gen_meb_no, String adopt_pet_breeds,
 			String adopt_pet_gender, String adopt_pet_come_form, Date adopt_pet_join_date, String adopt_pet_chip,
 			String adopt_pet_join_reason, String capture_address, String adopt_pet_sterilization, String contain_number,
-			String adopt_pet_color, String adopt_pet_state) {
+			String adopt_pet_color, String adopt_pet_state,String[] petClassNoBox) {
 		AdoptPetVO adoptPet = new AdoptPetVO();
 
 		adoptPet.setAdopt_meb_no(adopt_meb_no);
@@ -29,7 +29,7 @@ public class AdoptPetService {
 		adoptPet.setContain_number(contain_number);
 		adoptPet.setAdopt_pet_color(adopt_pet_color);
 		adoptPet.setAdopt_pet_state(adopt_pet_state);
-		adoptPet = dao.insert(adoptPet);
+		adoptPet = dao.insert(adoptPet,petClassNoBox);
 
 		return adoptPet;
 	}
