@@ -118,11 +118,11 @@
 								<h1 class="card-title">寵物分類清單</h1>
 								<button type="button"
 									class="btn btn-rounded btn-outline-success"
-									data-bs-toggle="modal" data-bs-target="#modal1">
+									data-bs-toggle="modal" data-bs-target="#modalNews">
 									<span class="btn-icon-start text-success"><i
 										class="fa fa-upload color-success"></i> </span>新增寵物分類
 								</button>
-								<div class="modal fade bd-example-modal-lg" id="modal1"
+								<div class="modal fade bd-example-modal-lg" id="modalNews"
 									tabindex="-1" role="dialog" aria-hidden="true">
 									<div class="modal-dialog modal-lg">
 										<div class="modal-content">
