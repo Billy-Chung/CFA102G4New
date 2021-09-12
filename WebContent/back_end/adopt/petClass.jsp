@@ -116,7 +116,8 @@
 						<div class="card">
 							<div class="card-header">
 								<h1 class="card-title">寵物分類清單</h1>
-								<button type="button" class="btn btn-rounded btn-outline-success"
+								<button type="button"
+									class="btn btn-rounded btn-outline-success"
 									data-bs-toggle="modal" data-bs-target="#modal1">
 									<span class="btn-icon-start text-success"><i
 										class="fa fa-upload color-success"></i> </span>新增寵物分類
@@ -133,13 +134,18 @@
 											<div class="card ">
 												<div class="card-body">
 													<FORM
-														action="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do"
+														action="<%=request.getContextPath()%>/petClass/petClass.do"
 														method="post">
 
 														<div class="mb-3">
 															<input type="text" class="form-control input-default "
-																placeholder="input-default">
+																placeholder="請輸入分類名稱" name="petClassName">
 														</div>
+														<input type="hidden" name="petClassState" value="1">
+														<input type="hidden" name="action" value="newPetClass"><input
+															type="hidden" name="requestURL"
+															value="<%=request.getServletPath()%>">											
+														
 
 
 														<div class="modal-footer ">

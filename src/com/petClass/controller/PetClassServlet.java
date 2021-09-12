@@ -39,7 +39,7 @@ public class PetClassServlet extends HttpServlet {
 				String noSignReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]*$";
 				
 				if (petClassName.trim().length() == 0) {
-					errorMsgs.put("petClassName", "請輸入分類名稱!!");
+					errorMsgs.put("petClassName", "修改時請輸入分類名稱!!");
 				} else if (!petClassName.trim().matches(noSignReg)) {
 					errorMsgs.put("petClassName", "分類名稱: 只能是中英文 !!");
 				}			
@@ -84,7 +84,43 @@ public class PetClassServlet extends HttpServlet {
 			String url = requestURL;
 			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);
-		}		
+		}	
+		
+		if("newPetClass".equals(action)) {
+			Map<String, String> errorMsgs = new LinkedHashMap<>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				String requestURL = req.getParameter("requestURL");
+				String petClassName = req.getParameter("petClassName");
+				String petClassState = req.getParameter("petClassState");
+				String noSignReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]*$";
+				
+				if (petClassName.trim().length() == 0) {
+					errorMsgs.put("petClassName", "新增時請輸入分類名稱!!");
+				} else if (!petClassName.trim().matches(noSignReg)) {
+					errorMsgs.put("petClassName", "分類名稱: 只能是中英文 !!");
+				}			
+		
+				
+				if (!errorMsgs.isEmpty()) {				
+					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/petClass.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				PetClassService petClassSvc = new PetClassService();
+				petClassSvc.insertPetClass(petClassName,petClassState);
+				String url = requestURL;
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
+				successView.forward(req, res);
+				
+			}catch(Exception e){
+				errorMsgs.put("Exception", e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/petClass.jsp");
+				failureView.forward(req, res);
+			}
+			
+		}
 		
 	}
 }
