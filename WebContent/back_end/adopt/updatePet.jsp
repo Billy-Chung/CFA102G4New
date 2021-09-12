@@ -103,8 +103,7 @@
 								<div class="basic-form">
 									<form method="POST"
 										action="<%=request.getContextPath()%>/adoptPet/addPet.do">
-										<input type="hidden" name="adopt_meb_no" value="2"> <input
-											type="hidden" name="gen_meb_no" value="">
+										<input type="hidden" name="adopt_meb_no" value="${admin.adopt_meb_no}"> 
 
 										<div class="mb-3 row">
 											<label class="col-sm-3 col-form-label">新增領養會員</label>
@@ -114,6 +113,7 @@
 													value="<%=(adoptPet2.getGen_meb_no() == 0) ? "" : adoptPet2.getGen_meb_no()%>">
 											</div>
 										</div>
+										
 
 										<div class="mb-3 row">
 											<label class="col-sm-3 col-form-label">領養寵物品種</label>
@@ -227,7 +227,7 @@
 											<c:forEach var="petClass" items="${petClass}">
 												<c:forEach var="thisPetClass" items="${thisPetClass}">
 													<c:if
-														test="${petClass.pet_class_no == thisPetClass.pet_class_no && petClass.pet_class_state != 0}">
+														test="${petClass.pet_class_no == thisPetClass.pet_class_no && petClass.pet_class_state != 0 && thisPetClass.pet_class_list_state != 0}">
 														<div class="col-xl-2 col-xxl-2 col-2 offset-md-3">
 															<div
 																class="form-check custom-checkbox mb-3 checkbox-success">
@@ -235,7 +235,21 @@
 																	id="petClassNoCheckBox${petClass.pet_class_no}"
 																	name="petClassNo" value="${petClass.pet_class_no}"
 																	checked> <label class="form-check-label"
-																	for="customCheckBox1">${petClass.pet_class_name}
+																	for="petClassNoCheckBox${petClass.pet_class_no}">${petClass.pet_class_name}
+																</label>
+															</div>
+														</div>
+													</c:if>
+													<c:if
+														test="${petClass.pet_class_no == thisPetClass.pet_class_no && petClass.pet_class_state != 0 && thisPetClass.pet_class_list_state != 1}">
+														<div class="col-xl-2 col-xxl-2 col-2 offset-md-3">
+															<div
+																class="form-check custom-checkbox mb-3 checkbox-success">
+																<input type="checkbox" class="form-check-input"
+																	id="petClassNoCheckBox${petClass.pet_class_no}"
+																	name="petClassNo" value="${petClass.pet_class_no}"
+																	> <label class="form-check-label"
+																	for="petClassNoCheckBox${petClass.pet_class_no}">${petClass.pet_class_name}
 																</label>
 															</div>
 														</div>
@@ -250,7 +264,7 @@
 															<input type="checkbox" class="form-check-input"
 																id="petClassNoCheckBox${allPetClass.pet_class_no}"
 																name="petClassNo" value="${allPetClass.pet_class_no}">
-															<label class="form-check-label" for="customCheckBox${allPetClass.pet_class_no}">${allPetClass.pet_class_name}
+															<label class="form-check-label" for="petClassNoCheckBox${allPetClass.pet_class_no}">${allPetClass.pet_class_name}
 															</label>
 														</div>
 													</div>

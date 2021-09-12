@@ -9,6 +9,8 @@ public interface PetClassList_interface {
 	
 	public void update(PetClassListVO petClassList);
 	
+	public void updateNewClass(PetClassListVO petClassList);	
+	
 	public List<PetClassListVO> findByAdoptPetNo(Integer adopt_pat_no);	
 	
 	public List<PetClassListVO> findByPetClassNo(Integer pet_class_no);	
