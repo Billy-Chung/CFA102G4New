@@ -13,7 +13,7 @@
 						href="<%=request.getContextPath()%>/back_end/adopt/adoptPet.jsp">寵物清單</a></li>
 					<li><a
 						href="<%=request.getContextPath()%>/back_end/adopt/addPet.jsp">新增寵物</a></li>
-					<li><a href="<%=request.getContextPath()%>/back_end/adopt/petClass.jsp">寵物分類清單</a></li>
+					<li><a href="<%=request.getContextPath()%>/back_end/adopt/petClass.jsp">寵物分類清單</a></li>					
 
 				</ul></li>
 			<li><a class="has-arrow ai-icon" href="javascript:void()"

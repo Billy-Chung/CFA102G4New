@@ -116,6 +116,43 @@
 						<div class="card">
 							<div class="card-header">
 								<h1 class="card-title">寵物分類清單</h1>
+								<button type="button" class="btn btn-rounded btn-outline-success"
+									data-bs-toggle="modal" data-bs-target="#modal1">
+									<span class="btn-icon-start text-success"><i
+										class="fa fa-upload color-success"></i> </span>新增寵物分類
+								</button>
+								<div class="modal fade bd-example-modal-lg" id="modal1"
+									tabindex="-1" role="dialog" aria-hidden="true">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">新分類!!</h5>
+												<button type="button" class="btn-close"
+													data-bs-dismiss="modal"></button>
+											</div>
+											<div class="card ">
+												<div class="card-body">
+													<FORM
+														action="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do"
+														method="post">
+
+														<div class="mb-3">
+															<input type="text" class="form-control input-default "
+																placeholder="input-default">
+														</div>
+
+
+														<div class="modal-footer ">
+															<button type="submit" class="btn btn-danger light"
+																data-bs-dismiss="modal">關閉</button>
+															<button type="submit" class="btn light btn-secondary ">新增分類</button>
+														</div>
+													</FORM>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
