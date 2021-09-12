@@ -373,10 +373,28 @@ public class AdoptPetServlet extends HttpServlet {
 				adoptPet.setAdopt_pet_color(adoptPetColor);
 				adoptPet.setAdopt_pet_state(adoptPetState);
 				adoptPet.setAdopt_pet_no(adoptPetNo);
+				
+				PetClassListService petClassListService = new PetClassListService();
+//				List<PetClassListVO> thisFailPetClass = petClassListService.findByAdoptPetNo(adoptPetNo);
+				int[] intPetClassBox = Arrays.asList(petClassNoBox).stream().mapToInt(Integer::parseInt).toArray();
+				PetClassService petClassService = new PetClassService();
+				List<PetClassVO> allPetClass = petClassService.getAll();
+				List<PetClassVO> myPetClass = new ArrayList<>();
+
+				for (PetClassVO petClass : allPetClass) {
+					for (int petClassList : intPetClassBox) {
+						if (petClass.getPet_class_no() == petClassList) {
+							myPetClass.add(petClass);
+						}
+					}
+				}
+				allPetClass.removeAll(myPetClass);
 
 //				資料錯誤return
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("adoptPetVO2", adoptPet);
+					req.setAttribute("allPetClass", allPetClass);
+					req.setAttribute("checkPetClass", myPetClass);
 					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/updatePet.jsp");
 					failureView.forward(req, res);
 					return;
@@ -386,7 +404,7 @@ public class AdoptPetServlet extends HttpServlet {
 				adoptPetSvc.updateAdoptPet(genMebNo, adoptPetBreeds, adoptPetGender, adoptPetComeForm, adoptPetJoinDate,
 						adoptPetChip, adoptPetJoinReason, captureAddress, adoptPetSterilization, containNumber,
 						adoptPetColor, adoptPetState, adoptPetNo);
-				PetClassListService petClassListService = new PetClassListService();
+			
 				List<PetClassListVO> thisPetClass = petClassListService.findByAdoptPetNo(adoptPetNo);
 				List<Integer> allOkPetClass = Arrays.stream(petClassNoBox).map(Integer::parseInt)
 						.collect(Collectors.toList());				
