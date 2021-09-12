@@ -26,7 +26,7 @@
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false">最新消息管理</a>
 						<ul aria-expanded="false">
-							<li><a href="./email-compose.html">最新消息清單</a></li>
+							<li><a href="<%=request.getContextPath()%>/back_end/adoptMember/adoptMemberNews.jsp">最新消息清單</a></li>
 							<li><a href="./email-inbox.html">新增最新消息</a></li>
 						</ul></li>
 					<li><a class="has-arrow" href="javascript:void()"
