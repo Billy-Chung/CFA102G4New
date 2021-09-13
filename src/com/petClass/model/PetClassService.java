@@ -19,6 +19,7 @@ public class PetClassService {
 		return petClass;
 	}
 
+
 	public void updatePetClass(String pet_class_name, String pet_class_state, Integer pet_class_no) {
 		PetClassVO petClass = new PetClassVO();
 

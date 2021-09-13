@@ -22,6 +22,19 @@ public class PetClassListService {
 
 		return petClassList;
 	}
+	
+	public void updateNewClass(Integer adopt_pat_no, Integer pet_class_no, Integer gen_meb_pet_no,
+			String pet_class_list_state) {
+		PetClassListVO petClassList = new PetClassListVO();
+
+		petClassList.setAdopt_pat_no(adopt_pat_no);
+		petClassList.setPet_class_no(pet_class_no);
+		petClassList.setGen_meb_pet_no(gen_meb_pet_no);
+		petClassList.setPet_class_list_state(pet_class_list_state);
+		dao.updateNewClass(petClassList);	
+	}
+	
+	
 
 	public void updatePetClassList(Integer gen_meb_pet_no, String pet_class_list_state, Integer pet_class_list_no) {
 

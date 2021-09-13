@@ -160,7 +160,26 @@ public class AdoptPetServlet extends HttpServlet {
 
 //				資料錯誤return
 				if (!errorMsgs.isEmpty()) {
+					PetClassService petClassSvc = new PetClassService();
+					List<PetClassVO> petClass = petClassSvc.getAll();
+					List<PetClassVO> allPetClass = petClassSvc.getAll();
+					int[] intPetClassNoBox = Arrays.asList(petClassNoBox).stream().mapToInt(Integer::parseInt)
+							.toArray();
+					List<PetClassVO> isCheck = new ArrayList<>();
+					;
+					for (PetClassVO petClassVO : petClass) {
+						for (int checkNo : intPetClassNoBox) {
+							if (petClassVO.getPet_class_no() == checkNo) {
+								isCheck.add(petClassVO);
+							}
+						}
+					}
+					petClass.removeAll(isCheck);
+
 					req.setAttribute("adoptPetVO", adoptPet);
+					req.setAttribute("petClassNoBox", intPetClassNoBox);
+					req.setAttribute("myNoCheckPetClass", petClass);
+					req.setAttribute("allPetClass", allPetClass);
 					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/addPet.jsp");
 					failureView.forward(req, res);
 					return;
@@ -194,25 +213,24 @@ public class AdoptPetServlet extends HttpServlet {
 				AdoptPetService adoptPetService = new AdoptPetService();
 				AdoptPetVO adoptPetVO = adoptPetService.findByAdoptPetNoPK(adoptMebNo);
 				PetClassListService petClassListService = new PetClassListService();
-			
+
 				List<PetClassListVO> thisPetClass = petClassListService.findByAdoptPetNo(adoptMebNo);
 				PetClassService petClassService = new PetClassService();
 				List<PetClassVO> allPetClass = petClassService.getAll();
 				List<PetClassVO> myPetClass = new ArrayList<>();
 
-				for(PetClassVO petClass:allPetClass) {
-					for(PetClassListVO petClassList:thisPetClass) {
-						if(petClass.getPet_class_no() == petClassList.getPet_class_no()) {
+				for (PetClassVO petClass : allPetClass) {
+					for (PetClassListVO petClassList : thisPetClass) {
+						if (petClass.getPet_class_no() == petClassList.getPet_class_no()) {
 							myPetClass.add(petClass);
 						}
 					}
-				}				
+				}
 				allPetClass.removeAll(myPetClass);
-				
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				req.setAttribute("adoptPetVO2", adoptPetVO);	
-				req.setAttribute("allPetClass", allPetClass);					
+				req.setAttribute("adoptPetVO2", adoptPetVO);
+				req.setAttribute("allPetClass", allPetClass);
 				req.setAttribute("thisPetClass", thisPetClass);
 				String url = "/back_end/adopt/updatePet.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
@@ -220,7 +238,7 @@ public class AdoptPetServlet extends HttpServlet {
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
-			
+
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
 				failureView.forward(req, res);
@@ -236,7 +254,7 @@ public class AdoptPetServlet extends HttpServlet {
 			try {
 
 				Integer adoptPetNo = new Integer(req.getParameter("adopt_pet_no"));
-				Integer genMebNo = null;
+				Integer genMebNo;
 				String adoptPetBreeds = req.getParameter("adopt_pet_breeds");
 				String adoptPetNoSignReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]*$";
 				String adoptPetGender = req.getParameter("adopt_pet_gender");
@@ -251,11 +269,11 @@ public class AdoptPetServlet extends HttpServlet {
 				String adoptPetNoChinessReg = "^[(a-zA-Z0-9)]*$";
 				String adoptPetColor = req.getParameter("adopt_pet_color");
 				String adoptPetState = req.getParameter("adopt_pet_state");
+				String[] petClassNoBox = req.getParameterValues("petClassNo");
 
-//				一般會員FK
-
+//				一般會員FK		
 				if (req.getParameter("gen_meb_no").trim().isEmpty()) {
-					genMebNo = 0;
+					genMebNo = null;
 				} else {
 					genMebNo = new Integer(req.getParameter("gen_meb_no").trim());
 				}
@@ -355,10 +373,28 @@ public class AdoptPetServlet extends HttpServlet {
 				adoptPet.setAdopt_pet_color(adoptPetColor);
 				adoptPet.setAdopt_pet_state(adoptPetState);
 				adoptPet.setAdopt_pet_no(adoptPetNo);
+				
+				PetClassListService petClassListService = new PetClassListService();
+//				List<PetClassListVO> thisFailPetClass = petClassListService.findByAdoptPetNo(adoptPetNo);
+				int[] intPetClassBox = Arrays.asList(petClassNoBox).stream().mapToInt(Integer::parseInt).toArray();
+				PetClassService petClassService = new PetClassService();
+				List<PetClassVO> allPetClass = petClassService.getAll();
+				List<PetClassVO> myPetClass = new ArrayList<>();
+
+				for (PetClassVO petClass : allPetClass) {
+					for (int petClassList : intPetClassBox) {
+						if (petClass.getPet_class_no() == petClassList) {
+							myPetClass.add(petClass);
+						}
+					}
+				}
+				allPetClass.removeAll(myPetClass);
 
 //				資料錯誤return
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("adoptPetVO2", adoptPet);
+					req.setAttribute("allPetClass", allPetClass);
+					req.setAttribute("checkPetClass", myPetClass);
 					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/updatePet.jsp");
 					failureView.forward(req, res);
 					return;
@@ -368,6 +404,29 @@ public class AdoptPetServlet extends HttpServlet {
 				adoptPetSvc.updateAdoptPet(genMebNo, adoptPetBreeds, adoptPetGender, adoptPetComeForm, adoptPetJoinDate,
 						adoptPetChip, adoptPetJoinReason, captureAddress, adoptPetSterilization, containNumber,
 						adoptPetColor, adoptPetState, adoptPetNo);
+			
+				List<PetClassListVO> thisPetClass = petClassListService.findByAdoptPetNo(adoptPetNo);
+				List<Integer> allOkPetClass = Arrays.stream(petClassNoBox).map(Integer::parseInt)
+						.collect(Collectors.toList());				
+				int[] intPetClassNoBox = Arrays.asList(petClassNoBox).stream().mapToInt(Integer::parseInt).toArray();
+				
+				List<Integer> myOkPetClass = new ArrayList<>();
+
+				for (PetClassListVO xxx : thisPetClass) {
+					petClassListService.updatePetClassList(null, "0", xxx.getPet_class_list_no());
+					for (int yyy : intPetClassNoBox) {
+						if (xxx.getPet_class_no() == yyy) {
+							myOkPetClass.add(yyy);
+							petClassListService.updatePetClassList(null, "1", xxx.getPet_class_list_no());
+						}
+					}
+
+				}
+				allOkPetClass.removeAll(myOkPetClass);
+				for(int zzz : allOkPetClass) {
+					petClassListService.updateNewClass(adoptPetNo, zzz, null, "1");
+				}
+
 				if (requestURL.equals("/back_end/adopt/searchPetPage.jsp")) {
 					List<AdoptPetVO> searchPet = adoptPetSvc.getAll();
 					List<AdoptPetVO> searchList = new ArrayList<>();

@@ -98,7 +98,7 @@
 									<form method="POST"
 										action="<%=request.getContextPath()%>/adoptPet/addPet.do"
 										name="newPet">
-										<input type="hidden" name="adopt_meb_no" value="2"> <input
+										<input type="hidden" name="adopt_meb_no" value="${admin.adopt_meb_no}"> <input
 											type="hidden" name="gen_meb_no" value="">
 
 
@@ -211,20 +211,53 @@
 										<div class="mb-3 row">
 											<label class=" col-form-label">寵物分類</label>
 											<c:forEach var="petClass" items="${petClass}">
-												<c:if test="${petClass.pet_class_state == 1}">
+												<c:if test="${petClass.pet_class_state == 1 && petClassNoBox == null}">
 													<div class="col-xl-2 col-xxl-2 col-2 offset-md-3">
 														<div
 															class="form-check custom-checkbox mb-3 checkbox-success">
 															<input type="checkbox" class="form-check-input"
 																id="petClassNoCheckBox" name="petClassNo"
 																value="${petClass.pet_class_no}"> <label
-																class="form-check-label" for="customCheckBox1">${petClass.pet_class_name}
+																class="form-check-label" for="customCheckBox">${petClass.pet_class_name}
 															</label>
 														</div>
 													</div>
+												</c:if>					
+																										
+											</c:forEach>	
+											
+											<c:if test="${petClassNoBox != null}">												
+											<c:forEach var="allPetClass" items="${allPetClass}">																												
+												<c:forEach var="petClassNoBox" items="${petClassNoBox}">											
+												<c:if test="${allPetClass.pet_class_no == petClassNoBox && allPetClass.pet_class_state == 1}">											
+														<div class="col-xl-2 col-xxl-2 col-2 offset-md-3">
+															<div
+																class="form-check custom-checkbox mb-3 checkbox-success">
+																<input type="checkbox" class="form-check-input"
+																	id="petClassNoCheckBox" name="petClassNo"
+																	value="${allPetClass.pet_class_no}" checked> <label
+																	class="form-check-label" for="customCheckBox">${allPetClass.pet_class_name}
+																</label>
+															</div>
+														</div>
 												</c:if>
-											</c:forEach>
-
+												</c:forEach>	
+											</c:forEach>												
+											<c:forEach var="myNoCheckPetClass" items="${myNoCheckPetClass}">	
+												<c:if test="${myNoCheckPetClass.pet_class_state == 1}">
+													<div class="col-xl-2 col-xxl-2 col-2 offset-md-3">
+														<div
+															class="form-check custom-checkbox mb-3 checkbox-success">
+															<input type="checkbox" class="form-check-input"
+																id="petClassNoCheckBox" name="petClassNo"
+																value="${myNoCheckPetClass.pet_class_no}"> <label
+																class="form-check-label" for="customCheckBox">${myNoCheckPetClass.pet_class_name}
+															</label>
+														</div>
+													</div>
+												</c:if>												
+											</c:forEach>																			
+											</c:if>														
 										</div>
 
 
