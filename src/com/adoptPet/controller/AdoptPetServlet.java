@@ -198,7 +198,7 @@ public class AdoptPetServlet extends HttpServlet {
 				List<PetClassListVO> thisPetClass = petClassListService.findByAdoptPetNo(adoptMebNo);
 				PetClassService petClassService = new PetClassService();
 				List<PetClassVO> allPetClass = petClassService.getAll();
-				List<PetClassVO> myPetClass = new ArrayList();
+				List<PetClassVO> myPetClass = new ArrayList<>();
 
 				for(PetClassVO petClass:allPetClass) {
 					for(PetClassListVO petClassList:thisPetClass) {
