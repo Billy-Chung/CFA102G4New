@@ -187,7 +187,8 @@
 										</a>
 										<div class="action-wrapper">
 											<a href="#/" class="action quickview"><i class="ti-plus"></i></a>
-
+											<a href="#/" class="action wishlist"
+												title="Wishlist"><i class="ti-heart"></i></a>
 										</div>
 									</div>
 									<div class="content">
@@ -248,7 +249,8 @@
 														<div class="custom-control custom-checkbox">
 															<input type="checkbox" class="custom-control-input"
 																id="customCheck${classList.pet_class_no}"> <label
-																class="custom-control-label" for="customCheck${classList.pet_class_no}">${classList.pet_class_name}</label>
+																class="custom-control-label"
+																for="customCheck${classList.pet_class_no}">${classList.pet_class_name}</label>
 														</div>
 													</li>
 												</c:if>

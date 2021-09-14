@@ -39,6 +39,7 @@ public class AdoptPetService {
 			String capture_address, String adopt_pet_sterilization, String contain_number, String adopt_pet_color,
 			String adopt_pet_state, Integer adopt_pet_no) {
 		AdoptPetVO adoptPet = new AdoptPetVO();	
+
 		adoptPet.setGen_meb_no(gen_meb_no);
 		adoptPet.setAdopt_pet_breeds(adopt_pet_breeds);
 		adoptPet.setAdopt_pet_gender(adopt_pet_gender);

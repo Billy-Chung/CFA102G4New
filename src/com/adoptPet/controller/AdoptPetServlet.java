@@ -272,8 +272,8 @@ public class AdoptPetServlet extends HttpServlet {
 				String[] petClassNoBox = req.getParameterValues("petClassNo");
 
 //				一般會員FK		
-				if (req.getParameter("gen_meb_no").trim().isEmpty()) {
-					genMebNo = null;
+				if (req.getParameter("gen_meb_no").trim().isEmpty()) {					
+					genMebNo = 0;
 				} else {
 					genMebNo = new Integer(req.getParameter("gen_meb_no").trim());
 				}
@@ -360,7 +360,8 @@ public class AdoptPetServlet extends HttpServlet {
 				}
 
 				AdoptPetVO adoptPet = new AdoptPetVO();
-				adoptPet.setGen_meb_no(genMebNo);
+				
+				adoptPet.setGen_meb_no(genMebNo);				
 				adoptPet.setAdopt_pet_breeds(adoptPetBreeds);
 				adoptPet.setAdopt_pet_gender(adoptPetGender);
 				adoptPet.setAdopt_pet_come_form(adoptPetComeForm);
@@ -399,8 +400,9 @@ public class AdoptPetServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
-
+		
 				AdoptPetService adoptPetSvc = new AdoptPetService();
+			
 				adoptPetSvc.updateAdoptPet(genMebNo, adoptPetBreeds, adoptPetGender, adoptPetComeForm, adoptPetJoinDate,
 						adoptPetChip, adoptPetJoinReason, captureAddress, adoptPetSterilization, containNumber,
 						adoptPetColor, adoptPetState, adoptPetNo);
@@ -441,6 +443,7 @@ public class AdoptPetServlet extends HttpServlet {
 				successView.forward(req, res);
 
 			} catch (Exception e) {
+			
 				errorMsgs.put("Exception", e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/updatePet.jsp");
 				failureView.forward(req, res);

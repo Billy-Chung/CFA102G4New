@@ -49,16 +49,16 @@ public class AdoptPetDAO implements AdoptPet_interface {
 				adoptPet.setAdopt_pet_no(key);
 			}
 
-			PetClassListService petClassListSvc = new PetClassListService();			
+			PetClassListService petClassListSvc = new PetClassListService();
 			for (String petClassNo : petClassNoBox) {
-				Integer pNo = new Integer(petClassNo);				
-				petClassListSvc.insertPetClassList(adoptPet.getAdopt_pet_no(), pNo, null, "1",con);
+				Integer pNo = new Integer(petClassNo);
+				petClassListSvc.insertPetClassList(adoptPet.getAdopt_pet_no(), pNo, null, "1", con);
 			}
 			con.commit();
 			con.setAutoCommit(true);
 		} catch (SQLException se) {
 			if (con != null) {
-				try {				
+				try {
 					con.rollback();
 				} catch (SQLException excep) {
 					throw new RuntimeException("rollback error occured. " + excep.getMessage());
@@ -228,9 +228,10 @@ public class AdoptPetDAO implements AdoptPet_interface {
 
 		PreparedStatement pstmt = con.prepareStatement(SQL);
 
-		if (adoptPet.getGen_meb_no() == null) {
+		if (adoptPet.getGen_meb_no() == 0) {
 			pstmt.setNull(1, Types.NULL);
 		} else {
+
 			pstmt.setInt(1, adoptPet.getGen_meb_no());
 		}
 		pstmt.setString(2, adoptPet.getAdopt_pet_breeds());
