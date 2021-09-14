@@ -53,6 +53,16 @@
   	<url-pattern>/petClass/petClass.do</url-pattern>
   </servlet-mapping> 
   
+    <servlet>
+  	<servlet-name>AdoptMebNews</servlet-name>
+  	<servlet-class>com.adoptMemberNews.controller.AdoptMemberNewsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AdoptMebNews</servlet-name>
+  	<url-pattern>/adoptMeb/adoptMebNews.do</url-pattern>
+  </servlet-mapping> 
+  
+  
   
  
  <servlet>

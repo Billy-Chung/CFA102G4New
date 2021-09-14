@@ -27,10 +27,10 @@
 						aria-expanded="false">最新消息管理</a>
 						<ul aria-expanded="false">
 							<li><a href="<%=request.getContextPath()%>/back_end/adoptMember/adoptMemberNews.jsp">最新消息清單</a></li>
-							<li><a href="./email-inbox.html">新增最新消息</a></li>
+							<li><a href="<%=request.getContextPath()%>/back_end/adoptMember/addNews.jsp">新增最新消息</a></li>
 						</ul></li>
 					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false">時段管理</a>
+						aria-expanded="false">日期管理</a>
 						<ul aria-expanded="false">
 							<li><a
 								href="<%=request.getContextPath()%>/adoptMeb/adoptMeb.do?action=gotoUpdateTime&adoptMebNo=${admin.adopt_meb_no}">可預約時段修改</a></li>

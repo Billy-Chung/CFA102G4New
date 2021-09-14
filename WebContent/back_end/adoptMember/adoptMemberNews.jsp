@@ -122,7 +122,6 @@
 									<table class="table table-responsive-md">
 										<thead>
 											<tr>
-												<th><strong>最新消息照片</strong></th>
 												<th><strong>最新消息標題</strong></th>
 												<th><strong>最新消息時間</strong></th>
 												<th><strong>最新消息狀態</strong></th>
@@ -134,7 +133,6 @@
 											begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 											<tbody>
 												<tr>
-													<td>我是照片</td>
 													<td>${AdoptMemberNewsVo.adopt_meb_news_title}</td>
 													<td>${AdoptMemberNewsVo.adopt_meb_news_date}</td>
 													<c:if test="${AdoptMemberNewsVo.adopt_meb_news_state == 1}">
@@ -160,8 +158,35 @@
                               </svg>
 																</button>
 																<div class="dropdown-menu">
-																	<a class="dropdown-item" href="#">修改</a> <a
-																		class="dropdown-item" href="#">隱藏</a>
+																	<form method="post"
+																		action="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do">
+																		<input type="hidden"
+																			value="${AdoptMemberNewsVo.adopt_meb_news_no}"
+																			name="adopt_meb_news_no"> <input
+																			type="hidden" name="action" value="updateNewsPage">
+																		<input type="hidden" name="requestURL"
+																			value="<%=request.getServletPath()%>">
+																		<!--送出本網頁的路徑給Controller-->
+																		<input type="hidden" name="whichPage"
+																			value="<%=whichPage%>">
+																		<!--送出當前是第幾頁給Controller-->
+																		<button type="submit" class="dropdown-item">修改</button>
+																	</form>
+
+																	<form method="post"
+																		action="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do">
+																		<input type="hidden"
+																			value="${AdoptMemberNewsVo.adopt_meb_news_no}"
+																			name="adopt_meb_news_no"> <input
+																			type="hidden" name="action" value="updateNewsStatus">
+																		<input type="hidden" name="requestURL"
+																			value="<%=request.getServletPath()%>">
+																		<!--送出本網頁的路徑給Controller-->
+																		<input type="hidden" name="whichPage"
+																			value="<%=whichPage%>">
+																		<!--送出當前是第幾頁給Controller-->
+																		<button type="submit" class="dropdown-item">隱藏</button>
+																	</form>
 																</div>
 															</div>
 														</td>
@@ -188,8 +213,33 @@
                               </svg>
 																</button>
 																<div class="dropdown-menu">
-																	<a class="dropdown-item" href="#">修改</a> <a
-																		class="dropdown-item" href="#">顯示</a>
+																	<form method="post"
+																		action="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do">
+																		<input type="hidden"
+																			value="${AdoptMemberNewsVo.adopt_meb_news_no}"
+																			name="adopt_meb_news_no"> <input
+																			type="hidden" name="action" value="updateNewsPage">
+																		<input type="hidden" name="requestURL"
+																			value="<%=request.getParameter("requestURL")%>">
+																		<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
+																		<input type="hidden" name="whichPage"
+																			value="<%=request.getParameter("whichPage")%>">
+																		<button type="submit" class="dropdown-item">修改</button>
+																	</form>
+																	<form method="post"
+																		action="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do">
+																		<input type="hidden"
+																			value="${AdoptMemberNewsVo.adopt_meb_news_no}"
+																			name="adopt_meb_news_no"> <input
+																			type="hidden" name="action" value="updateNewsStatus">
+																		<input type="hidden" name="requestURL"
+																			value="<%=request.getServletPath()%>">
+																		<!--送出本網頁的路徑給Controller-->
+																		<input type="hidden" name="whichPage"
+																			value="<%=whichPage%>">
+																		<!--送出當前是第幾頁給Controller-->
+																		<button type="submit" class="dropdown-item">顯示</button>
+																	</form>
 																</div>
 															</div>
 														</td>

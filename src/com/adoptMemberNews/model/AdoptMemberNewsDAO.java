@@ -19,7 +19,7 @@ public class AdoptMemberNewsDAO implements AdoptMemberNews_interface {
 	private static final String UPDATE_SQL = "update ADOPT_MEMBER_NEWS set ADOPT_MEB_NEWS_TITLE = ?, ADOPT_MEB_NEWS_COMMENT = ?, ADOPT_MEB_NEWS_PHOTO = ?, ADOPT_MEB_NEWS_STATE = ?, ADOPT_MEB_NEWS_DATE = ? where ADOPT_MEB_NEWS_NO = ?";
 	private static final String FIND_BY_PK = "SELECT * FROM ADOPT_MEMBER_NEWS WHERE ADOPT_MEB_NEWS_NO = ?";
 	private static final String FIND_BY_NAME = "SELECT * FROM ADOPT_MEMBER_NEWS WHERE ADOPT_MEB_NEWS_TITLE like ?";
-	private static final String SELECT_ALL = "SELECT * FROM ADOPT_MEMBER_NEWS";
+	private static final String SELECT_ALL = "SELECT * FROM ADOPT_MEMBER_NEWS ORDER BY ADOPT_MEB_NEWS_DATE DESC";
 
 	private static DataSource ds = null;
 	static {

@@ -62,6 +62,10 @@
 	height: 30%;
 	margin-left: 30%;
 }
+.oldPhoto {
+	max-width: 50%;
+	max-height: 50%;	
+}
 </style>
 
 </head>
@@ -116,7 +120,7 @@
 										<div class=" rounded">
 											<c:if test="<%=adoptMeb.getAdopt_meb_photo() != null%>">
 												<img
-													src="<%=request.getContextPath()%>/adoptMeb/adoptMeb.do?action=showMebPhoto&adoptMebNo=${adoptMeb.adopt_meb_no}">
+													src="<%=request.getContextPath()%>/adoptMeb/adoptMeb.do?action=showMebPhoto&adoptMebNo=${adoptMeb.adopt_meb_no}" class="oldPhoto">
 											</c:if>
 										</div>
 									</div>
