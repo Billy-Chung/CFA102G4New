@@ -12,7 +12,7 @@
             <!-- Header Logo Start -->
             <div class="col-lg-3 col-md-4 col-6">
               <div class="header-logo">
-                <a href="index.html"><img src="../front_CSS/assets/images/logo/logo.png" alt="Site Logo" /></a>
+                <a href="index.html"><img src="<%=request.getContextPath()%>/front_end/front_CSS/assets/images/logo/logo.png" alt="Site Logo" /></a>
               </div>
             </div>
             <!-- Header Logo End -->
@@ -26,7 +26,7 @@
                   </li>
 
                   <li class="has-children">
-                    <a href="#">成為毛小孩的夥伴</a>
+                    <a href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp">成為毛小孩的夥伴</a>
                   </li>
 
                   <li><a href="about.html">關於我們</a></li>
