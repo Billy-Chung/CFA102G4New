@@ -1,26 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-    <!-- Header Section Start -->
-  <div class="header section">
-
-    <!-- Header Top Start -->
-    <div class="header-top bg-name-primary">
-      <div class="container">
-        <div class="row align-items-center">
-
-          <!-- Header Top Message Start -->
-          <div class="col-12 col-lg-6">
-            <div class="header-top-msg-wrapper">
-              <p class="header-top-message">Welcome To our shop !</p>
-            </div>
-          </div>
-          <!-- Header Top Message End -->
-
-        </div>
-      </div>
-    </div>
-    <!-- Header Top End -->
+  
 
     <!-- Header Bottom Start -->
     <div class="header-bottom">

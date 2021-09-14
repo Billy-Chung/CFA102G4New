@@ -3,11 +3,11 @@
     
     
     <!-- Newsletter Section Start -->
-  <div class="section section-padding bg-name-splashy">
+  <div class="section section-padding bg-name-splashy ">
     <div class="container">
-      <div class="row align-items-center m-b-n30">
+      <div class="row align-items-center m-b-n30 ">
 
-        <div class="col-12 col-md-6 m-b-30" data-aos="fade-up" data-aos-duration="1000">
+        <div class="col-12 col-md-6 m-b-30 " data-aos="fade-up" data-aos-duration="1000">
           <div class="newsletter-content">
             <h3 class="title">加入我們</h3>
             <p>此為註冊功能</p>
