@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.adoptPet.model.AdoptPetService;
 import com.adoptPet.model.AdoptPetVO;
 import com.petClass.model.PetClassService;
+import com.petClass.model.PetClassVO;
 import com.petClassList.model.PetClassListService;
 import com.petClassList.model.PetClassListVO;
 
@@ -155,8 +156,21 @@ public class PetClassServlet extends HttpServlet {
 					}					
 				}
 			}
-			
+			PetClassService petClassSvc = new PetClassService();
+			 List<PetClassVO> allPetClass = petClassSvc.getAll();
+			 List<PetClassVO> checkClass = new ArrayList<>();
+			 for(PetClassVO allClass:allPetClass) {
+					for(int isCheck:intPetClassBox) {
+						if(allClass.getPet_class_no() == isCheck) {
+							checkClass.add(allClass);
+						}
+					}
+			 }
+			 
+			 allPetClass.removeAll(checkClass);		
 			req.setAttribute("returnList", returnList);
+			req.setAttribute("isCheck", checkClass);
+			req.setAttribute("noCheck", allPetClass);
 			String url = requestURL;
 			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);

@@ -14,14 +14,23 @@
 		pageContext.setAttribute("list", list);
 	} else {
 		list = (List<AdoptPetVO>) request.getAttribute("returnList");
-		pageContext.setAttribute("list", request.getAttribute("returnList"));
+		pageContext.setAttribute("list", list);
 	}
 %>
 
 <%
-	PetClassDAO classDao = new PetClassDAO();
-	List<PetClassVO> classList = classDao.getAllpetClass();
-	pageContext.setAttribute("classList", classList);
+	List<PetClassVO> classList;
+	List<PetClassVO> noCheckList;
+	if (request.getAttribute("isCheck") == null) {
+		PetClassDAO classDao = new PetClassDAO();
+		classList = classDao.getAllpetClass();
+		pageContext.setAttribute("classList", classList);
+	} else {
+		classList = (List<PetClassVO>) request.getAttribute("isCheck");
+		noCheckList = (List<PetClassVO>) request.getAttribute("noCheck");
+		pageContext.setAttribute("classList", classList);
+		pageContext.setAttribute("noCheckList", noCheckList);
+	}
 %>
 
 <!DOCTYPE html>
@@ -252,25 +261,56 @@
 											value="<%=request.getServletPath()%>"> <input
 											type="hidden" name="action" value="searchByClass">
 										<ul class="checkbox-container categories-list">
-											<c:forEach var="classList" items="${classList}">
-												<c:if test="${classList.pet_class_state == 1}">
-													<li>
-														<div class="custom-control custom-checkbox">
-															<input type="checkbox" class="custom-control-input"
-																id="customCheck${classList.pet_class_no}"
-																name="searchClass" value="${classList.pet_class_no}">
-															<label class="custom-control-label"
-																for="customCheck${classList.pet_class_no}">${classList.pet_class_name}</label>
-														</div>
-													</li>
-												</c:if>
-											</c:forEach>
+											<c:if test='<%=request.getAttribute("isCheck") == null%>'>
+												<c:forEach var="classList" items="${classList}">
+													<c:if test="${classList.pet_class_state == 1}">
+														<li>
+															<div class="custom-control custom-checkbox">
+																<input type="checkbox" class="custom-control-input"
+																	id="customCheck${classList.pet_class_no}"
+																	name="searchClass" value="${classList.pet_class_no}">
+																<label class="custom-control-label"
+																	for="customCheck${classList.pet_class_no}">${classList.pet_class_name}</label>
+															</div>
+														</li>
+													</c:if>
+												</c:forEach>
+											</c:if>
+											<c:if test='<%=request.getAttribute("isCheck") != null%>'>
+												<c:forEach var="classList" items="${classList}">
+													<c:if test="${classList.pet_class_state == 1}">
+														<li>
+															<div class="custom-control custom-checkbox">
+																<input type="checkbox" class="custom-control-input"
+																	id="customCheck${classList.pet_class_no}"
+																	name="searchClass" value="${classList.pet_class_no}"
+																	checked> <label class="custom-control-label"
+																	for="customCheck${classList.pet_class_no}">${classList.pet_class_name}</label>
+															</div>
+														</li>
+													</c:if>
+												</c:forEach>
+												<c:forEach var="noCheckList" items="${noCheckList}">
+													<c:if test="${noCheckList.pet_class_state == 1}">
+														<li>
+															<div class="custom-control custom-checkbox">
+																<input type="checkbox" class="custom-control-input"
+																	id="customCheck${noCheckList.pet_class_no}"
+																	name="searchClass" value="${noCheckList.pet_class_no}"
+																	> <label class="custom-control-label"
+																	for="customCheck${noCheckList.pet_class_no}">${noCheckList.pet_class_name}</label>
+															</div>
+														</li>
+													</c:if>
+												</c:forEach>
+											</c:if>
 											<li><button type="submit"
 													class="btn btn-primary btn-hover-dark rounded-0">查詢</button></li>
 										</ul>
 									</form>
-									<c:if test='<%=request.getAttribute("returnList") != null%>'>									
-										<a href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp"
+									<c:if test='<%=request.getAttribute("returnList") != null%>'>
+										<a
+											href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp"
 											class="btn btn-primary btn-hover-dark rounded-0 myTop">取消查詢</a>
 									</c:if>
 								</div>
