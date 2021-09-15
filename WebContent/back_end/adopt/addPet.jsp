@@ -216,9 +216,9 @@
 														<div
 															class="form-check custom-checkbox mb-3 checkbox-success">
 															<input type="checkbox" class="form-check-input"
-																id="petClassNoCheckBox" name="petClassNo"
+																id="petClassNoCheckBox${petClass.pet_class_no}" name="petClassNo"
 																value="${petClass.pet_class_no}"> <label
-																class="form-check-label" for="customCheckBox">${petClass.pet_class_name}
+																class="form-check-label" for="petClassNoCheckBox${petClass.pet_class_no}">${petClass.pet_class_name}
 															</label>
 														</div>
 													</div>
@@ -234,9 +234,9 @@
 															<div
 																class="form-check custom-checkbox mb-3 checkbox-success">
 																<input type="checkbox" class="form-check-input"
-																	id="petClassNoCheckBox" name="petClassNo"
+																	id="petClassNoCheckBox${petClass.pet_class_no}" name="petClassNo"
 																	value="${allPetClass.pet_class_no}" checked> <label
-																	class="form-check-label" for="customCheckBox">${allPetClass.pet_class_name}
+																	class="form-check-label" for="petClassNoCheckBox${petClass.pet_class_no}">${allPetClass.pet_class_name}
 																</label>
 															</div>
 														</div>
@@ -249,9 +249,9 @@
 														<div
 															class="form-check custom-checkbox mb-3 checkbox-success">
 															<input type="checkbox" class="form-check-input"
-																id="petClassNoCheckBox" name="petClassNo"
+																id="petClassNoCheckBox${petClass.pet_class_no}" name="petClassNo"
 																value="${myNoCheckPetClass.pet_class_no}"> <label
-																class="form-check-label" for="customCheckBox">${myNoCheckPetClass.pet_class_name}
+																class="form-check-label" for="petClassNoCheckBox${petClass.pet_class_no}">${myNoCheckPetClass.pet_class_name}
 															</label>
 														</div>
 													</div>

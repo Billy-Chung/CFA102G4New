@@ -7,9 +7,15 @@
 <%@ page import="com.petClass.model.*"%>
 
 <%
-	AdoptPetDAO dao = new AdoptPetDAO();
-	List<AdoptPetVO> list = dao.getAllAdoptPet();
-	pageContext.setAttribute("list", list);
+	List<AdoptPetVO> list;
+	if (request.getAttribute("returnList") == null) {
+		AdoptPetDAO dao = new AdoptPetDAO();
+		list = dao.getAllAdoptPet();
+		pageContext.setAttribute("list", list);
+	} else {
+		list = (List<AdoptPetVO>) request.getAttribute("returnList");
+		pageContext.setAttribute("list", request.getAttribute("returnList"));
+	}
 %>
 
 <%
@@ -187,8 +193,8 @@
 										</a>
 										<div class="action-wrapper">
 											<a href="#/" class="action quickview"><i class="ti-plus"></i></a>
-											<a href="#/" class="action wishlist"
-												title="Wishlist"><i class="ti-heart"></i></a>
+											<a href="#/" class="action wishlist" title="Wishlist"><i
+												class="ti-heart"></i></a>
 										</div>
 									</div>
 									<div class="content">
@@ -240,26 +246,33 @@
 							<div class="widget-list m-b-50">
 								<h3 class="widget-title m-b-30">寵物分類標籤</h3>
 								<div class="sidebar-body">
-									<form>
-
+									<form method="post"
+										action="<%=request.getContextPath()%>/petClass/petClass.do">
+										<input type="hidden" name="requestURL"
+											value="<%=request.getServletPath()%>"> <input
+											type="hidden" name="action" value="searchByClass">
 										<ul class="checkbox-container categories-list">
 											<c:forEach var="classList" items="${classList}">
 												<c:if test="${classList.pet_class_state == 1}">
 													<li>
 														<div class="custom-control custom-checkbox">
 															<input type="checkbox" class="custom-control-input"
-																id="customCheck${classList.pet_class_no}"> <label
-																class="custom-control-label"
+																id="customCheck${classList.pet_class_no}"
+																name="searchClass" value="${classList.pet_class_no}">
+															<label class="custom-control-label"
 																for="customCheck${classList.pet_class_no}">${classList.pet_class_name}</label>
 														</div>
 													</li>
 												</c:if>
 											</c:forEach>
-
-											<li><button type="button"
+											<li><button type="submit"
 													class="btn btn-primary btn-hover-dark rounded-0">查詢</button></li>
 										</ul>
 									</form>
+									<c:if test='<%=request.getAttribute("returnList") != null%>'>									
+										<a href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp"
+											class="btn btn-primary btn-hover-dark rounded-0 myTop">取消查詢</a>
+									</c:if>
 								</div>
 							</div>
 
