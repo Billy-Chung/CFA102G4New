@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.adoptPet.model.AdoptPetService;
 import com.adoptPet.model.AdoptPetVO;
+import com.adoptPetPhoto.model.AdoptPetPhotoService;
+import com.adoptPetPhoto.model.AdoptPetPhotoVO;
 import com.petClass.model.PetClassService;
 import com.petClass.model.PetClassVO;
 import com.petClassList.model.PetClassListService;
@@ -633,13 +635,27 @@ public class AdoptPetServlet extends HttpServlet {
 					.collect(Collectors.toList());
 			req.setAttribute("searchList", searchList);
 			String url = "/back_end/adopt/searchPetPage.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);
 //			} catch (Exception e) {
 //				errorMsgs.put("Exception", e.getMessage());
 //				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adopt/adoptPet.jsp");
 //				failureView.forward(req, res);
 //			}
+		}
+		
+		if("goToDetail".equals(action)) {
+			Integer PK = new Integer(req.getParameter("PK"));			
+			AdoptPetService adoptPetSvc = new AdoptPetService();
+			AdoptPetPhotoService adoptPetPhotoService = new AdoptPetPhotoService();
+			AdoptPetVO adoptPetDetail = adoptPetSvc.findByAdoptPetNoPK(PK);
+			List<AdoptPetPhotoVO> petPhotoList = adoptPetPhotoService.findByadoptPetNo(PK);
+			req.setAttribute("petPhotoList", petPhotoList);
+			req.setAttribute("adoptPetDetail", adoptPetDetail);
+			String url = "/front_end/adoptPet/petDetail.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
+			successView.forward(req, res);
+			
 		}
 
 	}

@@ -195,13 +195,13 @@
 							<div class="col-lg-4 col-md-4 col-sm-6 product">
 								<div class="product-inner">
 									<div class="thumb">
-										<a href="single-product.html" class="image"> <img
+										<a href="<%=request.getContextPath()%>/adoptPet/addPet.do?action=goToDetail&PK=${AdoptPetVO.adopt_pet_no}" class="image"> <img
 											class="fit-image"
 											src="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do?action=cover&PK=${AdoptPetVO.adopt_pet_no}"
 											alt="Product" />
 										</a>
 										<div class="action-wrapper">
-											<a href="#/" class="action quickview"><i class="ti-plus"></i></a>
+											<a href="<%=request.getContextPath()%>/adoptPet/addPet.do?action=goToDetail&PK=${AdoptPetVO.adopt_pet_no}" class="action quickview"><i class="ti-plus"></i></a>
 											<a href="#/" class="action wishlist" title="Wishlist"><i
 												class="ti-heart"></i></a>
 										</div>
@@ -226,9 +226,8 @@
 
 												</div>
 												<a href="wishlist.html" title="Wishlist" class="action"><i
-													class="ti-heart"></i></a> <a href="#/" class="action quickview"
-													data-bs-toggle="modal" data-bs-target="#quick-view"
-													title="Quickview"><i class="ti-plus"></i></a>
+													class="ti-heart"></i></a> <a href="<%=request.getContextPath()%>/adoptPet/addPet.do?action=goToDetail&PK=${AdoptPetVO.adopt_pet_no}" class="action quickview"
+													><i class="ti-plus"></i></a>
 											</div>
 										</div>
 										<!-- Cart Button End -->

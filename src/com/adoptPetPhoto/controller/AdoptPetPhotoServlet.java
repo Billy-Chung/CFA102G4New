@@ -33,8 +33,10 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("img/jepg");
 		String action = req.getParameter("action");
-		if ("allPhoto".equals(action)) {
+	
+		if ("allPhoto".equals(action)) {	
 			Integer PK = new Integer(req.getParameter("PK"));
+			
 			AdoptPetPhotoService adoptPetPhotoService = new AdoptPetPhotoService();
 			AdoptPetPhotoVO petPhotos = adoptPetPhotoService.findByPK(PK);
 			byte[] petPhoto = petPhotos.getAdopt_pet_photo();
