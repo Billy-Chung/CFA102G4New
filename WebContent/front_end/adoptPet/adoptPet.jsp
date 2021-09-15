@@ -223,7 +223,12 @@
 												<div class="add-to_cart">
 													<a class="btn btn-primary btn-hover-dark rounded-0"
 														href="cart.html">預約看寵物!!</a>
+
 												</div>
+												<a href="wishlist.html" title="Wishlist" class="action"><i
+													class="ti-heart"></i></a> <a href="#/" class="action quickview"
+													data-bs-toggle="modal" data-bs-target="#quick-view"
+													title="Quickview"><i class="ti-plus"></i></a>
 											</div>
 										</div>
 										<!-- Cart Button End -->
@@ -296,8 +301,8 @@
 															<div class="custom-control custom-checkbox">
 																<input type="checkbox" class="custom-control-input"
 																	id="customCheck${noCheckList.pet_class_no}"
-																	name="searchClass" value="${noCheckList.pet_class_no}"
-																	> <label class="custom-control-label"
+																	name="searchClass" value="${noCheckList.pet_class_no}">
+																<label class="custom-control-label"
 																	for="customCheck${noCheckList.pet_class_no}">${noCheckList.pet_class_name}</label>
 															</div>
 														</li>
