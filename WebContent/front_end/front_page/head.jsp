@@ -29,8 +29,7 @@
                     <a href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp">成為毛小孩的夥伴</a>
                   </li>
 
-                  <li><a href="about.html">關於我們</a></li>
-                  <li><a href="contact.html">聯絡我們</a></li>
+                  <li><a href="<%=request.getContextPath()%>/front_end/adoptMember/adoptMember.jsp">關於我們</a></li>                 
                 </ul>
               </div>
             </div>

@@ -56,7 +56,7 @@
             <div class="single-footer-widget">
               <h2 class="widget-title">成為毛小孩的夥伴</h2>
               <ul class="widget-list">
-                <li><a href="wishlist.html">領養機構中心</a></li>
+                <li><a href="<%=request.getContextPath()%>/front_end/adoptMember/adoptMember.jsp">領養機構中心</a></li>
                 <li><a href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp">寵物中心</a></li> 
                 <li><a href="<%=request.getContextPath()%>/back_end/login/login.jsp">後臺登入</a></li>               
               </ul>
