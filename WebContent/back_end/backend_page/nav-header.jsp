@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
     <div class="nav-header">
-      <a href="<%=request.getContextPath()%>/back_end/adopt/adoptPet.jsp" class="brand-logo">
+      <a href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp" class="brand-logo">
          <img class="myIcon" src="<%=request.getContextPath()%>/back_end/backend_page/images/pet.jpg" width="203" height="68">
         
       </a>

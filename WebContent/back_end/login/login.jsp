@@ -25,6 +25,13 @@
 	href="<%=request.getContextPath()%>/back_end/back_CSS/css/style.css"
 	rel="stylesheet">
 
+
+<style>
+    .return{
+        max-width: 100%;
+        max-height: 100%;
+    }
+</style>
 </head>
 
 <body class="vh-100">
@@ -37,8 +44,7 @@
 							<div class="col-xl-12">
 								<div class="auth-form">
 									<div class="text-center mb-3">
-										<a href="index.html"><img src="images/logo-full.png"
-											alt=""></a>
+										 <a href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp" > <img class="return" src="<%=request.getContextPath()%>/back_end/backend_page/images/pet.jpg"></a>
 									</div>
 
 									<h4 class="text-center mb-4">後台登入</h4>
