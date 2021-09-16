@@ -196,8 +196,7 @@
 	<script>
 
 		if(<%=thisNews != null%>) {		
-			document.getElementById("newsArea").value = "<%=thisNews.getAdopt_meb_news_comment()%>
-		";
+			document.getElementById("newsArea").value = "<%=thisNews.getAdopt_meb_news_comment()%>";
 		}
 	</script>
 
