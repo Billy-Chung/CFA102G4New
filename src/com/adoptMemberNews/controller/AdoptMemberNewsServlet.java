@@ -56,6 +56,16 @@ public class AdoptMemberNewsServlet extends HttpServlet {
 			}
 
 		}
+		
+		if("showNewsPage".equals(action)) {
+			Integer PK = new Integer(req.getParameter("PK"));
+			AdoptMemberNewService adoptMemberNewSvc = new AdoptMemberNewService();
+			AdoptMemberNewsVo thisNew = adoptMemberNewSvc.findByadoptMemberNewsNoPK(PK);
+			req.setAttribute("thisNew", thisNew);
+			String url = "/front_end/adoptMember/adoptMemberNewsDetail.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		}
 
 	}
 

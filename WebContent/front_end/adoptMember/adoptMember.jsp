@@ -147,7 +147,7 @@
 
 								</c:forEach>
 							</div>
-							<a href="contact.html" class="btn btn-primary btn-hover-dark">查看最新消息</a>
+							<a href="<%=request.getContextPath()%>/front_end/adoptMember/adoptMemberNews.jsp" class="btn btn-primary btn-hover-dark">查看最新消息</a>
 						</div>
 
 						<!-- About Content End -->
