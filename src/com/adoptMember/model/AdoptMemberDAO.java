@@ -223,7 +223,7 @@ public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 				adoptMember.setAdopt_meb_no(rs.getInt("ADOPT_MEB_NO"));
 				adoptMember.setAdopt_meb_name(rs.getString("ADOPT_MEB_NAME"));
 				adoptMember.setAdopt_meb_comment(rs.getString("ADOPT_MEB_COMMENT"));
-				adoptMember.setAdopt_meb_photo(rs.getBytes("ADOPT_MEB_PHOTO"));
+//				adoptMember.setAdopt_meb_photo(rs.getBytes("ADOPT_MEB_PHOTO"));
 				adoptMember.setAdopt_meb_address(rs.getString("ADOPT_MEB_ADDRESS"));
 				adoptMember.setAdopt_meb_phone(rs.getString("ADOPT_MEB_PHONE"));
 				adoptMember.setAdopt_meb_email(rs.getString("ADOPT_MEB_EMAIL"));
@@ -250,7 +250,7 @@ public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 				adoptMember.setAdopt_meb_no(rs.getInt("ADOPT_MEB_NO"));
 				adoptMember.setAdopt_meb_name(rs.getString("ADOPT_MEB_NAME"));
 				adoptMember.setAdopt_meb_comment(rs.getString("ADOPT_MEB_COMMENT"));
-				adoptMember.setAdopt_meb_photo(rs.getBytes("ADOPT_MEB_PHOTO"));
+//				adoptMember.setAdopt_meb_photo(rs.getBytes("ADOPT_MEB_PHOTO"));
 				adoptMember.setAdopt_meb_address(rs.getString("ADOPT_MEB_ADDRESS"));
 				adoptMember.setAdopt_meb_phone(rs.getString("ADOPT_MEB_PHONE"));
 				adoptMember.setAdopt_meb_email(rs.getString("ADOPT_MEB_EMAIL"));

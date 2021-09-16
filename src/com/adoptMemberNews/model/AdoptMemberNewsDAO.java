@@ -205,7 +205,7 @@ public class AdoptMemberNewsDAO implements AdoptMemberNews_interface {
 				adoptMemberNews.setAdopt_meb_no(rs.getInt("ADOPT_MEB_NO"));
 				adoptMemberNews.setAdopt_meb_news_title(rs.getString("ADOPT_MEB_NEWS_TITLE"));
 				adoptMemberNews.setAdopt_meb_news_comment(rs.getString("ADOPT_MEB_NEWS_COMMENT"));
-				adoptMemberNews.setAdopt_meb_news_photo(rs.getBytes("ADOPT_MEB_NEWS_PHOTO"));
+//				adoptMemberNews.setAdopt_meb_news_photo(rs.getBytes("ADOPT_MEB_NEWS_PHOTO"));
 				adoptMemberNews.setAdopt_meb_news_state(rs.getString("ADOPT_MEB_NEWS_STATE"));
 				adoptMemberNews.setAdopt_meb_news_date(rs.getDate("ADOPT_MEB_NEWS_DATE"));
 				adoptMemberNewsList.add(adoptMemberNews);
@@ -226,7 +226,7 @@ public class AdoptMemberNewsDAO implements AdoptMemberNews_interface {
 				adoptMemberNews.setAdopt_meb_no(rs.getInt("ADOPT_MEB_NO"));
 				adoptMemberNews.setAdopt_meb_news_title(rs.getString("ADOPT_MEB_NEWS_TITLE"));
 				adoptMemberNews.setAdopt_meb_news_comment(rs.getString("ADOPT_MEB_NEWS_COMMENT"));
-				adoptMemberNews.setAdopt_meb_news_photo(rs.getBytes("ADOPT_MEB_NEWS_PHOTO"));
+//				adoptMemberNews.setAdopt_meb_news_photo(rs.getBytes("ADOPT_MEB_NEWS_PHOTO"));
 				adoptMemberNews.setAdopt_meb_news_state(rs.getString("ADOPT_MEB_NEWS_STATE"));
 				adoptMemberNews.setAdopt_meb_news_date(rs.getDate("ADOPT_MEB_NEWS_DATE"));
 				adoptMemberNewsList.add(adoptMemberNews);
