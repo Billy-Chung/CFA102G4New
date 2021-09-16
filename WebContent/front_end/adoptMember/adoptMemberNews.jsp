@@ -129,7 +129,7 @@
 									</ul>
 								</div>
 								<h2 class="blog-title">
-									<a href="blog-details.html">${allNews.adopt_meb_news_title}</a>
+									<a href="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do?action=showNewsPage&&PK=${allNews.adopt_meb_news_no}">${allNews.adopt_meb_news_title}</a>
 								</h2>								
 								<a class="more-link" href="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do?action=showNewsPage&&PK=${allNews.adopt_meb_news_no}">查看詳細</a>
 							</div>
