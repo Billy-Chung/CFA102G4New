@@ -1,14 +1,13 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.promotions.model.*"%>
-<%-- ¦¹­¶¼È½m²ß±Ä¥Î Script ªº¼gªk¨ú­È --%>
 
 <%
-  promotionsVO promotionsVO = (promotionsVO) request.getAttribute("promotionsVO"); //promotiosServlet.java(Concroller), ¦s¤JreqªºpromotiosVOª«¥ó
+  promotionsVO promotionsVO = (promotionsVO) request.getAttribute("promotionsVO"); //promotiosServlet.java(Concroller), å­˜å…¥reqçš„promotiosVOç‰©ä»¶
 %>
- EmpVO empVO = (EmpVO) request.getAttribute("empVO")
+
 <html>
 <head>
-<title>¦æ¾P¬¡°Ê - listOnePromostions.jsp</title>
+<title>è¡ŒéŠ·æ´»å‹• - listOnePromostions.jsp</title>
 
 <style>
   table#table-1 {
@@ -29,7 +28,7 @@
 
 <style>
   table {
-	width: 600px;
+	width: 1500px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -46,40 +45,40 @@
 </head>
 <body bgcolor='white'>
 
-<h4>¦¹­¶¼È½m²ß±Ä¥Î Script ªº¼gªk¨ú­È:</h4>
+
 <table id="table-1">
 	<tr><td>
-		 <h3>­û¤u¸ê®Æ - ListOnePromotions.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+		 <h3>å“¡å·¥è³‡æ–™ - ListOnePromotions.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/back_end/promotions/promotionsSelect_page.jsp"><img src="<%=request.getContextPath()%>/back_end/promotions/images/back1.gif" width="100" height="32" border="0">å›é¦–é </a></h4>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
-		<th>¬¡°Ê½s¸¹</th>
-		<th>¬¡°Ê¦WºÙ</th>
-		<th>¬¡°Ê¶}©l¤é´Á</th>
-		<th>¬¡°Êµ²§ô¤é´Á</th>
-		<th>¬¡°Êª¬ºA</th>
-		<th>¬¡°ÊºØÃş</th>
-		<th>§é¦©¤è¦¡</th>
-		<th>§é¼Æ</th>
-		<th>´î»ù</th>
-		<th>¬¡°Ê´y­z</th>
-		<th>¬¡°Ê¹Ï¤ù</th>
+		<th>æ´»å‹•ç·¨è™Ÿ</th>
+		<th>æ´»å‹•åç¨±</th>
+		<th>æ´»å‹•é–‹å§‹æ—¥æœŸ</th>
+		<th>æ´»å‹•çµæŸæ—¥æœŸ</th>
+		<th>æ´»å‹•ç‹€æ…‹</th>
+		<th>æ´»å‹•ç¨®é¡</th>
+		<th>æŠ˜æ‰£æ–¹å¼</th>
+		<th>æŠ˜æ•¸</th>
+		<th>æ¸›åƒ¹</th>
+		<th>æ´»å‹•æè¿°</th>
+		<th>æ´»å‹•åœ–ç‰‡</th>
 	</tr>
 	<tr>	          
 		<td><%=promotionsVO.getPromot_no()%></td>
 		<td><%=promotionsVO.getPromot_name()%></td>
-		<td><%=promotionsVO.getPromot_date_start()%></td>
-		<td><%=promotionsVO.getPromot_status()%></td>	
-		<td><%=promotionsVO.getPromot_date_end()%></td>		
+		<td><%=promotionsVO.getPromot_date_start()%></td>		
+		<td><%=promotionsVO.getPromot_date_end()%></td>
+		<td><%=promotionsVO.getPromot_status()%></td>
 		<td><%=promotionsVO.getPromot_type()%></td>
 		<td><%=promotionsVO.getPromot_discount_type()%></td>
 		<td><%=promotionsVO.getPromot_discount()%></td>
 		<td><%=promotionsVO.getPromot_reduce()%></td>
 		<td><%=promotionsVO.getPromot_comment()%></td>
-		<td><%=promotionsVO.getPromot_photo()%></td>
+		<td><img src="<%=request.getContextPath()%>/DBGifReader5?promot_photo=${promotionsVO.promot_no}" width="120px"></td>
 	</tr>
 </table>
 

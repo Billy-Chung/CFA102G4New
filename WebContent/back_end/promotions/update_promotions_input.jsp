@@ -1,235 +1,245 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.promotions.model.*"%>
 
 <%
-  promotionsVO promotionsVO = (promotionsVO) request.getAttribute("promotionsVO"); //promotionsServlet.java (Concroller) ¦s¤JreqªºpromotionsVOª«¥ó (¥]¬AÀ°¦£¨ú¥XªºpromotionsVO, ¤]¥]¬A¿é¤J¸ê®Æ¿ù»~®ÉªºpromotionsVOª«¥ó)
+	int count = 1;
+	promotionsVO promotionsVO = (promotionsVO) request.getAttribute("promotionsVO"); //PromotionsServlet.java (Concroller) å­˜å…¥reqçš„promotionsVOç‰©ä»¶ (åŒ…æ‹¬å¹«å¿™å–å‡ºçš„promotionsVO, ä¹ŸåŒ…æ‹¬è¼¸å…¥è³‡æ–™éŒ¯èª¤æ™‚çš„promotionsVOç‰©ä»¶)
 %>
 
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>¦æ¾P¬¡°Ê­×§ï - update_promotions_input.jsp</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>è¡ŒéŠ·æ´»å‹•ä¿®æ”¹ - update_promotions_input.jsp</title>
 
 <style>
-  table#table-1 {
+table#table-1 {
 	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
+	border: 2px solid black;
+	text-align: center;
+}
+
+table#table-1 h4 {
+	color: red;
+	display: block;
+	margin-bottom: 1px;
+}
+
+h4 {
+	color: blue;
+	display: inline;
+}
 </style>
 
 <style>
-  table {
+table {
 	width: 450px;
 	background-color: white;
 	margin-top: 1px;
 	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
+}
+
+table, th, td {
+	border: 0px solid #CCCCFF;
+}
+
+th, td {
+	padding: 1px;
+}
 </style>
 
 </head>
 <body bgcolor='white'>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>¦æ¾P¬¡°Ê­×§ï - update_promotions_input.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
-	</td></tr>
-</table>
+	<table id="table-1">
+		<tr>
+			<td>
+				<h3>è¡ŒéŠ·æ´»å‹•ä¿®æ”¹ - update_promotions_input.jsp</h3>
+				<h4>
+					<a
+						href="<%=request.getContextPath()%>/back_end/promotions/promotionsSelect_page.jsp"><img
+						src="<%=request.getContextPath()%>/back_end/promotions/images/back1.gif"
+						width="100" height="32" border="0">å›é¦–é </a>
+				</h4>
+			</td>
+		</tr>
+	</table>
 
-<h3>¦æ¾P¬¡°Ê­×§ï:</h3>
+	<h3>è¡ŒéŠ·æ´»å‹•ä¿®æ”¹:</h3>
 
-<%-- ¿ù»~ªí¦C --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
-<FORM METHOD="post" ACTION="promotions.do" name="form1">
-<table>
-	<tr>
-		<td>¬¡°Ê½s¸¹:<font color=red><b>*</b></font></td>
-		<td><%=promotionsVO.getPromot_no()%></td>
-	</tr>
-	<tr>
-		<td>¬¡°Ê¦WºÙ:</td>
-		<td><input type="TEXT" name="promot_name" size="45" 
-			 value="<%=promotionsVO.getPromot_name()%>" /></td>
-	</tr>
-	<tr>
-		<td>¬¡°Ê¶}©l¤é´Á:</td>
-		<td><input name="promot_date_start" id="f_promot_date_start1" type="text"></td>
-	</tr>
-	<tr>
-		<td>¬¡°Êµ²§ô¤é´Á:</td>
-		<td><input name="promot_date_end" id="f_promot_date_end1" type="text"></td>
-	</tr>
-	<tr>
-		<td>¬¡°Êª¬ºA:</td>
-		<td><input type="TEXT" name="promot_status" size="45"
-			 value="<%= (promotionsVO==null)? "10000" : promotionsVO.getPromot_status()%>" /></td>
-	</tr>
-	<tr>
-		<td>¬¡°ÊºØÃş:</td>
-		<td><input type="TEXT" name="promot_type" size="45"
-			 value="<%= (promotionsVO==null)? "100" : promotionsVO.getPromot_type()%>" /></td>
-	</tr>
-	<tr>
-		<td>§é¦©¤è¦¡:</td>
-		<td><input type="TEXT" name="promot_discount_type" size="45"
-			 value="<%= (promotionsVO==null)? "100" : promotionsVO.getPromot_type()%>" /></td>
-	</tr>
-	<tr>
-		<td>§é¼Æ:</td>
-		<td><input type="TEXT" name="promot_discount" size="45"
-			 value="<%= (promotionsVO==null)? "100" : promotionsVO.getPromot_type()%>" /></td>
-	</tr>
-	<tr>
-		<td>´î»ù:</td>
-		<td><input type="TEXT" name="promot_reduce" size="45"
-			 value="<%= (promotionsVO==null)? "100" : promotionsVO.getPromot_type()%>" /></td>
-	</tr>	
-	<tr>
-		<td>¬¡°Ê´y­z:</td>
-		<td><input type="TEXT" name="promot_comment" size="45"
-			 value="<%= (promotionsVO==null)? "100" : promotionsVO.getPromot_type()%>" /></td>
-	</tr>
-	<tr>
-		<td>¬¡°Ê¹Ï¤ù:</td>
-		<td><input type="TEXT" name="promot_photo" size="45"
-			 value="<%= (promotionsVO==null)? "100" : promotionsVO.getPromot_type()%>" /></td>
-	</tr>
-
-	<jsp:useBean id="promotionsSvc" scope="page" class="com.promotions.model.promotionsService" />
-	<tr>
-		<td>¬¡°Ê:<font color=red><b>*</b></font></td>
-		<td><select size="1" name="promot_no">
-			<c:forEach var="promotionsVO" items="${promotionsSvc.all}">
-				<option value="${promotionsVO.promot_no}" ${(promotionsVO.promot_no==promotionsVO.promot_no)?'selected':'' } >${promotionsVO.promot_no}
+	<%-- éŒ¯èª¤è¡¨åˆ— --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
 			</c:forEach>
-		</select></td>
-	</tr>
+		</ul>
+	</c:if>
 
-</table>
-<br>
-<input type="hidden" name="action" value="update">
-<input type="hidden" name="promot_no" value="<%=promotionsVO.getPromot_no()%>">
-<input type="submit" value="°e¥X­×§ï"></FORM>
+	<FORM METHOD="post"
+		ACTION="<%=request.getContextPath()%>/promotions/promotions.do"
+		name="form1" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td>æ´»å‹•ç·¨è™Ÿ:<font color=red><b>*</b></font></td>
+				<td><%=promotionsVO.getPromot_no()%></td>
+			</tr>
+			<tr>
+				<td>æ´»å‹•åç¨±:</td>
+				<td><input type="TEXT" name="promot_name" size="45"
+					value="<%=promotionsVO.getPromot_name()%>" /></td>
+			</tr>
+			<tr>
+				<td>æ´»å‹•é–‹å§‹æ—¥æœŸ (yyyy-MM-dd):</td>
+				<td><input type="text" name="promot_date_start"
+					id="f_promot_date_start"></td>
+			</tr>
+			<tr>
+				<td>æ´»å‹•çµæŸæ—¥æœŸ (yyyy-MM-dd):</td>
+				<td><input type="text" name="promot_date_end"
+					id="f_promot_date_end"></td>
+			</tr>
+			<tr>
+			<td>æ´»å‹•ç‹€æ…‹:</td>
+			<td>
+		    	<input type="radio" name="promot_status" size="45" value="0" <%=((promotionsVO.getPromot_status()).equals("0"))? "checked":"" %>/>éæ´»æ€§
+				<input type="radio" name="promot_status" size="45" value="1" <%=((promotionsVO.getPromot_status()).equals("1"))? "checked":"" %>/>æ´»æ€§
+	    	</td>
+			<tr>
+		<td>æ´»å‹•ç¨®é¡:</td>
+		<td>
+			<input type="radio" name="promot_type" size="45" value="0" <%=((promotionsVO.getPromot_type()).equals("0"))? "checked":"" %>/>å…¨é¤¨	
+			<input type="radio" name="promot_type" size="45" value="1" <%=((promotionsVO.getPromot_type()).equals("1"))? "checked":"" %>/>å€‹åˆ¥		 
+	</td>
+	</tr>
+			<tr>
+		<td>æŠ˜æ‰£æ–¹å¼:</td>
+		<td>
+		   <input type="radio" name="promot_discount_type" size="45" value="0" <%=((promotionsVO.getPromot_discount_type()).equals("0"))? "checked":"" %>/>æ‰“æŠ˜
+		   <input type="radio" name="promot_discount_type" size="45" value="1" <%=((promotionsVO.getPromot_discount_type()).equals("1"))? "checked":"" %>/>æ¸›åƒ¹
+	</td>
+	</tr>
+			<tr>
+				<td>æŠ˜æ•¸%:</td>
+				<td><input type="TEXT" name="promot_discount" size="45"
+					value="<%=promotionsVO.getPromot_discount()%>" /></td>
+			</tr>
+			<tr>
+				<td>æ¸›åƒ¹:</td>
+				<td><input type="TEXT" name="promot_reduce" size="45"
+					value="<%=promotionsVO.getPromot_reduce()%>" /></td>
+			</tr>
+			<tr>
+				<td>æ´»å‹•æè¿°:</td>
+				<td><input type="TEXT" name="promot_comment" size="45"
+					value="<%=promotionsVO.getPromot_comment()%>" /></td>
+			</tr>
+			<td>æ´»å‹•åœ–ç‰‡:</td>
+			<td><!-- ä¸Šå‚³åœ–ç‰‡ --> <%
+ 	for (int i = 1; i <= count; i++) {
+ %> <br> <input type="file" name="promot_photo"
+				onchange="PreviewImage<%=i%>(this)"> <%--      <input type="file" name="promot_photo<%=i%>" onchange="PreviewImage<%=i%>(this)"> --%>
+				<%
+					}
+				%>
+			</td>
+
+
+			<jsp:useBean id="promotionsSvc" scope="page"
+				class="com.promotions.model.PromotionsService" />
+		</table>
+
+		<table>
+			<tr>
+				<%
+					for (int i = 1; i <= count; i++) {
+				%>
+				<td><div id="imgPreview<%=i%>"
+						style="width: 133px; height: 100px; overflow: hidden;"></div></td>
+				<%
+					}
+				%>
+			</tr>
+		</table>
+
+
+		<br> <input type="hidden" name="action" value="update"> <input
+			type="hidden" name="promot_no"
+			value="<%=promotionsVO.getPromot_no()%>"> <input
+			type="submit" value="é€å‡ºä¿®æ”¹">
+	</FORM>
+	<script type="text/javascript">
+	<%for (int i = 1; i <= count; i++) {%>
+  		function PreviewImage<%=i%>(imgFile) {
+		var pattern = /(\.*.jpg$)|(\.*.png$)|(\.*.jpeg$)|(\.*.gif$)|(\.*.bmp$)/;
+		if (!pattern.test(imgFile.value)) {
+		alert("åªæ”¯æ´jpg/jpeg/png/gif/bmpä¹‹æ ¼å¼æª”æ¡ˆ");
+		imgFile.focus();
+	} else {
+		var path;
+		if (document.all) { // IE
+			imgFile.select();
+			imgFile.blur();
+			path = document.selection.createRange().text;
+			document.getElementById("imgPreview<%=i%>").style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\""+ path + "\")";// æ¿¾é¡
+		} else { // FF æˆ– Chrome ç­‰
+			path = URL.createObjectURL(imgFile.files[0]);
+			document.getElementById("imgPreview<%=i%>").innerHTML = "<img src='"+ path +"'  width='143' height='100'/>";
+		}
+	}
+   }
+<%}%>
+</script>
 </body>
 
 
 
-<!-- =========================================¥H¤U¬° datetimepicker ¤§¬ÛÃö³]©w========================================== -->
+<!-- =========================================ä»¥ä¸‹ç‚º datetimepicker ä¹‹ç›¸é—œè¨­å®š========================================== -->
 
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script
+	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <style>
-  .xdsoft_datetimepicker .xdsoft_datepicker {
-           width:  300px;   /* width:  300px; */
-  }
-  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-           height: 151px;   /* height:  151px; */
-  }
+.xdsoft_datetimepicker .xdsoft_datepicker {
+	width: 300px; /* width:  300px; */
+}
+
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	height: 151px; /* height:  151px; */
+}
 </style>
 
 <script>
-        $.datetimepicker.setLocale('zh');
-        $('#f_promot_date_start1').datetimepicker({
-           theme: '',              //theme: 'dark',
- 	       timepicker:false,       //timepicker:true,
- 	       step: 1,                //step: 60 (³o¬Otimepickerªº¹w³]¶¡¹j60¤ÀÄÁ)
- 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
- 		   value: '<%=promotionsVO.getPromot_date_start()%>', // value:   new Date(),
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // ¥h°£¯S©w¤£§t
-           //startDate:	            '2017/07/10',  // °_©l¤é
-           //minDate:               '-1970-01-01', // ¥h°£¤µ¤é(¤£§t)¤§«e
-           //maxDate:               '+1970-01-01'  // ¥h°£¤µ¤é(¤£§t)¤§«á
+        $.datetimepicker.setLocale('zh'); // kr ko ja en
+        $(function(){
+        	 $('#f_promot_date_start').datetimepicker({
+        	   format:'Y-m-d',
+               minDate: '-1970-01-01', // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å‰
+               value: '<%=promotionsVO.getPromot_date_start()%>', // value:   new Date(),
+        	   onShow:function(){
+        	    this.setOptions({
+        	     maxDate:$('#f_promot_date_end').val()?$('#f_promot_date_end').val():false
+        	    })
+        	  },
+        	  timepicker:false,
+        	 });
+        	 
+		
+        	 $('#f_promot_date_end').datetimepicker({
+        	   format:'Y-m-d',
+        	   value: '<%=promotionsVO.getPromot_date_end()%>',
+        	   onShow:function(){
+        	    this.setOptions({
+        	    minDate:$('#f_promot_date_start').val()?$('#f_promot_date_start').val():false
+        	   })
+        	  },
+        	  timepicker:false,
+        	 });
         });
-        
-        $.datetimepicker.setLocale('zh');
-        $('#f_promot_date_end1').datetimepicker({
-           theme: '',              //theme: 'dark',
- 	       timepicker:false,       //timepicker:true,
- 	       step: 1,                //step: 60 (³o¬Otimepickerªº¹w³]¶¡¹j60¤ÀÄÁ)
- 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
- 		   value: '<%=promotionsVO.getPromot_date_end()%>', // value:   new Date(),
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // ¥h°£¯S©w¤£§t
-           //startDate:	            '2017/07/10',  // °_©l¤é
-           //minDate:               '-1970-01-01', // ¥h°£¤µ¤é(¤£§t)¤§«e
-           //maxDate:               '+1970-01-01'  // ¥h°£¤µ¤é(¤£§t)¤§«á
-        });
-        
-        
-   
-        // ----------------------------------------------------------¥H¤U¥Î¨Ó±Æ©wµLªk¿ï¾Üªº¤é´Á-----------------------------------------------------------
-
-        //      1.¥H¤U¬°¬Y¤@¤Ñ¤§«eªº¤é´ÁµLªk¿ï¾Ü
-        //      var somedate1 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-
-        
-        //      2.¥H¤U¬°¬Y¤@¤Ñ¤§«áªº¤é´ÁµLªk¿ï¾Ü
-        //      var somedate2 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-
-
-        //      3.¥H¤U¬°¨â­Ó¤é´Á¤§¥~ªº¤é´ÁµLªk¿ï¾Ü (¤]¥i«ö»İ­n´«¦¨¨ä¥L¤é´Á)
-        //      var somedate1 = new Date('2017-06-15');
-        //      var somedate2 = new Date('2017-06-25');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //		             ||
-        //		            date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-        
+ 
 </script>
 </html>

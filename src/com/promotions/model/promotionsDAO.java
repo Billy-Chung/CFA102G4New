@@ -47,8 +47,8 @@ public class promotionsDAO implements promotionsDAO_interface {//implements實�
 			pstmt.setString(i++, promotions.getPromot_status());
 			pstmt.setString(i++, promotions.getPromot_type());
 			pstmt.setString(i++, promotions.getPromot_discount_type());
-			pstmt.setString(i++, promotions.getPromot_discount());
-			pstmt.setString(i++, promotions.getPromot_reduce());
+			pstmt.setInt(i++, promotions.getPromot_discount());
+			pstmt.setInt(i++, promotions.getPromot_reduce());
 			pstmt.setString(i++, promotions.getPromot_comment());
 			pstmt.setBytes(i++, promotions.getPromot_photo());
 			pstmt.executeUpdate();//執行		
@@ -93,8 +93,8 @@ public class promotionsDAO implements promotionsDAO_interface {//implements實�
 			pstmt.setString(i++, promotions.getPromot_status());
 			pstmt.setString(i++, promotions.getPromot_type());
 			pstmt.setString(i++, promotions.getPromot_discount_type());
-			pstmt.setString(i++, promotions.getPromot_discount());
-			pstmt.setString(i++, promotions.getPromot_reduce());
+			pstmt.setInt(i++, promotions.getPromot_discount());
+			pstmt.setInt(i++, promotions.getPromot_reduce());
 			pstmt.setString(i++, promotions.getPromot_comment());
 			pstmt.setBytes(i++, promotions.getPromot_photo());
 			pstmt.setInt(i++, promotions.getPromot_no());//WHERE 條件
@@ -178,8 +178,8 @@ public class promotionsDAO implements promotionsDAO_interface {//implements實�
 				promotions.setPromot_status(rs.getString("promot_status"));
 				promotions.setPromot_type(rs.getString("promot_type"));
 				promotions.setPromot_discount_type(rs.getString("PROMOT_DISCOUNT_TYPE"));
-				promotions.setPromot_discount(rs.getString("promot_discount"));
-				promotions.setPromot_reduce(rs.getString("promot_reduce"));
+				promotions.setPromot_discount(rs.getInt("promot_discount"));
+				promotions.setPromot_reduce(rs.getInt("promot_reduce"));
 				promotions.setPromot_comment(rs.getString("promot_comment"));
 				promotions.setPromot_photo(rs.getBytes("promot_photo"));
 			}
@@ -236,8 +236,8 @@ public class promotionsDAO implements promotionsDAO_interface {//implements實�
 				promotions.setPromot_status(rs.getString("promot_status"));
 				promotions.setPromot_type(rs.getString("promot_type"));
 				promotions.setPromot_discount_type(rs.getString("PROMOT_DISCOUNT_TYPE"));
-				promotions.setPromot_discount(rs.getString("promot_discount"));
-				promotions.setPromot_reduce(rs.getString("promot_reduce"));
+				promotions.setPromot_discount(rs.getInt("promot_discount"));
+				promotions.setPromot_reduce(rs.getInt("promot_reduce"));
 				promotions.setPromot_comment(rs.getString("promot_comment"));
 				promotions.setPromot_photo(rs.getBytes("promot_photo"));	
 				promotionsList.add(promotions);

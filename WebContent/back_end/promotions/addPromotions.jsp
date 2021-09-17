@@ -1,17 +1,17 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.promotions.model.*"%>
 
+<!-- ä¸Šå‚³åœ–ç‰‡ -->
 <%
+  int count=1;
   promotionsVO promotionsVO = (promotionsVO) request.getAttribute("promotionsVO");           
 %>
-
-
-                                         
+                                   
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>¦æ¾P¬¡°Ê·s¼W - addPromotions.jsp</title>
+<title>è¡ŒéŠ·æ´»å‹•æ–°å¢ - addPromotions.jsp</title>
 
 <style>
   table#table-1 {
@@ -50,16 +50,16 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>¦æ¾P¬¡°Ê·s¼W - addPromotions.jsp</h3></td><td>
-		 <h4><a href="promotionsSelect_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">¦^­º­¶</a></h4>
+		 <h3>è¡ŒéŠ·æ´»å‹•æ–°å¢ - addPromotions.jsp</h3></td><td>
+		 <h4><a href="<%=request.getContextPath()%>/back_end/promotions/promotionsSelect_page.jsp"><img src="<%=request.getContextPath()%>/back_end/promotions/images/tomcat.png" width="100" height="100" border="0">å›é¦–é </a></h4>
 	</td></tr>
 </table>
 
-<h3>¬¡°Ê·s¼W:</h3>
+<h3>æ´»å‹•æ–°å¢:</h3>
 
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -67,84 +67,148 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/promotions/addpromotions.do" name="form1">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/promotions/promotions.do" name="form1" enctype="multipart/form-data">
 <table>
 	<tr>
-		<td>¬¡°Ê¦WºÙ:</td>
+		<td>æ´»å‹•åç¨±:</td>
 		<td><input type="TEXT" name="promot_name" size="45" 
-			 value="<%= (promotionsVO==null)? "²±¤j¶}¹õ¡A´Á¶¡­­©w¤jFun°e" : promotionsVO.getPromot_name()%>" /></td>
+			 value="<%= (promotionsVO==null)? "ç››å¤§é–‹å¹•æœŸé–“é™å®šå¤§Funé€" : promotionsVO.getPromot_name()%>" /></td>
 	</tr>
 	<tr>
-		<td>¬¡°Ê¶}©l¤é´Á:</td>
+		<td>æ´»å‹•é–‹å§‹æ—¥æœŸ (yyyy-MM-dd):</td>
 		<td><input name="promot_date_start" id="f_promot_date_start" type="text"></td>
 	</tr>
 	<tr>
-		<td>¬¡°Êµ²§ô¤é´Á:</td>
+		<td>æ´»å‹•çµæŸæ—¥æœŸ (yyyy-MM-dd):</td>
 		<td><input name="promot_date_end" id="f_promot_date_end" type="text"></td>
 	</tr>
 	<tr>
-		<td>¬¡°Êª¬ºA:</td>
-		<td><input type="TEXT" name="promot_status" size="45"
-			 value="<%= (promotionsVO==null)? "1" : promotionsVO.getPromot_status()%>" /></td>
+		<td>æ´»å‹•ç‹€æ…‹:</td>
+		<td>
+		<% if (promotionsVO==null) {%>
+		    <input type="radio" name="promot_status" size="45" value="0" checked/>éæ´»æ€§
+			<input type="radio" name="promot_status" size="45" value="1"/>æ´»æ€§
+		<% } else {%>
+		    <input type="radio" name="promot_status" size="45" value="0" <%=((promotionsVO.getPromot_status()).equals("0"))? "checked":"" %>/>éæ´»æ€§
+			<input type="radio" name="promot_status" size="45" value="1" <%=((promotionsVO.getPromot_status()).equals("1"))? "checked":"" %>/>æ´»æ€§
+		 <% }%>
+	    </td>
+<!-- 		<td><input type="radio" name="promot_status" size="45" -->
+<%-- 			 value="<%= (promotionsVO==null)? "0" : promotionsVO.getPromot_status()%>" />éæ´»æ€§ --%>
+<!-- 			<input type="radio" name="promot_status" size="45" -->
+<%-- 			 value="<%= (promotionsVO==null)? "1" : promotionsVO.getPromot_status()%>" />æ´»æ€§ --%>
+<!-- 	    </td> -->
+			 
 	</tr>
+	
 	<tr>
-		<td>¬¡°ÊºØÃş:</td>
-		<td><input type="TEXT" name="promot_type" size="45"
-			 value="<%= (promotionsVO==null)? "0" : promotionsVO.getPromot_type()%>" /></td>
+		<td>æ´»å‹•ç¨®é¡:</td>
+		<td>
+		<%  if (promotionsVO==null) {%>
+			<input type="radio" name="promot_type" size="45" value="0" checked/>å…¨é¤¨
+			<input type="radio" name="promot_type" size="45" value="1"/>å€‹åˆ¥
+		<% } else {%>
+			<input type="radio" name="promot_type" size="45" value="0" <%=((promotionsVO.getPromot_type()).equals("0"))? "checked":"" %>/>å…¨é¤¨	
+			<input type="radio" name="promot_type" size="45" value="1" <%=((promotionsVO.getPromot_type()).equals("1"))? "checked":"" %>/>å€‹åˆ¥	
+		 <% }%>		 
+	</td>
 	</tr>
+
 	<tr>
-		<td>§é¦©¤è¦¡:</td>
-		<td><input type="TEXT" name="promot_discount_type" size="45"
-			 value="<%= (promotionsVO==null)? "0" : promotionsVO.getPromot_type()%>" /></td>
+		<td>æŠ˜æ‰£æ–¹å¼:</td>
+		<td>
+		<%  if(promotionsVO==null) {%>
+		   <input type="radio" name="promot_discount_type" size="45" value="0" checked/>æ‰“æŠ˜
+		   <input type="radio" name="promot_discount_type" size="45" value="1"/>æ¸›åƒ¹
+		<% }else{%>
+		   <input type="radio" name="promot_discount_type" size="45" value="0" <%=((promotionsVO.getPromot_discount_type()).equals("0"))? "checked":"" %>/>æ‰“æŠ˜
+		   <input type="radio" name="promot_discount_type" size="45" value="1" <%=((promotionsVO.getPromot_discount_type()).equals("1"))? "checked":"" %>/>æ¸›åƒ¹
+		<% }%>
+	</td>
 	</tr>
+
 	<tr>
-		<td>§é¼Æ:</td>
+		<td>æŠ˜æ•¸%:</td>
 		<td><input type="TEXT" name="promot_discount" size="45"
-			 value="<%= (promotionsVO==null)? "8.8" : promotionsVO.getPromot_type()%>" /></td>
+			 value="<%= (promotionsVO==null)? "88" : promotionsVO.getPromot_discount()%>" /></td>
 	</tr>
 	<tr>
-		<td>´î»ù:</td>
+		<td>æ¸›åƒ¹:</td>
 		<td><input type="TEXT" name="promot_reduce" size="45"
-			 value="<%= (promotionsVO==null)? "" : promotionsVO.getPromot_type()%>" /></td>
+			 value="<%= (promotionsVO==null)? "0" : promotionsVO.getPromot_reduce()%>" /></td>
 	</tr>	
 	<tr>
-		<td>¬¡°Ê´y­z:</td>
+		<td>æ´»å‹•æè¿°:</td>
 		<td><input type="TEXT" name="promot_comment" size="45"
-			 value="<%= (promotionsVO==null)? "Ãd¤@¦Ó©¾¶}¹õ¯S§O¥ø¹º¬¡°Ê" : promotionsVO.getPromot_type()%>" /></td>
+			 value="<%= (promotionsVO==null)? "ç››å¤§é–‹å¹•æœŸé–“é™å®šå¤§Funé€" : promotionsVO.getPromot_comment()%>" /></td>
 	</tr>
 	<tr>
-		<td>¬¡°Ê¹Ï¤ù:</td>
-		<td><input type="TEXT" name="promot_photo" size="45"
-			 value="<%= (promotionsVO==null)? "100" : promotionsVO.getPromot_type()%>" /></td>
+		<td>æ´»å‹•åœ–ç‰‡:</td>
+		<td>
+<!-- ä¸Šå‚³åœ–ç‰‡ -->
+		<% for (int i=1 ; i<=count ; i++) {%>   
+          <br>
+          <input type="file" name="promot_photo" onchange="PreviewImage<%=i%>(this)">
+<%--      <input type="file" name="promot_photo<%=i%>" onchange="PreviewImage<%=i%>(this)"> --%>
+        <%}%>  
+		</td>
 	</tr>
-	
-	
-	<jsp:useBean id="promotionsSvc" scope="page" class="com.promotions.model.promotionsService" />
-	
-
+	<jsp:useBean id="promotionsSvc" scope="page" class="com.promotions.model.PromotionsService" />
 </table>
+<!-- é¡¯ç¤ºåœ–ç‰‡ -->
+ <table><tr>
+  <% for (int i=1 ; i<=count ; i++) {%> 
+     <td><div id="imgPreview<%=i%>" style="width:133px; height:100px;overflow:hidden;"></div></td>
+  <%}%>
+  </tr></table>
+
 <br>
 <input type="hidden" name="action" value="insert">
-<input type="submit" value="°e¥X·s¼W"></FORM>
+<input type="submit" value="é€å‡ºæ–°å¢">
+</FORM>
+
+
+<script type="text/javascript">
+<% for (int i=1 ; i<=count ; i++) {%>
+  function PreviewImage<%=i%>(imgFile) {
+	var pattern = /(\.*.jpg$)|(\.*.png$)|(\.*.jpeg$)|(\.*.gif$)|(\.*.bmp$)/;
+	if (!pattern.test(imgFile.value)) {
+		alert("åªæ”¯æ´jpg/jpeg/png/gif/bmpä¹‹æ ¼å¼æª”æ¡ˆ");
+		imgFile.focus();
+	} else {
+		var path;
+		if (document.all) { // IE
+			imgFile.select();
+			imgFile.blur();
+			path = document.selection.createRange().text;
+			document.getElementById("imgPreview<%=i%>").style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\""+ path + "\")";// æ¿¾é¡
+		} else { // FF æˆ– Chrome ç­‰
+			path = URL.createObjectURL(imgFile.files[0]);
+			document.getElementById("imgPreview<%=i%>").innerHTML = "<img src='"+ path +"'  width='143' height='100'/>";
+		}
+	}
+   }
+<%}%>
+</script>
 </body>
 
 
 
-<!-- =========================================¥H¤U¬° datetimepicker ¤§¬ÛÃö³]©w========================================== -->
+<!-- =========================================ä»¥ä¸‹ç‚º datetimepicker ä¹‹ç›¸é—œè¨­å®š========================================== -->
 
 <% 
-  java.sql.Date promot_date_start = null;//«Å§i
+  java.sql.Date promot_date_start = null;//å®£å‘Š
   try {
-	   promot_date_start = promotionsVO.getPromot_date_start();//²Ä¤@¦¸¬OªÅ­È¥h®·®»¤µ¤é¤é´Á
+	   promot_date_start = promotionsVO.getPromot_date_start();//ç¬¬ä¸€æ¬¡æ˜¯ç©ºå€¼å»æ•æ‰ä»Šæ—¥æ—¥æœŸ
    } catch (Exception e) {
-	   promot_date_start = new java.sql.Date(System.currentTimeMillis());//¨ú­È
+	   promot_date_start = new java.sql.Date(System.currentTimeMillis());//å–å€¼
    }
   
-  java.sql.Date promot_date_end = null;//«Å§i
+  java.sql.Date promot_date_end = null;//å®£å‘Š
   try {
-	   promot_date_start = promotionsVO.getPromot_date_end();//²Ä¤@¦¸¬OªÅ­È¥h®·®»¤µ¤é¤é´Á
+	   promot_date_start = promotionsVO.getPromot_date_end();//ç¬¬ä¸€æ¬¡æ˜¯ç©ºå€¼å»æ•æ‰ä»Šæ—¥æ—¥æœŸ
    } catch (Exception e) {
-	   promot_date_end = new java.sql.Date(System.currentTimeMillis());//¨ú­È
+	   promot_date_end = new java.sql.Date(System.currentTimeMillis());//å–å€¼
    }
   
   
@@ -166,86 +230,27 @@
         $.datetimepicker.setLocale('zh'); // kr ko ja en
         $(function(){
         	 $('#f_promot_date_start').datetimepicker({
-        	   theme: '',              //theme: 'dark',
-      	       timepicker:false,       //timepicker:true,
-      	       step: 1,    
-        	   format:'Y-m-d H:i',
-        	   value: '<%=promot_date_start%>', // value:   new Date(),
-        	   //disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // ¥h°£¯S©w¤£§t
-               //startDate:	        '2017/07/10',  // °_©l¤é
-               minDate:           '-1970-01-01', // ¥h°£¤µ¤é(¤£§t)¤§«e
-               //maxDate:           '+1970-01-01'  // ¥h°£¤µ¤é(¤£§t)¤§«á
+        	   format:'Y-m-d',
+               minDate:'-1970-01-01', // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å‰
+               value: '<%=promot_date_start%>', // value:   new Date(),
         	   onShow:function(){
         	    this.setOptions({
         	     maxDate:$('#f_promot_date_end').val()?$('#f_promot_date_end').val():false
         	    })
         	  },
-        	  timepicker:true,
-        	  step: 1
+        	  timepicker:false
         	 });
         	 
         	 $('#f_promot_date_end').datetimepicker({
-        	   theme: '',              //theme: 'dark',
-      	       timepicker:false,       //timepicker:true,
-      	       step: 1,    
-        	   format:'Y-m-d H:i',
-        	
+        	   format:'Y-m-d',
         	   onShow:function(){
         	    this.setOptions({
         	    minDate:$('#f_promot_date_start').val()?$('#f_promot_date_start').val():false
         	   })
         	  },
-        	  timepicker:true,
-        	  step: 1
+        	  timepicker:false
         	 });
         });
-        // ----------------------------------------------------------¥H¤U¥Î¨Ó±Æ©wµLªk¿ï¾Üªº¤é´Á-----------------------------------------------------------
-
-        //      1.¥H¤U¬°¬Y¤@¤Ñ¤§«eªº¤é´ÁµLªk¿ï¾Ü
-        //      var somedate1 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-
-        
-        //      2.¥H¤U¬°¬Y¤@¤Ñ¤§«áªº¤é´ÁµLªk¿ï¾Ü
-        //      var somedate2 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-
-
-        //      3.¥H¤U¬°¨â­Ó¤é´Á¤§¥~ªº¤é´ÁµLªk¿ï¾Ü (¤]¥i«ö»İ­n´«¦¨¨ä¥L¤é´Á)
-        //      var somedate1 = new Date('2017-06-15');
-        //      var somedate2 = new Date('2017-06-25');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //		             ||
-        //		            date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-        
+ 
 </script>
 </html>

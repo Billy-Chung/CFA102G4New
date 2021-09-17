@@ -59,4 +59,8 @@ public class productVO {
 	public void setProduct_all_comments(Integer product_all_comments) {
 		this.product_all_comments = product_all_comments;
 	}
+
+
+
+
 }

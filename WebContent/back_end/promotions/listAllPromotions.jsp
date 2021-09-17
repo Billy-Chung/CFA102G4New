@@ -1,12 +1,12 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.promotions.model.*"%>
-<%-- ¦¹­¶½m²ß±Ä¥Î EL ªº¼gªk¨ú­È --%>
+
 
 <%
-    promotionsService promotionsSvc = new promotionsService();
+	PromotionsService promotionsSvc = new PromotionsService();
     List<promotionsVO> list = promotionsSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
@@ -14,7 +14,7 @@
 
 <html>
 <head>
-<title>©Ò¦³¦æ¾P¬¡°Ê- listAllPromotions.jsp</title>
+<title>æ‰€æœ‰è¡ŒéŠ·æ´»å‹•- listAllPromotions.jsp</title>
 
 <style>
   table#table-1 {
@@ -52,17 +52,16 @@
 </head>
 <body bgcolor='white'>
 
-<h4>¦¹­¶½m²ß±Ä¥Î EL ªº¼gªk¨ú­È:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>©Ò¦³¦æ¾P¬¡°Ê - listAllPromotions.jsp</h3>
-		 <h4><a href="promotionsSelect_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+		 <h3>æ‰€æœ‰è¡ŒéŠ·æ´»å‹• - listAllPromotions.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/back_end/promotions/promotionsSelect_page.jsp"><img src="<%=request.getContextPath()%>/back_end/promotions/images/back1.gif" width="100" height="32" border="0">å›žé¦–é </a></h4>
 	</td></tr>
 </table>
 
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ð­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -72,19 +71,18 @@
 
 <table>
 	<tr>	
-		<th>¬¡°Ê½s¸¹</th>
-		<th>¬¡°Ê¦WºÙ</th>
-		<th>¬¡°Ê¶}©l¤é´Á</th>
-		<th>¬¡°Êµ²§ô¤é´Á</th>
-		<th>¬¡°Êª¬ºA</th>
-		<th>¬¡°ÊºØÃþ</th>
-		<th>§é¦©¤è¦¡</th>
-		<th>§é¼Æ</th>
-		<th>´î»ù</th>
-		<th>¬¡°Ê´y­z</th>
-		<th>¬¡°Ê¹Ï¤ù</th>
-		<th>­×§ï</th>
-		<th>§R°£</th>
+		<th>æ´»å‹•ç·¨è™Ÿ</th>
+		<th>æ´»å‹•åç¨±</th>
+		<th>æ´»å‹•é–‹å§‹æ—¥æœŸ</th>
+		<th>æ´»å‹•çµæŸæ—¥æœŸ</th>
+		<th>æ´»å‹•ç‹€æ…‹</th>
+		<th>æ´»å‹•ç¨®é¡ž</th>
+		<th>æŠ˜æ‰£æ–¹å¼</th>
+		<th>æŠ˜æ•¸</th>
+		<th>æ¸›åƒ¹</th>
+		<th>æ´»å‹•æè¿°</th>
+		<th>æ´»å‹•åœ–ç‰‡</th>
+		<th>ä¿®æ”¹</th>
 
 	</tr>
 	<%@ include file="page1.file" %> 
@@ -93,8 +91,8 @@
 		<tr>
 			<td>${promotionsVO.promot_no}</td>
 			<td>${promotionsVO.promot_name}</td>
-			<td><fmt:formatDate value="${promotionsVO.promot_date_start}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-			<td><fmt:formatDate value="${promotionsVO.promot_date_end}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+			<td><fmt:formatDate value="${promotionsVO.promot_date_start}" pattern="yyyy-MM-dd" /></td>
+			<td><fmt:formatDate value="${promotionsVO.promot_date_end}" pattern="yyyy-MM-dd" /></td>
 			<td>${promotionsVO.promot_status}</td>
 			<td>${promotionsVO.promot_type}</td>
 			<td>${promotionsVO.promot_discount_type}</td>
@@ -104,17 +102,12 @@
 			<td><img src="<%=request.getContextPath()%>/DBGifReader5?promot_photo=${promotionsVO.promot_no}" width="120px"></td>
 			                    
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/promotions/promotions.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="­×§ï">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/promotions/promotions.do" style="margin-bottom: 0px;"><%--è·¯å¾‘ä½ç½®å¾žback_endç¬¬ä¸€å±¤ç®—èµ·--%>
+			     <input type="submit" value="ä¿®æ”¹">
 			     <input type="hidden" name="promot_no"  value="${promotionsVO.promot_no}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/promotions/promotions.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="§R°£">
-			     <input type="hidden" name="empno"  value="${promotionsVO.promot_no}">
-			     <input type="hidden" name="action" value="delete"></FORM>
-			</td>
+			
 		</tr>
 	</c:forEach>
 </table>

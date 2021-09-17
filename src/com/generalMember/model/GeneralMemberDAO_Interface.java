@@ -7,6 +7,7 @@ public interface GeneralMemberDAO_Interface {
 	public void update(GeneralMemberVO gmVO);
 	public void delete(Integer gmno);
 	public GeneralMemberVO findByPrimaryKey(Integer gmno);
+	public GeneralMemberVO findByAccount(String account);
 	public List<GeneralMemberVO> getAll();
 
 }

@@ -52,6 +52,13 @@ public class order_detailVO implements Serializable{
 	public void setOrder_product_comment_state(String order_product_comment_state) {
 		this.order_product_comment_state = order_product_comment_state;
 	}
+	@Override
+	public String toString() {
+		return "order_detailVO [order_detail_no=" + order_detail_no + ", order_no=" + order_no + ", product_no="
+				+ product_no + ", order_product_number=" + order_product_number + ", order_product_comment="
+				+ order_product_comment + ", order_product_stars=" + order_product_stars
+				+ ", order_product_comment_state=" + order_product_comment_state + "]";
+	}
 	
 	
 	

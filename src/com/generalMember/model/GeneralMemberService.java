@@ -10,7 +10,7 @@ public class GeneralMemberService {
 		dao = new GeneralMemberDAO();
 	}
 
-	public GeneralMemberVO addGeneralMember(String meb_name,String phone,Date birthday,byte[] photo,String comment,String address,String email,String account,String password,String gender,Integer meb_money,String post_permission,Integer ger_meb_no) 
+	public GeneralMemberVO addGeneralMember(String meb_name,String phone,Date birthday,byte[] photo,String comment,String address,String email,String account,String password,String gender,Integer meb_money,String post_permission) 
 	{
 		GeneralMemberVO gmVO = new GeneralMemberVO();
 		
@@ -26,7 +26,7 @@ public class GeneralMemberService {
 		gmVO.setGender(gender);
 		gmVO.setMeb_money(meb_money);
 		gmVO.setPost_permission(post_permission);
-		gmVO.setGer_meb_no(ger_meb_no);
+		
 		dao.insert(gmVO);
 		
 		return gmVO;
@@ -71,6 +71,10 @@ public class GeneralMemberService {
 	
 	public GeneralMemberVO getOneGeneralMember(Integer ger_meb_no) {
 		return dao.findByPrimaryKey(ger_meb_no);
+	}
+	
+	public GeneralMemberVO getOneGeneralMember(String account) {
+		return dao.findByAccount(account);
 	}
 	
 	public List<GeneralMemberVO> getAll(){

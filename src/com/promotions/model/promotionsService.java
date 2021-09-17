@@ -5,18 +5,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class promotionsService {
+public class PromotionsService {
 
 	
 	private promotionsDAO_interface dao;
-	public promotionsService() {
+	public PromotionsService() {
 		dao=new promotionsDAO();
 	}//實作DAO
 	
 	//新增
 	public promotionsVO addpromotions(String promot_name, java.sql.Date promot_date_start, java.sql.Date promot_date_end,
-			String promot_status, String promot_type, String promot_discount_type, String promot_discount,
-			String promot_reduce, String promot_comment , byte[] promot_photo) {
+			String promot_status, String promot_type, String promot_discount_type, Integer promot_discount,
+			Integer promot_reduce, String promot_comment , byte[] promot_photo) {
 		
 		promotionsVO promotionsVO = new promotionsVO();//promotionsVO()
 		promotionsVO.setPromot_name(promot_name);
@@ -38,8 +38,8 @@ public class promotionsService {
 	//更新
 	public promotionsVO updatepromotions(Integer promot_no,
 			String promot_name, java.sql.Date promot_date_start, java.sql.Date promot_date_end,
-			String promot_status, String promot_type, String promot_discount_type, String promot_discount,
-			String promot_reduce, String promot_comment , byte[] promot_photo) {
+			String promot_status, String promot_type, String promot_discount_type, Integer promot_discount,
+			Integer promot_reduce, String promot_comment , byte[] promot_photo) {
 		
 		promotionsVO promotionsVO = new promotionsVO();//promotionsVO()
 		promotionsVO.setPromot_no(promot_no);

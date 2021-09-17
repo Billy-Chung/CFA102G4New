@@ -11,9 +11,9 @@ public class promotionsVO implements Serializable {//implements實作 Serializab
 	private Date promot_date_end;
 	private String promot_status;
 	private String promot_type;
-	private String promot_discount_type;	
-	private String promot_discount;
-	private String promot_reduce;	
+	private String promot_discount_type;
+	private Integer promot_discount;
+	private Integer promot_reduce;
 	private String promot_comment;
 	private byte[] promot_photo;//存LONGBLOB  type_img
 	
@@ -22,6 +22,19 @@ public class promotionsVO implements Serializable {//implements實作 Serializab
 	}
 	public void setPromot_no(Integer promot_no) {//server->client response
 		this.promot_no = promot_no; //
+	}
+	
+	public Integer getPromot_discount() {
+		return promot_discount;
+	}
+	public void setPromot_discount(Integer promot_discount) {
+		this.promot_discount = promot_discount;
+	}
+	public Integer getPromot_reduce() {
+		return promot_reduce;
+	}
+	public void setPromot_reduce(Integer promot_reduce) {
+		this.promot_reduce = promot_reduce;
 	}
 	public String getPromot_name() {
 		return promot_name;
@@ -59,18 +72,8 @@ public class promotionsVO implements Serializable {//implements實作 Serializab
 	public void setPromot_discount_type(String promot_discount_type) {
 		this.promot_discount_type = promot_discount_type;
 	}
-	public String getPromot_discount() {
-		return promot_discount;
-	}
-	public void setPromot_discount(String promot_discount) {
-		this.promot_discount = promot_discount;
-	}
-	public String getPromot_reduce() {
-		return promot_reduce;
-	}
-	public void setPromot_reduce(String promot_reduce) {
-		this.promot_reduce = promot_reduce;
-	}
+
+	
 	public String getPromot_comment() {
 		return promot_comment;
 	}
@@ -83,10 +86,4 @@ public class promotionsVO implements Serializable {//implements實作 Serializab
 	public void setPromot_photo(byte[] promot_photo) {
 		this.promot_photo = promot_photo;
 	}
-	
-	
-	
-	
-	
-	
 }

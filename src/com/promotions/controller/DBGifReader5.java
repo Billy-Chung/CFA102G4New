@@ -1,7 +1,6 @@
 package com.promotions.controller;
 
 import java.io.*;
-import java.sql.*;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -20,14 +19,14 @@ public class DBGifReader5 extends HttpServlet {
 		ServletOutputStream out = res.getOutputStream();
 
 		try {
-			      String promot_photo = req.getParameter("promot_photo");
-			      promotionsService promotionsSvc = new promotionsService();
+			      String promot_photo = req.getParameter("promot_photo");//拿來用
+			      PromotionsService promotionsSvc = new PromotionsService();
 			      promotionsVO promotionsVO = promotionsSvc.getOnePromotions(new Integer(promot_photo));
 			      byte[] b = promotionsVO.getPromot_photo();
 				  out.write(b);//裝滿送
 
 		} catch (Exception e) {
-			InputStream in=getServletContext().getResourceAsStream("/NoData/null2.jpg");//找不到圖的專案路徑
+			InputStream in=getServletContext().getResourceAsStream("/back_end/promotions/images/null2.jpg");//找不到圖的專案路徑
 			byte[]b=new byte[in.available()];//宣告
 			in.read(b);//取值
 			out.write(b);//拿來用

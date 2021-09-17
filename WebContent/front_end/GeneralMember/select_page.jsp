@@ -52,7 +52,7 @@
   
   
   <li>
-    <FORM METHOD="post" ACTION="gm.do" >
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do">
         <b>輸入會員編號 :</b>
         <input type="text" name="gmno">
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -63,7 +63,7 @@
   <jsp:useBean id="gmSvc" scope="page" class="com.generalMember.model.GeneralMemberService" />
    
   <li>
-     <FORM METHOD="post" ACTION="gm.do" >
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do">
        <b>選擇會員編號:</b>
        <select size="1" name="gmno">
          <c:forEach var="gmVO" items="${gmSvc.all}" > 
@@ -76,7 +76,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="gm.do" >
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do" >
        <b>選擇員工姓名:</b>
        <select size="1" name="gmno">
          <c:forEach var="gmVO" items="${gmSvc.all}" > 
@@ -93,7 +93,8 @@
 <h3>員工管理</h3>
 
 <ul>
-  <li><a href='addEmp.jsp'>Add</a> a new Emp.</li>
+  <li><a href="addGeneralMember.jsp">Add</a> a new GeneralMember.</li>
+  <li><a href="updatePassword.jsp">更新密碼</a></li>
 </ul>
 
 </body>

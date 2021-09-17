@@ -246,7 +246,6 @@ import java.util.List;
 
 	@Override
 	public void delete(Integer product_pro_detail_no) {
-		// TODO Auto-generated method stub
 		
 	}
 	

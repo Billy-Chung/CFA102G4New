@@ -67,11 +67,11 @@
  
  <servlet>
   	<servlet-name>promotions</servlet-name>
-  	<servlet-class>com.promotions.controller.promotionsServlet</servlet-class>
+  	<servlet-class>com.promotions.controller.PromotionsServlet</servlet-class>
   </servlet>
    <servlet-mapping>
   	<servlet-name>promotions</servlet-name>
-  	<url-pattern>/promotions/addpromotions.do</url-pattern>
+  	<url-pattern>/promotions/promotions.do</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -81,6 +81,15 @@
   <servlet-mapping>
 	<servlet-name>GeneralMemberServlet</servlet-name>
 	<url-pattern>/gm/gm.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Shopping_cartServlet</servlet-name>
+    <servlet-class>com.shopping_cart.controller.Shopping_cartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Shopping_cartServlet</servlet-name>
+    <url-pattern>/shopping_cart/shoppingCart.html</url-pattern>
   </servlet-mapping>
   
   <filter>

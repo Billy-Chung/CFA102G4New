@@ -10,11 +10,11 @@ public class GmTest {
 		//新增
 //		GeneralMemberVO gm = new GeneralMemberVO();
 //		GeneralMemberDAO_Interface gmdao = new GeneralMemberDAO();
-//		gm.setGer_meb_no(6);
+////		gm.setGer_meb_no(6);
 //		gm.setMeb_name("2");
 //		gm.setPhone("2");
 //		gm.setBirthday(java.sql.Date.valueOf("2016-01-01"));
-//		byte[] pic = getPictureByteArray("image/123.jpg");
+//		byte[] pic = getPictureByteArray("");
 //		gm.setPhoto(pic);
 //		gm.setComment("dddddd");
 //		gm.setAddress("ddddddddd");
@@ -24,8 +24,8 @@ public class GmTest {
 //		gm.setGender("1");
 //		gm.setMeb_money(600);
 //		gm.setPost_permission("1");
-//		gmdao.insert(gm);
-//		System.out.println("新增成功");
+		gmdao.insert(gm);
+		System.out.println("新增成功");
 
 		
 //		GeneralMemberVO gm = new GeneralMemberVO();
@@ -75,24 +75,24 @@ public class GmTest {
 		
 		// 查詢全部
 
-		GeneralMemberDAO_Interface gmpdao = new GeneralMemberDAO();
-		List<GeneralMemberVO> gmlist = gmpdao.getAll();
-		for (GeneralMemberVO gm : gmlist) {
-			System.out.println(gm.getGer_meb_no() + ",");
-			System.out.println(gm.getMeb_name() + ",");
-			System.out.println(gm.getPhone() + ",");
-			System.out.println(gm.getBirthday() + ",");
-			System.out.println(gm.getPhoto() + ",");
-			System.out.println(gm.getComment() + ",");
-			System.out.println(gm.getAddress() + ",");
-			System.out.println(gm.getEmail() + ",");
-			System.out.println(gm.getAccount() + ",");
-			System.out.println(gm.getPassword() + ",");
-			System.out.println(gm.getGender() + ",");
-			System.out.println(gm.getMeb_money());
-			System.out.println(gm.getPost_permission());
-			System.out.println();
-		}
+//		GeneralMemberDAO_Interface gmpdao = new GeneralMemberDAO();
+//		List<GeneralMemberVO> gmlist = gmpdao.getAll();
+//		for (GeneralMemberVO gm : gmlist) {
+//			System.out.println(gm.getGer_meb_no() + ",");
+//			System.out.println(gm.getMeb_name() + ",");
+//			System.out.println(gm.getPhone() + ",");
+//			System.out.println(gm.getBirthday() + ",");
+//			System.out.println(gm.getPhoto() + ",");
+//			System.out.println(gm.getComment() + ",");
+//			System.out.println(gm.getAddress() + ",");
+//			System.out.println(gm.getEmail() + ",");
+//			System.out.println(gm.getAccount() + ",");
+//			System.out.println(gm.getPassword() + ",");
+//			System.out.println(gm.getGender() + ",");
+//			System.out.println(gm.getMeb_money());
+//			System.out.println(gm.getPost_permission());
+//			System.out.println();
+//		}
 	}
 	
 	public static byte[] getPictureByteArray(String path) throws IOException {
