@@ -72,6 +72,7 @@
 .myTextSize2 {
 	font-size: 1.2rem;
 }
+
 .oldPhoto2 {
 	max-width: 100%;
 	max-height: 100%;
@@ -103,41 +104,47 @@
 
 	<div class="section section-margin">
 		<div class="container">
-			<div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1 m-b-n40 mybottom2">
+			<div
+				class="row row-cols-lg-3 row-cols-sm-2 row-cols-1 m-b-n40 mybottom2">
 				<%@ include file="page1.file"%>
 				<c:forEach var="allNews" items="${list}" begin="<%=pageIndex%>"
 					end="<%=pageIndex+rowsPerPage-1%>">
-					<div class="col m-b-40">
-						<!-- Single Blog Start -->
-						<div class="single-blog-wrapper">
+					<c:if test="${allNews.adopt_meb_news_state == 1 }">
+						<div class="col m-b-40">
+							<!-- Single Blog Start -->
+							<div class="single-blog-wrapper">
 
-							<!-- Blog Thumb Start -->
-							<div class="blog-thumb thumb-effect">
-								<a class="image" href="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do?action=showNewsPage&&PK=${allNews.adopt_meb_news_no}"> <img
-									class="fit-image oldPhoto2"
-									src="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do?action=showNewsPhoto&PK=${allNews.adopt_meb_news_no}"
-									alt="Blog Image">
-								</a>
-							</div>
-							<!-- Blog Thumb End -->
-
-							<!-- Blog Content Start -->
-							<div class="blog-content">
-								<div class="blog-meta">
-									<ul>										
-										<li><span>${allNews.adopt_meb_news_date}</span></li>
-									</ul>
+								<!-- Blog Thumb Start -->
+								<div class="blog-thumb thumb-effect">
+									<a class="image"
+										href="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do?action=showNewsPage&&PK=${allNews.adopt_meb_news_no}">
+										<img class="fit-image oldPhoto2"
+										src="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do?action=showNewsPhoto&PK=${allNews.adopt_meb_news_no}"
+										alt="Blog Image">
+									</a>
 								</div>
-								<h2 class="blog-title">
-									<a href="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do?action=showNewsPage&&PK=${allNews.adopt_meb_news_no}">${allNews.adopt_meb_news_title}</a>
-								</h2>								
-								<a class="more-link" href="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do?action=showNewsPage&&PK=${allNews.adopt_meb_news_no}">查看詳細</a>
-							</div>
-							<!-- Blog Content End -->
+								<!-- Blog Thumb End -->
 
+								<!-- Blog Content Start -->
+								<div class="blog-content">
+									<div class="blog-meta">
+										<ul>
+											<li><span>${allNews.adopt_meb_news_date}</span></li>
+										</ul>
+									</div>
+									<h2 class="blog-title">
+										<a
+											href="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do?action=showNewsPage&&PK=${allNews.adopt_meb_news_no}">${allNews.adopt_meb_news_title}</a>
+									</h2>
+									<a class="more-link"
+										href="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do?action=showNewsPage&&PK=${allNews.adopt_meb_news_no}">查看詳細</a>
+								</div>
+								<!-- Blog Content End -->
+
+							</div>
+							<!-- Single Blog End -->
 						</div>
-						<!-- Single Blog End -->
-					</div>
+					</c:if>
 				</c:forEach>
 			</div>
 
