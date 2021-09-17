@@ -234,7 +234,7 @@
 						</c:if>
 
 						<div class="single-product-buy m-b-30">
-							<a href="checkout.html"
+							<a href="<%=request.getContextPath()%>/adoptPet/addPet.do?action=goToReserve&PK=${adoptPetDetail.adopt_pet_no}"
 								class="btn btn-primary btn-hover-dark rounded-0">我想預約到現場看看牠!</a>
 
 							<a href="checkout.html"

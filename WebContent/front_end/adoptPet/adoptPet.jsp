@@ -222,7 +222,7 @@
 											<div class="action-cart-btn-wrapper d-flex">
 												<div class="add-to_cart">
 													<a class="btn btn-primary btn-hover-dark rounded-0"
-														href="cart.html">預約看寵物!!</a>
+														href="<%=request.getContextPath()%>/adoptPet/addPet.do?action=goToReserve&PK=${AdoptPetVO.adopt_pet_no}">預約看寵物!!</a>
 
 												</div>
 												<a href="wishlist.html" title="Wishlist" class="action"><i

@@ -193,7 +193,7 @@ public class AdoptPetServlet extends HttpServlet {
 						containNumber, adoptPetColor, adoptPetState, petClassNoBox);
 
 				String url = "/back_end/adopt/adoptPet.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
 			} catch (Exception e) {
@@ -656,6 +656,12 @@ public class AdoptPetServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);
 			
+		}
+		
+		if("goToReserve".equals(action)) {
+			String url = "/front_end/adoptPet/reservePet.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			successView.forward(req, res);
 		}
 
 	}
