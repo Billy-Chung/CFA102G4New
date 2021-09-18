@@ -44,6 +44,10 @@
 	margin-bottom: 3%;
 }
 
+.bgw {
+	background-color: darkgray;
+}
+
 .inmid {
 	margin: 0 40% 0 43%;
 }
@@ -157,31 +161,33 @@
 
                                 <!-- State or Country Input Start -->
                                 <div class="col-md-6">
-                                    <div class="checkout-form-list">
+                                    <div class="checkout-form-list ">
                                         <label>預約日期 <span class="required">*</span></label>
                                         <input id="f_date1" placeholder="" name="reserveDate" type="text">
+                                         <button id="scarchTime" type="button" class="btn btn-primary btn-hover-dark">查詢預約時段</button>
                                     </div>
-                                </div>
-                                <!-- State or Country Input End -->
+                                </div>                               
+                                                       
+                               <!-- State or Country Input End -->
 
                                 <!-- Postcode or Zip Input Start -->
                                 <div class="col-md-6">
-                                    <div class="checkout-form-list">
+                                    <div class="checkout-form-list mybottom" >
                                         <label>預約時段<span class="required">*</span></label>
-                                        <select class="myniceselect nice-select wide rounded-0">
-                                            <option value="Bangladesh">Bangladesh</option>
-                                            <option value="uk">London</option>
-                                            <option value="rou">Romania</option>
-                                            <option value="fr">French</option>
-                                            <option value="de">Germany</option>
-                                            <option value="aus">Australia</option>
+                                        <select id="timeSelect" class="myniceselect nice-select wide rounded-0 bgw"  disabled>
+                                            <option >請先選擇日期</option>
+<!--                                             <option value="uk">London</option> -->
+<!--                                             <option value="rou">Romania</option> -->
+<!--                                             <option value="fr">French</option> -->
+<!--                                             <option value="de">Germany</option> -->
+<!--                                             <option value="aus">Australia</option> -->
                                         </select>
                                     </div>
                                 </div>
                                 <!-- Postcode or Zip Input End -->
-                            </div>
+                            </div>                           
                         </div>
-                        <button type="button" class="btn btn-primary btn-hover-dark inmid ">送出預約</button>
+                        <button type="button" class="btn btn-primary btn-hover-dark inmid  ">送出預約</button>
                     </form>
                     <!-- Checkbox Form End -->
                 </div>
@@ -216,9 +222,11 @@
 		
 <% 
   java.sql.Date reserveDate = null;
-  try {
+	int firstTime = 0;
+  try {	  
 	  reserveDate = java.sql.Date.valueOf(request.getParameter("reserveDate").trim());
    } catch (Exception e) {
+	   firstTime = 1;
 	   reserveDate = new java.sql.Date(System.currentTimeMillis());
    }
 %>
@@ -226,6 +234,41 @@
 
 <script src="<%=request.getContextPath()%>/front_end/adoptPet/datetimepicker/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/front_end/adoptPet/datetimepicker/jquery.datetimepicker.full.js"></script>
+
+<script>
+	
+
+    $("#scarchTime").click( function () {    	
+    if($("#f_date1").val()){ 
+    	$("#timeSelect option").remove();
+    	$("#timeSelect").removeAttr("disabled");
+        $("#timeSelect").removeClass("bgw");
+        $.ajax({
+      	  url:"<%=request.getContextPath()%>/adoptMeb/adoptMeb.do?action=showMebTime",
+      	  method:"get",
+      	  dataType:"json",
+      	  data:{ 
+              whichDate : $("#f_date1").val(),                            
+          }
+      	}).done(
+        	function (e){
+        		for(let i =0; i < 24 ; i++){        			
+        			if(e.okTime[i] !== 0 && e.isMebTime[i] < e.okTime[i]){
+        				 $("#timeSelect").append("<option value="+ i +" >"+i+" : 00 ~ "+(i+1)+" : 00"+"</option>");        			        				
+        			}
+        		}
+        	        		
+        	}
+        );
+    	}else{
+    		$("#timeSelect option").remove();
+    		 $("#timeSelect").append("<option >請先選擇日期</option>");
+    		$("#timeSelect").prop('disabled', true);
+	        $("#timeSelect").addClass("bgw");
+    	}    
+    });   
+    
+  </script>
 
 
 <script>
@@ -236,7 +279,7 @@
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-		   value: '<%=reserveDate%>', // value:   new Date(),
+		   value: '<%= firstTime == 1? "" :reserveDate%>', // value:   new Date(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:	            '2017/07/10',  // 起始日
            minDate:'-1970-01-01', // 去除今日(不含)之前

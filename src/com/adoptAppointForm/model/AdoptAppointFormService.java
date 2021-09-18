@@ -38,8 +38,8 @@ public class AdoptAppointFormService {
 		 return adoptAppointForm;
 	}
 	
-	public AdoptAppointFormVO findAdoptMebNo(Integer adopt_meb_no) {
-		 AdoptAppointFormVO adoptAppointForm = dao.findByPK(adopt_meb_no);
+	public  List<AdoptAppointFormVO> findAdoptMebNo(Integer adopt_meb_no) {
+		 List<AdoptAppointFormVO> adoptAppointForm = dao.findAdoptMebNo(adopt_meb_no);
 		 return adoptAppointForm;
 	}
 }

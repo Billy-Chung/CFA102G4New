@@ -2,13 +2,14 @@ package com.adoptMember.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
-
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.HashMap;
 import java.util.LinkedHashMap;
-
+import java.util.List;
 import java.util.Map;
-
+import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,35 +19,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.adoptAppointForm.model.AdoptAppointFormService;
+import com.adoptAppointForm.model.AdoptAppointFormVO;
 import com.adoptMember.model.AdoptMemberService;
 import com.adoptMember.model.AdoptMemberVO;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @javax.servlet.annotation.MultipartConfig
 public class AdoptMemberServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String action = req.getParameter("action");	
-		if(("gotoUpdate").equals(action)) {			
+		String action = req.getParameter("action");
+		if (("gotoUpdate").equals(action)) {
 			Integer adoptMebNo = new Integer(req.getParameter("adoptMebNo"));
 			AdoptMemberService adoptMemberSvc = new AdoptMemberService();
-			AdoptMemberVO adoptMemberVO = adoptMemberSvc.findByAdoptMebNoPK(adoptMebNo);		
-			req.setAttribute("adoptMemberVO", adoptMemberVO); 
+			AdoptMemberVO adoptMemberVO = adoptMemberSvc.findByAdoptMebNoPK(adoptMebNo);
+			req.setAttribute("adoptMemberVO", adoptMemberVO);
 			String url = "/back_end/adoptMember/adoptMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
-		}		
+		}
 
-		if(("gotoUpdateTime").equals(action)) {			
+		if (("gotoUpdateTime").equals(action)) {
 			Integer adoptMebNo = new Integer(req.getParameter("adoptMebNo"));
 			AdoptMemberService adoptMemberSvc = new AdoptMemberService();
-			AdoptMemberVO adoptMemberVO = adoptMemberSvc.findByAdoptMebNoPK(adoptMebNo);		
-			req.setAttribute("adoptMemberVO", adoptMemberVO); 
+			AdoptMemberVO adoptMemberVO = adoptMemberSvc.findByAdoptMebNoPK(adoptMebNo);
+			req.setAttribute("adoptMemberVO", adoptMemberVO);
 			String url = "/back_end/adoptMember/adoptMemberTime.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-		
-		if(("showMebPhoto").equals(action)) {
+
+		if (("showMebPhoto").equals(action)) {
 			res.setContentType("img/jepg");
 			Integer PK = new Integer(req.getParameter("adoptMebNo"));
 			AdoptMemberService adoptMemberSvc = new AdoptMemberService();
@@ -56,9 +60,36 @@ public class AdoptMemberServlet extends HttpServlet {
 			out.write(showMebPhoto);
 			out.close();
 		}
-		
-		
-		
+
+		if ("showMebTime".equals(action)) {
+			String whichDate = req.getParameter("whichDate").trim();
+			AdoptAppointFormService AdoptAppointFormSvc = new AdoptAppointFormService();
+			Optional<AdoptAppointFormVO> adoptAppointForm = AdoptAppointFormSvc.findAdoptMebNo(1).stream()
+					.filter(e -> e.getAppoint_date().toString().equals(whichDate)).findFirst();
+
+			if (adoptAppointForm.isPresent()) {
+				PrintWriter out = res.getWriter();
+				String finish_appoint_num = adoptAppointForm.get().getFinifh_appoint_num();
+				String appoint_limit = adoptAppointForm.get().getAppoint_limit();
+				List<Integer> okTime = new ArrayList<>();
+				List<Integer> isMebTime = new ArrayList<>();
+				Map<String, int[]> jsonMap = new HashMap();
+				for (int i = 0; i < 24; i++) {
+					okTime.add(new Integer(String.valueOf(appoint_limit.charAt(i))));
+					isMebTime.add(new Integer(String.valueOf(finish_appoint_num.charAt(i))));
+				}
+				int[] okIntTime = okTime.stream().mapToInt(i -> i).toArray();
+				int[] isMebIntTime = isMebTime.stream().mapToInt(i -> i).toArray();
+				jsonMap.put("okTime", okIntTime);
+				jsonMap.put("isMebTime", isMebIntTime);
+
+				Gson gson = new Gson();
+				String jsonString = gson.toJson(jsonMap);
+				out.write(jsonString);
+				out.close();
+			}
+		}
+
 		doPost(req, res);
 	}
 
@@ -162,73 +193,70 @@ public class AdoptMemberServlet extends HttpServlet {
 				adoptMemberSvc.updateAdoptMember(adoptMebName, adoptMebComment, buf, adoptMebAddress, adoptMebPhone,
 						adoptMebEmail, adoptMebAccount, adoptMebPassword, adoptMebState, adoptMebAuth, adoptMebHoliday,
 						adoptMebLimit, adoptMebNo);
-				
-				AdoptMemberVO adoptMemberVO = adoptMemberSvc.findByAdoptMebNoPK(adoptMebNo);		
+
+				AdoptMemberVO adoptMemberVO = adoptMemberSvc.findByAdoptMebNoPK(adoptMebNo);
 				req.setAttribute("adoptMemberVO", adoptMemberVO);
 				String url = "/back_end/adoptMember/adoptMember.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-			}else if(oldPhoto.length != 0 && in.available() == 0) {
-				adoptMemberSvc.updateAdoptMember(adoptMebName, adoptMebComment, oldPhoto, adoptMebAddress, adoptMebPhone,
-						adoptMebEmail, adoptMebAccount, adoptMebPassword, adoptMebState, adoptMebAuth, adoptMebHoliday,
-						adoptMebLimit, adoptMebNo);
-				
-				AdoptMemberVO adoptMemberVO = adoptMemberSvc.findByAdoptMebNoPK(adoptMebNo);		
+			} else if (oldPhoto.length != 0 && in.available() == 0) {
+				adoptMemberSvc.updateAdoptMember(adoptMebName, adoptMebComment, oldPhoto, adoptMebAddress,
+						adoptMebPhone, adoptMebEmail, adoptMebAccount, adoptMebPassword, adoptMebState, adoptMebAuth,
+						adoptMebHoliday, adoptMebLimit, adoptMebNo);
+
+				AdoptMemberVO adoptMemberVO = adoptMemberSvc.findByAdoptMebNoPK(adoptMebNo);
 				req.setAttribute("adoptMemberVO", adoptMemberVO);
 				String url = "/back_end/adoptMember/adoptMember.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); 
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-			}		
-			else {
-				
+			} else {
+
 				adoptMemberSvc.updateAdoptMember(adoptMebName, adoptMebComment, null, adoptMebAddress, adoptMebPhone,
 						adoptMebEmail, adoptMebAccount, adoptMebPassword, adoptMebState, adoptMebAuth, adoptMebHoliday,
 						adoptMebLimit, adoptMebNo);
-				AdoptMemberVO adoptMemberVO = adoptMemberSvc.findByAdoptMebNoPK(adoptMebNo);		
+				AdoptMemberVO adoptMemberVO = adoptMemberSvc.findByAdoptMebNoPK(adoptMebNo);
 				req.setAttribute("adoptMemberVO", adoptMemberVO);
-				String url = "/back_end/adoptMember/adoptMember.jsp";	
+				String url = "/back_end/adoptMember/adoptMember.jsp";
 				RequestDispatcher failureView = req.getRequestDispatcher(url);
 				failureView.forward(req, res);
 			}
 
 		}
-		
-		
-		if ("updateMebTime".equals(action)) {	
+
+		if ("updateMebTime".equals(action)) {
 			StringBuilder adoptMebHoliday = new StringBuilder();
-			String [] ifDay = req.getParameterValues("ifDay");		
-			for(int d = 1; d < 8; d++) {
-				String s=Integer.toString(d);
-				if(Arrays.stream(ifDay).anyMatch(s::equals)) {
+			String[] ifDay = req.getParameterValues("ifDay");
+			for (int d = 1; d < 8; d++) {
+				String s = Integer.toString(d);
+				if (Arrays.stream(ifDay).anyMatch(s::equals)) {
 					adoptMebHoliday.append(1);
-				}else {
+				} else {
 					adoptMebHoliday.append(0);
 				}
-			}				
-			StringBuilder adoptMebLimit = new StringBuilder();			
-			for(int i = 0; i <24;i++) {
-				adoptMebLimit.append(req.getParameter("time"+i)) ;
+			}
+			StringBuilder adoptMebLimit = new StringBuilder();
+			for (int i = 0; i < 24; i++) {
+				adoptMebLimit.append(req.getParameter("time" + i));
 			}
 			Integer PK = new Integer(req.getParameter("adoptMebNo"));
 			AdoptMemberService adoptMemberSvc = new AdoptMemberService();
 			AdoptMemberVO mebData = adoptMemberSvc.findByAdoptMebNoPK(PK);
 			String name = mebData.getAdopt_meb_name();
 			String comment = mebData.getAdopt_meb_comment();
-			byte [] photo = mebData.getAdopt_meb_photo();
+			byte[] photo = mebData.getAdopt_meb_photo();
 			String address = mebData.getAdopt_meb_address();
 			String phone = mebData.getAdopt_meb_phone();
 			String email = mebData.getAdopt_meb_email();
 			String accoun = mebData.getAdopt_meb_account();
 			String password = mebData.getAdopt_meb_password();
 			String state = mebData.getAdopt_meb_state();
-			String auth = mebData.getAdopt_meb_auth();				
+			String auth = mebData.getAdopt_meb_auth();
 			String adoptMebHolidays = adoptMebHoliday.toString();
 			String adoptMebLimits = adoptMebLimit.toString();
-			
-			adoptMemberSvc.updateAdoptMember(name, comment, photo, address, phone,
-					email, accoun, password, state, auth, adoptMebHolidays,
-					adoptMebLimits, PK);
-		
+
+			adoptMemberSvc.updateAdoptMember(name, comment, photo, address, phone, email, accoun, password, state, auth,
+					adoptMebHolidays, adoptMebLimits, PK);
+
 			AdoptMemberVO newMebData = adoptMemberSvc.findByAdoptMebNoPK(PK);
 			req.setAttribute("adoptMemberVO", newMebData);
 			String url = "/back_end/adoptMember/adoptMemberTime.jsp";
