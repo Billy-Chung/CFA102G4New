@@ -266,7 +266,18 @@
     		$("#timeSelect").prop('disabled', true);
 	        $("#timeSelect").addClass("bgw");
     	}    
-    });   
+    }); 
+    
+    $("#f_date1").change( function () {    
+    	$("#timeSelect option").remove();
+    	if($("#f_date1").val()){
+    	 $("#timeSelect").append("<option >請先查詢時段</option>");    		
+    	}else{
+    		$("#timeSelect").append("<option >請先選擇日期</option>");
+    	}
+    		$("#timeSelect").prop('disabled', true);
+	        $("#timeSelect").addClass("bgw");
+    })
     
   </script>
 
