@@ -1,5 +1,6 @@
 package com.adoptAppointForm.model;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.util.List;
 
@@ -23,18 +24,23 @@ public class AdoptAppointFormService {
 		return adoptAppointForm;
 	}
 
-	public void updateAdoptAppointForm(String finifh_appoint_num,String appoint_limit,Integer appoint_form_no) {
+	public void updateAdoptAppointForm(String finifh_appoint_num,Integer Appoint_form_no, Connection con) {
 		AdoptAppointFormVO adoptAppointFormVO = new AdoptAppointFormVO();
 		
-		adoptAppointFormVO.setFinifh_appoint_num(finifh_appoint_num);
-		adoptAppointFormVO.setAppoint_limit(appoint_limit);
-		adoptAppointFormVO.setAdopt_meb_no(appoint_form_no);
-		dao.update(adoptAppointFormVO);
+		adoptAppointFormVO.setFinifh_appoint_num(finifh_appoint_num);	
+		adoptAppointFormVO.setAppoint_form_no(Appoint_form_no);	
+	
+		dao.update(adoptAppointFormVO,con);
 	}
 	
 	
 	public AdoptAppointFormVO findByAdoptAppointFormPK(Integer appoint_form_no) {
 		 AdoptAppointFormVO adoptAppointForm = dao.findByPK(appoint_form_no);
+		 return adoptAppointForm;
+	}
+	
+	public AdoptAppointFormVO findByAdoptAppointFormDate(Date reserve_date) {
+		 AdoptAppointFormVO adoptAppointForm = dao.findByDate(reserve_date);
 		 return adoptAppointForm;
 	}
 	

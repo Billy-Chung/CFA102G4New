@@ -1,11 +1,12 @@
 package com.reservePet.model;
 
+import java.sql.Date;
 import java.util.List;
 
 
 public interface ReservePet_interface {
 	
-	public ReservePetVO insert(ReservePetVO reservePet);
+	public ReservePetVO insert(ReservePetVO reservePet, Date reserve_date ,Integer timeSelect);
 	
 	public void update(ReservePetVO reservePet);
 	

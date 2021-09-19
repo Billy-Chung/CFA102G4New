@@ -1,6 +1,7 @@
 package com.reservePet.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import com.adoptAppointForm.model.AdoptAppointFormService;
+import com.adoptAppointForm.model.AdoptAppointFormVO;
 
 public class ReservePetDAO implements ReservePet_interface {
 
@@ -32,10 +36,11 @@ public class ReservePetDAO implements ReservePet_interface {
 	}
 
 	@Override
-	public ReservePetVO insert(ReservePetVO reservePet) {
+	public ReservePetVO insert(ReservePetVO reservePet, Date reserve_date, Integer timeSelect) {
 		Connection con = null;
 		try {
 			con = ds.getConnection();
+			con.setAutoCommit(false);
 			String[] cols = { "RESERVE_PET_NO" };
 			PreparedStatement pstmt = createInsertPreparedStatement(con, reservePet, INSERT_SQL, cols);
 			pstmt.executeUpdate();
@@ -44,7 +49,31 @@ public class ReservePetDAO implements ReservePet_interface {
 				int key = rs.getInt(1);
 				reservePet.setReserve_pet_no(key);
 			}
+			
+			AdoptAppointFormService AdoptAppointFormSvc = new AdoptAppointFormService();
+			AdoptAppointFormVO updateNewForm = AdoptAppointFormSvc.findByAdoptAppointFormDate(reserve_date);
+			String oldFinifh_appoint_num = updateNewForm.getFinifh_appoint_num();
+			StringBuilder reserveNewTime = new StringBuilder();
+			for(int i = 0; i <24; i++) {				
+				if(i == timeSelect) {					
+					reserveNewTime.append(Character.getNumericValue(oldFinifh_appoint_num.charAt(i)+1));
+				}else {
+					reserveNewTime.append(oldFinifh_appoint_num.charAt(i));
+				}
+			}			
+			AdoptAppointFormSvc.updateAdoptAppointForm(reserveNewTime.toString(),updateNewForm.getAppoint_form_no(), con);
+			
+			con.commit();
+			con.setAutoCommit(true);
+			
 		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (con != null) {

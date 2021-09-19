@@ -42,7 +42,16 @@
   <servlet-mapping>
   	<servlet-name>AdoptMeb</servlet-name>
   	<url-pattern>/adoptMeb/adoptMeb.do</url-pattern>
-  </servlet-mapping> 
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>reservePet</servlet-name>
+  	<servlet-class>com.reservePet.controller.ReservePetServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>reservePet</servlet-name>
+  	<url-pattern>/adoptPet/reservePet.do</url-pattern>
+  </servlet-mapping>  
   
    <servlet>
   	<servlet-name>petClass</servlet-name>

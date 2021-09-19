@@ -169,7 +169,7 @@
 					</div>
 				</c:if>
                     <!-- Checkbox Form Start -->
-                    <form method="post" action="<%=request.getContextPath()%>/adoptMeb/adoptMeb.do">
+                    <form method="post" action="<%=request.getContextPath()%>/adoptPet/reservePet.do">
                         <div class="checkbox-form">
 
                             <!-- Checkbox Form Title Start -->

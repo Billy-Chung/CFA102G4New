@@ -1,6 +1,7 @@
 package com.adoptAppointForm.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,13 +16,11 @@ import javax.sql.DataSource;
 
 public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 
-	private static final String SQL_URL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
-	private static final String SQL_USER = "David";
-	private static final String SQL_PASSWORD = "123456";
 	private static final String INSERT_SQL = "insert into ADOPT_APPOINT_FORM (ADOPT_MEB_NO,APPOINT_DATE,FINIFH_APPOINT_NUM,APPOINT_LIMIT) values(?,?,?,?)";
-	private static final String UPDATE_SQL = "update ADOPT_APPOINT_FORM set FINIFH_APPOINT_NUM = ?, APPOINT_LIMIT = ? where APPOINT_FORM_NO = ?";
+	private static final String UPDATE_SQL = "update ADOPT_APPOINT_FORM set FINIFH_APPOINT_NUM = ? where APPOINT_FORM_NO = ?";
 	private static final String FIND_BY_PK = "select * from ADOPT_APPOINT_FORM where APPOINT_FORM_NO = ?";
 	private static final String FIND_BY_ADOPTMEBNO = "select * from ADOPT_APPOINT_FORM where ADOPT_MEB_NO = ?";
+	private static final String FIND_BY_DATE = "select * from ADOPT_APPOINT_FORM where APPOINT_DATE = ?";
 
 	private static DataSource ds = null;
 	static {
@@ -61,24 +60,20 @@ public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 	}
 
 	@Override
-	public void update(AdoptAppointFormVO adoptAppointForm) {
-		Connection con = null;
-		try {
-			con = ds.getConnection();
+	public void update(AdoptAppointFormVO adoptAppointForm, Connection con) {		
+		try {		
 			PreparedStatement pstmt = createUpdatePreparedStatement(con, adoptAppointForm, UPDATE_SQL);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-		} finally {
 			if (con != null) {
 				try {
-					con.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured.111 " + excep.getMessage());
 				}
 			}
-		}
-
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} 
 	}
 
 	@Override
@@ -91,6 +86,30 @@ public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 			pstmt.setInt(1, appoint_form_no);
 			ResultSet rs = pstmt.executeQuery();
 			adoptAppointForm = selectOneAdoptAppointFormByNo(rs);
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		return adoptAppointForm;
+	}
+
+	@Override
+	public AdoptAppointFormVO findByDate(Date reserve_date) {
+		AdoptAppointFormVO adoptAppointForm = new AdoptAppointFormVO();
+		Connection con = null;
+		try {
+			con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(FIND_BY_DATE);
+			pstmt.setDate(1, reserve_date);
+			ResultSet rs = pstmt.executeQuery();
+			adoptAppointForm = selectOneAdoptAppointFormByDate(rs);
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -145,12 +164,28 @@ public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 			String SQL) throws SQLException {
 		PreparedStatement pstmt = con.prepareStatement(SQL);
 		pstmt.setString(1, adoptAppointForm.getFinifh_appoint_num());
-		pstmt.setString(2, adoptAppointForm.getAppoint_limit());
-		pstmt.setInt(3, adoptAppointForm.getAdopt_meb_no());
+		pstmt.setInt(2, adoptAppointForm.getAppoint_form_no());		
 		return pstmt;
 	}
 
 	private AdoptAppointFormVO selectOneAdoptAppointFormByNo(ResultSet rs) {
+		AdoptAppointFormVO adoptAppointForm = new AdoptAppointFormVO();
+
+		try {
+			while (rs.next()) {
+				adoptAppointForm.setAppoint_form_no(rs.getInt("APPOINT_FORM_NO"));
+				adoptAppointForm.setAdopt_meb_no(rs.getInt("ADOPT_MEB_NO"));
+				adoptAppointForm.setAppoint_date(rs.getDate("APPOINT_DATE"));
+				adoptAppointForm.setFinifh_appoint_num(rs.getString("FINIFH_APPOINT_NUM"));
+				adoptAppointForm.setAppoint_limit(rs.getString("APPOINT_LIMIT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return adoptAppointForm;
+	}
+	
+	private AdoptAppointFormVO selectOneAdoptAppointFormByDate(ResultSet rs) {
 		AdoptAppointFormVO adoptAppointForm = new AdoptAppointFormVO();
 
 		try {
