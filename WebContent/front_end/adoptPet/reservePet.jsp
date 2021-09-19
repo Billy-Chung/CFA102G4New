@@ -4,9 +4,12 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.adoptMember.model.*"%>
 <%@ page import="com.adoptMemberNews.model.*"%>
+<%@ page import="com.reservePet.model.*"%>
 
 <%-- <jsp:useBean id="allNews" class="com.adoptMemberNews.model.AdoptMemberNewsVo"/> --%>
-
+<%
+	ReservePetVO reservePet = (ReservePetVO) request.getAttribute("reservePet");
+%>
 
 
 <!DOCTYPE html>
@@ -50,6 +53,9 @@
 
 .inmid {
 	margin: 0 40% 0 43%;
+}
+.inmid2 {
+	margin: 0 40% 0 23%;
 }
 
 .listPhoto {
@@ -120,8 +126,16 @@
 						<div class="blog-details-content">
 							<!-- Blog Image Start -->
 							<div class="blog-image">
-								<img src="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do?action=cover&PK=1"
+							
+							
+							<c:if test="<%=reservePet == null %>">
+								<img src="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do?action=cover&PK=${param.PK}"
 									alt="Blog Image" class="fit-image">
+							</c:if>
+							<c:if test="<%=reservePet != null %>">
+								<img src="<%=request.getContextPath()%>/adoptPet/addPetPhoto.do?action=cover&PK=<%=reservePet.getAdopt_pet_no() %>"
+									alt="Blog Image" class="fit-image">
+							</c:if>
 							</div>										
 							<!-- Content End -->
 						</div>
@@ -132,8 +146,30 @@
 			
 			 <div class="row m-b-n20">
                 <div class="col-lg-12 col-12 m-b-20">
+                <c:if test="${not empty errorMsgs}">
+					<div class="col-xl-6 inmid2">
+						<div
+							class="alert alert-danger left-icon-big alert-dismissible fade show">
+							<button type="button" class="btn-close" data-bs-dismiss="alert"
+								aria-label="btn-close">
+								<span><i class="mdi mdi-btn-close"></i></span>
+							</button>
+							<div class="media">
+								<div class="alert-left-icon-big">
+									<span><i class="mdi mdi-alert"></i></span>
+								</div>
+								<div class="media-body">
+									<h5 class="mt-1 mb-2">請修正以下錯誤:</h5>
+									<c:forEach var="message" items="${errorMsgs}">
+										<p class="mb-0">${message.value}</p>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
                     <!-- Checkbox Form Start -->
-                    <form action="#">
+                    <form method="post" action="<%=request.getContextPath()%>/adoptMeb/adoptMeb.do">
                         <div class="checkbox-form">
 
                             <!-- Checkbox Form Title Start -->
@@ -145,7 +181,7 @@
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
                                         <label>預約人姓名</label>
-                                        <input placeholder="" type="text">
+                                        <input placeholder="" name="reserveName" type="text" value="<%= (reservePet == null)? "" : reservePet.getReserve_people_name()%>">
                                     </div>
                                 </div>
                                 <!-- Company Name Input End -->
@@ -153,7 +189,7 @@
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
                                         <label>預約人電話<span class="required">*</span></label>
-                                        <input placeholder="" type="text">
+                                        <input placeholder="" name="reservePhone" type="text" value="<%= (reservePet == null)? "" : reservePet.getReserve_people_phone()%>">
                                     </div>
                                 </div>
 
@@ -163,7 +199,7 @@
                                 <div class="col-md-6">
                                     <div class="checkout-form-list ">
                                         <label>預約日期 <span class="required">*</span></label>
-                                        <input id="f_date1" placeholder="" name="reserveDate" type="text">
+                                        <input id="f_date1" placeholder="" name="reserveDate" type="text"  value="<%= (reservePet == null)? "" : reservePet.getReserve_date()%>" >
                                          <button id="scarchTime" type="button" class="btn btn-primary btn-hover-dark">查詢預約時段</button>
                                     </div>
                                 </div>                               
@@ -174,20 +210,24 @@
                                 <div class="col-md-6">
                                     <div class="checkout-form-list mybottom" >
                                         <label>預約時段<span class="required">*</span></label>
-                                        <select id="timeSelect" class="myniceselect nice-select wide rounded-0 bgw"  disabled>
+                                        <select id="timeSelect" name="timeSelect" class="myniceselect nice-select wide rounded-0 bgw"  disabled>
                                             <option >請先選擇日期</option>
-<!--                                             <option value="uk">London</option> -->
-<!--                                             <option value="rou">Romania</option> -->
-<!--                                             <option value="fr">French</option> -->
-<!--                                             <option value="de">Germany</option> -->
-<!--                                             <option value="aus">Australia</option> -->
                                         </select>
                                     </div>
                                 </div>
                                 <!-- Postcode or Zip Input End -->
                             </div>                           
                         </div>
-                        <button type="button" class="btn btn-primary btn-hover-dark inmid  ">送出預約</button>
+                        <input type="hidden" name="action" value="addReserve">
+                        <c:if test="<%=reservePet != null %>">
+								 <input type="hidden" name="whichPet" value="<%=reservePet.getAdopt_pet_no() %>">
+						</c:if>
+							
+						 <c:if test="<%=reservePet == null %>">
+								 <input type="hidden" name="whichPet" value="${param.PK}">
+						</c:if>                       
+                        
+                        <button type="submit" class="btn btn-primary btn-hover-dark inmid  ">送出預約</button>
                     </form>
                     <!-- Checkbox Form End -->
                 </div>

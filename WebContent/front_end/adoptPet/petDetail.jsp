@@ -48,6 +48,10 @@
 	margin: 0 40% 0 43%;
 }
 
+.inmid2 {
+	margin: 0 40% 0 23%;
+}
+
 .listPhoto {
 	max-width: 100%;
 	max-height: 100%;
@@ -96,9 +100,28 @@
 
 	<div class="section section-margin">
 		<div class="container">
-			<div class="row">
+			<c:if test="${not empty seccessReserve}">
+					<div class="col-xl-6 inmid2">
+						<div
+							class="alert alert-success left-icon-big alert-dismissible fade show">
+							<button type="button" class="btn-close" data-bs-dismiss="alert"
+								aria-label="btn-close">
+								<span><i class="mdi mdi-btn-close"></i></span>
+							</button>
+							<div class="media">
+								<div class="alert-left-icon-big">
+									<span><i class="mdi mdi-alert"></i></span>
+								</div>
+								<div class="media-body">
+									<h5 class="mt-1 mb-2">您已成功預約看此寵物!</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
+			<div class="row">		
 
-				<div class="col-lg-5 offset-lg-0 col-md-8 offset-md-2">
+				<div class="col-lg-5 offset-lg-0 col-md-8 offset-md-2">				
 
 					<!-- Product Details Image Start -->
 					<div class="product-details-img">

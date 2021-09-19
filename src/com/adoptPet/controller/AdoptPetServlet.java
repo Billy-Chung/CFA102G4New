@@ -644,7 +644,7 @@ public class AdoptPetServlet extends HttpServlet {
 //			}
 		}
 		
-		if("goToDetail".equals(action)) {
+		if("goToDetail".equals(action)) {			
 			Integer PK = new Integer(req.getParameter("PK"));			
 			AdoptPetService adoptPetSvc = new AdoptPetService();
 			AdoptPetPhotoService adoptPetPhotoService = new AdoptPetPhotoService();
@@ -658,7 +658,7 @@ public class AdoptPetServlet extends HttpServlet {
 			
 		}
 		
-		if("goToReserve".equals(action)) {
+		if("goToReserve".equals(action)) {			
 			String url = "/front_end/adoptPet/reservePet.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
