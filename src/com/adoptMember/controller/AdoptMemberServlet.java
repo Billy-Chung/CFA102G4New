@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,6 +33,8 @@ import com.reservePet.model.ReservePetVO;
 @javax.servlet.annotation.MultipartConfig
 public class AdoptMemberServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html;charset=UTF-8");
 		String action = req.getParameter("action");
 		if (("gotoUpdate").equals(action)) {
 			Integer adoptMebNo = new Integer(req.getParameter("adoptMebNo"));
@@ -88,9 +91,40 @@ public class AdoptMemberServlet extends HttpServlet {
 
 				Gson gson = new Gson();
 				String jsonString = gson.toJson(jsonMap);
+				
 				out.write(jsonString);
 				out.close();
 			}
+		}
+		
+		if("showReserve".equals(action)) {
+			PrintWriter out = res.getWriter();
+			List<Map<String, String>> jsonList = new ArrayList<>();			
+			ReservePetService reservePetSvc = new ReservePetService();
+			List<ReservePetVO> allReserve =  reservePetSvc.findByAdoptMebNo(new Integer(req.getParameter("PK"))).stream().filter(r -> r.getReserve_state().equals("1")).collect(Collectors.toList());
+			for(ReservePetVO thisReserve :allReserve ) {				
+				String whichDate = thisReserve.getReserve_date().toString();
+				String whichTime = thisReserve.getReserve_time().toString();			
+				String jsonStartDateTime= null;
+				String jsonEndDateTime= null;
+				for(int i = 0; i < 24; i++) {
+					if(Character.getNumericValue(whichTime.charAt(i)) == 1) {
+						Map<String, String> jsonMap = new HashMap();
+						jsonMap.put("title", "預約者姓名: " + thisReserve.getReserve_people_name() + " ---------- 預約者電話: " + thisReserve.getReserve_people_phone());
+						jsonStartDateTime = whichDate + "T" + i + ":00:00";
+						jsonEndDateTime = whichDate + "T" + (i+1) + ":00:00";
+						jsonMap.put("start", jsonStartDateTime);
+						jsonMap.put("end", jsonEndDateTime);
+						jsonMap.put("id", thisReserve.getReserve_pet_no().toString());
+						jsonList.add(jsonMap);
+					}
+				}					
+			}
+			
+			Gson gson = new Gson();
+			String jsonString = gson.toJson(jsonList);
+			out.write(jsonString);
+			out.close();	
 		}
 
 		doPost(req, res);
@@ -267,6 +301,20 @@ public class AdoptMemberServlet extends HttpServlet {
 			successView.forward(req, res);
 		}	
 		
+		
+		if("goToDetailReserve".equals(action)) {
+			PrintWriter out = res.getWriter();
+			Integer PK = new Integer(req.getParameter("PK"));
+			Map<String, String> jsonMap = new HashMap();
+			ReservePetService reservePetSvc = new ReservePetService();
+			ReservePetVO upDate = reservePetSvc.findByReservePetPK(PK);		
+			reservePetSvc.upodateReservePet(upDate.getReserve_people_name(), upDate.getReserve_people_phone(), upDate.getReserve_date(), upDate.getReserve_time(), "0", PK );
+			jsonMap.put("deleteReserve", "seccess");
+			Gson gson = new Gson();
+			String jsonString = gson.toJson(jsonMap);
+			out.write(jsonString);
+			out.close();
+		}
 
 	}
 }
