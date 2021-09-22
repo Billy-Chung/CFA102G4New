@@ -324,26 +324,24 @@ public class AdoptMemberServlet extends HttpServlet {
 			Date reserveDate = upDate.getReserve_date();
 			String reservTime = upDate.getReserve_time();
 			AdoptAppointFormService adoptAppointFormSvc = new AdoptAppointFormService();
-			AdoptAppointFormVO whichData =  adoptAppointFormSvc.findByAdoptAppointFormDate(reserveDate);
+			AdoptAppointFormVO whichData = adoptAppointFormSvc.findByAdoptAppointFormDate(reserveDate);
 			String oldTimeDate = whichData.getFinifh_appoint_num();
 			StringBuilder reserveNewTime = new StringBuilder();
-			for(int i = 0;i < 24; i++) {
-				if(Character. getNumericValue(reservTime.charAt(i)) == 1) {
-					reserveNewTime.append((Character.getNumericValue(oldTimeDate.charAt(i))-1));
-				}else {
+			for (int i = 0; i < 24; i++) {
+				if (Character.getNumericValue(reservTime.charAt(i)) == 1) {
+					reserveNewTime.append((Character.getNumericValue(oldTimeDate.charAt(i)) - 1));
+				} else {
 					reserveNewTime.append(oldTimeDate.charAt(i));
 				}
 			}
-			
-			
+
 			AdoptAppointFormVO adoptAppointFormVO = new AdoptAppointFormVO();
 			adoptAppointFormVO.setAppoint_form_no(whichData.getAppoint_form_no());
 			adoptAppointFormVO.setFinifh_appoint_num(reserveNewTime.toString());
 			adoptAppointFormVO.setAppoint_limit(reservTime);
 			reservePetSvc.upodateReservePet(upDate.getReserve_people_name(), upDate.getReserve_people_phone(),
-					reserveDate, reservTime, "0", PK,adoptAppointFormVO);
-			
-			
+					reserveDate, reservTime, "0", PK, adoptAppointFormVO);
+
 			jsonMap.put("deleteReserve", "seccess");
 			Gson gson = new Gson();
 			String jsonString = gson.toJson(jsonMap);
@@ -351,5 +349,53 @@ public class AdoptMemberServlet extends HttpServlet {
 			out.close();
 		}
 
+		if ("setNoReserve".equals(action)) {
+			Map<String, String> errorMsgs = new LinkedHashMap<>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String inputDate = req.getParameter("noReserveDate");
+			if (inputDate.trim().length() == 0) {
+				errorMsgs.put("noSet", "請選擇日期!!");
+				req.setAttribute("choseDate", "");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adoptMember/addNoReserve.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			Date noReserveDate = java.sql.Date.valueOf(inputDate);
+			Integer mebNo = new Integer(req.getParameter("adoptMebNo"));
+
+			AdoptAppointFormService AdoptAppointFormSvc = new AdoptAppointFormService();
+			AdoptAppointFormVO whichDate = AdoptAppointFormSvc.findByAdoptAppointFormDate(noReserveDate);
+
+			try {
+				int noReserve = 0;
+				for (int i = 0; i < 24; i++) {
+					if (Character.getNumericValue(whichDate.getFinifh_appoint_num().charAt(i)) != 0) {
+						noReserve++;
+					}
+				}
+				if (noReserve != 0) {
+					errorMsgs.put("haveReserve", "請先取消該日的預約!!");
+					req.setAttribute("choseDate", inputDate);
+					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adoptMember/addNoReserve.jsp");
+					failureView.forward(req, res);
+					return;
+				} else {
+					AdoptAppointFormSvc.setNoreserveDate("000000000000000000000000", "000000000000000000000000",
+							whichDate.getAppoint_form_no());
+					req.setAttribute("successSet", "已成功設定不可預約日期");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adoptMember/addNoReserve.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+			} catch (Exception e) {
+				AdoptAppointFormSvc.insertAdoptAppointForm(mebNo, noReserveDate, "000000000000000000000000",
+						"000000000000000000000000");
+				req.setAttribute("successSet", "已成功設定不可預約日期");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/adoptMember/addNoReserve.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+
+		}
 	}
 }

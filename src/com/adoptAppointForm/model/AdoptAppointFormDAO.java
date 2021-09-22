@@ -76,6 +76,29 @@ public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		}
 	}
+	
+	
+
+	@Override
+	public void setNoreserveDate(AdoptAppointFormVO adoptAppointForm) {
+		Connection con = null;
+		try {
+			con = ds.getConnection();
+			PreparedStatement pstmt = createUpdatePreparedStatement(con, adoptAppointForm, UPDATE_SQL);
+			pstmt.executeUpdate();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		}finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		
+	}
 
 	@Override
 	public AdoptAppointFormVO findByPK(Integer appoint_form_no) {

@@ -9,6 +9,8 @@ public interface AdoptAppointForm_interface {
 	
 	public void update (AdoptAppointFormVO adoptAppointForm, Connection con);
 	
+	public void setNoreserveDate (AdoptAppointFormVO adoptAppointForm);
+	
 	public AdoptAppointFormVO findByPK (Integer appoint_form_no );
 	
 	public AdoptAppointFormVO findByDate (Date reserve_date );
