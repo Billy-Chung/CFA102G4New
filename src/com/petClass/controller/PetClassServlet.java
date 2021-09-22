@@ -132,50 +132,55 @@ public class PetClassServlet extends HttpServlet {
 		}
 		
 		if("searchByClass".equals(action)) {
-			String [] searchClass = req.getParameterValues("searchClass");
-			String requestURL = req.getParameter("requestURL");
-			PetClassListService PetClassListSvc = new PetClassListService();
-			List<PetClassListVO> allThisClassPet = new ArrayList<>();
-			int[] intPetClassBox = Arrays.asList(searchClass).stream().mapToInt(Integer::parseInt)
-					.toArray();
-			for(int thisClass:intPetClassBox) {
-				List<PetClassListVO> nowPets = PetClassListSvc.findByPetClassNo(thisClass);
-				for(PetClassListVO thisPet:nowPets) {
-					allThisClassPet.add(thisPet);
-				}
-			}
-			
-			List<PetClassListVO> onPetClass = allThisClassPet.stream().filter(e -> e.getPet_class_list_state().equals("1") ).collect(Collectors.toList());
-			AdoptPetService AdoptPetSvc = new AdoptPetService();
-			List<AdoptPetVO> allPetList = AdoptPetSvc.getAll();
-			List<AdoptPetVO> returnList = new ArrayList<>();
-			for(AdoptPetVO adoptPet:allPetList) {
-				for(PetClassListVO needPet:onPetClass) {
-					if(adoptPet.getAdopt_pet_no() == needPet.getAdopt_pat_no()) {
-						returnList.add(adoptPet);
-					}					
-				}
-			}
-			PetClassService petClassSvc = new PetClassService();
-			 List<PetClassVO> allPetClass = petClassSvc.getAll();
-			 List<PetClassVO> checkClass = new ArrayList<>();
-			 for(PetClassVO allClass:allPetClass) {
-					for(int isCheck:intPetClassBox) {
-						if(allClass.getPet_class_no() == isCheck) {
-							checkClass.add(allClass);
-						}
+			try {
+				String [] searchClass = req.getParameterValues("searchClass");
+				String requestURL = req.getParameter("requestURL");
+				PetClassListService PetClassListSvc = new PetClassListService();
+				List<PetClassListVO> allThisClassPet = new ArrayList<>();
+				int[] intPetClassBox = Arrays.asList(searchClass).stream().mapToInt(Integer::parseInt)
+						.toArray();
+				for(int thisClass:intPetClassBox) {
+					List<PetClassListVO> nowPets = PetClassListSvc.findByPetClassNo(thisClass);
+					for(PetClassListVO thisPet:nowPets) {
+						allThisClassPet.add(thisPet);
 					}
-			 }
-			 
-			 allPetClass.removeAll(checkClass);		
-			req.setAttribute("returnList", returnList);
-			req.setAttribute("isCheck", checkClass);
-			req.setAttribute("noCheck", allPetClass);
-			String url = requestURL;
-			RequestDispatcher successView = req.getRequestDispatcher(url); 
-			successView.forward(req, res);
-			
-			
+				}
+				
+				List<PetClassListVO> onPetClass = allThisClassPet.stream().filter(e -> e.getPet_class_list_state().equals("1") ).collect(Collectors.toList());
+				AdoptPetService AdoptPetSvc = new AdoptPetService();
+				List<AdoptPetVO> allPetList = AdoptPetSvc.getAll();
+				List<AdoptPetVO> returnList = new ArrayList<>();
+				for(AdoptPetVO adoptPet:allPetList) {
+					for(PetClassListVO needPet:onPetClass) {
+						if(adoptPet.getAdopt_pet_no() == needPet.getAdopt_pat_no()) {
+							returnList.add(adoptPet);
+						}					
+					}
+				}
+				PetClassService petClassSvc = new PetClassService();
+				 List<PetClassVO> allPetClass = petClassSvc.getAll();
+				 List<PetClassVO> checkClass = new ArrayList<>();
+				 for(PetClassVO allClass:allPetClass) {
+						for(int isCheck:intPetClassBox) {
+							if(allClass.getPet_class_no() == isCheck) {
+								checkClass.add(allClass);
+							}
+						}
+				 }
+				 
+				 allPetClass.removeAll(checkClass);		
+				req.setAttribute("returnList", returnList);
+				req.setAttribute("isCheck", checkClass);
+				req.setAttribute("noCheck", allPetClass);
+				String url = requestURL;
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
+				successView.forward(req, res);
+			}catch(Exception e){
+				String requestURL = req.getParameter("requestURL");
+				String url = requestURL;
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
+				successView.forward(req, res);
+			}				
 			
 		}		
 		
