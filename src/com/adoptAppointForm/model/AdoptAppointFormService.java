@@ -18,7 +18,7 @@ public class AdoptAppointFormService {
 		adoptAppointForm.setAdopt_meb_no(adopt_meb_no);
 		adoptAppointForm.setAppoint_date(appoint_date);
 		adoptAppointForm.setFinifh_appoint_num(finifh_appoint_num);
-		adoptAppointForm.setAppoint_limit("appoint_limit");
+		adoptAppointForm.setAppoint_limit(appoint_limit);
 		adoptAppointForm = dao.insert(adoptAppointForm);
 
 		return adoptAppointForm;
