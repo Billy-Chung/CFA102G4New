@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.adoptAppointForm.model.AdoptAppointFormDAO;
 import com.adoptAppointForm.model.AdoptAppointFormService;
 import com.adoptAppointForm.model.AdoptAppointFormVO;
 import com.adoptMember.model.AdoptMemberService;
@@ -119,6 +120,15 @@ public class AdoptMemberServlet extends HttpServlet {
 						jsonList.add(jsonMap);
 					}
 				}					
+			}
+			
+			AdoptAppointFormDAO xxx = new AdoptAppointFormDAO();
+			List<AdoptAppointFormVO> ttt = xxx.createDate();
+			for(AdoptAppointFormVO ccc : ttt) {
+				System.out.println(ccc.getAdopt_meb_no());
+				System.out.println(ccc.getAppoint_date());
+				System.out.println(ccc.getFinifh_appoint_num());
+				System.out.println(ccc.getAppoint_limit());
 			}
 			
 			Gson gson = new Gson();

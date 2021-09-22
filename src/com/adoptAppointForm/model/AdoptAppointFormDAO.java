@@ -21,6 +21,7 @@ public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 	private static final String FIND_BY_PK = "select * from ADOPT_APPOINT_FORM where APPOINT_FORM_NO = ?";
 	private static final String FIND_BY_ADOPTMEBNO = "select * from ADOPT_APPOINT_FORM where ADOPT_MEB_NO = ?";
 	private static final String FIND_BY_DATE = "select * from ADOPT_APPOINT_FORM where APPOINT_DATE = ?";
+	private static final String creatDate = "WITH RECURSIVE dates (APPOINT_DATE) AS (SELECT CURDATE() UNION ALL SELECT APPOINT_DATE + INTERVAL 1 DAY FROM dates WHERE APPOINT_DATE + INTERVAL 1 DAY <= ADDDATE(CURDATE(), INTERVAL 15 DAY)) SELECT b.ADOPT_MEB_NO, d.APPOINT_DATE, repeat('0',24) FINIFH_APPOINT_NUM,  IF(substr(b.ADOPT_MEB_HOLIDAY, weekday(d.APPOINT_DATE)+1,1) ='1', b.ADOPT_MEB_LIMIT, repeat('0',24))  APPOINT_LIMIT FROM dates d JOIN ADOPT_MEMBER b LEFT JOIN ADOPT_APPOINT_FORM r on (d.APPOINT_DATE = r.APPOINT_DATE AND b.ADOPT_MEB_NO = r.ADOPT_MEB_NO) WHERE r.APPOINT_DATE IS NULL";
 
 	private static DataSource ds = null;
 	static {
@@ -60,8 +61,8 @@ public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 	}
 
 	@Override
-	public void update(AdoptAppointFormVO adoptAppointForm, Connection con) {		
-		try {		
+	public void update(AdoptAppointFormVO adoptAppointForm, Connection con) {
+		try {
 			PreparedStatement pstmt = createUpdatePreparedStatement(con, adoptAppointForm, UPDATE_SQL);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
@@ -73,7 +74,7 @@ public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 				}
 			}
 			throw new RuntimeException("A database error occured. " + se.getMessage());
-		} 
+		}
 	}
 
 	@Override
@@ -149,6 +150,47 @@ public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 		return adoptAppointFormList;
 	}
 
+	@Override
+	public List<AdoptAppointFormVO> createDate() {
+		Connection con = null;
+		List<AdoptAppointFormVO> new15Date = new ArrayList<>();
+		try {
+			con = ds.getConnection();			
+			PreparedStatement pstmt = con.prepareStatement(creatDate);
+			ResultSet rs = pstmt.executeQuery();
+			new15Date = create15Date(new15Date, rs);
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		return new15Date;
+	}
+
+	private List<AdoptAppointFormVO> create15Date(List<AdoptAppointFormVO> new15Date, ResultSet rs) {
+		try {
+			while (rs.next()) {
+				AdoptAppointFormVO adoptAppointForm = new AdoptAppointFormVO();				
+				adoptAppointForm.setAdopt_meb_no(rs.getInt("ADOPT_MEB_NO"));
+				adoptAppointForm.setAppoint_date(rs.getDate("APPOINT_DATE"));
+				adoptAppointForm.setFinifh_appoint_num(rs.getString("FINIFH_APPOINT_NUM"));
+				adoptAppointForm.setAppoint_limit(rs.getString("APPOINT_LIMIT"));
+				new15Date.add(adoptAppointForm);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return new15Date;
+	}
+
 	private PreparedStatement createInsertPreparedStatement(Connection con, AdoptAppointFormVO adoptAppointForm,
 			String SQL, String[] cols) throws SQLException {
 
@@ -164,7 +206,7 @@ public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 			String SQL) throws SQLException {
 		PreparedStatement pstmt = con.prepareStatement(SQL);
 		pstmt.setString(1, adoptAppointForm.getFinifh_appoint_num());
-		pstmt.setInt(2, adoptAppointForm.getAppoint_form_no());		
+		pstmt.setInt(2, adoptAppointForm.getAppoint_form_no());
 		return pstmt;
 	}
 
@@ -184,7 +226,7 @@ public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 		}
 		return adoptAppointForm;
 	}
-	
+
 	private AdoptAppointFormVO selectOneAdoptAppointFormByDate(ResultSet rs) {
 		AdoptAppointFormVO adoptAppointForm = new AdoptAppointFormVO();
 

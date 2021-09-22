@@ -14,4 +14,6 @@ public interface AdoptAppointForm_interface {
 	public AdoptAppointFormVO findByDate (Date reserve_date );
 	
 	public List<AdoptAppointFormVO> findAdoptMebNo (Integer adopt_meb_no );
+	
+	public List<AdoptAppointFormVO> createDate ();
 }

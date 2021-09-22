@@ -48,4 +48,9 @@ public class AdoptAppointFormService {
 		 List<AdoptAppointFormVO> adoptAppointForm = dao.findAdoptMebNo(adopt_meb_no);
 		 return adoptAppointForm;
 	}
+	
+	public  List<AdoptAppointFormVO> create15Date() {
+		List<AdoptAppointFormVO> newDate = dao.createDate();
+		return newDate;
+	}
 }
