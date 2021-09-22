@@ -3,6 +3,8 @@ package com.reservePet.model;
 import java.sql.Date;
 import java.util.List;
 
+import com.adoptAppointForm.model.AdoptAppointFormVO;
+
 public class ReservePetService {
 	private ReservePet_interface dao;
 
@@ -29,7 +31,7 @@ public class ReservePetService {
 	}
 
 	public void upodateReservePet(String reserve_people_name, String reserve_people_phone, Date reserve_date,
-			String reserve_timeprivate, String reserve_state, Integer reserve_pet_no) {
+			String reserve_timeprivate, String reserve_state, Integer reserve_pet_no, AdoptAppointFormVO adoptAppointForm) {
 		ReservePetVO reservePet = new ReservePetVO();
 
 		reservePet.setReserve_people_name(reserve_people_name);
@@ -38,7 +40,7 @@ public class ReservePetService {
 		reservePet.setReserve_time(reserve_timeprivate);
 		reservePet.setReserve_state(reserve_state);
 		reservePet.setReserve_pet_no(reserve_pet_no);
-		dao.update(reservePet);
+		dao.update(reservePet, adoptAppointForm);
 
 	}
 

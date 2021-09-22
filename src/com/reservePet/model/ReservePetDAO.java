@@ -61,7 +61,7 @@ public class ReservePetDAO implements ReservePet_interface {
 					reserveNewTime.append(oldFinifh_appoint_num.charAt(i));
 				}
 			}			
-			AdoptAppointFormSvc.updateAdoptAppointForm(reserveNewTime.toString(),updateNewForm.getAppoint_form_no(), con);
+			AdoptAppointFormSvc.updateAdoptAppointForm(reserveNewTime.toString(),updateNewForm.getAppoint_limit(),updateNewForm.getAppoint_form_no(), con);
 			
 			con.commit();
 			con.setAutoCommit(true);
@@ -88,13 +88,26 @@ public class ReservePetDAO implements ReservePet_interface {
 	}
 
 	@Override
-	public void update(ReservePetVO reservePet) {
+	public void update(ReservePetVO reservePet,AdoptAppointFormVO adoptAppointForm) {
 		Connection con = null;
 		try {
 			con = ds.getConnection();
+			con.setAutoCommit(false);
 			PreparedStatement pstmt = createUpdatePreparedStatement(con, reservePet, UPDATE_SQL);
 			pstmt.executeUpdate();
+			
+			AdoptAppointFormService AdoptAppointFormSvc = new AdoptAppointFormService();
+			AdoptAppointFormSvc.updateAdoptAppointForm(adoptAppointForm.getFinifh_appoint_num(),adoptAppointForm.getAppoint_limit(),adoptAppointForm.getAppoint_form_no(), con);
+			con.commit();
+			con.setAutoCommit(true);
 		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (con != null) {

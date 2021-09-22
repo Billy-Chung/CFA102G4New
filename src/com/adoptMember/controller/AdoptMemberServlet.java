@@ -315,14 +315,35 @@ public class AdoptMemberServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
-		if ("goToDetailReserve".equals(action)) {
+		if ("cancelReserve".equals(action)) {
 			PrintWriter out = res.getWriter();
 			Integer PK = new Integer(req.getParameter("PK"));
 			Map<String, String> jsonMap = new HashMap();
 			ReservePetService reservePetSvc = new ReservePetService();
 			ReservePetVO upDate = reservePetSvc.findByReservePetPK(PK);
+			Date reserveDate = upDate.getReserve_date();
+			String reservTime = upDate.getReserve_time();
+			AdoptAppointFormService adoptAppointFormSvc = new AdoptAppointFormService();
+			AdoptAppointFormVO whichData =  adoptAppointFormSvc.findByAdoptAppointFormDate(reserveDate);
+			String oldTimeDate = whichData.getFinifh_appoint_num();
+			StringBuilder reserveNewTime = new StringBuilder();
+			for(int i = 0;i < 24; i++) {
+				if(Character. getNumericValue(reservTime.charAt(i)) == 1) {
+					reserveNewTime.append((Character.getNumericValue(oldTimeDate.charAt(i))-1));
+				}else {
+					reserveNewTime.append(oldTimeDate.charAt(i));
+				}
+			}
+			
+			
+			AdoptAppointFormVO adoptAppointFormVO = new AdoptAppointFormVO();
+			adoptAppointFormVO.setAppoint_form_no(whichData.getAppoint_form_no());
+			adoptAppointFormVO.setFinifh_appoint_num(reserveNewTime.toString());
+			adoptAppointFormVO.setAppoint_limit(reservTime);
 			reservePetSvc.upodateReservePet(upDate.getReserve_people_name(), upDate.getReserve_people_phone(),
-					upDate.getReserve_date(), upDate.getReserve_time(), "0", PK);
+					reserveDate, reservTime, "0", PK,adoptAppointFormVO);
+			
+			
 			jsonMap.put("deleteReserve", "seccess");
 			Gson gson = new Gson();
 			String jsonString = gson.toJson(jsonMap);

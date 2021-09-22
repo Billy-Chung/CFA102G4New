@@ -66,7 +66,7 @@
         	        eventClick: function (arg) {
         	          if (confirm('是否要取消該筆預約?')) {        	        	
         	        	$.ajax({
-          					url: "<%=request.getContextPath()%>/adoptMeb/adoptMeb.do?action=goToDetailReserve&PK=" + arg.event.id,
+          					url: "<%=request.getContextPath()%>/adoptMeb/adoptMeb.do?action=cancelReserve&PK=" + arg.event.id,
           					method: "post",
           					dataType: "json",
           					success:arg.event.remove(),

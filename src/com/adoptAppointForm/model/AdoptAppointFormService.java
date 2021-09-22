@@ -24,10 +24,11 @@ public class AdoptAppointFormService {
 		return adoptAppointForm;
 	}
 
-	public void updateAdoptAppointForm(String finifh_appoint_num,Integer Appoint_form_no, Connection con) {
+	public void updateAdoptAppointForm(String finifh_appoint_num,String appoint_limit,Integer Appoint_form_no, Connection con) {
 		AdoptAppointFormVO adoptAppointFormVO = new AdoptAppointFormVO();
 		
 		adoptAppointFormVO.setFinifh_appoint_num(finifh_appoint_num);	
+		adoptAppointFormVO.setAppoint_limit(appoint_limit);
 		adoptAppointFormVO.setAppoint_form_no(Appoint_form_no);	
 	
 		dao.update(adoptAppointFormVO,con);

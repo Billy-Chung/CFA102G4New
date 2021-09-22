@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 
 	private static final String INSERT_SQL = "insert into ADOPT_APPOINT_FORM (ADOPT_MEB_NO,APPOINT_DATE,FINIFH_APPOINT_NUM,APPOINT_LIMIT) values(?,?,?,?)";
-	private static final String UPDATE_SQL = "update ADOPT_APPOINT_FORM set FINIFH_APPOINT_NUM = ? where APPOINT_FORM_NO = ?";
+	private static final String UPDATE_SQL = "update ADOPT_APPOINT_FORM set FINIFH_APPOINT_NUM = ?, APPOINT_LIMIT = ? where APPOINT_FORM_NO = ?";
 	private static final String FIND_BY_PK = "select * from ADOPT_APPOINT_FORM where APPOINT_FORM_NO = ?";
 	private static final String FIND_BY_ADOPTMEBNO = "select * from ADOPT_APPOINT_FORM where ADOPT_MEB_NO = ?";
 	private static final String FIND_BY_DATE = "select * from ADOPT_APPOINT_FORM where APPOINT_DATE = ?";
@@ -206,7 +206,8 @@ public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 			String SQL) throws SQLException {
 		PreparedStatement pstmt = con.prepareStatement(SQL);
 		pstmt.setString(1, adoptAppointForm.getFinifh_appoint_num());
-		pstmt.setInt(2, adoptAppointForm.getAppoint_form_no());
+		pstmt.setString(2, adoptAppointForm.getAppoint_limit());
+		pstmt.setInt(3, adoptAppointForm.getAppoint_form_no());
 		return pstmt;
 	}
 
