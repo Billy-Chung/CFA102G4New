@@ -23,7 +23,53 @@
 	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/plugins/plugins.min.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/style.min.css">
+	
+<link href='<%=request.getContextPath()%>/front_end/GeneralMember/lib/main.css' rel='stylesheet' />
+  <script src='<%=request.getContextPath()%>/front_end/GeneralMember/lib/main.js'></script>
+  <script src='<%=request.getContextPath()%>/front_end/GeneralMember/lib/locales-all.js'></script>
+  
+  <script>
 
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var calendarEl = document.getElementById('calendar');
+    
+      $.ajax({
+          url: "<%=request.getContextPath()%>/adoptPet/reservePet.do?action=showReserve&PK=2",
+          method: "get",
+          dataType: "json",         
+        }).done(
+          function (e) {           
+        	  var calendar = new FullCalendar.Calendar(calendarEl, {
+        		  locale:'zh-tw',
+        	        headerToolbar: {
+        	          left: 'prev,next today',
+        	          center: 'title',
+        	          right: 'dayGridMonth'
+        	        },
+//         	        initialDate: '2020-09-12',
+        	        navLinks: true, // can click day/week names to navigate views
+        	        selectable: true,
+        	        selectMirror: true,
+        	        eventClick: function (arg) {
+        	          if (confirm('是否要取消該筆預約?')) {        	        	
+        	        	$.ajax({
+          					url: "<%=request.getContextPath()%>/adoptPet/reservePet.do?action=cancelReserve&PK=" + arg.event.id,
+          					method: "post",
+          					dataType: "json",
+          					success:arg.event.remove(),
+        				})
+        	          }
+        	        },        	       
+        	        editable: true,
+        	        dayMaxEvents: true, // allow "more" link when too many events
+        	        events: e,
+        	      });
+        	      calendar.render();
+        	    });
+          }
+        );
+ </script>
 
 <style>
 .myTop {
@@ -106,7 +152,7 @@
                             <div class="col-lg-3 col-md-4">
                                 <div class="myaccount-tab-menu nav" role="tablist">
                                     <a href="#dashboad" class="active" data-bs-toggle="tab"><i class="fa fa-dashboard"></i>
-                                        Dashboard</a>
+                                        查看預約</a>
                                     <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Orders</a>
                                     <a href="#download" data-bs-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a>
                                     <a href="#payment-method" data-bs-toggle="tab"><i class="fa fa-credit-card"></i> Payment Method</a>
@@ -124,11 +170,7 @@
                                     <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
                                         <div class="myaccount-content">
-                                            <h3 class="title">Dashboard</h3>
-                                            <div class="welcome">
-                                                <p>Hello, <strong>Alex Aya</strong> (If Not <strong>Aya !</strong><a href="login.html" class="logout"> Logout</a>)</p>
-                                            </div>
-                                            <p class="mb-0">From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
+                                             <div id='calendar'></div>
                                         </div>
                                     </div>
                                     <!-- Single Tab Content End -->

@@ -60,7 +60,7 @@ public class ReservePetService {
 
 	public List<ReservePetVO> findByGenMebNo(Integer gen_meb_no) {
 		
-		List<ReservePetVO> reservePetList = dao.findByAdoptMebNo(gen_meb_no);
+		List<ReservePetVO> reservePetList = dao.findByGenMebNo(gen_meb_no);
 
 		return reservePetList;
 	}
