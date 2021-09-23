@@ -3,11 +3,10 @@ package com.adoptMember.controller;
 import java.util.List;
 import java.util.TimerTask;
 
-import com.adoptAppointForm.model.AdoptAppointFormDAO;
 import com.adoptAppointForm.model.AdoptAppointFormService;
 import com.adoptAppointForm.model.AdoptAppointFormVO;
 
-public class adoptMemberTimer extends TimerTask {
+public class AdoptMemberTimer extends TimerTask {
 
 	@Override
 	public void run() {	

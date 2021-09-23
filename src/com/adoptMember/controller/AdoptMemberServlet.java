@@ -34,15 +34,6 @@ import com.reservePet.model.ReservePetVO;
 
 @javax.servlet.annotation.MultipartConfig
 public class AdoptMemberServlet extends HttpServlet {
-	Timer timer = new Timer();
-
-	public void init() {
-		timer.schedule(new adoptMemberTimer(), 1000, 1209600000);
-	}
-
-	public void destroy() {
-		timer.cancel();
-	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
