@@ -11,13 +11,12 @@ public class GeneralMemberPetService {
 		dao = new GeneralMemberPetDAO();
 	}
 	
-	public GeneralMemberPetVO addGeneralMemberPet(Integer gen_meb_pet_no,Integer adopt_pet_no,Integer pet_class_no,Integer gen_meb_no,String gen_meb_pet_breeds,String gen_meb_pet_gender,String gen_meb_pet_chip,String gen_meb_pet_sterilization,String gen_pet_color,String gen_pet_comment,String gen_pet_state) 
+	public GeneralMemberPetVO addGeneralMemberPet(Integer adopt_pet_no,Integer gen_meb_no,String gen_meb_pet_breeds,String gen_meb_pet_gender,String gen_meb_pet_chip,String gen_meb_pet_sterilization,String gen_pet_color,String gen_pet_comment,String gen_pet_state) 
 	{
 		GeneralMemberPetVO gmpVO = new GeneralMemberPetVO();
 		
-		gmpVO.setGen_meb_pet_no(gen_meb_pet_no);
+		
 		gmpVO.setAdopt_pet_no(adopt_pet_no);
-		gmpVO.setPet_class_no(pet_class_no);
 		gmpVO.setGen_meb_no(gen_meb_no);
 		gmpVO.setGen_meb_pet_breeds(gen_meb_pet_breeds);
 		gmpVO.setGen_meb_pet_gender(gen_meb_pet_gender);
@@ -43,7 +42,6 @@ public class GeneralMemberPetService {
 		
 		gmpVO.setGen_meb_pet_no(gen_meb_pet_no);
 		gmpVO.setAdopt_pet_no(adopt_pet_no);
-		gmpVO.setPet_class_no(pet_class_no);
 		gmpVO.setGen_meb_no(gen_meb_no);
 		gmpVO.setGen_meb_pet_breeds(gen_meb_pet_breeds);
 		gmpVO.setGen_meb_pet_gender(gen_meb_pet_gender);

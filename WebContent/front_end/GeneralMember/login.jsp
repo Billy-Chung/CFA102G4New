@@ -61,7 +61,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gem/login">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/LoginServlet">
 <table>
 	<tr>
 		<td>會員帳號:</td>
@@ -75,6 +75,8 @@
 	
 </table>
 <br>
+<a href="<%=request.getContextPath()%>/front_end/GeneralMember/addGeneralMember.jsp">會員註冊</a>
+<a href="<%=request.getContextPath()%>/front_end/GeneralMember/forgotPassword.jsp">忘記密碼</a><p>
 <input type="hidden" name="action" value="login">
 <input type="submit" value="送出">
 </FORM>

@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<title>IBM GeneralMember: Home</title>
+<title>IBM GeneralMemberPet: Home</title>
 
 <style>
   table#table-1 {
@@ -30,10 +30,10 @@
 <body bgcolor='white'>
 
 <table id="table-1">
-   <tr><td><h3>IBM GeneralMember: Home</h3><h4>( MVC )</h4></td></tr>
+   <tr><td><h3>IBM GeneralMemberPet: Home</h3><h4>( MVC )</h4></td></tr>
 </table>
 
-<p>This is the Home page for IBM GeneralMember: Home</p>
+<p>This is the Home page for IBM GeneralMemberPet: Home</p>
 
 <h3>資料查詢:</h3>
 	
@@ -48,26 +48,26 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllGeneralMember.jsp'>List</a> all GeneralMembers.  <br><br></li>
+  <li><a href='listAllGeneralMemberPet.jsp'>List</a> all GeneralMemberPets.  <br><br></li>
   
   
   <li>
-    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do">
-        <b>輸入會員編號 :</b>
-        <input type="text" name="gmno">
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gmp/gmp.do">
+        <b>輸入一般會員寵物編號 :</b>
+        <input type="text" name="gmpno">
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
     </FORM>
   </li>
 
-  <jsp:useBean id="gmSvc" scope="page" class="com.generalMember.model.GeneralMemberService" />
+  <jsp:useBean id="gmpSvc" scope="page" class="com.generalMemberPet.model.GeneralMemberPetService" />
    
   <li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do">
-       <b>選擇會員編號:</b>
-       <select size="1" name="gmno">
-         <c:forEach var="gmVO" items="${gmSvc.all}" > 
-          <option value="${gmVO.ger_meb_no}">${gmVO.ger_meb_no}
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gmp/gmp.do">
+       <b>選擇一般會員寵物編號:</b>
+       <select size="1" name="gmpno">
+         <c:forEach var="gmpVO" items="${gmpSvc.all}" > 
+          <option value="${gmpVO.gen_meb_pet_no}">${gmpVO.gen_meb_pet_no}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -76,11 +76,11 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do" >
-       <b>選擇員工姓名:</b>
-       <select size="1" name="gmno">
-         <c:forEach var="gmVO" items="${gmSvc.all}" > 
-          <option value="${gmVO.ger_meb_no}">${gmVO.meb_name}
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gmp/gmp.do" >
+       <b>選擇寵物編號:</b>
+       <select size="1" name="gmpno">
+         <c:forEach var="gmpVO" items="${gmpSvc.all}" > 
+          <option value="${gmpVO.gen_meb_pet_no}">${gmpVO.adopt_pet_no}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -90,11 +90,10 @@
 </ul>
 
 
-<h3>員工管理</h3>
+<h3>一般會員寵物管理</h3>
 
 <ul>
-  <li><a href="addGeneralMember.jsp">會員註冊</a> a new GeneralMember.</li>
-  <li><a href="updatePassword.jsp">更新密碼</a></li>
+  <li><a href="addGeneralMemberPet.jsp">新增一般會員寵物</a> a new GeneralMemberPet.</li>
 </ul>
 
 </body>

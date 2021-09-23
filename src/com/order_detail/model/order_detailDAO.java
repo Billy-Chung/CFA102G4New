@@ -10,83 +10,45 @@ import java.util.List;
 
 import com.pay_method.model.pay_methodVO;
 
-public class order_detailDAO implements order_detailDAO_interface{
+public class order_detailDAO implements order_detailDAO_interface {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	public static final String URL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
 	public static final String USER = "David";
 	public static final String PASSWORD = "123456";
-	
-	private static final String INSERT_STMT = "insert into ORDER_DETAIL(order_no,product_no,order_product_number,order_product_comment,order_product_stars,order_product_comment_state) values (?,?,?,?,?,?)";
-	private static final String UPDATE_STMT = "update ORDER_DETAIL set order_no=?,product_no=?,order_product_number=?,order_product_comment=?,order_product_stars=?,order_product_comment_state=? WHERE order_detail_no=?";
+
+	private static final String INSERT_STMT = "insert into ORDER_DETAIL(order_no,product_no,order_product_number,product_price,product_name,product_pro_detail_no,promot_name) values (?,?,?,?,?,?,?)";
+	private static final String UPDATE_STMT = "update ORDER_DETAIL set order_no=?,product_no=?,order_product_number=?,product_price=?,product_name=?,product_pro_detail_no=?,promot_name=? WHERE order_detail_no=?";
 	private static final String DELETE_STMT = "delete from ORDER_DETAIL where order_detail_no=?";
 	private static final String FIND_BY_PK = "select * from ORDER_DETAIL where order_detail_no=?";
 	private static final String GET_ALL = "select * from ORDER_DETAIL";
-	
+
 	static {
 		try {
 			Class.forName(DRIVER);
 		} catch (ClassNotFoundException ce) {
 			ce.printStackTrace();
 		}
-	}	
-	
+	}
+
 	@Override
 	public void add(order_detailVO order_detailVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
-            
-			con = DriverManager.getConnection(URL,USER,PASSWORD);
-			pstmt = con.prepareStatement(INSERT_STMT);//新增
-			int i=1;
+
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(INSERT_STMT);// 新增
+			int i = 1;
 			pstmt.setInt(i++, order_detailVO.getOrder_no());
 			pstmt.setInt(i++, order_detailVO.getProduct_no());
 			pstmt.setInt(i++, order_detailVO.getOrder_product_number());
-			pstmt.setString(i++, order_detailVO.getOrder_product_comment());
-			pstmt.setInt(i++, order_detailVO.getOrder_product_stars());
-			pstmt.setString(i++, order_detailVO.getOrder_product_comment_state());
-			pstmt.executeUpdate();//執行		
-			
-			
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}				
-	}
+			pstmt.setInt(i++, order_detailVO.getProduct_price());
+			pstmt.setString(i++, order_detailVO.getProduct_name());
+			pstmt.setInt(i++, order_detailVO.getProduct_pro_detail_no());
+			pstmt.setString(i++, order_detailVO.getPromot_name());
+			pstmt.executeUpdate();// 執行
 
-	@Override
-	public void update(order_detailVO order_detailVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			con = DriverManager.getConnection(URL,USER,PASSWORD);
-			pstmt = con.prepareStatement(UPDATE_STMT);//修改
-
-			int i=1;
-			pstmt.setInt(i++, order_detailVO.getOrder_no());
-			pstmt.setInt(i++, order_detailVO.getProduct_no());
-			pstmt.setInt(i++, order_detailVO.getOrder_product_number());
-			pstmt.setString(i++, order_detailVO.getOrder_product_comment());
-			pstmt.setInt(i++, order_detailVO.getOrder_product_stars());
-			pstmt.setString(i++, order_detailVO.getOrder_product_comment_state());
-			pstmt.setInt(i++, order_detailVO.getOrder_detail_no());//WHERE 條件			                                             
-			pstmt.executeUpdate();//執行		
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
@@ -105,18 +67,57 @@ public class order_detailDAO implements order_detailDAO_interface{
 				}
 			}
 		}
-		
+	}
+
+	@Override
+	public void update(order_detailVO order_detailVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(UPDATE_STMT);// 修改
+
+			int i = 1;
+			pstmt.setInt(i++, order_detailVO.getOrder_no());
+			pstmt.setInt(i++, order_detailVO.getProduct_no());
+			pstmt.setInt(i++, order_detailVO.getOrder_product_number());
+			pstmt.setInt(i++, order_detailVO.getProduct_price());
+			pstmt.setString(i++, order_detailVO.getProduct_name());
+			pstmt.setInt(i++, order_detailVO.getProduct_pro_detail_no());
+			pstmt.setString(i++, order_detailVO.getPromot_name());
+			pstmt.setInt(i++, order_detailVO.getOrder_detail_no());// WHERE 條件
+			pstmt.executeUpdate();// 執行
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
 	}
 
 	@Override
 	public void delete(Integer order_detail_no) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-	
+
 		try {
-			con = DriverManager.getConnection(URL,USER,PASSWORD);
-			pstmt = con.prepareStatement(DELETE_STMT);//刪除
-			pstmt.setInt(1, order_detail_no);			
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(DELETE_STMT);// 刪除
+			pstmt.setInt(1, order_detail_no);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -135,8 +136,8 @@ public class order_detailDAO implements order_detailDAO_interface{
 					e.printStackTrace(System.err);
 				}
 			}
-		}		
-		
+		}
+
 	}
 
 	@Override
@@ -147,20 +148,21 @@ public class order_detailDAO implements order_detailDAO_interface{
 		ResultSet rs = null;
 
 		try {
-			con = DriverManager.getConnection(URL,USER,PASSWORD);
-			pstmt = con.prepareStatement(FIND_BY_PK);//主鍵
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(FIND_BY_PK);// 主鍵
 			pstmt.setInt(1, order_detail_no);
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				order_detail = new order_detailVO();
 				order_detail.setOrder_detail_no(rs.getInt("order_detail_no"));
 				order_detail.setOrder_no(rs.getInt("order_no"));
 				order_detail.setProduct_no(rs.getInt("product_no"));
 				order_detail.setOrder_product_number(rs.getInt("order_product_number"));
-				order_detail.setOrder_product_comment(rs.getString("order_product_comment"));
-				order_detail.setOrder_product_stars(rs.getInt("order_product_stars"));
-				order_detail.setOrder_product_comment_state(rs.getString("order_product_comment_state"));	
+				order_detail.setProduct_price(rs.getInt("product_price"));
+				order_detail.setProduct_name(rs.getString("product_name"));
+				order_detail.setProduct_pro_detail_no(rs.getInt("product_pro_detail_no"));
+				order_detail.setPromot_name(rs.getString("promot_name"));
 			}
 
 		} catch (SQLException se) {
@@ -190,32 +192,33 @@ public class order_detailDAO implements order_detailDAO_interface{
 			}
 		}
 
-		return order_detail;		
+		return order_detail;
 	}
 
 	@Override
 	public List<order_detailVO> getAllorder_detail() {
-		List<order_detailVO> order_detailList= new ArrayList<>();
+		List<order_detailVO> order_detailList = new ArrayList<>();
 		order_detailVO order_detail = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;				
+		ResultSet rs = null;
 
 		try {
 
-			con = DriverManager.getConnection(URL,USER,PASSWORD);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(GET_ALL);
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				order_detail = new order_detailVO();
 				order_detail.setOrder_detail_no(rs.getInt("order_detail_no"));
 				order_detail.setOrder_no(rs.getInt("order_no"));
 				order_detail.setProduct_no(rs.getInt("product_no"));
 				order_detail.setOrder_product_number(rs.getInt("order_product_number"));
-				order_detail.setOrder_product_comment(rs.getString("order_product_comment"));
-				order_detail.setOrder_product_stars(rs.getInt("order_product_stars"));
-				order_detail.setOrder_product_comment_state(rs.getString("order_product_comment_state"));
+				order_detail.setProduct_price(rs.getInt("product_price"));
+				order_detail.setProduct_name(rs.getString("product_name"));
+				order_detail.setProduct_pro_detail_no(rs.getInt("product_pro_detail_no"));
+				order_detail.setPromot_name(rs.getString("promot_name"));
 				order_detailList.add(order_detail);
 			}
 		} catch (SQLException se) {
@@ -244,5 +247,5 @@ public class order_detailDAO implements order_detailDAO_interface{
 			}
 		}
 		return order_detailList;
-			}
+	}
 }

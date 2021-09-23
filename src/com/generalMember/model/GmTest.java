@@ -24,8 +24,15 @@ public class GmTest {
 //		gm.setGender("1");
 //		gm.setMeb_money(600);
 //		gm.setPost_permission("1");
-		gmdao.insert(gm);
-		System.out.println("新增成功");
+//		gmdao.insert(gm);
+//		System.out.println("新增成功");
+		
+		GeneralMemberVO gm = new GeneralMemberVO();
+		GeneralMemberDAO_Interface gmdao = new GeneralMemberDAO();
+		gm.setAccount("kiki851209");
+		gm.setPassword("12345678");
+		gmdao.updatePassword(gm);
+		
 
 		
 //		GeneralMemberVO gm = new GeneralMemberVO();

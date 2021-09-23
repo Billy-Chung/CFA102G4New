@@ -29,19 +29,19 @@ public class GmpTest {
 		GeneralMemberPetVO gmp = new GeneralMemberPetVO();
 		GeneralMemberPetDAO_Interface gmpdao = new GeneralMemberPetDAO();
 		
-		gmp.setGen_meb_pet_no(4);
-		gmp.setAdopt_pet_no(3);
-		gmp.setPet_class_no(2);
-		gmp.setGen_meb_no(5);
-		gmp.setGen_meb_pet_breeds("1");
-		gmp.setGen_meb_pet_gender("1");
-		gmp.setGen_meb_pet_chip("132322");
-		gmp.setGen_meb_pet_sterilization("1");
-		gmp.setGen_pet_color("1");
-		gmp.setGen_pet_comment("1");
-		gmp.setGen_pet_state("0");
-		gmpdao.update(gmp);
-		System.out.println("更新成功");
+//		gmp.setGen_meb_pet_no(4);
+//		gmp.setAdopt_pet_no(3);
+//		gmp.setPet_class_no(2);
+//		gmp.setGen_meb_no(5);
+//		gmp.setGen_meb_pet_breeds("1");
+//		gmp.setGen_meb_pet_gender("1");
+//		gmp.setGen_meb_pet_chip("132322");
+//		gmp.setGen_meb_pet_sterilization("1");
+//		gmp.setGen_pet_color("1");
+//		gmp.setGen_pet_comment("1");
+//		gmp.setGen_pet_state("0");
+//		gmpdao.update(gmp);
+//		System.out.println("更新成功");
 
 		// 刪除
 //		GeneralMemberPetVO gmp = new GeneralMemberPetVO();

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import javax.servlet.http.Part;
 
 import com.generalMember.model.GeneralMemberService;
 import com.generalMember.model.GeneralMemberVO;
+import com.promotions.model.promotionsVO;
 
 @javax.servlet.annotation.MultipartConfig
 public class GeneralMemberServlet extends HttpServlet {
@@ -35,6 +37,7 @@ public class GeneralMemberServlet extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		
 	//	PrintWriter out = res.getWriter();
 		
 	    
@@ -129,16 +132,18 @@ public class GeneralMemberServlet extends HttpServlet {
 		}
 		}
 		
-		if("update".equals("action")) {
+		if("update".equals(action)) {
 			
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
+			
 			try {
 				Integer gmno = new Integer (req.getParameter("gmno").trim());
 				
 				String meb_name = req.getParameter("meb_name");
+				
 				String gmnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if(meb_name == null || meb_name.trim().length()==0) {
 					errorMsgs.add("會員姓名:請勿空白");
@@ -159,11 +164,8 @@ public class GeneralMemberServlet extends HttpServlet {
 					java.sql.Date date = new java.sql.Date(miliseconds);
 					birthday = date;
 				}
-				
-				Part photo = req.getPart("photo");
-				if(photo == null || photo.getSize()==0) {
-					errorMsgs.add("請選擇要新增的圖片!!");
-				}
+			
+		
 				
 				String comment = req.getParameter("comment").trim();
 				if(comment == null || comment.trim().length()==0) {
@@ -190,23 +192,45 @@ public class GeneralMemberServlet extends HttpServlet {
 					errorMsgs.add("會員密碼請勿空白");
 				}
 				
-				String gender = req.getParameter("gender").trim();
-				if(gender == null || gender.trim().length()==0) {
-					errorMsgs.add("會員性別請勿空白");
+				String[] gender1 = req.getParameterValues("gender");
+				String gender = null;
+				for(int i = 0;i < gender1.length;i++) {
+					if(gender1[i].equals("0")) {
+						gender="0";
+					}
+					else {
+						gender="1";
+					}
 				}
 				
-				Integer meb_money = null;
+				Integer meb_money;
 				try {
-					meb_money = new Integer(req.getParameter("money").trim());
+					meb_money = 100;
 				}catch(NumberFormatException e) {
 					meb_money = 0;
 					errorMsgs.add("儲存金額請填數字");
 				}
 				
-				String post_permission = req.getParameter("post_permission").trim();
+				String post_permission = null;
 				if(post_permission == null || post_permission.trim().length()==0) {
-					errorMsgs.add("發文權限請勿空白");
+					post_permission="1";
 				}
+				
+				GeneralMemberService gmSvc = new GeneralMemberService();
+				
+				byte[] photo = null;
+				Part part = req.getPart("photo");
+				InputStream in = part.getInputStream();
+				
+				if(in.available() > 0) {
+					photo = new byte[in.available()];
+					in.read(photo);
+					in.close();
+				}else {
+					GeneralMemberVO gmVO = gmSvc.getOneGeneralMember(gmno);
+					photo = gmVO.getPhoto();
+				}
+				
 				
 				
 				GeneralMemberVO gmVO = new GeneralMemberVO();
@@ -214,15 +238,7 @@ public class GeneralMemberServlet extends HttpServlet {
 				gmVO.setMeb_name(meb_name);
 				gmVO.setPhone(phone);
 				gmVO.setBirthday(birthday);
-				
-				
-				InputStream in = photo.getInputStream();
-				byte[] buf = new byte[in.available()];
-				in.read(buf);
-				in.close();
-				
-				gmVO.setPhoto(buf);
-				
+				gmVO.setPhoto(photo);
 				gmVO.setComment(comment);
 				gmVO.setAddress(address);
 				gmVO.setEmail(email);
@@ -239,9 +255,9 @@ public class GeneralMemberServlet extends HttpServlet {
 					return;
 				}	
 				
-				GeneralMemberService gmSvc = new GeneralMemberService();
-				gmVO = gmSvc.updateGeneralMember(meb_name, phone, birthday, buf
-						, comment, address, email, account, password, gender, meb_money, post_permission, gmno);
+				
+				gmVO = gmSvc.updateGeneralMember(meb_name, phone, birthday, photo
+						,comment, address, email, account, password, gender, meb_money, post_permission, gmno);
 			
 				req.setAttribute("gmVO",gmVO);
 				String url = "/front_end/GeneralMember/listOneGeneralMember.jsp";
@@ -323,36 +339,24 @@ public class GeneralMemberServlet extends HttpServlet {
 					errorMsgs.add("會員性別請勿空白");
 				}
 				
-				Integer meb_money = null;
-				try {
-					meb_money = new Integer(req.getParameter("money").trim());
-					meb_money = 0;
-				}catch(NumberFormatException e) {
-					meb_money = 0;
-					errorMsgs.add("儲存金額請填數字");
-				}
+				Integer meb_money = 0;
 				
-				String post_permission = null;
-				if(post_permission == null || post_permission.trim().length()==0) {
-					post_permission="1";
-				}
+				String post_permission = "1";
 				
-				
-
 				GeneralMemberVO gmVO = new GeneralMemberVO();
 				gmVO.setMeb_name(meb_name);
 				gmVO.setPhone(phone);
 				gmVO.setBirthday(birthday);
 				
-				byte [] photo = null;
+				
 				InputStream in = photo1.getInputStream();
 				byte[] buf = new byte[in.available()];
 				in.read(buf);
 				in.close();
-				photo = buf;
+				
 			
 				
-				gmVO.setPhoto(photo);
+				gmVO.setPhoto(buf);
 				gmVO.setComment(comment);
 				gmVO.setAddress(address);
 				gmVO.setEmail(email);
@@ -377,7 +381,7 @@ public class GeneralMemberServlet extends HttpServlet {
 				/***************************2.開始新增資料***************************************/
 					
 					GeneralMemberService gmSvc = new GeneralMemberService();
-					gmVO = gmSvc.addGeneralMember(meb_name, phone, birthday, photo, comment, address, email, account, password, gender, meb_money, post_permission);
+					gmVO = gmSvc.addGeneralMember(meb_name, phone, birthday,buf, comment, address, email, account, password, gender, meb_money, post_permission);
 					
 									
 									/***************************3.新增完成,準備轉交(Send the Success view)***********/
@@ -419,48 +423,10 @@ public class GeneralMemberServlet extends HttpServlet {
 					
 		}
 		
-//		if("forgot_password".equals(action)) {
-//			
-//			List<String> errorMsgs = new LinkedList<String>();
-//			
-//			req.setAttribute("errorMsgs",errorMsgs);
-//			
-//			try {
-//				String account = req.getParameter("account").trim();
-//				if(account == null || account.trim().length()==0) {
-//					errorMsgs.add("請輸入會員帳號");
-//				}
-//				
-//				String email = req.getParameter("email").trim();
-//				if(email == null || email.trim().length()==0) {
-//					errorMsgs.add("請輸入會員信箱");
-//				}
-//				
-//				GeneralMemberService gmSvc = new GeneralMemberService();
-//				GeneralMemberVO gmVO = gmSvc.getOneGeneralMember(account);
-//				String email1 = gmVO.getEmail();
-//				
-//				if(gmVO==null)
-//					errorMsgs.add("查無此帳號");
-//				else if(!(email.equals(email1))) {
-//					errorMsgs.add("請輸入正確的會員信箱");
-//				}
-//				else {
-//					
-//				}
-//				
-//				
-//				
-//				
-//			} catch(Exception e) {
-//				
-//			}
-//			
-//		}
-		
-		if("update_password".equals(action)) {
+		if("forgot_password".equals(action)) {
 			
 			List<String> errorMsgs = new LinkedList<String>();
+			
 			req.setAttribute("errorMsgs",errorMsgs);
 			
 			try {
@@ -469,75 +435,31 @@ public class GeneralMemberServlet extends HttpServlet {
 					errorMsgs.add("請輸入會員帳號");
 				}
 				
-				String password = req.getParameter("password").trim();
-				if(password == null || password.trim().length()==0) {
-					errorMsgs.add("請輸入舊密碼");
-				}
-				
-				String newpassword = req.getParameter("newpassword").trim();
-				if(newpassword == null || newpassword.trim().length()==0)
-				{
-					errorMsgs.add("請輸入新密碼");
-				}
-				
-				String newpassword1 = req.getParameter("newpassword1").trim();
-				if(newpassword1 == null || newpassword1.trim().length()==0) 
-				{
-					errorMsgs.add("請再次輸入新密碼");
-				}
-				
-				if(!newpassword.equals(newpassword1)) {
-					errorMsgs.add("兩次輸入的新密碼不一致!");
+				String email = req.getParameter("email").trim();
+				if(email == null || email.trim().length()==0) {
+					errorMsgs.add("請輸入會員信箱");
 				}
 				
 				GeneralMemberService gmSvc = new GeneralMemberService();
 				GeneralMemberVO gmVO = gmSvc.getOneGeneralMember(account);
+				String email1 = gmVO.getEmail();
 				
-				if(gmVO == null) {
+				if(gmVO==null)
 					errorMsgs.add("查無此帳號");
+				else if(!(email.equals(email1))) {
+					errorMsgs.add("請輸入正確的會員信箱");
 				}
-				
-				else if(!password.equals(gmVO.getPassword())) {
-					errorMsgs.add("輸入錯誤的舊密碼");
-				}
-				
 				else {
-					gmVO.setPassword(newpassword1);
-					String url = "/front_end/GeneralMember/listAllGeneralMember.jsp";
-					RequestDispatcher successView = req.getRequestDispatcher(url);
-					successView.forward(req, res);
+					
 				}
+				
 					
-					
-			}catch(Exception e) {
-				errorMsgs.add("刪除資料失敗:"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/GeneralMember/listAllGeneralMember.jsp");
-				failureView.forward(req,res);
+			} catch(Exception e) {
+				
 			}
 			
 		}
-		
-		
-		
-//			String account = req.getParameter("account");
-//			String password = req.getParameter("password");
-//			
-//			out.println(password);
-//			out.println(account);
-//			
-//			if("kido".equals(account) && "1001".equals(password)) {
-//				RequestDispatcher successView = req.getRequestDispatcher("/front_end/GeneralMember/login.jsp");
-//				successView.forward(req, res);
-//			}
-//		
-//			else {
-//				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/GeneralMember/select_page.jsp");
-//				failureView.forward(req, res);
-//			}
-		
-		
-		
-		
+				
 	}
 
 }

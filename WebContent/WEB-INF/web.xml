@@ -93,6 +93,16 @@
   </servlet-mapping>
   
   <servlet>
+	<servlet-name>GeneralMemberPetServlet</servlet-name>
+	<servlet-class>com.generalMemberPet.controller.GeneralMemberPetServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>GeneralMemberPetServlet</servlet-name>
+	<url-pattern>/gmp/gmp.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
     <servlet-name>Shopping_cartServlet</servlet-name>
     <servlet-class>com.shopping_cart.controller.Shopping_cartServlet</servlet-class>
   </servlet>
@@ -109,6 +119,22 @@
     <filter-name>loginFilter</filter-name>
     <url-pattern>/back_end/adopt/*</url-pattern>
     <url-pattern>/back_end/adoptMember/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  
+  
+  <filter>
+    <filter-name>GmloginFilter</filter-name>
+    <filter-class>com.generalMember.filters.GeneralMemberFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>GmloginFilter</filter-name>
+    <url-pattern>/front_end/GeneralMember/updatePassword.jsp</url-pattern>
+    <url-pattern>/front_end/GeneralMember/forgotPassword.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>

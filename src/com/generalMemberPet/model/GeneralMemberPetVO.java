@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class GeneralMemberPetVO implements Serializable {
 	private Integer gen_meb_pet_no;
 	private Integer adopt_pet_no;
-	private Integer pet_class_no;
 	private Integer gen_meb_no;
 	private String gen_meb_pet_breeds;
 	private String gen_meb_pet_gender;
@@ -27,12 +26,7 @@ public class GeneralMemberPetVO implements Serializable {
 	public void setAdopt_pet_no(Integer adopt_pet_no) {
 		this.adopt_pet_no = adopt_pet_no;
 	}
-	public Integer getPet_class_no() {
-		return pet_class_no;
-	}
-	public void setPet_class_no(Integer pet_class_no) {
-		this.pet_class_no = pet_class_no;
-	}
+
 	public Integer getGen_meb_no() {
 		return gen_meb_no;
 	}

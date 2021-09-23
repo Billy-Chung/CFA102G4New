@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="BIG5">
-<title>Insert title here</title>
+<title>商品假資料</title>
 </head>
 <body>
 	
@@ -18,19 +18,20 @@
 	
 	<table>
 		<c:forEach var="product" items="${prodList}">
-			<tr>
-				<td>${product.product_no}</td>
-				<td>${product.product_name}</td>
-				<td>${product.product_price}</td>
-				<td>
-
-					<form method="POST" action="<%=request.getContextPath()%>/shopping_cart/shoppingCart.html" >
-						<input type="hidden" name="product_no" value="${product.product_no}">
-						<input type="hidden" name="action" value="addToCart">
-						<button>加入購物車</button>
+				<tr>
+					<form name="shoppingForm" method="POST" action="<%=request.getContextPath()%>/shopping_cart/shoppingCart.html" >
+					
+						<td>${product.product_no}</td>
+						<td>${product.product_name}</td>
+						<td>${product.product_price}</td>
+						<td>
+							<input type="hidden" name="product_no" value="${product.product_no}">
+							<input type="hidden" name="action" value="addToCart">
+							<button>加入購物車</button>
+						</td>
 					</form>
-				</td>
-			</tr>
+				</tr>
+			
 		</c:forEach>
 	
 	</table>

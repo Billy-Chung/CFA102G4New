@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>會員資料新增 - addGeneralMember.jsp</title>
+<title>忘記密碼 - forgotPassword.jsp</title>
 
 <style>
   table#table-1 {
@@ -64,7 +64,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/LoginServlet">
 <table>
 	<tr>
 		<td>會員帳號:</td>

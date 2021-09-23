@@ -64,30 +64,31 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/LoginServlet">
 <table>
 	<tr>
 		<td>會員帳號:</td>
-		<td><input type="TEXT" name="account" size="45" value="<%=(gmVO==null) ? "" :gmVO.getAccount()%>" /></td>
+		<td><input type="TEXT" name="account" size="16" value="<%=(gmVO==null) ? "" :gmVO.getAccount()%>" /></td>
 	</tr>
 	<tr>
 		<td>舊密碼:</td>
-		<td><input type="TEXT" name="password" size="45"	value="<%=(gmVO==null) ? "" :gmVO.getPassword()%>" /></td>
+		<td><input type="TEXT" name="password" size="16"	value="<%=(gmVO==null) ? "" :gmVO.getPassword()%>" /></td>
 	</tr>
 	
 	<tr>
 		<td>新密碼:</td>
-		<td><input type="TEXT" name="newpassword" size="45"	 /></td>
+		<td><input type="TEXT" name="newpassword" size="16"	 /></td>
 	</tr>
 	
 	<tr>
 		<td>確認新密碼:</td>
-		<td><input type="TEXT" name="newpassword1" size="45" /></td>
+		<td><input type="TEXT" name="newpassword1" size="16" /></td>
 	</tr>
 	
 	
 </table>
 <br>
 <input type="hidden" name="action" value="update_password">
-<input type="submit" value="送出"></FORM>
+<input type="submit" value="送出">
+</FORM>
 </body>

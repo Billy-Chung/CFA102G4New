@@ -17,8 +17,8 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 	public static final String USER = "David";
 	public static final String PASSWORD = "123456";
 	
-	public static final String INSERT_SQL ="INSERT INTO GENERAL_MEMBER_PET VALUES (?, ?, ?,?,?,?,?,?,?,?,?)";
-	public static final String UPDATE_SQL ="UPDATE GENERAL_MEMBER_PET SET ADOPT_PET_NO=?,PET_CLASS_NO=?,GEN_MEB_NO=?,GEN_MEB_PET_BREEDS=?,GEN_MEB_PET_GENDER=?,GEN_MEB_PET_CHIP=?,GEN_MEB_PET_STERILIZATION=?,GEN_MEB_PET_COLOR=?,GEN_PET_COMMENT=?,GEN_PET_STATE=? WHERE GEN_MEB_PET_NO=?";
+	public static final String INSERT_SQL ="INSERT INTO GENERAL_MEMBER_PET(ADOPT_PET_NO,GEN_MEB_NO,GEN_MEB_PET_BREEDS,GEN_MEB_PET_GENDER,GEN_MEB_PET_CHIP,GEN_MEB_PET_STERILIZATION,GEN_MEB_PET_COLOR,GEN_PET_COMMENT,GEN_PET_STATE) VALUES (?,?,?,?,?,?,?,?,?)";
+	public static final String UPDATE_SQL ="UPDATE GENERAL_MEMBER_PET SET ADOPT_PET_NO=?,GEN_MEB_NO=?,GEN_MEB_PET_BREEDS=?,GEN_MEB_PET_GENDER=?,GEN_MEB_PET_CHIP=?,GEN_MEB_PET_STERILIZATION=?,GEN_MEB_PET_COLOR=?,GEN_PET_COMMENT=?,GEN_PET_STATE=? WHERE GEN_MEB_PET_NO=?";
 	public static final String DELETE_SQL ="DELETE FROM GENERAL_MEMBER_PET WHERE GEN_MEB_PET_NO=?";
 	public static final String FIND_BY_DEPTNO_SQL = "SELECT * FROM GENERAL_MEMBER_PET WHERE GEN_MEB_PET_NO = ?";
 	public static final String GET_ALL_SQL = "SELECT * FROM GENERAL_MEMBER_PET";
@@ -39,17 +39,16 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 		try {
 			conn = DriverManager.getConnection(URL,USER,PASSWORD);
 			pst = conn.prepareStatement(INSERT_SQL);
-			pst.setInt(1,gmpVO.getGen_meb_pet_no());
-			pst.setInt(2,gmpVO.getAdopt_pet_no());
-			pst.setInt(3,gmpVO.getPet_class_no());
-			pst.setInt(4,gmpVO.getGen_meb_no());
-			pst.setString(5,gmpVO.getGen_meb_pet_breeds());
-			pst.setString(6, gmpVO.getGen_meb_pet_gender());
-			pst.setString(7,gmpVO.getGen_meb_pet_chip());
-			pst.setString(8, gmpVO.getGen_meb_pet_sterilization());
-			pst.setString(9, gmpVO.getGen_pet_color());
-			pst.setString(10, gmpVO.getGen_pet_comment());
-			pst.setString(11, gmpVO.getGen_pet_state());
+			
+			pst.setInt(1,gmpVO.getAdopt_pet_no());
+			pst.setInt(2,gmpVO.getGen_meb_no());
+			pst.setString(3,gmpVO.getGen_meb_pet_breeds());
+			pst.setString(4, gmpVO.getGen_meb_pet_gender());
+			pst.setString(5,gmpVO.getGen_meb_pet_chip());
+			pst.setString(6, gmpVO.getGen_meb_pet_sterilization());
+			pst.setString(7, gmpVO.getGen_pet_color());
+			pst.setString(8, gmpVO.getGen_pet_comment());
+			pst.setString(9, gmpVO.getGen_pet_state());
 			
 			pst.executeUpdate();
 			
@@ -87,16 +86,15 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 			
 			
 			pst.setInt(1,gmpVO.getAdopt_pet_no());
-			pst.setInt(2,gmpVO.getPet_class_no());
-			pst.setInt(3,gmpVO.getGen_meb_no());
-			pst.setString(4,gmpVO.getGen_meb_pet_breeds());
-			pst.setString(5, gmpVO.getGen_meb_pet_gender());
-			pst.setString(6,gmpVO.getGen_meb_pet_chip());
-			pst.setString(7, gmpVO.getGen_meb_pet_sterilization());
-			pst.setString(8, gmpVO.getGen_pet_color());
-			pst.setString(9, gmpVO.getGen_pet_comment());
-			pst.setString(10, gmpVO.getGen_pet_state());
-			pst.setInt(11,gmpVO.getGen_meb_pet_no());
+			pst.setInt(2,gmpVO.getGen_meb_no());
+			pst.setString(3,gmpVO.getGen_meb_pet_breeds());
+			pst.setString(4, gmpVO.getGen_meb_pet_gender());
+			pst.setString(5,gmpVO.getGen_meb_pet_chip());
+			pst.setString(6, gmpVO.getGen_meb_pet_sterilization());
+			pst.setString(7, gmpVO.getGen_pet_color());
+			pst.setString(8, gmpVO.getGen_pet_comment());
+			pst.setString(9, gmpVO.getGen_pet_state());
+			pst.setInt(10,gmpVO.getGen_meb_pet_no());
 			
 			pst.executeUpdate();
 			
@@ -175,7 +173,6 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 				gmpVO = new GeneralMemberPetVO();
 				gmpVO.setGen_meb_pet_no(gmpno);
 				gmpVO.setAdopt_pet_no(rs.getInt("ADOPT_PET_NO"));
-				gmpVO.setPet_class_no(rs.getInt("PET_CLASS_NO"));
 				gmpVO.setGen_meb_no(rs.getInt("GEN_MEB_NO"));
 				gmpVO.setGen_meb_pet_breeds(rs.getString("GEN_MEB_PET_BREEDS"));
 				gmpVO.setGen_meb_pet_gender(rs.getString("GEN_MEB_PET_GENDER"));
@@ -238,7 +235,6 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 				GeneralMemberPetVO gmpVO = new GeneralMemberPetVO();
 				gmpVO.setGen_meb_pet_no(rs.getInt("GEN_MEB_PET_NO"));
 				gmpVO.setAdopt_pet_no(rs.getInt("ADOPT_PET_NO"));
-				gmpVO.setPet_class_no(rs.getInt("PET_CLASS_NO"));
 				gmpVO.setGen_meb_no(rs.getInt("GEN_MEB_NO"));
 				gmpVO.setGen_meb_pet_breeds(rs.getString("GEN_MEB_PET_BREEDS"));
 				gmpVO.setGen_meb_pet_gender(rs.getString("GEN_MEB_PET_GENDER"));

@@ -23,6 +23,7 @@ public class GeneralMemberDAO implements GeneralMemberDAO_Interface {
 	public static final String FIND_BY_DEPTNO_SQL = "SELECT * FROM GENERAL_MEMBER WHERE GEN_MEB_NO = ?";
 	public static final String GET_ALL_SQL = "SELECT * FROM GENERAL_MEMBER";
 	public static final String FIND_BY_ACCOUNT="SELECT * FROM GENERAL_MEMBER WHERE MEB_ACCOUNT = ? ";
+	public static final String UPDATE_PASSWORD_SQL ="UPDATE GENERAL_MEMBER SET MEB_PASSWORD=? WHERE MEB_ACCOUNT=?";
 
 	static {
 		try {
@@ -56,11 +57,6 @@ public class GeneralMemberDAO implements GeneralMemberDAO_Interface {
 
 			pst.executeUpdate();
 			
-			ResultSet rs = pst.getGeneratedKeys();
-			if (rs.next()) {
-				int key = rs.getInt(1);
-				gmVO.setGer_meb_no(key);
-			}
 			
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -356,6 +352,42 @@ public class GeneralMemberDAO implements GeneralMemberDAO_Interface {
 		}
 
 		return gmList;
+
+	}
+	
+	public void updatePassword(GeneralMemberVO gmVO) {
+		Connection conn = null;
+		PreparedStatement pst = null;
+
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			pst = conn.prepareStatement(UPDATE_PASSWORD_SQL);
+			
+			pst.setString(1, gmVO.getPassword());
+			pst.setString(2, gmVO.getAccount());
+			
+
+			pst.executeUpdate();
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (pst != null) {
+				try {
+					pst.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
 
 	}
 

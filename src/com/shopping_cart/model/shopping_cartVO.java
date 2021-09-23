@@ -2,6 +2,7 @@ package com.shopping_cart.model;
 
 import java.io.Serializable;
 
+//可序列化
 public class shopping_cartVO implements Serializable{
 	private Integer gen_meb_no;
 	private Integer product_no;
