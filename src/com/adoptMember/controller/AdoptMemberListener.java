@@ -25,18 +25,5 @@ public class AdoptMemberListener implements ServletContextListener {
     	timer.schedule(new AdoptMemberTimer(), 1000, 1209600000);
     }
     
-//    class AdoptMemberTimer extends TimerTask {
-//
-//    	@Override
-//    	public void run() {	
-//    		AdoptAppointFormService AdoptAppointFormSvc = new AdoptAppointFormService();
-//    		List<AdoptAppointFormVO> newDate = AdoptAppointFormSvc.create15Date();		
-//    		
-//    		for(AdoptAppointFormVO thisDate : newDate) {		
-//    			AdoptAppointFormSvc.insertAdoptAppointForm(thisDate.getAdopt_meb_no(),thisDate.getAppoint_date(),thisDate.getFinifh_appoint_num(),thisDate.getAppoint_limit());		
-//    		}
-//    	}
-//
-//    }
 	
 }
