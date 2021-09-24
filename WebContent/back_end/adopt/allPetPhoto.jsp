@@ -128,6 +128,8 @@
 											type="hidden" name="action" value="deletePhoto"> <input
 											type="hidden" name="requestURL"
 											value="<%=request.getParameter("requestURL")%>">
+											<input type="hidden" name="whichPage"
+											value="<%=request.getParameter("whichPage")%>">
 										<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
 
 										<button type="submit"
@@ -150,7 +152,9 @@
 										<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
 										<input type="hidden" name="whichPage"
 											value="<%=request.getParameter("whichPage")%>">
-											
+											<input
+											type="hidden" name="whichChip"
+											value="<%=request.getParameter("whichChip")%>">
 
 
 										<c:if test="${list.adopt_pet_cover_state == 0}">
