@@ -45,7 +45,7 @@
 			</a>
 				<ul aria-expanded="false">
 					<li><a href="<%=request.getContextPath()%>/back_end/adoptMember/reservePet.jsp">預約看寵物</a></li>
-					<li><a href="./chart-morris.html">領養申請</a></li>
+				
 				</ul></li>
 		</ul>
 	</div>
