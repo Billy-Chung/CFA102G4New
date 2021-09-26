@@ -66,6 +66,7 @@ public class AdoptMemberNewsServlet extends HttpServlet {
 			StringBuilder newComment = new StringBuilder();
 			String [] oldContext = thisNew.getAdopt_meb_news_comment().split("\\r\\n");
 			for(String comment : oldContext) {
+				System.out.println(comment);
 				newComment.append(comment + "<br>");
 			}
 			thisNew.setAdopt_meb_news_comment(newComment.toString());
@@ -145,7 +146,6 @@ public class AdoptMemberNewsServlet extends HttpServlet {
 			StringBuilder newComment = new StringBuilder();
 			String [] oldContext = thisNews.getAdopt_meb_news_comment().split("\\r\\n");
 			for(String comment : oldContext) {
-				System.out.println(comment);
 				newComment.append(comment + "\\n");
 			}
 			thisNews.setAdopt_meb_news_comment(newComment.toString());
@@ -161,13 +161,12 @@ public class AdoptMemberNewsServlet extends HttpServlet {
 
 			Integer adoptMebNo = null;
 			String adoptMebNewsTitle = new String(req.getParameter("adopt_meb_news_title"));
-			String adoptMebNewsComment = new String(req.getParameter("adopt_meb_news_comment").replace("\r\n","。"));
+			String adoptMebNewsComment = new String(req.getParameter("adopt_meb_news_comment"));
 			String adoptMebNewsDate = new String(req.getParameter("adopt_meb_news_date"));
 			Date sqlNowDate = java.sql.Date.valueOf(adoptMebNewsDate);
 			String adoptMebNewsState = new String(req.getParameter("adopt_meb_news_state"));
 			Integer adoptMebNewsNo = new Integer(req.getParameter("adopt_meb_news_no"));
 			String requestURL = req.getParameter("requestURL");
-System.out.println(adoptMebNewsComment);
 			try {
 				adoptMebNo = new Integer(req.getParameter("adopt_meb_no").trim());
 			} catch (Exception e) {
