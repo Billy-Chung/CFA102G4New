@@ -22,6 +22,8 @@ import com.adoptMemberNews.model.AdoptMemberNewsVo;
 import com.adoptPetPhoto.model.AdoptPetPhotoService;
 import com.adoptPetPhoto.model.AdoptPetPhotoVO;
 
+import javafx.beans.binding.StringBinding;
+
 @javax.servlet.annotation.MultipartConfig
 public class AdoptMemberNewsServlet extends HttpServlet {
 
@@ -46,7 +48,7 @@ public class AdoptMemberNewsServlet extends HttpServlet {
 			} catch (NullPointerException np) {
 
 				FileInputStream fis = new FileInputStream(
-						getServletContext().getRealPath("back_end/adopt/image/dog1.jpg"));
+						getServletContext().getRealPath("back_end/adopt/image/news.png"));
 				byte[] buffer = new byte[fis.available()];
 				fis.read(buffer);
 				fis.close();
@@ -61,6 +63,12 @@ public class AdoptMemberNewsServlet extends HttpServlet {
 			Integer PK = new Integer(req.getParameter("PK"));
 			AdoptMemberNewService adoptMemberNewSvc = new AdoptMemberNewService();
 			AdoptMemberNewsVo thisNew = adoptMemberNewSvc.findByadoptMemberNewsNoPK(PK);
+			StringBuilder newComment = new StringBuilder();
+			String [] oldContext = thisNew.getAdopt_meb_news_comment().split("\\r\\n");
+			for(String comment : oldContext) {
+				newComment.append(comment + "<br>");
+			}
+			thisNew.setAdopt_meb_news_comment(newComment.toString());
 			req.setAttribute("thisNew", thisNew);
 			String url = "/front_end/adoptMember/adoptMemberNewsDetail.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -134,6 +142,13 @@ public class AdoptMemberNewsServlet extends HttpServlet {
 			Integer adoptMebNewsNo = new Integer(req.getParameter("adopt_meb_news_no"));
 			AdoptMemberNewService adoptMemberNewSvc = new AdoptMemberNewService();
 			AdoptMemberNewsVo thisNews = adoptMemberNewSvc.findByadoptMemberNewsNoPK(adoptMebNewsNo);
+			StringBuilder newComment = new StringBuilder();
+			String [] oldContext = thisNews.getAdopt_meb_news_comment().split("\\r\\n");
+			for(String comment : oldContext) {
+				System.out.println(comment);
+				newComment.append(comment + "\\n");
+			}
+			thisNews.setAdopt_meb_news_comment(newComment.toString());
 			req.setAttribute("thisNews", thisNews);
 			String url = "/back_end/adoptMember/updateNews.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -146,13 +161,13 @@ public class AdoptMemberNewsServlet extends HttpServlet {
 
 			Integer adoptMebNo = null;
 			String adoptMebNewsTitle = new String(req.getParameter("adopt_meb_news_title"));
-			String adoptMebNewsComment = new String(req.getParameter("adopt_meb_news_comment"));
+			String adoptMebNewsComment = new String(req.getParameter("adopt_meb_news_comment").replace("\r\n","。"));
 			String adoptMebNewsDate = new String(req.getParameter("adopt_meb_news_date"));
 			Date sqlNowDate = java.sql.Date.valueOf(adoptMebNewsDate);
 			String adoptMebNewsState = new String(req.getParameter("adopt_meb_news_state"));
 			Integer adoptMebNewsNo = new Integer(req.getParameter("adopt_meb_news_no"));
 			String requestURL = req.getParameter("requestURL");
-
+System.out.println(adoptMebNewsComment);
 			try {
 				adoptMebNo = new Integer(req.getParameter("adopt_meb_no").trim());
 			} catch (Exception e) {

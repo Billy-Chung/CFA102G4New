@@ -49,6 +49,8 @@
 }
 
 .listPhoto {
+	width:50%;
+	height:50%;
 	max-width: 100%;
 	max-height: 100%;
 }
@@ -109,7 +111,7 @@
 						<div class="blog-details-content">
 
 							<!-- Blog Image Start -->
-							<div class="blog-image">
+							<div class="blog-image listPhoto">
 								<img src="<%=request.getContextPath()%>/adoptMeb/adoptMebNews.do?action=showNewsPhoto&PK=${thisNew.adopt_meb_news_no}"
 									alt="Blog Image" class="fit-image">
 							</div>

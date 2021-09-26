@@ -194,8 +194,7 @@
 	<%@ include file="../backend_page/footer.jsp"%>
 
 	<script>
-
-		if(<%=thisNews != null%>) {		
+		if(<%=thisNews != null%>) {			
 			document.getElementById("newsArea").value = "<%=thisNews.getAdopt_meb_news_comment()%>";
 		}
 	</script>
