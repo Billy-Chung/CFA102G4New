@@ -113,10 +113,9 @@
 					</div>
 					<div class="container">
 						<div class="hero-slide-content text-start">
-							<h5 class="sub-title">We keep pets for pleasure.</h5>
-							<h2 class="title m-0">Vitamins For all Pets</h2>
-							<p class="ms-0">We know your concerns when you are looking
-								for a chewing treat for your dog.</p>
+							<h5 class="sub-title">一個家中，永遠有屬於牠們的位子</h5>
+							<h2 class="title m-0">陪伴，是最長情的告白</h2>
+							<p class="ms-0">每一個流浪的小生命都是折翼的天使，讓領養代替購買!!</p>
 						</div>
 					</div>
 				</div>
@@ -129,10 +128,9 @@
 					</div>
 					<div class="container">
 						<div class="hero-slide-content text-center text-md-end">
-							<h5 class="sub-title">We keep pets for pleasure.</h5>
-							<h2 class="title m-0">Vitamins For all Pets</h2>
-							<p>We know your concerns when you are looking for a chewing
-								treat for your dog.</p>
+							<h5 class="sub-title">若愛牠，請深愛牠</h5>
+							<h2 class="title m-0">讓愛不再是口號</h2>
+							<p>您的一生中有許多選擇，讓其中一個的選擇來拯救牠的一生!!</p>
 
 						</div>
 					</div>
@@ -202,8 +200,7 @@
 										</a>
 										<div class="action-wrapper">
 											<a href="<%=request.getContextPath()%>/adoptPet/addPet.do?action=goToDetail&PK=${AdoptPetVO.adopt_pet_no}" class="action quickview"><i class="ti-plus"></i></a>
-											<a href="#/" class="action wishlist" title="Wishlist"><i
-												class="ti-heart"></i></a>
+											
 										</div>
 									</div>
 									<div class="content">
@@ -225,8 +222,7 @@
 														href="<%=request.getContextPath()%>/adoptPet/addPet.do?action=goToReserve&PK=${AdoptPetVO.adopt_pet_no}">預約看寵物!!</a>
 
 												</div>
-												<a href="wishlist.html" title="Wishlist" class="action"><i
-													class="ti-heart"></i></a> <a href="<%=request.getContextPath()%>/adoptPet/addPet.do?action=goToDetail&PK=${AdoptPetVO.adopt_pet_no}" class="action quickview"
+												 <a href="<%=request.getContextPath()%>/adoptPet/addPet.do?action=goToDetail&PK=${AdoptPetVO.adopt_pet_no}" class="action quickview"
 													><i class="ti-plus"></i></a>
 											</div>
 										</div>

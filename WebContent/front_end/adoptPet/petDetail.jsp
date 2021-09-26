@@ -260,8 +260,6 @@
 							<a href="<%=request.getContextPath()%>/adoptPet/addPet.do?action=goToReserve&PK=${adoptPetDetail.adopt_pet_no}"
 								class="btn btn-primary btn-hover-dark rounded-0">我想預約到現場看看牠!</a>
 
-							<a href="checkout.html"
-								class="btn btn-primary btn-hover-dark rounded-0">我已經迫不急待要領養牠了!</a>
 						</div>
 						
 						<!-- Single Product Buy Button End -->

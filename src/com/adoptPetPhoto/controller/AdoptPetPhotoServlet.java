@@ -57,7 +57,7 @@ public class AdoptPetPhotoServlet extends HttpServlet {
 			} catch (NullPointerException np) {
 
 				FileInputStream fis = new FileInputStream(
-						getServletContext().getRealPath("back_end/adopt/image/dog1.jpg"));
+						getServletContext().getRealPath("back_end/adopt/image/noPic.jpg"));
 				byte[] buffer = new byte[fis.available()];
 				fis.read(buffer);
 				fis.close();
