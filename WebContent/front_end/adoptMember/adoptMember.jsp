@@ -8,6 +8,15 @@
 <%
 	AdoptMemberDAO dao = new AdoptMemberDAO();
 	List<AdoptMemberVO> adoptMeb = dao.getAllAdoptMeb();
+	StringBuilder newComment = new StringBuilder();
+	for(AdoptMemberVO thisMeb: adoptMeb){
+		String [] oldContext = thisMeb.getAdopt_meb_comment().split("\\r\\n");
+		for(String comment : oldContext) {
+			newComment.append(comment + "<br>");
+		}
+		thisMeb.setAdopt_meb_comment(newComment.toString());
+	}
+	
 	pageContext.setAttribute("adoptMeb", adoptMeb);
 	List<String> memberHoliday = new ArrayList();
 	for(AdoptMemberVO member:adoptMeb){
