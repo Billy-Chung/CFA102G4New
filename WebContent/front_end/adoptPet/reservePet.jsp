@@ -291,13 +291,23 @@
               whichDate : $("#f_date1").val(),                            
           }
       	}).done(
-        	function (e){        		
-        		for(let i =0; i < 24 ; i++){        			
-        			if(e.okTime[i] !== 0 && e.isMebTime[i] < e.okTime[i]){
-        				 $("#timeSelect").append("<option value="+ i +" >"+i+" : 00 ~ "+(i+1)+" : 00"+"</option>");        			        				
-        			}
-        		}
-        	        		
+        	function (e){ 
+        		let hoilday = 0;
+        		for(let i =0; i < 24 ; i++){
+        			hoilday += e.okTime[i];
+        		}     
+        		if(hoilday === 0){
+        			$("#timeSelect option").remove();
+           		 $("#timeSelect").append("<option >該天為公休日，請重新選擇日期</option>");
+           		$("#timeSelect").prop('disabled', true);
+       	        $("#timeSelect").addClass("bgw");
+        		}else{
+        			for(let i =0; i < 24 ; i++){        			
+               			if(e.okTime[i] !== 0 && e.isMebTime[i] < e.okTime[i] && hoilday !== 0){
+               				 $("#timeSelect").append("<option value="+ i +" >"+i+" : 00 ~ "+(i+1)+" : 00"+"</option>");        			        				
+               			}
+               		}   
+        		}       			  		      		  			        		
         	}
         );
     	}else{
