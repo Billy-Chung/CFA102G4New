@@ -144,6 +144,10 @@ public class AdoptPetServlet extends HttpServlet {
 				} catch (Exception e) {
 					errorMsgs.put("adoptPetStatetest", "寵物領養狀態: 請勿竄改資料!");
 				}
+				
+				if(petClassNoBox == null) {
+					errorMsgs.put("adoptPetClass", "寵物至少需要一個分類!!");
+				}
 
 				AdoptPetVO adoptPet = new AdoptPetVO();
 				adoptPet.setAdopt_meb_no(adoptMebNo);
@@ -159,24 +163,29 @@ public class AdoptPetServlet extends HttpServlet {
 				adoptPet.setContain_number(containNumber);
 				adoptPet.setAdopt_pet_color(adoptPetColor);
 				adoptPet.setAdopt_pet_state(adoptPetState);
+				
+				
 
 //				資料錯誤return
 				if (!errorMsgs.isEmpty()) {
 					PetClassService petClassSvc = new PetClassService();
 					List<PetClassVO> petClass = petClassSvc.getAll();
 					List<PetClassVO> allPetClass = petClassSvc.getAll();
-					int[] intPetClassNoBox = Arrays.asList(petClassNoBox).stream().mapToInt(Integer::parseInt)
-							.toArray();
-					List<PetClassVO> isCheck = new ArrayList<>();
-					;
-					for (PetClassVO petClassVO : petClass) {
-						for (int checkNo : intPetClassNoBox) {
-							if (petClassVO.getPet_class_no() == checkNo) {
-								isCheck.add(petClassVO);
+					int[] intPetClassNoBox = null;
+					if(petClassNoBox != null) {
+						intPetClassNoBox = Arrays.asList(petClassNoBox).stream().mapToInt(Integer::parseInt)
+								.toArray();
+						List<PetClassVO> isCheck = new ArrayList<>();
+						;
+						for (PetClassVO petClassVO : petClass) {
+							for (int checkNo : intPetClassNoBox) {
+								if (petClassVO.getPet_class_no() == checkNo) {
+									isCheck.add(petClassVO);
+								}
 							}
 						}
-					}
-					petClass.removeAll(isCheck);
+						petClass.removeAll(isCheck);
+					}					
 
 					req.setAttribute("adoptPetVO", adoptPet);
 					req.setAttribute("petClassNoBox", intPetClassNoBox);
@@ -270,9 +279,10 @@ public class AdoptPetServlet extends HttpServlet {
 				String containNumber = req.getParameter("contain_number");
 				String adoptPetNoChinessReg = "^[(a-zA-Z0-9)]*$";
 				String adoptPetColor = req.getParameter("adopt_pet_color");
-				String adoptPetState = req.getParameter("adopt_pet_state");
-				String[] petClassNoBox = req.getParameterValues("petClassNo");
-
+				String adoptPetState = req.getParameter("adopt_pet_state");				
+				String[] petClassNoBox = req.getParameterValues("petClassNo");	
+				
+				
 //				一般會員FK		
 				if (req.getParameter("gen_meb_no").trim().isEmpty()) {					
 					genMebNo = 0;
@@ -360,6 +370,8 @@ public class AdoptPetServlet extends HttpServlet {
 				} catch (Exception e) {
 					errorMsgs.put("adoptPetStatetest", "寵物領養狀態: 請勿竄改資料!");
 				}
+				
+			
 
 				AdoptPetVO adoptPet = new AdoptPetVO();
 				
@@ -377,21 +389,25 @@ public class AdoptPetServlet extends HttpServlet {
 				adoptPet.setAdopt_pet_state(adoptPetState);
 				adoptPet.setAdopt_pet_no(adoptPetNo);
 				
-				PetClassListService petClassListService = new PetClassListService();
-//				List<PetClassListVO> thisFailPetClass = petClassListService.findByAdoptPetNo(adoptPetNo);
-				int[] intPetClassBox = Arrays.asList(petClassNoBox).stream().mapToInt(Integer::parseInt).toArray();
 				PetClassService petClassService = new PetClassService();
+				PetClassListService petClassListService = new PetClassListService();
 				List<PetClassVO> allPetClass = petClassService.getAll();
 				List<PetClassVO> myPetClass = new ArrayList<>();
-
-				for (PetClassVO petClass : allPetClass) {
-					for (int petClassList : intPetClassBox) {
-						if (petClass.getPet_class_no() == petClassList) {
-							myPetClass.add(petClass);
+				if(petClassNoBox == null) {
+					errorMsgs.put("adoptPetClass", "寵物至少需要一個分類!!");
+				}else {				
+//					List<PetClassListVO> thisFailPetClass = petClassListService.findByAdoptPetNo(adoptPetNo);
+					int[] intPetClassBox = Arrays.asList(petClassNoBox).stream().mapToInt(Integer::parseInt).toArray();
+					for (PetClassVO petClass : allPetClass) {
+						for (int petClassList : intPetClassBox) {
+							if (petClass.getPet_class_no() == petClassList) {
+								myPetClass.add(petClass);
+							}
 						}
 					}
-				}
-				allPetClass.removeAll(myPetClass);
+					allPetClass.removeAll(myPetClass);
+				}				
+				
 
 //				資料錯誤return
 				if (!errorMsgs.isEmpty()) {
