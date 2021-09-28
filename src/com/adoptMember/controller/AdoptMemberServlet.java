@@ -329,7 +329,7 @@ public class AdoptMemberServlet extends HttpServlet {
 			AdoptAppointFormVO adoptAppointFormVO = new AdoptAppointFormVO();
 			adoptAppointFormVO.setAppoint_form_no(whichData.getAppoint_form_no());
 			adoptAppointFormVO.setFinifh_appoint_num(reserveNewTime.toString());
-			adoptAppointFormVO.setAppoint_limit(reservTime);
+			adoptAppointFormVO.setAppoint_limit(whichData.getAppoint_limit());
 			reservePetSvc.upodateReservePet(upDate.getReserve_people_name(), upDate.getReserve_people_phone(),
 					reserveDate, reservTime, "0", PK, adoptAppointFormVO);
 
