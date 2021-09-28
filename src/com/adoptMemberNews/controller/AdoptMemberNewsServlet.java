@@ -22,7 +22,7 @@ import com.adoptMemberNews.model.AdoptMemberNewsVo;
 import com.adoptPetPhoto.model.AdoptPetPhotoService;
 import com.adoptPetPhoto.model.AdoptPetPhotoVO;
 
-import javafx.beans.binding.StringBinding;
+
 
 @javax.servlet.annotation.MultipartConfig
 public class AdoptMemberNewsServlet extends HttpServlet {

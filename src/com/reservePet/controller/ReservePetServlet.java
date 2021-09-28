@@ -27,8 +27,8 @@ public class ReservePetServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
 		String action = req.getParameter("action");
-		if ("showReserve".equals(action)) {			
-			PrintWriter out = res.getWriter();		
+		if ("showReserve".equals(action)) {
+			PrintWriter out = res.getWriter();
 			List<Map<String, String>> jsonList = new ArrayList<>();
 			ReservePetService reservePetSvc = new ReservePetService();
 			List<ReservePetVO> allReserve = reservePetSvc.findByGenMebNo(new Integer(req.getParameter("PK"))).stream()
@@ -99,6 +99,25 @@ public class ReservePetServlet extends HttpServlet {
 			reservePet.setReserve_people_name(reserveName);
 			reservePet.setReserve_people_phone(reservePhone);
 			reservePet.setReserve_date(reserveDate);
+			StringBuilder reserveTime = new StringBuilder();
+			synchronized(this) {				
+				AdoptAppointFormService AdoptAppointFormSvc = new AdoptAppointFormService();
+				AdoptAppointFormVO adoptAppointFormVO = AdoptAppointFormSvc.findByAdoptAppointFormDate(reserveDate);
+				String limit = adoptAppointFormVO.getAppoint_limit();
+				String nowMeb = adoptAppointFormVO.getFinifh_appoint_num();
+				for (int i = 0; i < 24; i++) {
+					Integer nowWhichLimit = new Integer(limit.charAt(i));
+					Integer nowWhichMeb = new Integer(nowMeb.charAt(i));
+					if (i == timeSelect && nowWhichLimit>nowWhichMeb) {
+						reserveTime.append(1);
+					}else if(i == timeSelect && nowWhichLimit<=nowWhichMeb) {
+						errorMsgs.put("reserveDate", "預約時段: 該時段已滿，請重新選擇");
+					}
+					else {
+						reserveTime.append(0);
+					}
+				}
+				}
 
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("reservePet", reservePet);
@@ -106,14 +125,7 @@ public class ReservePetServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;
 			}
-			StringBuilder reserveTime = new StringBuilder();
-			for (int i = 0; i < 24; i++) {
-				if (i == timeSelect) {
-					reserveTime.append(1);
-				} else {
-					reserveTime.append(0);
-				}
-			}
+			
 			ReservePetService ReservePetSvc = new ReservePetService();
 			ReservePetSvc.insertReservePet(1, 1, whichPet, reserveName, reservePhone, reserveDate,
 					reserveTime.toString(), "1", timeSelect);

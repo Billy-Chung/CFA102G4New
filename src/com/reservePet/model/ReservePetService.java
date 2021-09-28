@@ -12,7 +12,7 @@ public class ReservePetService {
 		dao = new ReservePetDAO();
 	}
 
-	public ReservePetVO insertReservePet(Integer adopt_meb_no, Integer gen_meb_no, Integer adopt_pet_no,
+	 public ReservePetVO  insertReservePet(Integer adopt_meb_no, Integer gen_meb_no, Integer adopt_pet_no,
 			String reserve_people_name, String reserve_people_phone, Date reserve_date, String reserve_timeprivate,
 			String reserve_state, Integer timeSelect) {
 		ReservePetVO reservePet = new ReservePetVO();
