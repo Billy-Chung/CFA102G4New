@@ -89,35 +89,37 @@ public class ReservePetServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("reserveDate", "預約日期: 請勿空白!!");
 			}
-			try {
-				timeSelect = new Integer(req.getParameter("timeSelect"));
-			} catch (Exception e) {
-				errorMsgs.put("timeSelect", "預約時段: 請勿空白!!");
-			}
 			ReservePetVO reservePet = new ReservePetVO();
+			StringBuilder reserveTime = new StringBuilder();
 			reservePet.setAdopt_pet_no(whichPet);
 			reservePet.setReserve_people_name(reserveName);
 			reservePet.setReserve_people_phone(reservePhone);
 			reservePet.setReserve_date(reserveDate);
-			StringBuilder reserveTime = new StringBuilder();
-			synchronized(this) {				
-				AdoptAppointFormService AdoptAppointFormSvc = new AdoptAppointFormService();
-				AdoptAppointFormVO adoptAppointFormVO = AdoptAppointFormSvc.findByAdoptAppointFormDate(reserveDate);
-				String limit = adoptAppointFormVO.getAppoint_limit();
-				String nowMeb = adoptAppointFormVO.getFinifh_appoint_num();
-				for (int i = 0; i < 24; i++) {
-					Integer nowWhichLimit = new Integer(limit.charAt(i));
-					Integer nowWhichMeb = new Integer(nowMeb.charAt(i));
-					if (i == timeSelect && nowWhichLimit>nowWhichMeb) {
-						reserveTime.append(1);
-					}else if(i == timeSelect && nowWhichLimit<=nowWhichMeb) {
-						errorMsgs.put("reserveDate", "預約時段: 該時段已滿，請重新選擇");
+			try {
+				timeSelect = new Integer(req.getParameter("timeSelect"));	
+			
+				synchronized(this) {				
+					AdoptAppointFormService AdoptAppointFormSvc = new AdoptAppointFormService();
+					AdoptAppointFormVO adoptAppointFormVO = AdoptAppointFormSvc.findByAdoptAppointFormDate(reserveDate);
+					String limit = adoptAppointFormVO.getAppoint_limit();
+					String nowMeb = adoptAppointFormVO.getFinifh_appoint_num();
+					for (int i = 0; i < 24; i++) {
+						Integer nowWhichLimit = new Integer(limit.charAt(i));
+						Integer nowWhichMeb = new Integer(nowMeb.charAt(i));
+						if (i == timeSelect && nowWhichLimit>nowWhichMeb) {
+							reserveTime.append(1);
+						}else if(i == timeSelect && nowWhichLimit<=nowWhichMeb) {
+							errorMsgs.put("reserveDate", "預約時段: 該時段已滿，請重新選擇");
+						}
+						else {
+							reserveTime.append(0);
+						}
 					}
-					else {
-						reserveTime.append(0);
 					}
-				}
-				}
+			} catch (Exception e) {
+				errorMsgs.put("timeSelect", "預約時段: 請勿空白!!");
+			}
+			
 
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("reservePet", reservePet);
