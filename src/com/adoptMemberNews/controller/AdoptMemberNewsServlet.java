@@ -65,8 +65,7 @@ public class AdoptMemberNewsServlet extends HttpServlet {
 			AdoptMemberNewsVo thisNew = adoptMemberNewSvc.findByadoptMemberNewsNoPK(PK);
 			StringBuilder newComment = new StringBuilder();
 			String [] oldContext = thisNew.getAdopt_meb_news_comment().split("\\r\\n");
-			for(String comment : oldContext) {
-				System.out.println(comment);
+			for(String comment : oldContext) {			
 				newComment.append(comment + "<br>");
 			}
 			thisNew.setAdopt_meb_news_comment(newComment.toString());

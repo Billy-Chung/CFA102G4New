@@ -13,7 +13,8 @@
 						href="<%=request.getContextPath()%>/back_end/adopt/adoptPet.jsp">寵物清單</a></li>
 					<li><a
 						href="<%=request.getContextPath()%>/back_end/adopt/addPet.jsp">新增寵物</a></li>
-					<li><a href="<%=request.getContextPath()%>/back_end/adopt/petClass.jsp">寵物分類清單</a></li>					
+					<li><a
+						href="<%=request.getContextPath()%>/back_end/adopt/petClass.jsp">寵物分類清單</a></li>
 
 				</ul></li>
 			<li><a class="has-arrow ai-icon" href="javascript:void()"
@@ -26,15 +27,18 @@
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false">最新消息管理</a>
 						<ul aria-expanded="false">
-							<li><a href="<%=request.getContextPath()%>/back_end/adoptMember/adoptMemberNews.jsp">最新消息清單</a></li>
-							<li><a href="<%=request.getContextPath()%>/back_end/adoptMember/addNews.jsp">新增最新消息</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/back_end/adoptMember/adoptMemberNews.jsp">最新消息清單</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/back_end/adoptMember/addNews.jsp">新增最新消息</a></li>
 						</ul></li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false">日期管理</a>
 						<ul aria-expanded="false">
 							<li><a
 								href="<%=request.getContextPath()%>/adoptMeb/adoptMeb.do?action=gotoUpdateTime&adoptMebNo=${admin.adopt_meb_no}">可預約時段修改</a></li>
-							<li><a href="<%=request.getContextPath()%>/back_end/adoptMember/addNoReserve.jsp">設定不可預約日期</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/back_end/adoptMember/addNoReserve.jsp">設定不可預約日期</a></li>
 						</ul></li>
 
 
@@ -44,8 +48,22 @@
 					class="nav-text">領養管理</span>
 			</a>
 				<ul aria-expanded="false">
-					<li><a href="<%=request.getContextPath()%>/back_end/adoptMember/reservePet.jsp">預約看寵物</a></li>
-				
+					<li><a
+						href="<%=request.getContextPath()%>/back_end/adoptMember/reservePet.jsp">預約看寵物</a></li>
+
+				</ul></li>
+			<li><a class="has-arrow ai-icon" href="javascript:void()"
+				aria-expanded="false"> <i class="flaticon-086-star"></i> <span
+					class="nav-text">商城管理</span>
+			</a>
+				<ul aria-expanded="false">
+					<li><a
+						href="#">訂單管理</a></li>
+					<li><a
+						href="#">訂單明細管理</a></li>
+					<li><a
+						href="#">行銷活動管理</a></li>
+
 				</ul></li>
 		</ul>
 	</div>
