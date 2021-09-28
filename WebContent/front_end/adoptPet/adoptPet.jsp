@@ -39,7 +39,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Amber - Pet Care Bootstrap 5 Template</title>
+<title>寵一而忠</title>
 
 
 <link rel="shortcut icon" href="assets/images/favicon.ico">
