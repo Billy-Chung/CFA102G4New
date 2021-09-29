@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.adoptPet.model.AdoptPetService;
 import com.adoptPet.model.AdoptPetVO;
 import com.adoptPetPhoto.model.AdoptPetPhotoService;
@@ -20,8 +22,7 @@ import com.petClass.model.PetClassVO;
 import com.petClassList.model.PetClassListService;
 import com.petClassList.model.PetClassListVO;
 
-public class AdoptPetServlet extends HttpServlet {
-
+public class AdoptPetServlet extends HttpServlet {	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
