@@ -52,11 +52,11 @@
 				<div class="col-12 col-sm-6 col-lg-3 m-b-40" data-aos="fade-up"
 					data-aos-duration="1000">
 					<div class="single-footer-widget">
-						<h1 class="widget-title">關於我們</h1>
-						<p class="desc-content">
-							近年少子化趨勢，毛小孩的地位竄起，對於許多飼主而言，寵物已不僅僅是動物，更是家中的一份子。<br>
-							我們期盼能提供給飼主更完整的觀念與規劃，並且倡導以領養代替購買，期望大家一起陪伴毛小孩走完一生。
-						</p>
+						<h1 class="widget-title">我們的資訊</h1>
+						<ul class="widget-list">
+							<li><a
+								href="<%=request.getContextPath()%>/front_end/adoptMember/adoptMember.jsp">關於我們</a></li>
+						</ul>
 					</div>
 				</div>
 				<div class="col-12 col-sm-6 col-lg-3 m-b-40" data-aos="fade-up"

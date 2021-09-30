@@ -66,6 +66,10 @@
 	max-width: 50%;
 	max-height: 50%;	
 }
+
+.myHight{
+	height:100px;
+}
 </style>
 
 </head>
@@ -177,7 +181,7 @@
 									<label class="col-sm-3 col-form-label">領養機構簡介</label>
 									<div class="col-sm-9">
 										<div class="input-group">
-											<textarea class="form-control" name="adopt_meb_comment"
+											<textarea class="form-control myHight" name="adopt_meb_comment"
 												placeholder="請填入領養機構簡介"><%=(adoptMebFail != null) ? adoptMebFail.getAdopt_meb_comment() : adoptMeb.getAdopt_meb_comment()%></textarea>
 											<div class="input-group-append"></div>
 										</div>
