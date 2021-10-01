@@ -1,14 +1,14 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.generalMember.model.*"%>
-<%-- ¦¹­¶¼È½m²ß±Ä¥Î Script ªº¼gªk¨ú­È --%>
+<%-- æ­¤é æš«ç·´ç¿’æ¡ç”¨ Script çš„å¯«æ³•å–å€¼ --%>
 
 <%
-  GeneralMemberVO gmVO = (GeneralMemberVO) request.getAttribute("gmVO"); //EmpServlet.java(Concroller), ¦s¤JreqªºempVOª«¥ó
+  GeneralMemberVO gmVO = (GeneralMemberVO) request.getAttribute("gmVO"); //EmpServlet.java(Concroller), å­˜å…¥reqçš„empVOç‰©ä»¶
 %>
 
 <html>
 <head>
-<title>­û¤u¸ê®Æ - listOneEmp.jsp</title>
+<title>å“¡å·¥è³‡æ–™ - listOneEmp.jsp</title>
 
 <style>
   table#table-1 {
@@ -46,29 +46,29 @@
 </head>
 <body bgcolor='white'>
 
-<h4>¦¹­¶¼È½m²ß±Ä¥Î Script ªº¼gªk¨ú­È:</h4>
+<h4>æ­¤é æš«ç·´ç¿’æ¡ç”¨ Script çš„å¯«æ³•å–å€¼:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>­û¤u¸ê®Æ - ListOneGeneralMember.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/front_end/GeneralMember/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+		 <h3>å“¡å·¥è³‡æ–™ - ListOneGeneralMember.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/front_end/GeneralMember/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">å›é¦–é </a></h4>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
-		<th>·|­û½s¸¹</th>
-		<th>·|­û©m¦W</th>
-		<th>·|­û¤â¾÷</th>
-		<th>·|­û¥Í¤é</th>
-		<th>·|­û·Ó¤ù</th>
-		<th>·|­ûÂ²¤¶</th>
-		<th>·|­û¦a§}</th>
+		<th>æœƒå“¡ç·¨è™Ÿ</th>
+		<th>æœƒå“¡å§“å</th>
+		<th>æœƒå“¡æ‰‹æ©Ÿ</th>
+		<th>æœƒå“¡ç”Ÿæ—¥</th>
+		<th>æœƒå“¡ç…§ç‰‡</th>
+		<th>æœƒå“¡ç°¡ä»‹</th>
+		<th>æœƒå“¡åœ°å€</th>
 		<th>EMAIL</th>
-		<th>±b¸¹</th>
-		<th>±K½X</th>
-		<th>©Ê§O</th>
-		<th>²{¤µ±b¤á¾lÃB</th>
-		<th>µo¤åÅv­­</th>
+		<th>å¸³è™Ÿ</th>
+		<th>å¯†ç¢¼</th>
+		<th>æ€§åˆ¥</th>
+		<th>ç¾ä»Šå¸³æˆ¶é¤˜é¡</th>
+		<th>ç™¼æ–‡æ¬Šé™</th>
 	</tr>
 	<tr>
 		<td>${gmVO.ger_meb_no}</td>

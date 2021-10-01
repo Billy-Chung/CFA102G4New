@@ -1,15 +1,15 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.generalMember.model.*"%>
 
 <%
-  GeneralMemberVO gmVO = (GeneralMemberVO) request.getAttribute("gmVO"); //EmpServlet.java (Concroller) ¦s¤JreqªºempVOª«¥ó (¥]¬AÀ°¦£¨ú¥XªºempVO, ¤]¥]¬A¿é¤J¸ê®Æ¿ù»~®ÉªºempVOª«¥ó)
+  GeneralMemberVO gmVO = (GeneralMemberVO) request.getAttribute("gmVO"); //EmpServlet.java (Concroller) å­˜å…¥reqçš„empVOç‰©ä»¶ (åŒ…æ‹¬å¹«å¿™å–å‡ºçš„empVO, ä¹ŸåŒ…æ‹¬è¼¸å…¥è³‡æ–™éŒ¯èª¤æ™‚çš„empVOç‰©ä»¶)
 %>
 <%-- <%=empVO=null %> --${empVO.deptno}-- --%>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>·|­û¸ê®Æ­×§ï - update_generalmember_input.jsp</title>
+<title>ä¿®æ”¹æœƒå“¡è³‡æ–™ - update_generalmember_input.jsp</title>
 
 <style>
   table#table-1 {
@@ -48,16 +48,16 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>·|­û¸ê®Æ­×§ï - update_generalmember_input.jsp</h3>
+		 <h3>ä¿®æ”¹æœƒå“¡è³‡æ–™ - update_generalmember_input.jsp</h3>
 
 	</td></tr>
 </table>
 
-<h3>¸ê®Æ­×§ï:</h3>
+<h3>è³‡æ–™ä¿®æ”¹:</h3>
 
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -68,33 +68,33 @@
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do" enctype="multipart/form-data">
 <table>
 	<tr>
-		<td>·|­û½s¸¹:<font color=red><b>*</b></font></td>
+		<td>æœƒå“¡ç·¨è™Ÿ:<font color=red><b>*</b></font></td>
 		<td><%=gmVO.getGer_meb_no()%></td>
 	</tr>
 	<tr>
-		<td>·|­û©m¦W:</td>
+		<td>æœƒå“¡å§“å:</td>
 		<td><input type="TEXT" name="meb_name" size="10" value="<%=gmVO.getMeb_name()%>" /></td>
 	</tr>
 	<tr>
-		<td>·|­û¤â¾÷:</td>
+		<td>æœƒå“¡æ‰‹æ©Ÿ:</td>
 		<td><input type="TEXT" name="phone" size="10"	value="<%=gmVO.getPhone()%>" /></td>
 	</tr>
 	
 	<tr>
-		<td>·|­û¥Í¤é:</td>
+		<td>æœƒå“¡ç”Ÿæ—¥:</td>
 		<td><input  name="birthday" type="Date" value="<%=gmVO.getBirthday() %>" /></td>
 	</tr>
 	<tr>
-		<td>·|­û·Ó¤ù:</td>
+		<td>æœƒå“¡ç…§ç‰‡:</td>
 		<td><input type="file" name="photo" /></td>
 	</tr>
 	<tr>
-		<td>·|­ûÂ²¤¶:</td>
+		<td>æœƒå“¡ç°¡ä»‹:</td>
 		<td><input type="TEXT" name="comment" size="65" value="<%=gmVO.getComment()%>" /></td>
 	</tr>
 	
 	<tr>
-		<td>·|­û¦a§}:</td>
+		<td>æœƒå“¡åœ°å€:</td>
 		<td><input type="TEXT" name="address" size="65" value="<%=gmVO.getAddress()%>" /></td>
 	</tr>
 	
@@ -104,16 +104,16 @@
 	</tr>
 	
 	<tr>
-		<td>±b¸¹:</td>
+		<td>å¸³è™Ÿ:</td>
 		<td><input type="TEXT" name="account" size="16" value="<%=gmVO.getAccount()%>" /></td>
 	</tr>
 	
 	<tr>
-		<td>±K½X:</td>
+		<td>å¯†ç¢¼:</td>
 		<td><input type="TEXT" name="password" size="16" value="<%=gmVO.getPassword()%>" /></td>
 	</tr>
 	<tr>
-		<td>·|­û©Ê§O:</td>
+		<td>æœƒå“¡æ€§åˆ¥:</td>
 		<td><input type="TEXT" name="gender" value="<%=gmVO.getGender()%>" /></td>
 	</tr>
 	
@@ -123,7 +123,7 @@
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="gmno" value="<%=gmVO.getGer_meb_no()%>">
-<input type="submit" value="­×§ï§¹²¦"></FORM>
+<input type="submit" value="ä¿®æ”¹å®Œç•¢"></FORM>
 </body>
 
 </html>

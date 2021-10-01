@@ -3,6 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.adoptMember.model.*"%>
+<%@ page import="com.generalMember.model.*"%>
+
+<%
+  GeneralMemberVO gmVO = (GeneralMemberVO) request.getAttribute("gmVO"); 
+%>
 
 
 
@@ -125,12 +130,7 @@
 			<div class="row">
 				<div class="col-12 text-center">
 					<div class="breadcrumb-wrapper">
-						<h2 class="breadcrumb-title">寵牠，就讓牠陪你到終老!!</h2>
-						<ul>
-							<li><a
-								href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp">返回領養頁面</a></li>
-							<li>所有領養寵物</li>
-						</ul>
+						<h2 class="breadcrumb-title">會員中心</h2>
 					</div>
 				</div>
 			</div>
@@ -157,7 +157,11 @@
                                     <a href="#download" data-bs-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a>
                                     <a href="#payment-method" data-bs-toggle="tab"><i class="fa fa-credit-card"></i> Payment Method</a>
                                     <a href="#address-edit" data-bs-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
-                                    <a href="#account-info" data-bs-toggle="tab"><i class="fa fa-user"></i> Account Details</a>
+                                    <form action="post" method="<%=request.getContextPath()%>/gm/gm.do">
+                                    	<input type="hidden" name="action" value="getOne_For_Display">
+                                    	<input type="submit" value="修改會員資料">
+                                    </form>
+                                    <a href="#password-info" data-bs-toggle="tab"><i class="fa fa-password"></i>修改密碼</a>
                                     <a href="login.html"><i class="fa fa-sign-out"></i> Logout</a>
                                 </div>
                             </div>
@@ -304,29 +308,46 @@
                                                         <label for="email" class="required m-b-5">Email Addres</label>
                                                         <input type="email" id="email" placeholder="Email Address" />
                                                     </div>
-                                                    <fieldset>
-                                                        <legend>Password change</legend>
-                                                        <div class="single-input-item m-b-15">
-                                                            <label for="current-pwd" class="required m-b-10">Current Password</label>
-                                                            <input type="password" id="current-pwd" placeholder="Current Password" />
-                                                        </div>
-                                                        <div class="row m-b-n15">
-                                                            <div class="col-lg-6">
-                                                                <div class="single-input-item m-b-15">
-                                                                    <label for="new-pwd" class="required m-b-10">New Password</label>
-                                                                    <input type="password" id="new-pwd" placeholder="New Password" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="single-input-item m-b-15">
-                                                                    <label for="confirm-pwd" class="required m-b-10">Confirm Password</label>
-                                                                    <input type="password" id="confirm-pwd" placeholder="Confirm Password" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </fieldset>
+                                                    
                                                     <div class="single-input-item single-item-button m-t-30">
-                                                        <button class="btn btn btn-primary btn-hover-dark rounded-0">Save Changes</button>
+                                                        <button class="btn btn btn-primary btn-hover-dark rounded-0">修改完畢</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div> <!-- Single Tab Content End -->
+                                    
+                                    <div class="tab-pane fade" id="password-info" role="tabpanel">
+                                        <div class="myaccount-content">
+                                            <h3 class="title">PASSWORD CHANGE</h3>
+                                            <div class="account-details-form">
+                                                <form action="<%=request.getContextPath()%>/LoginServlet" method="post">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="single-input-item m-b-15">
+                                                                <label for="account" class="required m-b-10">會員帳號</label>
+                                                                <input type="TEXT" name="account" id="account" size="16" placeholder="請輸入會員帳號" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="single-input-item m-b-15">
+                                                                <label for="password" class="required m-b-10">舊密碼</label>
+                                                                <input type="TEXT" id="password" name="password" size="16" placeholder="Last Name" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="single-input-item m-b-15">
+                                                        <label for="newpassword" class="required m-b-10">新密碼</label>
+                                                        <input type="TEXT" id="newpassword" name="newpassword" size="16" placeholder="請輸入新密碼" />
+                                                    </div>
+                                                    <div class="single-input-item m-b-15">
+                                                        <label for="newpassword1" class="required m-b-5">確認新密碼</label>
+                                                        <input type="TEXT" id="newpassword1" name="newpassword1" size="16" placeholder="請再輸入一次新密碼" />
+                                                    </div>
+                                                    
+                                                    <div class="single-input-item single-item-button m-t-30">
+                                                        <input type="hidden" name="action" value="update_password">
+                                                        <button class="btn btn btn-primary btn-hover-dark rounded-0">送出修改</button>
                                                     </div>
                                                 </form>
                                             </div>

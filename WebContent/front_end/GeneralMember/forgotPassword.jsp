@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.generalMember.model.*"%>
 
@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>§Ñ°O±K½X - forgotPassword.jsp</title>
+<title>å¿˜è¨˜å¯†ç¢¼ - forgotPassword.jsp</title>
 
 <style>
   table#table-1 {
@@ -48,15 +48,15 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>§Ñ°O±K½X </h3></td><td>
-		 <h4><a href="<%=request.getContextPath()%>/front_end/GeneralMember/select_page.jsp">¦^­º­¶</a></h4>
+		 <h3>å¿˜è¨˜å¯†ç¢¼ </h3></td><td>
+		 <h4><a href="<%=request.getContextPath()%>/front_end/GeneralMember/select_page.jsp">å›žé¦–é </a></h4>
 	</td></tr>
 </table>
 
 
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ð­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -67,11 +67,11 @@
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/LoginServlet">
 <table>
 	<tr>
-		<td>·|­û±b¸¹:</td>
+		<td>æœƒå“¡å¸³è™Ÿ:</td>
 		<td><input type="TEXT" name="account" size="45" value="<%=(gmVO==null) ? "" :gmVO.getAccount()%>" /></td>
 	</tr>
 	<tr>
-		<td>·|­û«H½c:</td>
+		<td>æœƒå“¡ä¿¡ç®±:</td>
 		<td><input type="TEXT" name="email" size="45"	value="<%=(gmVO==null) ? "" :gmVO.getEmail()%>" /></td>
 	</tr>
 	
@@ -79,6 +79,6 @@
 </table>
 <br>
 <input type="hidden" name="action" value="forgot_password">
-<input type="submit" value="°e¥X"></FORM>
+<input type="submit" value="é€å‡º"></FORM>
 </body>
 </html>

@@ -103,6 +103,15 @@
   
   
   <servlet>
+	<servlet-name>GeneralMemberPetPhotosServlet</servlet-name>
+	<servlet-class>com.generalMemberPetPhotos.controller.GeneralMemberPetPhotosServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>GeneralMemberPetPhotosServlet</servlet-name>
+	<url-pattern>/gmpp/gmpp.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>Shopping_cartServlet</servlet-name>
     <servlet-class>com.shopping_cart.controller.Shopping_cartServlet</servlet-class>
   </servlet>
@@ -135,6 +144,7 @@
     <filter-name>GmloginFilter</filter-name>
     <url-pattern>/front_end/GeneralMember/updatePassword.jsp</url-pattern>
     <url-pattern>/front_end/GeneralMember/forgotPassword.jsp</url-pattern>
+    <url-pattern>/front_end/adoptPet/reservePet.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
@@ -35,11 +35,11 @@
 
 <p>This is the Home page for IBM GeneralMember: Home</p>
 
-<h3>¸ê®Æ¬d¸ß:</h3>
+<h3>è³‡æ–™æŸ¥è©¢:</h3>
 	
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -53,10 +53,10 @@
   
   <li>
     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do">
-        <b>¿é¤J·|­û½s¸¹ :</b>
+        <b>è¼¸å…¥æœƒå“¡ç·¨è™Ÿ :</b>
         <input type="text" name="gmno">
         <input type="hidden" name="action" value="getOne_For_Display">
-        <input type="submit" value="°e¥X">
+        <input type="submit" value="é€å‡º">
     </FORM>
   </li>
 
@@ -64,37 +64,37 @@
    
   <li>
      <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do">
-       <b>¿ï¾Ü·|­û½s¸¹:</b>
+       <b>é¸æ“‡æœƒå“¡ç·¨è™Ÿ:</b>
        <select size="1" name="gmno">
          <c:forEach var="gmVO" items="${gmSvc.all}" > 
           <option value="${gmVO.ger_meb_no}">${gmVO.ger_meb_no}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="°e¥X">
+       <input type="submit" value="é€å‡º">
     </FORM>
   </li>
   
   <li>
      <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do" >
-       <b>¿ï¾Ü­û¤u©m¦W:</b>
+       <b>é¸æ“‡å“¡å·¥å§“å:</b>
        <select size="1" name="gmno">
          <c:forEach var="gmVO" items="${gmSvc.all}" > 
           <option value="${gmVO.ger_meb_no}">${gmVO.meb_name}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="°e¥X">
+       <input type="submit" value="é€å‡º">
      </FORM>
   </li>
 </ul>
 
 
-<h3>­û¤uºŞ²z</h3>
+<h3>å“¡å·¥ç®¡ç†</h3>
 
 <ul>
-  <li><a href="addGeneralMember.jsp">·|­ûµù¥U</a> a new GeneralMember.</li>
-  <li><a href="updatePassword.jsp">§ó·s±K½X</a></li>
+  <li><a href="addGeneralMember.jsp">æœƒå“¡è¨»å†Š</a> a new GeneralMember.</li>
+  <li><a href="updatePassword.jsp">æ›´æ–°å¯†ç¢¼</a></li>
 </ul>
 
 </body>

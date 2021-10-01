@@ -68,6 +68,7 @@ public class ReservePetServlet extends HttpServlet {
 
 		if ("addReserve".equals(action)) {
 			Integer whichPet = new Integer(req.getParameter("whichPet"));
+			Integer whichMeb = new Integer(req.getParameter("whichMeb"));
 			String reserveName = req.getParameter("reserveName");
 			String reservePhone = req.getParameter("reservePhone");
 			Date reserveDate = new java.sql.Date(System.currentTimeMillis());
@@ -129,7 +130,7 @@ public class ReservePetServlet extends HttpServlet {
 			}
 			
 			ReservePetService ReservePetSvc = new ReservePetService();
-			ReservePetSvc.insertReservePet(1, 1, whichPet, reserveName, reservePhone, reserveDate,
+			ReservePetSvc.insertReservePet(1, whichMeb, whichPet, reserveName, reservePhone, reserveDate,
 					reserveTime.toString(), "1", timeSelect);
 			req.setAttribute("seccessReserve", "1");
 			String url = "/adoptPet/addPet.do?action=goToDetail&PK=" + whichPet;

@@ -1,9 +1,11 @@
 package com.generalMemberPetPhotos.model;
 
 	
-	import java.util.List;
-	
-	import com.generalMemberPetPhotos.model.GeneralMemberPetPhotosVO;
+	import java.sql.Timestamp;
+import java.util.List;
+
+import com.adoptPetPhoto.model.AdoptPetPhotoVO;
+import com.generalMemberPetPhotos.model.GeneralMemberPetPhotosVO;
 
 	public class GeneralMemberPetPhotosService {
 		
@@ -14,41 +16,34 @@ package com.generalMemberPetPhotos.model;
 			dao = new GeneralMemberPetPhotosDAO();
 		}
 	
-	public GeneralMemberPetPhotosVO addAdoptGeneralMemberPetPhotos(Integer gen_meb_photo_no,Integer gen_meb_no,byte[] gen_meb_pet_photo) {
+	public GeneralMemberPetPhotosVO insertGeneralMemberPetPhotos(Integer gen_meb_no,byte[] gen_meb_pet_photo,String gen_pet_cover_state,Timestamp gen_pet_cover_change_time ) {
 		
 		GeneralMemberPetPhotosVO gmppVO = new GeneralMemberPetPhotosVO();
 		
-		gmppVO.setGen_meb_photo_no(gen_meb_photo_no);
+		
 		gmppVO.setGen_meb_no(gen_meb_no);
 		gmppVO.setGen_meb_pet_photo(gen_meb_pet_photo);
+		gmppVO.setGen_pet_cover_state(gen_pet_cover_state);
+		gmppVO.setGen_pet_cover_change_time(gen_pet_cover_change_time);
+		gmppVO = dao.insert(gmppVO);
 		
-		
-		dao.insert(gmppVO);
 		
 		return gmppVO;
 	}
 	
-	//預留給 Struts 2 用的
-		public void addGeneralMemberPetPhotos(GeneralMemberPetPhotosVO gmppVO) {
-			dao.insert(gmppVO);
-		}
-		
-		public GeneralMemberPetPhotosVO updateGeneralMemberPetPhotos(Integer gen_meb_photo_no,Integer gen_meb_no,byte[] gen_meb_pet_photo) {
+	
+		public void updateGeneralMemberPetPhotos(String gen_pet_cover_state,Timestamp gen_pet_cover_change_time,Integer gen_meb_no ) {
 			GeneralMemberPetPhotosVO gmppVO = new GeneralMemberPetPhotosVO();
 			
-			gmppVO.setGen_meb_photo_no(gen_meb_photo_no);
-			gmppVO.setGen_meb_no(gen_meb_no);
-			gmppVO.setGen_meb_pet_photo(gen_meb_pet_photo);
+			gmppVO.setGen_pet_cover_state(gen_pet_cover_state);
+			gmppVO.setGen_pet_cover_change_time(gen_pet_cover_change_time);
+			gmppVO.setGen_meb_photo_no(gen_meb_no);
 			
 			dao.update(gmppVO);
 			
-			return dao.findByPrimaryKey(gen_meb_photo_no); 
 		}
 		
 		
-		public void updateGeneralMemberPetPhotos(GeneralMemberPetPhotosVO gmppVO) {
-			dao.update(gmppVO);
-		}
 		
 		public void deleteGeneralMemberPetPhotos(Integer gen_meb_photo_no) {
 			dao.delete(gen_meb_photo_no);
@@ -58,8 +53,25 @@ package com.generalMemberPetPhotos.model;
 			return dao.findByPrimaryKey(gen_meb_photo_no);
 		}
 		
+		public List<GeneralMemberPetPhotosVO> findByGeneralMemberPetNO(Integer gen_meb_no) {
+			List<GeneralMemberPetPhotosVO> gmppList = dao.findByGeneralMemberPetNo(gen_meb_no);
+			return gmppList;
+		}
+		
 		public List<GeneralMemberPetPhotosVO> getAll(){
 			return dao.getAll();
+		}
+		
+		public GeneralMemberPetPhotosVO findByPhotoCover(Integer gen_meb_no) {
+
+			GeneralMemberPetPhotosVO gmppVO = dao.findByPhotoCover(gen_meb_no);
+
+			return gmppVO;
+		}
+		
+		public GeneralMemberPetPhotosVO findByPK(Integer gen_meb_no) {
+			GeneralMemberPetPhotosVO gmppVO = dao.findByPrimaryKey(gen_meb_no);
+			return gmppVO;
 		}
 	
 }

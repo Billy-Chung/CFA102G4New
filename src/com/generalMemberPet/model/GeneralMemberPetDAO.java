@@ -5,10 +5,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.adoptMemberReport.model.AdoptMemberReportVO;
+import com.petClassList.model.PetClassListService;
 
 public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 
@@ -22,102 +29,140 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 	public static final String DELETE_SQL ="DELETE FROM GENERAL_MEMBER_PET WHERE GEN_MEB_PET_NO=?";
 	public static final String FIND_BY_DEPTNO_SQL = "SELECT * FROM GENERAL_MEMBER_PET WHERE GEN_MEB_PET_NO = ?";
 	public static final String GET_ALL_SQL = "SELECT * FROM GENERAL_MEMBER_PET";
+	public static final String FIND_BY_PK = "SELECT * FROM GENERAL_MEMBER_PET WHERE GEN_MEB_PET_NO = ?";
+	public static final String FIND_BY_FK = "SELECT * FROM GENERAL_MEMBER_PET WHERE ADOPT_PET_NO = ?";
 	
+	private static DataSource ds = null;
 	static {
 		try {
-			Class.forName(DRIVER);	
-		} catch(ClassNotFoundException e) {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/David");
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	@Override
-	public void insert(GeneralMemberPetVO gmpVO) {
+	public  GeneralMemberPetVO insert(GeneralMemberPetVO gmp , String[] petClassNoBox) {
 		Connection conn = null;
-		PreparedStatement pst = null;
+		
 		
 		try {
-			conn = DriverManager.getConnection(URL,USER,PASSWORD);
-			pst = conn.prepareStatement(INSERT_SQL);
-			
-			pst.setInt(1,gmpVO.getAdopt_pet_no());
-			pst.setInt(2,gmpVO.getGen_meb_no());
-			pst.setString(3,gmpVO.getGen_meb_pet_breeds());
-			pst.setString(4, gmpVO.getGen_meb_pet_gender());
-			pst.setString(5,gmpVO.getGen_meb_pet_chip());
-			pst.setString(6, gmpVO.getGen_meb_pet_sterilization());
-			pst.setString(7, gmpVO.getGen_pet_color());
-			pst.setString(8, gmpVO.getGen_pet_comment());
-			pst.setString(9, gmpVO.getGen_pet_state());
-			
+			conn = ds.getConnection();
+			conn.setAutoCommit(false);
+			String[] cols = {"GEN_MEB_PET_NO"};
+			PreparedStatement pst = createInsertPreparedStatement(conn,gmp,INSERT_SQL,cols);
 			pst.executeUpdate();
+			ResultSet rs = pst.getGeneratedKeys();
+			if(rs.next()) {
+				int key = rs.getInt(1);
+				gmp.setGen_meb_pet_no(key);
+			}
+			
+			PetClassListService petClassListSvc = new PetClassListService();
+			for(String petClassNo : petClassNoBox) {
+				Integer pNo = new Integer(petClassNo);
+				petClassListSvc.insertPetClassList(gmp.getGen_meb_pet_no(), pNo, null, "1", conn);
+			}
+			
+			conn.commit();
+			conn.setAutoCommit(true);
 			
 		}catch(SQLException se) {
-			se.printStackTrace();
-		} finally {
-			if(pst!=null) {
+			if(conn != null) {
 				try {
-					pst.close();
+					conn.rollback();
+				} catch(SQLException excep) {
+					throw new RuntimeException("rollback error occured :" + excep.getMessage());
+				}
+			}
+		} finally {
+			if(conn !=null) {
+				try {
+					conn.close();
 				} catch(SQLException se) {
 					se.printStackTrace();
 				}	
 			}
 			
-			if(conn !=null) {
-				try {
-					conn.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
 		}
+		
+		return gmp;
 		
 	}
 
 	@Override
-	public void update(GeneralMemberPetVO gmpVO) {
+	public void update(GeneralMemberPetVO gmp) {
 		Connection conn = null;
-		PreparedStatement pst = null;
 		
 		try {
-			conn = DriverManager.getConnection(URL,USER,PASSWORD);
-			pst = conn.prepareStatement(UPDATE_SQL);
-			
-			
-			
-			pst.setInt(1,gmpVO.getAdopt_pet_no());
-			pst.setInt(2,gmpVO.getGen_meb_no());
-			pst.setString(3,gmpVO.getGen_meb_pet_breeds());
-			pst.setString(4, gmpVO.getGen_meb_pet_gender());
-			pst.setString(5,gmpVO.getGen_meb_pet_chip());
-			pst.setString(6, gmpVO.getGen_meb_pet_sterilization());
-			pst.setString(7, gmpVO.getGen_pet_color());
-			pst.setString(8, gmpVO.getGen_pet_comment());
-			pst.setString(9, gmpVO.getGen_pet_state());
-			pst.setInt(10,gmpVO.getGen_meb_pet_no());
-			
+			conn = ds.getConnection();
+			PreparedStatement pst = createUpdatePreparedStatement(conn,gmp,UPDATE_SQL);
 			pst.executeUpdate();
-			
 		}catch(SQLException se) {
-			se.printStackTrace();
+			throw new RuntimeException("A datebase error occured :" + se.getMessage());
 		} finally {
-			if(pst!=null) {
+			if(conn!=null) {
 				try {
-					pst.close();
+					conn.close();
 				} catch(SQLException se) {
 					se.printStackTrace();
 				}	
 			}
 			
-			if(conn !=null) {
+		}
+		
+	}
+	
+	
+	public GeneralMemberPetVO findByGeneralMemberPetNoPK(Integer ger_meb_pet_no) {
+		Connection conn = null;
+		GeneralMemberPetVO gmp = null;
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pst = conn.prepareStatement(FIND_BY_PK);
+			pst.setInt(1,ger_meb_pet_no);
+			ResultSet rs = pst.executeQuery();
+			gmp = selectOneGeneralMemberPetByNo(rs);
+		} catch(SQLException se) {
+			throw new RuntimeException("A database error occured :" +se.getMessage());
+		} finally {
+			if(conn != null) {
 				try {
 					conn.close();
-				} catch (SQLException se) {
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+				
+			}
+		}
+		return gmp;	
+		
+	}
+	
+	public List<GeneralMemberPetVO> findByGeneralMemberPetNo(Integer adopt_pet_no) {
+		Connection conn = null;
+		List<GeneralMemberPetVO> gmpList = new ArrayList<>();
+		
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pst = conn.prepareStatement(FIND_BY_FK);
+			pst.setInt(1,adopt_pet_no);
+			ResultSet rs = pst.executeQuery();
+			gmpList = selectGeneralMemberPetByMebNo(gmpList,rs);
+		} catch(SQLException se) {
+			throw new RuntimeException("A datebase error occured :" +se.getMessage());
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch(SQLException se) {
 					se.printStackTrace();
 				}
 			}
 		}
 		
+		return gmpList;
 	}
 
 	@Override
@@ -169,7 +214,7 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-			//進來代表有查到資料,就用一個Dept的Bean來包裝著查詢出來的部門資料
+			//�脖�誨銵冽��鞈��,撠梁銝��ept��ean靘���閰Ｗ靘���鞈��
 				gmpVO = new GeneralMemberPetVO();
 				gmpVO.setGen_meb_pet_no(gmpno);
 				gmpVO.setAdopt_pet_no(rs.getInt("ADOPT_PET_NO"));
@@ -219,61 +264,26 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 
 	@Override
 	public List<GeneralMemberPetVO> getAll() {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List <GeneralMemberPetVO> gmpList = new ArrayList<>();
+		Connection conn = null;
+		List<GeneralMemberPetVO> gmpList = new ArrayList<>();
 		
 		try {
 			
-			con = DriverManager.getConnection(URL,USER,PASSWORD);
-			pstmt = con.prepareStatement(GET_ALL_SQL);
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-			//進來代表有查到資料,就用一個Dept的Bean來包裝著查詢出來的部門資料
-				GeneralMemberPetVO gmpVO = new GeneralMemberPetVO();
-				gmpVO.setGen_meb_pet_no(rs.getInt("GEN_MEB_PET_NO"));
-				gmpVO.setAdopt_pet_no(rs.getInt("ADOPT_PET_NO"));
-				gmpVO.setGen_meb_no(rs.getInt("GEN_MEB_NO"));
-				gmpVO.setGen_meb_pet_breeds(rs.getString("GEN_MEB_PET_BREEDS"));
-				gmpVO.setGen_meb_pet_gender(rs.getString("GEN_MEB_PET_GENDER"));
-				gmpVO.setGen_meb_pet_chip(rs.getString("GEN_MEB_PET_CHIP"));
-				gmpVO.setGen_meb_pet_sterilization(rs.getString("GEN_MEB_PET_STERILIZATION"));
-				gmpVO.setGen_pet_color(rs.getString("GEN_MEB_PET_COLOR"));
-				gmpVO.setGen_pet_comment(rs.getString("GEN_PET_COMMENT"));
-				gmpVO.setGen_pet_state(rs.getString("GEN_PET_STATE"));
-			//用集合收集著包裝好的部門物件,查詢多筆的時候很適合
-				gmpList.add(gmpVO);
-			}
-			
-		} catch(SQLException se) {
-			se.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
+			conn = ds.getConnection();
+			PreparedStatement pst = conn.prepareStatement(GET_ALL_SQL);
+			ResultSet rs = pst.executeQuery();
+			gmpList = selectAllGeneralMemberPet(gmpList,rs);
 
+		} catch(SQLException se) {
+			throw new RuntimeException("A database error occured :" +se.getMessage());
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		
 		}
 		
@@ -281,5 +291,125 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 		return gmpList;
 	
 	}
+	
+	private List<GeneralMemberPetVO> selectAllGeneralMemberPet(List<GeneralMemberPetVO> gmpList,ResultSet rs) {
+		
+		try {
+			while(rs.next()) {
+				GeneralMemberPetVO gmp = new GeneralMemberPetVO();
+				gmp.setGen_meb_pet_no(rs.getInt("GEN_MEB_PET_NO"));
+				gmp.setAdopt_pet_no(rs.getInt("ADOPT_PET_NO"));
+				gmp.setGen_meb_no(rs.getInt("GEN_MEB_NO"));
+				gmp.setGen_meb_pet_breeds(rs.getString("GEN_MEB_PET_BREEDS"));
+				gmp.setGen_meb_pet_gender(rs.getString("GEN_MEB_PET_GENDER"));
+				gmp.setGen_meb_pet_chip(rs.getString("GEN_MEB_PET_CHIP"));
+				gmp.setGen_meb_pet_sterilization(rs.getString("GEN_MEB_PET_STERILIZATION"));
+				gmp.setGen_pet_color(rs.getString("GEN_MEB_PET_COLOR"));
+				gmp.setGen_pet_comment(rs.getString("GEN_PET_COMMENT"));
+				gmp.setGen_pet_state(rs.getString("GEN_PET_STATE"));
+				gmpList.add(gmp);	
+			}
+			
+		} catch(SQLException e) {
+			throw new RuntimeException("A database method error occured :" + e.getMessage());
+		}
+		
+		return gmpList;
+	}
+	
+	private PreparedStatement createInsertPreparedStatement(Connection conn,GeneralMemberPetVO gmp,String SQL,String[] cols) throws SQLException {
+		
+		PreparedStatement pst = conn.prepareStatement(SQL,cols);
+		
+		if(gmp.getAdopt_pet_no()==0) {
+			pst.setNull(1, Types.NULL);
+		} else {
+			
+			pst.setInt(1,gmp.getAdopt_pet_no());
+		}
+		
+		pst.setInt(2,gmp.getGen_meb_no());
+		
+		pst.setString(3, gmp.getGen_meb_pet_breeds());
+		pst.setString(4, gmp.getGen_meb_pet_gender());
+		pst.setString(5, gmp.getGen_meb_pet_chip());
+		pst.setString(6, gmp.getGen_meb_pet_sterilization());
+		pst.setString(7, gmp.getGen_pet_color());
+		pst.setString(8, gmp.getGen_pet_comment());
+		pst.setString(9, gmp.getGen_pet_state());
+		return pst;
+	}
+	
+	private PreparedStatement createUpdatePreparedStatement(Connection conn , GeneralMemberPetVO gmp,String SQL) throws SQLException {
+		
+		PreparedStatement pst = conn.prepareStatement(SQL);
+		
+		if(gmp.getGen_meb_no() == 0) {
+			pst.setNull(1,Types.NULL);
+		} else {
+			pst.setInt(1,gmp.getGen_meb_no());
+		}
+		
+		pst.setString(2, gmp.getGen_meb_pet_breeds());
+		pst.setString(3, gmp.getGen_meb_pet_gender());
+		pst.setString(4, gmp.getGen_meb_pet_chip());
+		pst.setString(5, gmp.getGen_meb_pet_sterilization());
+		pst.setString(6, gmp.getGen_pet_color());
+		pst.setString(7, gmp.getGen_pet_comment());
+		pst.setString(8, gmp.getGen_pet_state());
+		pst.setInt(9, gmp.getGen_meb_pet_no());
+		return pst;
+	}
+	
+	
+	private GeneralMemberPetVO selectOneGeneralMemberPetByNo(ResultSet rs) {
+		GeneralMemberPetVO gmp = new GeneralMemberPetVO();
+		try {
+			while(rs.next()) {
+				gmp.setGen_meb_pet_no(rs.getInt("GEN_MEB_PET_NO"));
+				gmp.setAdopt_pet_no(rs.getInt("ADOPT_PET_NO"));
+				gmp.setGen_meb_no(rs.getInt("GEN_MEB_NO"));
+				gmp.setGen_meb_pet_breeds(rs.getString("GEN_MEB_PET_BREEDS"));
+				gmp.setGen_meb_pet_gender(rs.getString("GEN_MEB_PET_GENDER"));
+				gmp.setGen_meb_pet_chip(rs.getString("GEN_MEB_PET_CHIP"));
+				gmp.setGen_meb_pet_sterilization(rs.getString("GEN_MEB_PET_STERILIZATION"));
+				gmp.setGen_pet_color(rs.getString("GEN_MEB_PET_COLOR"));
+				gmp.setGen_pet_comment(rs.getString("GEN_PET_COMMENT"));
+				gmp.setGen_pet_state(rs.getString("GEN_PET_STATE"));
+				
+			}		
+		} catch(SQLException e) {
+				throw new RuntimeException("A database mehtod error occured :" +e.getMessage());
+		}
+			
+			return gmp;
+		}
+	
+	private List<GeneralMemberPetVO> selectGeneralMemberPetByMebNo(List<GeneralMemberPetVO> gmpList,ResultSet rs) {
+		
+		try {
+			while(rs.next()) {
+				GeneralMemberPetVO gmp = new GeneralMemberPetVO();
+				gmp.setGen_meb_pet_no(rs.getInt("GEN_MEB_PET_NO"));
+				gmp.setAdopt_pet_no(rs.getInt("ADOPT_PET_NO"));
+				gmp.setGen_meb_no(rs.getInt("GEN_MEB_NO"));
+				gmp.setGen_meb_pet_breeds(rs.getString("GEN_MEB_PET_BREEDS"));
+				gmp.setGen_meb_pet_gender(rs.getString("GEN_MEB_PET_GENDER"));
+				gmp.setGen_meb_pet_chip(rs.getString("GEN_MEB_PET_CHIP"));
+				gmp.setGen_meb_pet_sterilization(rs.getString("GEN_MEB_PET_STERILIZATION"));
+				gmp.setGen_pet_color(rs.getString("GEN_MEB_PET_COLOR"));
+				gmp.setGen_pet_comment(rs.getString("GEN_PET_COMMENT"));
+				gmp.setGen_pet_state(rs.getString("GEN_PET_STATE"));
+				gmpList.add(gmp);
+			}
+			
+		} catch(SQLException e) {
+			throw new RuntimeException("A database method error occured :" +e.getMessage());
+		}
+		return gmpList;
+	}
+
+	
+
 	
 }

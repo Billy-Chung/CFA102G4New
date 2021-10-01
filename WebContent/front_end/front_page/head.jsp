@@ -12,7 +12,7 @@
             <!-- Header Logo Start -->
             <div class="col-lg-3 col-md-4 col-6">
               <div class="header-logo">
-                <a href="index.html"><img class="return" src="<%=request.getContextPath()%>/back_end/backend_page/images/pet2.jpg"></a>
+                <a href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp"><img class="return" src="<%=request.getContextPath()%>/back_end/backend_page/images/pet2.jpg"></a>
               </div>
             </div>
             <!-- Header Logo End -->

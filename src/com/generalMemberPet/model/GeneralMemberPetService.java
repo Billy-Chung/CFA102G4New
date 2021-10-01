@@ -2,6 +2,7 @@ package com.generalMemberPet.model;
 
 import java.util.List;
 
+import com.adoptPet.model.AdoptPetVO;
 import com.generalMemberPet.model.GeneralMemberPetVO;
 
 public class GeneralMemberPetService {
@@ -11,7 +12,7 @@ public class GeneralMemberPetService {
 		dao = new GeneralMemberPetDAO();
 	}
 	
-	public GeneralMemberPetVO addGeneralMemberPet(Integer adopt_pet_no,Integer gen_meb_no,String gen_meb_pet_breeds,String gen_meb_pet_gender,String gen_meb_pet_chip,String gen_meb_pet_sterilization,String gen_pet_color,String gen_pet_comment,String gen_pet_state) 
+	public GeneralMemberPetVO addGeneralMemberPet(Integer adopt_pet_no,Integer gen_meb_no,String gen_meb_pet_breeds,String gen_meb_pet_gender,String gen_meb_pet_chip,String gen_meb_pet_sterilization,String gen_pet_color,String gen_pet_comment,String gen_pet_state,String[] petClassNoBox) 
 	{
 		GeneralMemberPetVO gmpVO = new GeneralMemberPetVO();
 		
@@ -25,23 +26,18 @@ public class GeneralMemberPetService {
 		gmpVO.setGen_pet_color(gen_pet_color);
 		gmpVO.setGen_pet_comment(gen_pet_comment);
 		gmpVO.setGen_pet_state(gen_pet_state);
+		gmpVO = dao.insert(gmpVO,petClassNoBox);
 		
-		dao.insert(gmpVO);
 		
 		return gmpVO;
 		
 	}
 	
-	//預留給 Struts 2 用的
-	public void addGeneralMemberPet(GeneralMemberPetVO gmpVO) {
-		dao.insert(gmpVO);
-	}
 	
-	public GeneralMemberPetVO updateGeneralMemberPet(Integer gen_meb_pet_no,Integer adopt_pet_no,Integer pet_class_no,Integer gen_meb_no,String gen_meb_pet_breeds,String gen_meb_pet_gender,String gen_meb_pet_chip,String gen_meb_pet_sterilization,String gen_pet_color,String gen_pet_comment,String gen_pet_state) {
+	
+	public void updateGeneralMemberPet(Integer gen_meb_no,String gen_meb_pet_breeds,String gen_meb_pet_gender,String gen_meb_pet_chip,String gen_meb_pet_sterilization,String gen_pet_color,String gen_pet_comment,String gen_pet_state,Integer gen_meb_pet_no) {
 		GeneralMemberPetVO gmpVO = new GeneralMemberPetVO();
 		
-		gmpVO.setGen_meb_pet_no(gen_meb_pet_no);
-		gmpVO.setAdopt_pet_no(adopt_pet_no);
 		gmpVO.setGen_meb_no(gen_meb_no);
 		gmpVO.setGen_meb_pet_breeds(gen_meb_pet_breeds);
 		gmpVO.setGen_meb_pet_gender(gen_meb_pet_gender);
@@ -50,15 +46,23 @@ public class GeneralMemberPetService {
 		gmpVO.setGen_pet_color(gen_pet_color);
 		gmpVO.setGen_pet_comment(gen_pet_comment);
 		gmpVO.setGen_pet_state(gen_pet_state);
+		gmpVO.setGen_meb_pet_no(gen_meb_pet_no);
 		
 		dao.update(gmpVO);
-		
-		return dao.findByPrimaryKey(gen_meb_pet_no); 
 	}
 	
-	//預留給 Struts 2 用的
-	public void updateGeneralMemberPet(GeneralMemberPetVO gmpVO) {
-		dao.update(gmpVO);
+	public GeneralMemberPetVO findByGeneralMemberPetNoPK(Integer gen_meb_pet_no) {
+
+		GeneralMemberPetVO gmpVO = dao.findByGeneralMemberPetNoPK(gen_meb_pet_no);
+
+		return gmpVO;
+	}
+	
+	public List<GeneralMemberPetVO> findByAdoptMebNo(Integer adopt_pet_no) {
+
+		List<GeneralMemberPetVO> gmpList = dao.findByGeneralMemberPetNo(adopt_pet_no);
+
+		return gmpList;
 	}
 	
 	public void deleteGeneralMemberPet(Integer gen_meb_pet_no) {

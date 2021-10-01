@@ -69,12 +69,14 @@ public class LoginServlet extends HttpServlet {
 				try {                                                        
 			         String location = (String) session.getAttribute("location");
 			         if (location != null) {
-			           session.removeAttribute("location");   
-			           res.sendRedirect(location);            
-			           return;
-			         }
+				           session.removeAttribute("location");   
+				       		req.setAttribute("PK", req.getParameter("PK"));
+				           RequestDispatcher failureView = req.getRequestDispatcher(location);
+							failureView.forward(req, res);            
+				           return;
+				         }
 				} catch(Exception ignored) {}
-				res.sendRedirect(req.getContextPath() + "/front_end/GeneralMember/select_page.jsp");
+				res.sendRedirect(req.getContextPath() + "/front_end/adoptPet/adoptPet.jsp");
 			}
 		}
 		

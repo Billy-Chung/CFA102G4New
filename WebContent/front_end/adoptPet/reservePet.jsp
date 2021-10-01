@@ -226,7 +226,7 @@
 						 <c:if test="<%=reservePet == null %>">
 								 <input type="hidden" name="whichPet" value="${param.PK}">
 						</c:if>                       
-                        
+                         <input type="hidden" name="whichMeb" value="${meb.ger_meb_no}">
                         <button type="submit" class="btn btn-primary btn-hover-dark inmid  ">送出預約</button>
                     </form>
                     <!-- Checkbox Form End -->

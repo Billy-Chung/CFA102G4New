@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -29,11 +30,14 @@ public class GeneralMemberFilter implements Filter {
 		Object account = session.getAttribute("meb");
 		
 		if(account == null) {
-			session.setAttribute("location",req.getRequestURI());
-			res.sendRedirect(req.getContextPath()+"/front_end/GeneralMember/login.jsp");
+			String location = req.getServletPath();		
+			req.setAttribute("PK", req.getParameter("PK"));
+			session.setAttribute("location",location);
+			RequestDispatcher failureView = req.getRequestDispatcher("/front_end/GeneralMember/login.jsp");
+			failureView.forward(req, res); 
 			return;
 		}else {
-			chain.doFilter(request, response);
+			chain.doFilter(req, res);
 		}	
 	}
 

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import ="java.util.*" %>
 <%@page import = "com.generalMember.model.*" %>
@@ -11,7 +11,7 @@
 
 <html>
 <head>
-<title>©Ò¦³·|­û¸ê®Æ</title>
+<title>æ‰€æœ‰æœƒå“¡è³‡æ–™</title>
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -49,25 +49,25 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>©Ò¦³·|­û¸ê®Æ - listAllGeneralMember.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/front_end/GeneralMember/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+		 <h3>æ‰€æœ‰æœƒå“¡è³‡æ–™ - listAllGeneralMember.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/front_end/GeneralMember/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">å›é¦–é </a></h4>
 	</td></tr>
 </table>
 <table>
 	<tr>
-		<th>·|­û½s¸¹</th>
-		<th>©m¦W</th>
-		<th>¤â¾÷</th>
-		<th>¥Í¤é</th>
-		<th>·Ó¤ù</th>
-		<th>Â²¤¶</th>
-		<th>¦a§}</th>
+		<th>æœƒå“¡ç·¨è™Ÿ</th>
+		<th>å§“å</th>
+		<th>æ‰‹æ©Ÿ</th>
+		<th>ç”Ÿæ—¥</th>
+		<th>ç…§ç‰‡</th>
+		<th>ç°¡ä»‹</th>
+		<th>åœ°å€</th>
 		<th>EMAIL</th>
-		<th>±b¸¹</th>
-		<th>±K½X</th>
-		<th>©Ê§O</th>
-		<th>±b¤á¾lÃB</th>
-		<th>µo¤åÅv­­</th>
+		<th>å¸³è™Ÿ</th>
+		<th>å¯†ç¢¼</th>
+		<th>æ€§åˆ¥</th>
+		<th>å¸³æˆ¶é¤˜é¡</th>
+		<th>ç™¼æ–‡æ¬Šé™</th>
 	</tr>
 	<%@ include file="page1.file" %>
 	<c:forEach var="gmVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
@@ -89,14 +89,14 @@
 		
 		<td>
 			<form METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do">
-				<input type="submit" value="­×§ï">
+				<input type="submit" value="ä¿®æ”¹">
 				<input type="hidden" name="gmno" value="${gmVO.ger_meb_no}">
 				<input type="hidden" name="action" value="getOne_For_Update">
 			</form>
 		</td>
 		<td>
 			<form METHOD="post" ACTION="<%=request.getContextPath()%>/gm/gm.do">
-				<input type="submit" value="§R°£">
+				<input type="submit" value="åˆªé™¤">
 				<input type="hidden" name="gmno" value="${gmVO.ger_meb_no}">
 				<input type="hidden" name="action" value="delete">
 			</form>	
