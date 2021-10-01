@@ -120,6 +120,15 @@
     <url-pattern>/shopping_cart/shoppingCart.html</url-pattern>
   </servlet-mapping>
   
+    <servlet>
+    <servlet-name>productServlet</servlet-name>
+    <servlet-class>com.product.controller.productServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>productServlet</servlet-name>
+    <url-pattern>/product/product.do</url-pattern>
+  </servlet-mapping>
+  
   <filter>
     <filter-name>loginFilter</filter-name>
     <filter-class>com.filters.LoginFilter</filter-class>
