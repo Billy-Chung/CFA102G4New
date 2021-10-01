@@ -139,5 +139,11 @@ public class LoginServlet extends HttpServlet {
 			successView.forward(req,res);
 				
 		}
+		
+		if ("logout".equals(action)) {
+			HttpSession session = req.getSession();
+			session.removeAttribute("meb");
+			res.sendRedirect(req.getContextPath() + "/front_end/adoptPet/adoptPet.jsp");
+		}
 	}
 }	

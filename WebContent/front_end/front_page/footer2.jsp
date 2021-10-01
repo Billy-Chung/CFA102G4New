@@ -50,7 +50,7 @@
 									href="<%=request.getContextPath()%>/front_end/GeneralMember/login.jsp">登入</a></li>
 							</c:if>
 							<c:if test='<%=session.getAttribute("meb") != null%>'>
-								<li><a href="checkout.html">登出</a></li>
+								<li><a href="<%=request.getContextPath()%>/LoginServlet?action=logout">登出</a></li>
 							</c:if>
 							<li><a href="my-account.html">我的帳號</a></li>							
 						</ul>

@@ -145,6 +145,7 @@
     <url-pattern>/front_end/GeneralMember/updatePassword.jsp</url-pattern>
     <url-pattern>/front_end/GeneralMember/forgotPassword.jsp</url-pattern>
     <url-pattern>/front_end/adoptPet/reservePet.jsp</url-pattern>
+    <url-pattern>/front_end/GeneralMember/genMeb.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>

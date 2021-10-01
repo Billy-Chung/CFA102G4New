@@ -40,7 +40,7 @@
       var calendarEl = document.getElementById('calendar');
     
       $.ajax({
-          url: "<%=request.getContextPath()%>/adoptPet/reservePet.do?action=showReserve&PK=2",
+          url: "<%=request.getContextPath()%>/adoptPet/reservePet.do?action=showReserve&PK=${meb.ger_meb_no}",
           method: "get",
           dataType: "json",         
         }).done(
