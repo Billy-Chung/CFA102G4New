@@ -40,7 +40,7 @@
               <div class="header-actions">
               
                 <!-- Header My Account Button Start -->
-                <a href="my-account.html" class="header-action-btn header-action-btn-wishlist">
+                <a href="<%=request.getContextPath()%>/front_end/GeneralMember/genMeb.jsp" class="header-action-btn header-action-btn-wishlist">
                   <i class="icon-user icons"></i>
                 </a>
                 <!-- Header My Account Button End -->

@@ -89,9 +89,17 @@
 					<div class="single-footer-widget">
 						<h2 class="widget-title">會員中心</h2>
 						<ul class="widget-list">
-							<li><a href="login.html">登入</a></li>
-							<li><a href="my-account.html">我的帳號</a></li>
-							<li><a href="checkout.html">登出</a></li>
+							<c:if test='<%=session.getAttribute("meb") == null%>'>
+								<li><a
+									href="<%=request.getContextPath()%>/front_end/GeneralMember/login.jsp">登入</a></li>
+							</c:if>
+							<c:if test='<%=session.getAttribute("meb") != null%>'>
+								<li><a href="checkout.html">登出</a></li>
+							</c:if>
+
+							<li><a
+								href="<%=request.getContextPath()%>/front_end/GeneralMember/select_page.jsp">我的帳號</a></li>
+
 						</ul>
 					</div>
 				</div>
