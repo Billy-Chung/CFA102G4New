@@ -162,7 +162,7 @@
                                     	<input type="submit" value="修改會員資料">
                                     </form>
                                     <a href="#password-info" data-bs-toggle="tab"><i class="fa fa-password"></i>修改密碼</a>
-                                    <a href="login.html"><i class="fa fa-sign-out"></i> Logout</a>
+                                    <a href="<%=request.getContextPath()%>/LoginServlet?action=logout"><i class="fa fa-sign-out"></i> Logout</a>
                                 </div>
                             </div>
                             <!-- My Account Tab Menu End -->
