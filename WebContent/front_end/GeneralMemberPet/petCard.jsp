@@ -53,52 +53,6 @@
 								</form>
 
 
-								<form class="toServlet" method="post"
-									action="<%=request.getContextPath()%>/gmp/gmp.do">
-
-									<input type="hidden" name="adpno"
-										value="${GeneralMemberPetVO.adopt_pet_no}"> <input
-										type="hidden" name="gmno"
-										value="${GeneralMemberPetVO.gen_meb_no}"> <input type="hidden"
-										name="gmpb" value="${GeneralMemberPetVO.gen_meb_pet_breeds}">
-									<input type="hidden" name="gender"
-										value="${GeneralMemberPetVO.gen_meb_pet_gender}">  <input
-										type="hidden" name="petchip"
-										value="${GeneralMemberPetVO.gen_meb_pet_chip}">  <input
-										type="hidden" name="petsteril"
-										value="${GeneralMemberPetVO.gen_meb_pet_sterilization}">  <input
-										type="hidden" name="petcolor"
-										value="${GeneralMemberPetVO.gen_pet_color}"><input
-										type="hidden" name="petcomment"
-										value="${GeneralMemberPetVO.gen_pet_comment}"> <input
-										type="hidden" name="petstate"
-										value="${GeneralMemberPetVO.gen_pet_state}"> <input
-										type="hidden" name="action" value="delete"> <input
-										type="hidden" name="requestURL"
-										value="<%=request.getServletPath()%>">
-									<!--送出本網頁的路徑給Controller-->
-									<input type="hidden" name="whichPage" value="<%=whichPage%>">
-									<!--送出當前是第幾頁給Controller-->
-									<input type="hidden" name="whichChip"
-										value="<%=request.getParameter("whichChip")%>">
-
-									<c:if test="${GeneralMemberPetVO.gen_pet_state == 0}">
-										<button type="submit"
-											class="btn btn-rounded btn-outline-success">
-											<span class="btn-icon-start text-success"><i
-												class="fa fa-plus color-info"></i> </span>修改為以領養
-										</button>
-									</c:if>
-									<c:if test="${GeneralMemberPetVO.gen_pet_state == 1}">
-										<button type="submit"
-											class="btn btn-rounded btn-outline-light">
-											<span class="btn-icon-start text-light"><i
-												class="fa fa-plus color-info"></i> </span>修改為未領養
-										</button>
-									</c:if>
-								</form>
-
-
 								<button type="button" class="btn btn-rounded btn-outline-info"
 									data-bs-toggle="modal"
 									data-bs-target="#modal${GeneralMemberPetVO.gen_meb_pet_no}">

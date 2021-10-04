@@ -53,7 +53,7 @@ public class GeneralMemberPetServlet extends HttpServlet {
 			Map<String,String> errorMsgs = new LinkedHashMap<>();
 			req.setAttribute("errorMsgs",errorMsgs);
 			
-			//try {
+			try {
 				Integer adoptPetNo = null;
 				Integer genMebNo = null;
 				String genMebPetBreeds =req.getParameter("gmpb");
@@ -70,7 +70,7 @@ public class GeneralMemberPetServlet extends HttpServlet {
 				//領養寵物FK
 				
 				if(req.getParameter("adpno").trim().isEmpty()) {
-					adoptPetNo = 1;
+					adoptPetNo = 0;
 				}
 				//System.out.println(adoptPetNo);
 				
@@ -127,6 +127,10 @@ public class GeneralMemberPetServlet extends HttpServlet {
 					errorMsgs.put("genMebPetStatetest", "寵物領養狀態: 請勿修改狀態!");
 				}
 				
+				if(petClassNoBox == null) {
+					errorMsgs.put("adoptPetClass", "寵物至少需要一個分類!!");
+				}
+				
 				
 				GeneralMemberPetVO gmpVO = new GeneralMemberPetVO();
 				gmpVO.setAdopt_pet_no(adoptPetNo);
@@ -139,15 +143,15 @@ public class GeneralMemberPetServlet extends HttpServlet {
 				gmpVO.setGen_pet_comment(genMebPetComment);
 				gmpVO.setGen_pet_state(genMebPetState);
 				
-//				System.out.println(adoptPetNo);
-//				System.out.println(genMebNo);
-//				System.out.println(genMebPetBreeds);
-//				System.out.println(genMebPetGender);
-//				System.out.println(genMebPetChip);
-//				System.out.println(genMebPetSteril);
-//				System.out.println(genMebPetColor);
-//				System.out.println(genMebPetComment);
-//				System.out.println(genMebPetState);
+				System.out.println(adoptPetNo);
+				System.out.println(genMebNo);
+				System.out.println(genMebPetBreeds);
+				System.out.println(genMebPetGender);
+				System.out.println(genMebPetChip);
+				System.out.println(genMebPetSteril);
+				System.out.println(genMebPetColor);
+				System.out.println(genMebPetComment);
+				System.out.println(genMebPetState);
 				
 				
 				
@@ -185,11 +189,11 @@ public class GeneralMemberPetServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 			
-			//} catch(Exception e) {
-			//	errorMsgs.put("無法取得資料:",  e.getMessage());
-			//	RequestDispatcher failureView = req.getRequestDispatcher("/front_end/GeneralMemberPet/addGeneralMemberPet.jsp");
-			//	failureView.forward(req, res);
-			//}
+			} catch(Exception e) {
+				errorMsgs.put("無法取得資料:",  e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/GeneralMemberPet/addGeneralMemberPet.jsp");
+				failureView.forward(req, res);
+			}
 		}
 		
 		
@@ -224,7 +228,7 @@ public class GeneralMemberPetServlet extends HttpServlet {
 				req.setAttribute("allPetClass", allPetClass);
 				req.setAttribute("thisPetClass", thisPetClass);
 				String url = "/front_end/GeneralMemberPet/update_gmp_input.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
 			} catch(Exception e) {
@@ -243,7 +247,7 @@ public class GeneralMemberPetServlet extends HttpServlet {
 			try {
 				
 				Integer genMebPetNo = new Integer(req.getParameter("genMebPetNo"));
-				Integer genMebNo;
+				Integer adoptNo;
 				String genMebPetBreeds =req.getParameter("gmpb");
 				String genPetNoSignReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]*$";
 				String genMebPetGender = req.getParameter("gender");
@@ -255,11 +259,11 @@ public class GeneralMemberPetServlet extends HttpServlet {
 				String genMebPetState = req.getParameter("petstate");
 				String[] petClassNoBox = req.getParameterValues("petClassNo"); 
 				
-				//一般會員FK
-				if(req.getParameter("gmno").trim().isEmpty()) {
-					genMebNo = 0;
+				//領養寵物FK				
+				if(req.getParameter("adpno").trim().isEmpty()) {
+					adoptNo = 0;
 				} else {
-					genMebNo = new Integer(req.getParameter("gmno").trim());
+					adoptNo = new Integer(req.getParameter("adpno").trim());
 				}
 				
 				//寵物品種
@@ -312,7 +316,7 @@ public class GeneralMemberPetServlet extends HttpServlet {
 				
 				GeneralMemberPetVO gmpVO = new GeneralMemberPetVO();
 				
-				gmpVO.setGen_meb_no(genMebNo);
+				gmpVO.setAdopt_pet_no(adoptNo);
 				gmpVO.setGen_meb_pet_breeds(genMebPetBreeds);
 				gmpVO.setGen_meb_pet_gender(genMebPetGender);
 				gmpVO.setGen_meb_pet_chip(genMebPetChip);
@@ -322,26 +326,33 @@ public class GeneralMemberPetServlet extends HttpServlet {
 				gmpVO.setGen_pet_state(genMebPetState);
 				gmpVO.setGen_meb_pet_no(genMebPetNo);
 				
+				System.out.println(genMebPetComment);
 				
-				PetClassListService petClassListService = new PetClassListService();
-				int[] intPetClassBox = Arrays.asList(petClassNoBox).stream().mapToInt(Integer::parseInt).toArray();
+				
+				
 				PetClassService petClassService = new PetClassService();
+				PetClassListService petClassListService = new PetClassListService();
 				List<PetClassVO> allPetClass = petClassService.getAll();
 				List<PetClassVO> myPetClass = new ArrayList<>();
-				
-				for (PetClassVO petClass : allPetClass) {
-					for (int petClassList : intPetClassBox) {
-						if (petClass.getPet_class_no() == petClassList) {
-							myPetClass.add(petClass);
+				if(petClassNoBox == null) {
+					errorMsgs.put("adoptPetClass", "寵物至少需要一個分類!!");
+				}else {				
+//					List<PetClassListVO> thisFailPetClass = petClassListService.findByAdoptPetNo(adoptPetNo);
+					int[] intPetClassBox = Arrays.asList(petClassNoBox).stream().mapToInt(Integer::parseInt).toArray();
+					for (PetClassVO petClass : allPetClass) {
+						for (int petClassList : intPetClassBox) {
+							if (petClass.getPet_class_no() == petClassList) {
+								myPetClass.add(petClass);
+							}
 						}
 					}
-				}
-				allPetClass.removeAll(myPetClass);
+					allPetClass.removeAll(myPetClass);
+				}						
 				
 				//錯誤處理
 				
 				if(!errorMsgs.isEmpty()) {
-					req.setAttribute("GeneralMemberPetVO",gmpVO);
+					req.setAttribute("GeneralMemberPetVO2",gmpVO);
 					req.setAttribute("allPetClass", allPetClass);
 					req.setAttribute("checkPetClass", myPetClass);
 					RequestDispatcher failureView = req.getRequestDispatcher("/front_end/GeneralMemberPet/update_gmp_input.jsp");
@@ -351,9 +362,9 @@ public class GeneralMemberPetServlet extends HttpServlet {
 				
 				GeneralMemberPetService gmpSvc = new GeneralMemberPetService();
 				
-				gmpSvc.updateGeneralMemberPet(genMebNo,genMebPetBreeds,genMebPetGender,genMebPetChip,genMebPetSteril,genMebPetColor,genMebPetComment,genMebPetState,genMebPetNo);
+				gmpSvc.updateGeneralMemberPet(adoptNo,genMebPetBreeds,genMebPetGender,genMebPetChip,genMebPetSteril,genMebPetColor,genMebPetComment,genMebPetState,genMebPetNo);
 				
-				List<PetClassListVO> thisPetClass = petClassListService.findByAdoptPetNo(genMebPetNo);
+				List<PetClassListVO> thisPetClass = petClassListService.findByGeneralMemberPetNo(genMebPetNo);
 				List<Integer> allOkPetClass = Arrays.stream(petClassNoBox).map(Integer::parseInt)
 						.collect(Collectors.toList());				
 				int[] intPetClassNoBox = Arrays.asList(petClassNoBox).stream().mapToInt(Integer::parseInt).toArray();
@@ -361,18 +372,18 @@ public class GeneralMemberPetServlet extends HttpServlet {
 				List<Integer> myOkPetClass = new ArrayList<>();
 				
 				for (PetClassListVO xxx : thisPetClass) {
-					petClassListService.updatePetClassList(null, "0", xxx.getPet_class_list_no());
+					petClassListService.updatePetClassListAdp(null, "0", xxx.getPet_class_list_no());
 					for (int yyy : intPetClassNoBox) {
 						if (xxx.getPet_class_no() == yyy) {
 							myOkPetClass.add(yyy);
-							petClassListService.updatePetClassList(null, "1", xxx.getPet_class_list_no());
+							petClassListService.updatePetClassListAdp(null, "1", xxx.getPet_class_list_no());
 						}
 					}
 
 				}
 				allOkPetClass.removeAll(myOkPetClass);
 				for(int zzz : allOkPetClass) {
-					petClassListService.updateNewClass(genMebPetNo, zzz, null, "1");
+					petClassListService.updateNewClassGen(null, zzz, genMebPetNo, "1");
 				}
 
 				if (requestURL.equals("/front_end/GeneralMemberPet/searchPetPage.jsp")) {

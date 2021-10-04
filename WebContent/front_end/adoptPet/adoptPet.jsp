@@ -205,7 +205,7 @@
 									</div>
 									<div class="content">
 										<h5 class="title">
-											<a href="single-product.html">寵物品種: &nbsp;
+											<a href="<%=request.getContextPath()%>/adoptPet/addPet.do?action=goToDetail&PK=${AdoptPetVO.adopt_pet_no}">寵物品種: &nbsp;
 												&nbsp;${AdoptPetVO.adopt_pet_breeds}</a>
 										</h5>
 										<span class="rating"> 寵物顏色: &nbsp; &nbsp;

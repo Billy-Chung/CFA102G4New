@@ -203,11 +203,14 @@ public class GeneralMemberServlet extends HttpServlet {
 					}
 				}
 				
-				Integer meb_money;
+				GeneralMemberService gmSvc = new GeneralMemberService();
+				
+				
+				Integer meb_money =0;
 				try {
-					meb_money = 100;
+					GeneralMemberVO gmVO = gmSvc.getOneGeneralMember(gmno);
+					meb_money = gmVO.getMeb_money();
 				}catch(NumberFormatException e) {
-					meb_money = 0;
 					errorMsgs.add("儲存金額請填數字");
 				}
 				
@@ -216,7 +219,7 @@ public class GeneralMemberServlet extends HttpServlet {
 					post_permission="1";
 				}
 				
-				GeneralMemberService gmSvc = new GeneralMemberService();
+				
 				
 				byte[] photo = null;
 				Part part = req.getPart("photo");
@@ -260,7 +263,7 @@ public class GeneralMemberServlet extends HttpServlet {
 						,comment, address, email, account, password, gender, meb_money, post_permission, gmno);
 			
 				req.setAttribute("gmVO",gmVO);
-				String url = "/front_end/GeneralMember/listOneGeneralMember.jsp";
+				String url = "/front_end/GeneralMember/genMeb.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req,res);
 				
@@ -385,7 +388,7 @@ public class GeneralMemberServlet extends HttpServlet {
 					
 									
 									/***************************3.新增完成,準備轉交(Send the Success view)***********/
-					String url = "/front_end/GeneralMember/listAllGeneralMember.jsp";
+					String url = "/front_end/GeneralMember/login.jsp";
 					
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllGeneralMember.jsp
 					successView.forward(req, res);				
@@ -423,42 +426,7 @@ public class GeneralMemberServlet extends HttpServlet {
 					
 		}
 		
-		if("forgot_password".equals(action)) {
-			
-			List<String> errorMsgs = new LinkedList<String>();
-			
-			req.setAttribute("errorMsgs",errorMsgs);
-			
-			try {
-				String account = req.getParameter("account").trim();
-				if(account == null || account.trim().length()==0) {
-					errorMsgs.add("請輸入會員帳號");
-				}
-				
-				String email = req.getParameter("email").trim();
-				if(email == null || email.trim().length()==0) {
-					errorMsgs.add("請輸入會員信箱");
-				}
-				
-				GeneralMemberService gmSvc = new GeneralMemberService();
-				GeneralMemberVO gmVO = gmSvc.getOneGeneralMember(account);
-				String email1 = gmVO.getEmail();
-				
-				if(gmVO==null)
-					errorMsgs.add("查無此帳號");
-				else if(!(email.equals(email1))) {
-					errorMsgs.add("請輸入正確的會員信箱");
-				}
-				else {
-					
-				}
-				
-					
-			} catch(Exception e) {
-				
-			}
-			
-		}
+		
 				
 	}
 

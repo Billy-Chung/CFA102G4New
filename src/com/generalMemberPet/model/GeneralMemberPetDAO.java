@@ -25,7 +25,7 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 	public static final String PASSWORD = "123456";
 	
 	public static final String INSERT_SQL ="INSERT INTO GENERAL_MEMBER_PET(ADOPT_PET_NO,GEN_MEB_NO,GEN_MEB_PET_BREEDS,GEN_MEB_PET_GENDER,GEN_MEB_PET_CHIP,GEN_MEB_PET_STERILIZATION,GEN_MEB_PET_COLOR,GEN_PET_COMMENT,GEN_PET_STATE) VALUES (?,?,?,?,?,?,?,?,?)";
-	public static final String UPDATE_SQL ="UPDATE GENERAL_MEMBER_PET SET ADOPT_PET_NO=?,GEN_MEB_NO=?,GEN_MEB_PET_BREEDS=?,GEN_MEB_PET_GENDER=?,GEN_MEB_PET_CHIP=?,GEN_MEB_PET_STERILIZATION=?,GEN_MEB_PET_COLOR=?,GEN_PET_COMMENT=?,GEN_PET_STATE=? WHERE GEN_MEB_PET_NO=?";
+	public static final String UPDATE_SQL ="UPDATE GENERAL_MEMBER_PET SET ADOPT_PET_NO=?,GEN_MEB_PET_BREEDS=?,GEN_MEB_PET_GENDER=?,GEN_MEB_PET_CHIP=?,GEN_MEB_PET_STERILIZATION=?,GEN_MEB_PET_COLOR=?,GEN_PET_COMMENT=?,GEN_PET_STATE=? WHERE GEN_MEB_PET_NO=?";
 	public static final String DELETE_SQL ="DELETE FROM GENERAL_MEMBER_PET WHERE GEN_MEB_PET_NO=?";
 	public static final String FIND_BY_DEPTNO_SQL = "SELECT * FROM GENERAL_MEMBER_PET WHERE GEN_MEB_PET_NO = ?";
 	public static final String GET_ALL_SQL = "SELECT * FROM GENERAL_MEMBER_PET";
@@ -62,7 +62,7 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 			PetClassListService petClassListSvc = new PetClassListService();
 			for(String petClassNo : petClassNoBox) {
 				Integer pNo = new Integer(petClassNo);
-				petClassListSvc.insertPetClassList(gmp.getGen_meb_pet_no(), pNo, null, "1", conn);
+				petClassListSvc.insertPetClassListGen(null, pNo, gmp.getGen_meb_pet_no(), "1", conn);
 			}
 			
 			conn.commit();
@@ -340,16 +340,14 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 		return pst;
 	}
 	
-	private PreparedStatement createUpdatePreparedStatement(Connection conn , GeneralMemberPetVO gmp,String SQL) throws SQLException {
+private PreparedStatement createUpdatePreparedStatement(Connection conn , GeneralMemberPetVO gmp,String SQL) throws SQLException {
 		
 		PreparedStatement pst = conn.prepareStatement(SQL);
-		
-		if(gmp.getGen_meb_no() == 0) {
-			pst.setNull(1,Types.NULL);
+		if(gmp.getAdopt_pet_no()==0) {
+			pst.setNull(1, Types.NULL);
 		} else {
-			pst.setInt(1,gmp.getGen_meb_no());
+			pst.setInt(1,gmp.getAdopt_pet_no());
 		}
-		
 		pst.setString(2, gmp.getGen_meb_pet_breeds());
 		pst.setString(3, gmp.getGen_meb_pet_gender());
 		pst.setString(4, gmp.getGen_meb_pet_chip());

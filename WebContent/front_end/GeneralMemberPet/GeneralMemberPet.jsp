@@ -28,59 +28,75 @@
 	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
+<style>
+.toServlet {
+	display: inline-block;
+}
+
+.inmid {
+	margin: 0 40% 0 43%;
+}
+
+.imgSize {
+	width: 100%;
+	height: 100%;
+}
+#myIcon {
+	max-width: 100%;
+}
+</style>
 </head>
 <body>
 	
-	<ul>
-  		<li><a href="addGeneralMemberPet.jsp">新增會員寵物</a></li>
-	</ul>
-
 	
 	<!--**********************************
         Main wrapper start
     ***********************************-->
 	<div id="main-wrapper">
 
+		<!--**********************************
+            Nav header start
+        ***********************************-->
+		
+		<!--**********************************
+            Nav header end
+        ***********************************-->
+
+		<!--**********************************
+            Chat box start
+        ***********************************-->
+		
+		<!--**********************************
+            Chat box End
+        ***********************************-->
+
+
+
+
+		<!--**********************************
+            Header start
+        ***********************************-->
+		<%@ include file="../front_page/head.jsp"%>
+		<!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+		<!--**********************************
+            Sidebar start
+        ***********************************-->
+		<%@ include file="../front_page/Sidebar.jsp"%>
+		<!--**********************************
+            Sidebar end
+        ***********************************-->
+
+		<!--**********************************
+            Content body start
+        ***********************************-->
 		<div class="content-body">
-			<c:if test="${not empty errorMsgs}">
-				<div class="col-xl-6 ">
-					<div
-						class="alert alert-danger left-icon-big alert-dismissible fade show">
-						<button type="button" class="btn-close" data-bs-dismiss="alert"
-							aria-label="btn-close">
-							<span><i class="mdi mdi-btn-close"></i></span>
-						</button>
-						<div class="media">
-							<div class="alert-left-icon-big">
-								<span><i class="mdi mdi-alert"></i></span>
-							</div>
-							<div class="media-body">
-								<h5 class="mt-1 mb-2">請修正以下錯誤:</h5>
-								<c:forEach var="message" items="${errorMsgs}">
-									<p class="mb-0">${message.value}</p>
-								</c:forEach>
-							</div>
-						</div>
-					</div>
-				</div>
-			</c:if>
+			
 
 			<div class="container-fluid">
-				<div class="row page-titles ">
-
-					<form method="post"
-						action="<%=request.getContextPath()%>/gmp/gmp.do">
-						<div class="input-group search-area">
-							<input type="text" class="form-control" name="whichChip"
-								placeholder="以晶片號尋找"> <input type="hidden" name="action"
-								value="searchFromChip"> <span class="input-group-text">
-								<button type="submit"
-									class="btn btn-rounded btn-outline-success">搜尋</button>
-							</span>
-						</div>
-					</form>
-
-				</div>
+				
 				<div class="row">
 					<%@ include file="page1.file"%>
 
@@ -94,7 +110,7 @@
 					<!--**********************************
             Footer start
         ***********************************-->
-					
+					<%@ include file="../front_page/footer.jsp"%>
 					<!--**********************************
             Footer end
         ***********************************-->

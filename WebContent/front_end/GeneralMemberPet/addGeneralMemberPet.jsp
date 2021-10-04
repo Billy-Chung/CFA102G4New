@@ -16,8 +16,17 @@
 
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>上傳會員寵物資料 - addGeneralMemberPet.jsp</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="keywords" content="" />
+<meta name="author" content="" />
+<meta name="robots" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Innap : Hotel Admin Template" />
+<meta property="og:title" content="Innap : Hotel Admin Template" />
+<meta property="og:description" content="Innap : Hotel Admin Template" />
+<meta property="og:image" content="social-image.png" />
+<meta name="format-detection" content="telephone=no">
 
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/back_end/back_CSS/vendor/star-rating/star-rating-svg.css">
@@ -29,40 +38,42 @@
 	rel="stylesheet">
 
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
+.myright {
+	margin-left: 80%;
+}
+</style>	
 
 </head>
-<body bgcolor='white'>
+<body>
 
+	<div id="main-wrapper">
+		<%@ include file="../front_page/head.jsp"%>
+		<%@ include file="../front_page/Sidebar.jsp"%>
+		<div class="content-body">
+			<div class="container-fluid">
+				<c:if test="${not empty errorMsgs}">
+					<div class="col-xl-6 inmid2">
+						<div
+							class="alert alert-danger left-icon-big alert-dismissible fade show">
+							<button type="button" class="btn-close" data-bs-dismiss="alert"
+								aria-label="btn-close">
+								<span><i class="mdi mdi-btn-close"></i></span>
+							</button>
+							<div class="media">
+								<div class="alert-left-icon-big">
+									<span><i class="mdi mdi-alert"></i></span>
+								</div>
+								<div class="media-body">
+									<h5 class="mt-1 mb-2">請修正以下錯誤:</h5>
+									<c:forEach var="message" items="${errorMsgs}">
+										<p class="mb-0">${message.value}</p>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
+		
 		<div class="row">
 					<div class="col-xl-12 col-lg-12">
 						<div class="card">
@@ -216,9 +227,11 @@
 							</div>
 						</div>
 					</div>
+					</div>
+					</div>
 				</div>
-				
-				
+				<%@ include file="../front_page/footer2.jsp"%>
+			</div>	
 	<script>
 		if (
 	<%=("公").equals((gmpVO == null) ? "" : gmpVO.getGen_meb_pet_gender())%>

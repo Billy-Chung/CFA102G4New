@@ -77,6 +77,10 @@ public class GeneralMemberService {
 		return dao.findByAccount(account);
 	}
 	
+	public GeneralMemberVO getOneGeneralMemberEmail(String email) {
+		return dao.findByEmail(email);
+	}
+	
 	public List<GeneralMemberVO> getAll(){
 		return dao.getAll();
 	}

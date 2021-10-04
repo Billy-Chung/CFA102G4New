@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import com.adoptMember.model.AdoptMemberService;
 import com.adoptMember.model.AdoptMemberVO;
+import com.generalMember.model.EmailUtils;
 import com.generalMember.model.GeneralMemberDAO;
 import com.generalMember.model.GeneralMemberDAO_Interface;
 import com.generalMember.model.GeneralMemberService;
@@ -144,6 +145,57 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = req.getSession();
 			session.removeAttribute("meb");
 			res.sendRedirect(req.getContextPath() + "/front_end/adoptPet/adoptPet.jsp");
+		}
+		
+		
+		if("forgot_password".equals(action)) {
+			
+			String email = req.getParameter("email");
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs",errorMsgs);
+			
+			if(email==null || email.trim().length()==0) {
+				errorMsgs.add("會員信箱不可以空白");
+			}
+			
+			GeneralMemberService gmSvc = new GeneralMemberService();
+			GeneralMemberVO gmVO = gmSvc.getOneGeneralMemberEmail(email);
+			 
+			if(gmVO == null) {
+				errorMsgs.add("信箱不存在");
+				req.getRequestDispatcher("/front_end/GeneralMember/forgotPassword.jsp").forward(req, res);
+				return;
+			} 
+			
+			EmailUtils.sendResetPasswordEmail(gmVO);
+			req.setAttribute("sendMailMsg","您的申請已提交成功,請查看您的"+gmVO.getEmail());
+			req.getRequestDispatcher("/front_end/GeneralMember/forgotPassword.jsp").forward(req, res);
+			
+		}
+		
+		if("reset_password".equals(action)) {
+			String account = req.getParameter("account");
+			String newpassword = req.getParameter("newpassword");
+			String newpassword2 = req.getParameter("newpassword2");
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs",errorMsgs);
+			if(newpassword == null || "".equals(newpassword)) {
+				errorMsgs.add("新密碼不能為空");
+			}
+			if(newpassword2 == null || "".equals(newpassword2)) {
+				errorMsgs.add("兩次輸入的密碼不一致");
+			}
+			
+			if(!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs",errorMsgs);
+				req.getRequestDispatcher("/front_end/GeneralMember/resetpassword.jsp").forward(req,res);
+			}
+			
+			GeneralMemberService gmSvc = new GeneralMemberService();
+			GeneralMemberVO gmVO = gmSvc.getOneGeneralMember(account);
+			gmVO.setPassword(newpassword);
+			
+			req.getRequestDispatcher("/front_end/GeneralMember/login.jsp").forward(req, res);
 		}
 	}
 }	

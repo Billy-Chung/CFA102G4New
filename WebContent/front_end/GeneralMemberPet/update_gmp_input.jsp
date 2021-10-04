@@ -6,7 +6,7 @@
 <%@ page import="java.util.*"%>
 
 <%
-  GeneralMemberPetVO gmpVO = (GeneralMemberPetVO) request.getAttribute("gmpVO");
+  GeneralMemberPetVO gmpVO = (GeneralMemberPetVO) request.getAttribute("GeneralMemberPetVO2");
   PetClassDAO dao = new PetClassDAO();
   List<PetClassVO> petClass = dao.getAllpetClass();
   pageContext.setAttribute("petClass", petClass);
@@ -104,7 +104,7 @@
 									<form method="POST"
 										action="<%=request.getContextPath()%>/gmp/gmp.do">
 										<input type="hidden" name="adpno"
-											value=<%=(gmpVO.getAdopt_pet_no() == 0) ? "" : gmpVO.getAdopt_pet_no()%>">
+											value="">
 
 										<div class="mb-3 row">
 											<label class="col-sm-3 col-form-label">新增會員</label>
@@ -120,7 +120,7 @@
 											<label class="col-sm-3 col-form-label">寵物品種</label>
 											<div class="col-sm-9">
 												<input type="text" class="form-control"
-													name="adopt_pet_breeds" placeholder="請填入領養寵物品種"
+													name="gmpb" placeholder="請填入領養寵物品種"
 													value="<%=(gmpVO == null) ? "" : gmpVO.getGen_meb_pet_breeds()%>">
 											</div>
 										</div>
@@ -186,7 +186,7 @@
 											<label class="col-sm-3 col-form-label">寵物心得</label>
 											<div class="col-sm-9">
 												<input type="text" class="form-control"
-													name="adopt_pet_join_reason" placeholder="請填入寵物心得"
+													name="petcomment" placeholder="請填入寵物心得"
 													value="<%=(gmpVO == null) ? "" : gmpVO.getGen_pet_comment()%>">
 											</div>
 										</div>

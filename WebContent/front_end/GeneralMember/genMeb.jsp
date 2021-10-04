@@ -155,12 +155,8 @@
                                         查看預約</a>
                                     <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Orders</a>
                                     <a href="#download" data-bs-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a>
-                                    <a href="#payment-method" data-bs-toggle="tab"><i class="fa fa-credit-card"></i> Payment Method</a>
-                                    <a href="#address-edit" data-bs-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
-                                    <form action="post" method="<%=request.getContextPath()%>/gm/gm.do">
-                                    	<input type="hidden" name="action" value="getOne_For_Display">
-                                    	<input type="submit" value="修改會員資料">
-                                    </form>
+                                    <a href="<%=request.getContextPath()%>/gm/gm.do/update_gm_input.jsp" ></i> address</a>
+                                    <a href="<%=request.getContextPath()%>/front_end/GeneralMemberPet/GeneralMemberPet.jsp" ><i class="fa fa-credit-card"></i>寵物清單</a>
                                     <a href="#password-info" data-bs-toggle="tab"><i class="fa fa-password"></i>修改密碼</a>
                                     <a href="<%=request.getContextPath()%>/LoginServlet?action=logout"><i class="fa fa-sign-out"></i> Logout</a>
                                 </div>
@@ -332,17 +328,17 @@
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item m-b-15">
                                                                 <label for="password" class="required m-b-10">舊密碼</label>
-                                                                <input type="TEXT" id="password" name="password" size="16" placeholder="Last Name" />
+                                                                <input type="password" id="password" name="password" size="16" placeholder="Last Name" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="single-input-item m-b-15">
                                                         <label for="newpassword" class="required m-b-10">新密碼</label>
-                                                        <input type="TEXT" id="newpassword" name="newpassword" size="16" placeholder="請輸入新密碼" />
+                                                        <input type="password" id="newpassword" name="newpassword" size="16" placeholder="請輸入新密碼" />
                                                     </div>
                                                     <div class="single-input-item m-b-15">
                                                         <label for="newpassword1" class="required m-b-5">確認新密碼</label>
-                                                        <input type="TEXT" id="newpassword1" name="newpassword1" size="16" placeholder="請再輸入一次新密碼" />
+                                                        <input type="password" id="newpassword1" name="newpassword1" size="16" placeholder="請再輸入一次新密碼" />
                                                     </div>
                                                     
                                                     <div class="single-input-item single-item-button m-t-30">

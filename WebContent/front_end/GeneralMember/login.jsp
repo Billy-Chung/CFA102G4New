@@ -60,6 +60,17 @@
             <div class="row">
                 <div class="col-lg-7 col-md-8 m-auto">
                     <div class="login-wrapper">
+                    
+                    <%-- 錯誤表列 --%>
+						<c:if test="${not empty errorMsgs}">
+						<font style="color:red">請修正以下錯誤:</font>
+							<ul>
+								<c:forEach var="message" items="${errorMsgs}">
+									<li style="color:red">${message}</li>
+								</c:forEach>
+							</ul>
+						</c:if>
+                    	
 
                         <!-- Login Title & Content Start -->
                         <div class="section-content text-center m-b-30">
@@ -88,7 +99,7 @@
                                     <input type="hidden" name="action" value="login">
                                     <input type="hidden" name="PK" value="${PK}">
                                     <button class="btn btn btn-gray-deep btn-hover-primary m-b-15">送出</button>
-                                    <a href="<%=request.getContextPath()%>/front_end/GeneralMember/forgotPassword.jsp" class="forget-pwd m-b-15">忘記密碼</a>
+                                    <a href="<%=request.getContextPath()%>/front_end/GeneralMember/addGeneralMember.jsp" class="forget-pwd m-b-15">會員註冊</a>
                                 </div>
                             </div>
                             <!-- Button/Forget Password End -->
@@ -100,15 +111,7 @@
                         </form>
                         <!-- Form Action End -->
                         
-                        <%-- 錯誤表列 --%>
-						<c:if test="${not empty errorMsgs}">
-						<font style="color:red">請修正以上錯誤:</font>
-							<ul>
-								<c:forEach var="message" items="${errorMsgs}">
-									<li style="color:red">${message}</li>
-								</c:forEach>
-							</ul>
-						</c:if>
+                        
 
                     </div>
                 </div>

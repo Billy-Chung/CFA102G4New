@@ -18,6 +18,7 @@ public class GeneralMemberVO implements Serializable {
 	private String gender;
 	private Integer meb_money;
 	private String post_permission;
+	private String randomCode;
 	
 	public Integer getGer_meb_no() {
 		return ger_meb_no;
@@ -96,6 +97,13 @@ public class GeneralMemberVO implements Serializable {
 	}
 	public void setPost_permission(String post_permission) {
 		this.post_permission = post_permission;
+	}
+	
+	public String getRandomCode() {
+		return randomCode;
+	}
+	public void setRandomCode(String randomCode) {
+		this.randomCode = randomCode;
 	}
 	
 	

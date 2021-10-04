@@ -46,10 +46,10 @@
 </head>
 <body bgcolor='white'>
 
-<h4>此頁暫練習採用 Script 的寫法取值:</h4>
+
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料 - ListOneGeneralMember.jsp</h3>
+		 <h3>會員資料 - ListOneGeneralMember.jsp</h3>
 		 <h4><a href="<%=request.getContextPath()%>/front_end/GeneralMember/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>

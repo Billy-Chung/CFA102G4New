@@ -35,10 +35,10 @@ public class GeneralMemberPetService {
 	
 	
 	
-	public void updateGeneralMemberPet(Integer gen_meb_no,String gen_meb_pet_breeds,String gen_meb_pet_gender,String gen_meb_pet_chip,String gen_meb_pet_sterilization,String gen_pet_color,String gen_pet_comment,String gen_pet_state,Integer gen_meb_pet_no) {
+	public void updateGeneralMemberPet(Integer Adopt_pet_no,String gen_meb_pet_breeds,String gen_meb_pet_gender,String gen_meb_pet_chip,String gen_meb_pet_sterilization,String gen_pet_color,String gen_pet_comment,String gen_pet_state,Integer gen_meb_pet_no) {
 		GeneralMemberPetVO gmpVO = new GeneralMemberPetVO();
 		
-		gmpVO.setGen_meb_no(gen_meb_no);
+		gmpVO.setAdopt_pet_no(Adopt_pet_no);
 		gmpVO.setGen_meb_pet_breeds(gen_meb_pet_breeds);
 		gmpVO.setGen_meb_pet_gender(gen_meb_pet_gender);
 		gmpVO.setGen_meb_pet_chip(gen_meb_pet_chip);

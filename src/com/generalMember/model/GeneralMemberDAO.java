@@ -23,6 +23,7 @@ public class GeneralMemberDAO implements GeneralMemberDAO_Interface {
 	public static final String FIND_BY_DEPTNO_SQL = "SELECT * FROM GENERAL_MEMBER WHERE GEN_MEB_NO = ?";
 	public static final String GET_ALL_SQL = "SELECT * FROM GENERAL_MEMBER";
 	public static final String FIND_BY_ACCOUNT="SELECT * FROM GENERAL_MEMBER WHERE MEB_ACCOUNT = ? ";
+	public static final String FIND_BY_EMAIL="SELECT * FROM GENERAL_MEMBER WHERE MEB_EMAIL = ? ";
 	public static final String UPDATE_PASSWORD_SQL ="UPDATE GENERAL_MEMBER SET MEB_PASSWORD=? WHERE MEB_ACCOUNT=?";
 
 	static {
@@ -54,7 +55,7 @@ public class GeneralMemberDAO implements GeneralMemberDAO_Interface {
 			pst.setString(10, gmVO.getGender());
 			pst.setInt(11, gmVO.getMeb_money());
 			pst.setString(12, gmVO.getPost_permission());
-
+			
 			pst.executeUpdate();
 			
 			
@@ -289,6 +290,68 @@ public class GeneralMemberDAO implements GeneralMemberDAO_Interface {
 		return gmVO;
 	}
 
+	public GeneralMemberVO findByEmail(String email) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		GeneralMemberVO gmVO = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(FIND_BY_EMAIL);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// 進來代表有查到資料,就用一個Dept的Bean來包裝著查詢出來的部門資料
+				gmVO = new GeneralMemberVO();
+				gmVO.setEmail(email);
+				gmVO.setGer_meb_no(rs.getInt("GEN_MEB_NO"));
+				gmVO.setMeb_name(rs.getString("MEB_NAME"));
+				gmVO.setPhone(rs.getString("MEB_PHONE"));
+				gmVO.setBirthday(rs.getDate("MEB_BIRTHDAY"));
+				gmVO.setPhoto(rs.getBytes("MEB_PHOTO"));
+				gmVO.setComment(rs.getString("MEB_COMMENT"));
+				gmVO.setAddress(rs.getString("MEB_ADDRESS"));
+				gmVO.setAccount(rs.getString("MEB_ACCOUNT"));
+				gmVO.setPassword(rs.getString("MEB_PASSWORD"));
+				gmVO.setGender(rs.getString("MEB_GENDER"));
+				gmVO.setMeb_money(rs.getInt("MEB_MONEY"));
+				gmVO.setPost_permission(rs.getString("POST_PERMISSION"));
+
+			}
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+
+		}
+
+		return gmVO;
+	}
 
 	public List<GeneralMemberVO> getAll() {
 		Connection con = null;

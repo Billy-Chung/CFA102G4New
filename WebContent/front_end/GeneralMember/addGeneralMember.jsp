@@ -111,7 +111,7 @@
 						</div>
 
 						<div class="single-input-item m-b-10">
-							密碼:<input type="TEXT" name="password" size="16" value="<%=(gmVO==null) ? "" :gmVO.getPassword()%>" placeholder="密碼" >
+							密碼:<input type="password" name="password" size="16" value="<%=(gmVO==null) ? "" :gmVO.getPassword()%>" placeholder="密碼" >
 						</div>
 
 						<div>

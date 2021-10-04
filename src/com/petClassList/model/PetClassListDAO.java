@@ -17,8 +17,10 @@ public class PetClassListDAO implements PetClassList_interface {
 
 	private static final String INSERT_SQL = "insert into PET_CLASS_LIST (ADOPT_PET_NO,PET_CLASS_NO,GEN_MEB_PET_NO,PET_CLASS_LIST_STATE) values(?,?,?,?)";
 	private static final String UPDATE_SQL = "update PET_CLASS_LIST set GEN_MEB_PET_NO = ?, PET_CLASS_LIST_STATE = ? where PET_CLASS_LIST_NO = ?";
+	private static final String UPDATE_SQL_ADP = "update PET_CLASS_LIST set ADOPT_PET_NO = ?, PET_CLASS_LIST_STATE = ? where PET_CLASS_LIST_NO = ?";
 	private static final String FIND_BY_PET_NO = "SELECT * FROM PET_CLASS_LIST WHERE ADOPT_PET_NO = ?";
 	private static final String FIND_BY_CLASS_NO = "SELECT * FROM PET_CLASS_LIST WHERE PET_CLASS_NO = ?";
+	private static final String FIND_BY_GEN_PET_NO = "SELECT * FROM PET_CLASS_LIST WHERE GEN_MEB_PET_NO = ?";
 
 	private static DataSource ds = null;
 	static {
@@ -34,6 +36,23 @@ public class PetClassListDAO implements PetClassList_interface {
 	public PetClassListVO insert(PetClassListVO petClassList, Connection con) {
 		try {
 			PreparedStatement pstmt = createInsertPreparedStatement(con, petClassList, INSERT_SQL);
+			pstmt.executeUpdate();
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured.111 " + excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		}
+		return petClassList;
+	}
+	
+	public PetClassListVO insertGen(PetClassListVO petClassList, Connection con) {
+		try {
+			PreparedStatement pstmt = createInsertPreparedStatementGen(con, petClassList, INSERT_SQL);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			if (con != null) {
@@ -74,6 +93,32 @@ public class PetClassListDAO implements PetClassList_interface {
 			}
 		}
 	}
+	
+	public void updateNewClassGen(PetClassListVO petClassList) {
+		Connection con = null;
+		try {
+			con = ds.getConnection();
+			PreparedStatement pstmt = createInsertPreparedStatementGen(con, petClassList, INSERT_SQL);
+			pstmt.executeUpdate();
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured.111 " + excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+	}
 
 	@Override
 	public void update(PetClassListVO petClassList) {
@@ -81,6 +126,26 @@ public class PetClassListDAO implements PetClassList_interface {
 		try {
 			con = ds.getConnection();
 			PreparedStatement pstmt = createUpdatePreparedStatement(con, petClassList, UPDATE_SQL);
+			pstmt.executeUpdate();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+
+	}
+	
+	public void updateAdp(PetClassListVO petClassList) {
+		Connection con = null;
+		try {
+			con = ds.getConnection();
+			PreparedStatement pstmt = createUpdatePreparedStatementAdp(con, petClassList, UPDATE_SQL_ADP);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -145,6 +210,31 @@ public class PetClassListDAO implements PetClassList_interface {
 		}
 		return petClassLists;
 	}
+	
+	public List<PetClassListVO> findByGeneralMemberPetNo(Integer gen_meb_pet_no) {
+		Connection con = null;
+		List<PetClassListVO> petClassLists = new ArrayList<>();
+
+		try {
+			con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(FIND_BY_GEN_PET_NO);
+			pstmt.setInt(1, gen_meb_pet_no);
+			ResultSet rs = pstmt.executeQuery();
+			petClassLists = selectPetClassListByFK(petClassLists, rs);
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		return petClassLists;
+	}
+	
 
 	private PreparedStatement createInsertPreparedStatement(Connection con, PetClassListVO petClassList, String SQL)
 			throws SQLException {
@@ -156,6 +246,20 @@ public class PetClassListDAO implements PetClassList_interface {
 		} else {
 			pstmt.setInt(3, petClassList.getGen_meb_pet_no());
 		}
+		pstmt.setString(4, petClassList.getPet_class_list_state());
+		return pstmt;
+	}
+	
+	private PreparedStatement createInsertPreparedStatementGen(Connection con, PetClassListVO petClassList, String SQL)
+			throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(SQL);
+		if(petClassList.getAdopt_pat_no()==null) {
+			pstmt.setNull(1, Types.NULL);
+		} else {
+			pstmt.setInt(1, petClassList.getAdopt_pat_no());
+		}
+		pstmt.setInt(2, petClassList.getPet_class_no());
+		pstmt.setInt(3, petClassList.getGen_meb_pet_no());
 		pstmt.setString(4, petClassList.getPet_class_list_state());
 		return pstmt;
 	}
@@ -184,6 +288,19 @@ public class PetClassListDAO implements PetClassList_interface {
 			pstmt.setNull(1, Types.NULL);
 		} else {
 			pstmt.setInt(1, petClassList.getGen_meb_pet_no());
+		}
+		pstmt.setString(2, petClassList.getPet_class_list_state());
+		pstmt.setInt(3, petClassList.getPet_class_list_no());
+		return pstmt;
+	}
+	
+	private PreparedStatement createUpdatePreparedStatementAdp(Connection con, PetClassListVO petClassList, String SQL)
+			throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(SQL);
+		if (petClassList.getAdopt_pat_no() == null) {
+			pstmt.setNull(1, Types.NULL);
+		} else {
+			pstmt.setInt(1, petClassList.getAdopt_pat_no());
 		}
 		pstmt.setString(2, petClassList.getPet_class_list_state());
 		pstmt.setInt(3, petClassList.getPet_class_list_no());
