@@ -150,7 +150,7 @@
 
 
 
-	<%@ include file="../front_page/footer.jsp"%>
+	<%@ include file="../front_page/footer2.jsp"%>
 
 
 

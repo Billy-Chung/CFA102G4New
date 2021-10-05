@@ -47,7 +47,7 @@
 
                 <!-- Header Action Button Start -->
                 <div class="header-action-btn header-action-btn-cart d-none d-sm-flex">
-                  <a class="cart-visible" href="#">
+                  <a class="cart-visible" href="<%=request.getContextPath()%>/front_end/shopping_cart/shoppingCart.jsp">
                     <i class="icon-handbag icons"></i>
                   </a>              
 
