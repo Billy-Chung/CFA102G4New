@@ -74,10 +74,6 @@ public class GeneralMemberPetServlet extends HttpServlet {
 				//System.out.println(adoptPetNo);
 				
 				//一般會員FK
-//				if(req.getParameter("gmno").trim().isEmpty()) {
-//					genMebNo = 1;
-//				}
-				
 				genMebNo = Integer.valueOf(req.getParameter("gmno"));
 				
 				//寵物品種
@@ -316,7 +312,7 @@ public class GeneralMemberPetServlet extends HttpServlet {
 				gmpVO.setGen_pet_state(genMebPetState);
 				gmpVO.setGen_meb_pet_no(genMebPetNo);
 				
-				System.out.println(genMebPetComment);
+			
 				
 				
 				
@@ -385,6 +381,7 @@ public class GeneralMemberPetServlet extends HttpServlet {
 
 					req.setAttribute("searchList", searchList);
 				}
+				
 				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);

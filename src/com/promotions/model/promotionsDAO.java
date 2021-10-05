@@ -20,7 +20,7 @@ public class PromotionsDAO implements PromotionsDAO_interface {// implementså¯¦ä
 	private static final String FIND_BY_PK = "select * from PROMOTIONS where promot_no = ?";
 	private static final String GET_ALL = "select * from PROMOTIONS order by PROMOT_NO desc";
 	
-	private static final String FIND_CURRENT_PROMOTION = "SELECT * FROM CFA_102_04.PROMOTIONS where PROMOT_STATUS = '0' order by PROMOT_NO desc";
+	private static final String FIND_CURRENT_PROMOTION = "SELECT * FROM PROMOTIONS where PROMOT_STATUS = '0' order by PROMOT_NO desc";
 	
 	static {
 		try {

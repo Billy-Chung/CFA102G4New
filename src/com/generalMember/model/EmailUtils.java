@@ -1,64 +1,78 @@
 package com.generalMember.model;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
 import java.util.Properties;
+import java.util.Random;
 
-import javax.mail.Address;
 import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMessage.RecipientType;
-
-
 
 public class EmailUtils {
-	private static final String FROM = "awye.chou@gmail.com";
+	public String getRandom() {
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999999);
+        return String.format("%06d", number);
+    }
 	
 	
 	
-	//重設密碼
-	public static void sendResetPasswordEmail(GeneralMemberVO gmVO) {
-		Session session = getSession();
-		MimeMessage message = new MimeMessage(session);
-		try {
-			message.setSubject("找回您的帳號與密碼");
-			message.setSentDate(new Date());
-			message.setFrom(new InternetAddress(FROM));
-			message.setRecipient(RecipientType.TO,new InternetAddress(gmVO.getEmail()));
-			message.setContent("要使用新的密碼,請使用以下連結啟用密碼<br/><a href="+ GenerateLinkUtils.generateResetPwdLink(gmVO) +">點擊重新設定密碼</a>","text/html;charset=utf-8");
-			//發送郵件
-			Transport.send(message);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+//設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
+	public void sendMail(String to, String subject, String messageText) {
+			
+	   try {
+		   // 設定使用SSL連線至 Gmail smtp Server
+		   Properties props = new Properties();
+		   props.put("mail.smtp.host", "smtp.gmail.com");
+		   props.put("mail.smtp.socketFactory.port", "465");
+		   props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+		   props.put("mail.smtp.auth", "true");
+		   props.put("mail.smtp.port", "465");
+
+		   // ●設定 gmail 的帳號 & 密碼 (將藉由你的Gmail來傳送Email)
+		   // ●須將myGmail的【安全性較低的應用程式存取權】打開
+		   final String myGmail = "awye.chou@gmail.com";
+		   final String myGmail_password = "awye455191";
+		   Session session = Session.getInstance(props, new Authenticator() {
+			   protected PasswordAuthentication getPasswordAuthentication() {
+				   return new PasswordAuthentication(myGmail, myGmail_password);
+			   }
+		   });
+
+		   Message message = new MimeMessage(session);
+		   message.setFrom(new InternetAddress(myGmail));
+		   message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(to));
+		  
+		   //設定信中的主旨  
+		   message.setSubject(subject);
+		   //設定信中的內容 
+		   message.setText(messageText);
+
+		   Transport.send(message);
+		   System.out.println("傳送成功!");
+	   }catch (MessagingException e){
+		   System.out.println("傳送失敗!");
+		   e.printStackTrace();
+	   }
+}
 	
-	public static Session getSession() {
-		Properties props = new Properties();
-		props.setProperty("mail.transport.protocol","smtp");
-		props.setProperty("mail.smtp.host", "smtp.gmail.com");
-		props.setProperty("mail.smtp.port","587");
-		props.setProperty("mail.smtp.auth","true");
-		Session session = Session.getInstance(props,new Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				String password = null;
-				InputStream is = EmailUtils.class.getResourceAsStream("password.dat");
-				byte[] b = new byte[1024];
-				try {
-					int len = is.read(b);
-					password = new String(b,0,len);
-				} catch(IOException e) {
-					e.printStackTrace();
-				}
-				return new PasswordAuthentication(FROM,password);
-			}
-		});
-		return session;
-		
-	}
+ public static void main (String args[]){
+
+   String to = "ixlogic@pchome.com.tw";
+   
+   String subject = "密碼通知";
+   
+   String ch_name = "peter1";
+   String passRandom = "111";
+   String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
+    
+   EmailUtils mailService = new EmailUtils();
+   mailService.sendMail(to, subject, messageText);
+
+}
+	 
 }

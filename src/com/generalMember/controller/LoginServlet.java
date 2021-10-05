@@ -150,26 +150,47 @@ public class LoginServlet extends HttpServlet {
 		
 		if("forgot_password".equals(action)) {
 			
-			String email = req.getParameter("email");
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs",errorMsgs);
+				List<String> errorMsgs = new LinkedList<String>();
+				req.setAttribute("errorMsgs",errorMsgs);
+				
+			try	{
+				
+				String email = req.getParameter("email");
+				GeneralMemberService gmSvc = new GeneralMemberService();
+				
+				List<GeneralMemberVO> list = gmSvc.getAll();
+				for(GeneralMemberVO gmVOList : list) {
+					if(gmVOList.getEmail() != email) {
+						errorMsgs.add("此信箱未註冊,請重新輸入");
+					}
+					break;
+				}
 			
-			if(email==null || email.trim().length()==0) {
-				errorMsgs.add("會員信箱不可以空白");
+			
+			
+				GeneralMemberVO gmVO = gmSvc.getOneGeneralMemberEmail(email);
+				EmailUtils mailservice = new EmailUtils();
+				String randomcode = mailservice.getRandom();
+			
+				gmSvc.forgotPassword(randomcode,gmVO.getGer_meb_no());
+			
+				String subject = "忘記密碼通知";
+				String message = "你好,我們是寵一而忠平台,"+"\n"+"此為您的臨時密碼:" + randomcode +"\n"+ "請登入後修改密碼,謝謝";
+			
+				try {
+					mailservice.sendMail(email,subject,message);
+					res.sendRedirect(req.getContextPath() + "/front_end/GeneralMember/login.jsp");
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			//req.setAttribute("sendMailMsg","您的申請已提交成功,請查看您的"+gmVO.getEmail());
+				
+				
+			} catch(Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/GeneralMember/forgotPassword.jsp");
+				failureView.forward(req, res);
 			}
-			
-			GeneralMemberService gmSvc = new GeneralMemberService();
-			GeneralMemberVO gmVO = gmSvc.getOneGeneralMemberEmail(email);
-			 
-			if(gmVO == null) {
-				errorMsgs.add("信箱不存在");
-				req.getRequestDispatcher("/front_end/GeneralMember/forgotPassword.jsp").forward(req, res);
-				return;
-			} 
-			
-			EmailUtils.sendResetPasswordEmail(gmVO);
-			req.setAttribute("sendMailMsg","您的申請已提交成功,請查看您的"+gmVO.getEmail());
-			req.getRequestDispatcher("/front_end/GeneralMember/forgotPassword.jsp").forward(req, res);
 			
 		}
 		

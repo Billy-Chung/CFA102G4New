@@ -60,6 +60,16 @@ public class GeneralMemberService {
 		return dao.findByPrimaryKey(ger_meb_no); 
 	}
 	
+		public GeneralMemberVO forgotPassword(String password,Integer gmno) {
+		
+		GeneralMemberVO gmVO = new GeneralMemberVO();
+		gmVO.setPassword(password);
+		gmVO.setGer_meb_no(gmno);
+		
+		dao.forgotPassword(gmVO);
+		return gmVO;
+	}
+	
 	//預留給 Struts 2 用的
 	public void updateGeneralMember(GeneralMemberVO gmVO) {
 		dao.update(gmVO);

@@ -25,6 +25,7 @@ public class GeneralMemberDAO implements GeneralMemberDAO_Interface {
 	public static final String FIND_BY_ACCOUNT="SELECT * FROM GENERAL_MEMBER WHERE MEB_ACCOUNT = ? ";
 	public static final String FIND_BY_EMAIL="SELECT * FROM GENERAL_MEMBER WHERE MEB_EMAIL = ? ";
 	public static final String UPDATE_PASSWORD_SQL ="UPDATE GENERAL_MEMBER SET MEB_PASSWORD=? WHERE MEB_ACCOUNT=?";
+	private static final String UPDATE_PASSWORD = "UPDATE GENERAL_MEMBER SET MEB_PASSWORD=? WHERE GEN_MEB_NO=?";
 
 	static {
 		try {
@@ -453,5 +454,39 @@ public class GeneralMemberDAO implements GeneralMemberDAO_Interface {
 		}
 
 	}
+	
+	public void forgotPassword(GeneralMemberVO gmVO) { 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(UPDATE_PASSWORD);
+				 
+			pstmt.setString(1,gmVO.getPassword());
+			pstmt.setInt(2, gmVO.getGer_meb_no());
+			
+			pstmt.executeUpdate();
+			
+		}catch(SQLException se){
+			se.printStackTrace();
+		}
+		if (pstmt != null) {
+			try {
+			pstmt.close();
+			}catch (SQLException SQ) {
+				SQ.printStackTrace();
+			}
+		 }
+		if (con != null) {
+			try {
+			con.close();
+			}catch (SQLException SQ) {
+				SQ.printStackTrace();
+			}
+		 }
+		
+	}
+
+	
 
 }

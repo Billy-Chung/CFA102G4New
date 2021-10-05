@@ -87,7 +87,7 @@
 							舊密碼:<input type="password" name="password" size="16" value="<%=(gmVO==null) ? "" :gmVO.getPassword()%>" placeholder="請輸入舊密碼" >
 						</div>
 						<div class="single-input-item m-b-10">
-							新密碼:<input type="Tpassword" name="newpassword" size="16"  placeholder="請輸入新密碼" >
+							新密碼:<input type="password" name="newpassword" size="16"  placeholder="請輸入新密碼" >
 						</div>
 
 						<div class="single-input-item m-b-10">

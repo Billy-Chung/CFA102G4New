@@ -18,7 +18,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>Ãd¤@¦Ó©¾</title>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/vendor/vendor.min.css">

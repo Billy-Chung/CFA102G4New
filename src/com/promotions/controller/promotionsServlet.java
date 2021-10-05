@@ -182,7 +182,7 @@ public class PromotionsServlet extends HttpServlet {//
 					errorMsgs.add("請輸入活動結束日期!");
 				}
 
-				String promot_status = req.getParameter("promot_status").trim();
+				String promot_status = req.getParameter("promot_status").trim();			
 				if (promot_status == null || promot_status.trim().length() == 0) {
 					errorMsgs.add("活動狀態請勿空白");
 				}

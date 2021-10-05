@@ -155,7 +155,6 @@
 	<filter-mapping>
 		<filter-name>GmloginFilter</filter-name>
 		<url-pattern>/front_end/GeneralMember/updatePassword.jsp</url-pattern>
-		<url-pattern>/front_end/GeneralMember/forgotPassword.jsp</url-pattern>
 		<url-pattern>/front_end/adoptPet/reservePet.jsp</url-pattern>
 		<url-pattern>/front_end/GeneralMember/genMeb.jsp</url-pattern>
 		<url-pattern>/front_end/shopping_cart/Checkout.jsp</url-pattern>
