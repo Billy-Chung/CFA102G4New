@@ -7,7 +7,7 @@
 
 <%
 	PromotionsService promotionsSvc = new PromotionsService();
-    List<promotionsVO> list = promotionsSvc.getAll();
+    List<PromotionsVO> list = promotionsSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
 
@@ -35,7 +35,7 @@
 
 <style>
   table {
-	width: 1500px;
+/* 	width: 1500px; */
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -78,34 +78,36 @@
 		<th>活動狀態</th>
 		<th>活動種類</th>
 		<th>折扣方式</th>
-		<th>折數</th>
-		<th>減價</th>
+		<th>折扣值</th>
 		<th>活動描述</th>
-		<th>活動圖片</th>
 		<th>修改</th>
-
+		<th>查看活動折扣商品</th>
 	</tr>
 	<%@ include file="page1.file" %> 
-	<c:forEach var="promotionsVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		
+	<c:forEach var="promotionsVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">	
 		<tr>
 			<td>${promotionsVO.promot_no}</td>
 			<td>${promotionsVO.promot_name}</td>
 			<td><fmt:formatDate value="${promotionsVO.promot_date_start}" pattern="yyyy-MM-dd" /></td>
 			<td><fmt:formatDate value="${promotionsVO.promot_date_end}" pattern="yyyy-MM-dd" /></td>
-			<td>${promotionsVO.promot_status}</td>
-			<td>${promotionsVO.promot_type}</td>
-			<td>${promotionsVO.promot_discount_type}</td>
+			<td>${promotionsVO.promot_status eq 0?"啟動":"關閉"}</td>
+			<td>${promotionsVO.promot_type eq 0?"全館":"個別"}</td>
+			<td>${promotionsVO.promot_discount_type eq 0?"打折":"減價"}</td>
 			<td>${promotionsVO.promot_discount}</td>
-			<td>${promotionsVO.promot_reduce}</td>
 			<td>${promotionsVO.promot_comment}</td>
-			<td><img src="<%=request.getContextPath()%>/DBGifReader5?promot_photo=${promotionsVO.promot_no}" width="120px"></td>
 			                    
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/promotions/promotions.do" style="margin-bottom: 0px;"><%--路徑位置從back_end第一層算起--%>
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="promot_no"  value="${promotionsVO.promot_no}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			</td>
+			<td>
+			  	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ProductPromoDetailServlet" style="margin-bottom: 0px;"><%--路徑位置從back_end第一層算起--%>
+				    <input type="submit" value="商品清單">
+				    <input type="hidden" name="promot_no"  value="${promotionsVO.promot_no}">
+				    <input type="hidden" name="action"	value="listProductPromos">
+				</FORM>
 			</td>
 			
 		</tr>

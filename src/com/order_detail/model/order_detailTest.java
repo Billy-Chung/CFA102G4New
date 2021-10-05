@@ -5,11 +5,8 @@ import com.logistics.model.logisticsDAO_interface;
 import com.logistics.model.logisticsVO;
 import com.order_detail.model.order_detailDAO;
 import com.order_detail.model.order_detailDAO_interface;
-import com.order_detail.model.order_detailVO;
+import com.order_detail.model.OrderDetailVO;
 import com.pay_method.model.pay_methodVO;
-import com.promotions.model.promotionsDAO;
-import com.promotions.model.promotionsDAO_interface;
-import com.promotions.model.promotionsVO;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -56,7 +53,7 @@ public class order_detailTest {
 //		System.out.println("刪除成功");
 		
 		//主鍵查詢
-		order_detailVO order_detail3 =dao.findOrderDetailPk(1);//主鍵名稱
+		OrderDetailVO order_detail3 =dao.findOrderDetailPk(47);//主鍵名稱
 		System.out.print(order_detail3.getOrder_detail_no()+ ",");
 		System.out.print(order_detail3.getOrder_no()+ ",");
 		System.out.print(order_detail3.getProduct_no()+ ",");
@@ -67,18 +64,18 @@ public class order_detailTest {
 		System.out.print(order_detail3.getPromot_name());
 		
 	    // 查詢
-		List<order_detailVO> list = dao.getAllorder_detail();
-		for (order_detailVO order_detail : list) {
-			System.out.print(order_detail.getOrder_detail_no()+ ",");
-			System.out.print(order_detail.getOrder_no()+ ",");
-			System.out.print(order_detail.getProduct_no()+ ",");
-			System.out.print(order_detail.getOrder_product_number()+ ",");
-			System.out.print(order_detail3.getProduct_price()+ ",");
-			System.out.print(order_detail3.getProduct_name()+ ",");
-			System.out.print(order_detail3.getProduct_pro_detail_no()+",");
-			System.out.print(order_detail3.getPromot_name());											
-			System.out.println();
-		}			
+//		List<order_detailVO> list = dao.getAllorder_detail();
+//		for (order_detailVO order_detail : list) {
+//			System.out.print(order_detail.getOrder_detail_no()+ ",");
+//			System.out.print(order_detail.getOrder_no()+ ",");
+//			System.out.print(order_detail.getProduct_no()+ ",");
+//			System.out.print(order_detail.getOrder_product_number()+ ",");
+//			System.out.print(order_detail3.getProduct_price()+ ",");
+//			System.out.print(order_detail3.getProduct_name()+ ",");
+//			System.out.print(order_detail3.getProduct_pro_detail_no()+",");
+//			System.out.print(order_detail3.getPromot_name());											
+//			System.out.println();
+//		}			
 	}	
 	
 }

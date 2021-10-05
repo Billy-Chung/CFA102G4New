@@ -4,8 +4,8 @@
 
 <!-- 上傳圖片 -->
 <%
-  int count=1;
-  promotionsVO promotionsVO = (promotionsVO) request.getAttribute("promotionsVO");           
+	int count=1;
+  PromotionsVO promotionsVO = (PromotionsVO) request.getAttribute("promotionsVO");
 %>
                                    
 <html>
@@ -32,7 +32,7 @@
 
 <style>
   table {
-	width: 450px;
+/* 	width: 450px; */
 	background-color: white;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -40,6 +40,7 @@
   table, th, td {
     border: 0px solid #CCCCFF;
   }
+
   th, td {
     padding: 1px;
   }
@@ -85,20 +86,9 @@
 	<tr>
 		<td>活動狀態:</td>
 		<td>
-		<% if (promotionsVO==null) {%>
-		    <input type="radio" name="promot_status" size="45" value="0" checked/>非活性
-			<input type="radio" name="promot_status" size="45" value="1"/>活性
-		<% } else {%>
-		    <input type="radio" name="promot_status" size="45" value="0" <%=((promotionsVO.getPromot_status()).equals("0"))? "checked":"" %>/>非活性
-			<input type="radio" name="promot_status" size="45" value="1" <%=((promotionsVO.getPromot_status()).equals("1"))? "checked":"" %>/>活性
-		 <% }%>
+		   	<input type="radio" name="promot_status" size="45" value="0" ${empty promotionsVO ? "checked":""}  ${promotionsVO.promot_status == "0" ? "checked":""} />啟動
+			<input type="radio" name="promot_status" size="45" value="1" ${promotionsVO.promot_status == "1" ? "checked":""} />關閉
 	    </td>
-<!-- 		<td><input type="radio" name="promot_status" size="45" -->
-<%-- 			 value="<%= (promotionsVO==null)? "0" : promotionsVO.getPromot_status()%>" />非活性 --%>
-<!-- 			<input type="radio" name="promot_status" size="45" -->
-<%-- 			 value="<%= (promotionsVO==null)? "1" : promotionsVO.getPromot_status()%>" />活性 --%>
-<!-- 	    </td> -->
-			 
 	</tr>
 	
 	<tr>
@@ -128,67 +118,89 @@
 	</tr>
 
 	<tr>
-		<td>折數%:</td>
+		<td>折扣值:</td>
 		<td><input type="TEXT" name="promot_discount" size="45"
 			 value="<%= (promotionsVO==null)? "88" : promotionsVO.getPromot_discount()%>" /></td>
 	</tr>
-	<tr>
-		<td>減價:</td>
-		<td><input type="TEXT" name="promot_reduce" size="45"
-			 value="<%= (promotionsVO==null)? "0" : promotionsVO.getPromot_reduce()%>" /></td>
-	</tr>	
 	<tr>
 		<td>活動描述:</td>
 		<td><input type="TEXT" name="promot_comment" size="45"
 			 value="<%= (promotionsVO==null)? "盛大開幕期間限定大Fun送" : promotionsVO.getPromot_comment()%>" /></td>
 	</tr>
 	<tr>
-		<td>活動圖片:</td>
+		<td height="200px">活動banner1</td>
 		<td>
-<!-- 上傳圖片 -->
-		<% for (int i=1 ; i<=count ; i++) {%>   
-          <br>
-          <input type="file" name="promot_photo" onchange="PreviewImage<%=i%>(this)">
-<%--      <input type="file" name="promot_photo<%=i%>" onchange="PreviewImage<%=i%>(this)"> --%>
-        <%}%>  
+	        <input type="file" name="banner1" id="promo_banner1" onchange="PreviewImage(event, 'banner1')"  accept=".jpeg, .jpg">
+		</td>
+		<td>
+			<c:if test="${empty photoMap['banner1'] }">
+				<img id="banner1_Preview"  width="300px"/>			
+			</c:if>
+			<c:if test="${not empty photoMap['banner1'] }">
+				<img id="banner1_Preview" src="${photoMap['banner1'].base64Str }" width="300px"/>
+			</c:if>
+		</td>
+	</tr>
+	<tr>
+		<td height="200px">活動banner2</td>
+		<td>
+	        <input type="file" name="banner2" id="promo_banner2" onchange="PreviewImage(event, 'banner2')" accept=".jpeg, .jpg">
+		</td>
+<td>
+			<c:if test="${empty photoMap['banner2'] }">
+				<img id="banner2_Preview"  width="300px"/>			
+			</c:if>
+			<c:if test="${not empty photoMap['banner2'] }">
+				<img id="banner2_Preview" src="${photoMap['banner2'].base64Str }" width="300px"/>
+			</c:if>
+		</td>
+	</tr>
+	<tr>
+		<td height="200px">活動banner3</td>
+		<td>
+	        <input type="file" name="banner3" id="promo_banner3" onchange="PreviewImage(event, 'banner3')"  accept=".jpeg, .jpg">
+		</td>
+		<td>
+			<c:if test="${empty photoMap['banner3'] }">
+				<img id="banner3_Preview"  width="300px"/>			
+			</c:if>
+			<c:if test="${not empty photoMap['banner3'] }">
+				<img id="banner3_Preview" src="${photoMap['banner3'].base64Str }" width="300px"/>
+			</c:if>
+		</td>
+	</tr>
+	<tr>
+		<td height="200px">活動迎賓廣告</td>
+		<td>
+	        <input type="file" name="custPhoto" id="promo_custPhoto" onchange="PreviewImage(event, 'custPhoto')"  accept=".jpeg, .jpg">
+		</td>
+		<td>
+			<c:if test="${empty photoMap['custPhoto'] }">
+				<img id="custPhoto_Preview"  width="300px"/>			
+			</c:if>
+			<c:if test="${not empty photoMap['custPhoto'] }">
+				<img id="custPhoto_Preview" src="${photoMap['custPhoto'].base64Str }" width="300px"/>
+			</c:if>
 		</td>
 	</tr>
 	<jsp:useBean id="promotionsSvc" scope="page" class="com.promotions.model.PromotionsService" />
 </table>
-<!-- 顯示圖片 -->
- <table><tr>
-  <% for (int i=1 ; i<=count ; i++) {%> 
-     <td><div id="imgPreview<%=i%>" style="width:133px; height:100px;overflow:hidden;"></div></td>
-  <%}%>
-  </tr></table>
 
 <br>
+<input type="hidden" name="promot_reduce" size="45" value="0"  />
 <input type="hidden" name="action" value="insert">
 <input type="submit" value="送出新增">
 </FORM>
 
 
 <script type="text/javascript">
-<% for (int i=1 ; i<=count ; i++) {%>
-  function PreviewImage<%=i%>(imgFile) {
-	var pattern = /(\.*.jpg$)|(\.*.png$)|(\.*.jpeg$)|(\.*.gif$)|(\.*.bmp$)/;
-	if (!pattern.test(imgFile.value)) {
-		alert("只支援jpg/jpeg/png/gif/bmp之格式檔案");
-		imgFile.focus();
-	} else {
-		var path;
-		if (document.all) { // IE
-			imgFile.select();
-			imgFile.blur();
-			path = document.selection.createRange().text;
-			document.getElementById("imgPreview<%=i%>").style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\""+ path + "\")";// 濾鏡
-		} else { // FF 或 Chrome 等
-			path = URL.createObjectURL(imgFile.files[0]);
-			document.getElementById("imgPreview<%=i%>").innerHTML = "<img src='"+ path +"'  width='143' height='100'/>";
-		}
-	}
-   }
-<%}%>
+	function PreviewImage(event, photoId) {
+	    var output = document.getElementById(photoId+"_Preview");
+	    output.src = URL.createObjectURL(event.target.files[0]);
+	    output.onload = function() {
+	      URL.revokeObjectURL(output.src) // free memory
+	    }
+  	};
 </script>
 </body>
 

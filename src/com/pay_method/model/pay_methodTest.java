@@ -5,9 +5,9 @@ import java.util.List;
 import com.logistics.model.logisticsDAO;
 import com.logistics.model.logisticsDAO_interface;
 import com.logistics.model.logisticsVO;
-import com.promotions.model.promotionsDAO;
-import com.promotions.model.promotionsDAO_interface;
-import com.promotions.model.promotionsVO;
+import com.promotions.model.PromotionsDAO;
+import com.promotions.model.PromotionsDAO_interface;
+import com.promotions.model.PromotionsVO;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

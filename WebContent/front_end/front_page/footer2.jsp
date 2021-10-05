@@ -34,9 +34,8 @@
 					<div class="single-footer-widget">
 						<h2 class="widget-title">前往商城</h2>
 						<ul class="widget-list">
-							<li><a href="wishlist.html">商城首頁</a></li>
-							<li><a href="contact.html">購物車</a></li>
-							<li><a href="contact.html">當前行銷活動</a></li>
+							<li><a href="<%=request.getContextPath()%>/front_end/shopping_cart/ProductList.jsp">商城首頁</a></li>
+							<li><a href="<%=request.getContextPath()%>/front_end/shopping_cart/shoppingCart.jsp">購物車</a></li>
 						</ul>
 					</div>
 				</div>
@@ -52,7 +51,7 @@
 							<c:if test='<%=session.getAttribute("meb") != null%>'>
 								<li><a href="<%=request.getContextPath()%>/LoginServlet?action=logout">登出</a></li>
 							</c:if>
-							<li><a href="my-account.html">我的帳號</a></li>							
+							<li><a href="<%=request.getContextPath()%>/front_end/GeneralMember/select_page.jsp">我的帳號</a></li>							
 						</ul>
 					</div>
 				</div>

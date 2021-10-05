@@ -153,8 +153,7 @@
                                 <div class="myaccount-tab-menu nav" role="tablist">
                                     <a href="#dashboad" class="active" data-bs-toggle="tab"><i class="fa fa-dashboard"></i>
                                         查看預約</a>
-                                    <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Orders</a>
-                                    <a href="#download" data-bs-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a>
+                                    <a href="<%=request.getContextPath() %>/order_form/order_form.do?action=getMemOrderList"><i class="fa fa-cart-arrow-down"></i> 歷史訂單</a>
                                     <a href="<%=request.getContextPath()%>/front_end/GeneralMemberPet/addGeneralMemberPet.jsp"><i class="fa fa-credit-card"></i> 新增寵物</a>
                                     <a href="<%=request.getContextPath()%>/front_end/GeneralMemberPet/GeneralMemberPet.jsp"><i class="fa fa-credit-card"></i> 寵物清單</a>
                                     <a href="<%=request.getContextPath()%>/gm/gm.do?action=getOne_For_Update&gmno=${meb.getGer_meb_no()}" ><i class="fa fa-user"></i> 修改會員資料</a>

@@ -1,6 +1,6 @@
 package com.product.model;
 
-public class productVO {
+public class ProductVO {
 	
 	private Integer product_no;
 	private Integer product_type_no;

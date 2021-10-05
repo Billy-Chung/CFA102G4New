@@ -4,7 +4,7 @@
 
 <%
 	int count = 1;
-	promotionsVO promotionsVO = (promotionsVO) request.getAttribute("promotionsVO"); //PromotionsServlet.java (Concroller) 存入req的promotionsVO物件 (包括幫忙取出的promotionsVO, 也包括輸入資料錯誤時的promotionsVO物件)
+	PromotionsVO promotionsVO = (PromotionsVO) request.getAttribute("promotionsVO"); //PromotionsServlet.java (Concroller) 存入req的promotionsVO物件 (包括幫忙取出的promotionsVO, 也包括輸入資料錯誤時的promotionsVO物件)
 %>
 
 <html>
@@ -33,7 +33,6 @@ h4 {
 
 <style>
 table {
-	width: 450px;
 	background-color: white;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -49,6 +48,10 @@ th, td {
 </style>
 
 </head>
+
+
+
+
 <body bgcolor='white'>
 
 	<table id="table-1">
@@ -80,6 +83,7 @@ th, td {
 	<FORM METHOD="post"
 		ACTION="<%=request.getContextPath()%>/promotions/promotions.do"
 		name="form1" enctype="multipart/form-data">
+		
 		<table>
 			<tr>
 				<td>活動編號:<font color=red><b>*</b></font></td>
@@ -91,106 +95,119 @@ th, td {
 					value="<%=promotionsVO.getPromot_name()%>" /></td>
 			</tr>
 			<tr>
-				<td>活動開始日期 (yyyy-MM-dd):</td>
+				<td>活動開始日期 :</td>
 				<td><input type="text" name="promot_date_start"
 					id="f_promot_date_start"></td>
 			</tr>
 			<tr>
-				<td>活動結束日期 (yyyy-MM-dd):</td>
+				<td>活動結束日期 :</td>
 				<td><input type="text" name="promot_date_end"
 					id="f_promot_date_end"></td>
 			</tr>
 			<tr>
 			<td>活動狀態:</td>
 			<td>
-		    	<input type="radio" name="promot_status" size="45" value="0" <%=((promotionsVO.getPromot_status()).equals("0"))? "checked":"" %>/>非活性
-				<input type="radio" name="promot_status" size="45" value="1" <%=((promotionsVO.getPromot_status()).equals("1"))? "checked":"" %>/>活性
+		    	<input type="radio" name="promot_status" size="45" value="0" <%=((promotionsVO.getPromot_status()).equals("0"))? "checked":"" %>/>啟動
+				<input type="radio" name="promot_status" size="45" value="1" <%=((promotionsVO.getPromot_status()).equals("1"))? "checked":"" %>/>關閉
 	    	</td>
 			<tr>
 		<td>活動種類:</td>
 		<td>
-			<input type="radio" name="promot_type" size="45" value="0" <%=((promotionsVO.getPromot_type()).equals("0"))? "checked":"" %>/>全館	
-			<input type="radio" name="promot_type" size="45" value="1" <%=((promotionsVO.getPromot_type()).equals("1"))? "checked":"" %>/>個別		 
-	</td>
+			<%=((promotionsVO.getPromot_type()).equals("0"))? "全館":"個別" %>	
+		</td>
 	</tr>
 			<tr>
 		<td>折扣方式:</td>
 		<td>
-		   <input type="radio" name="promot_discount_type" size="45" value="0" <%=((promotionsVO.getPromot_discount_type()).equals("0"))? "checked":"" %>/>打折
-		   <input type="radio" name="promot_discount_type" size="45" value="1" <%=((promotionsVO.getPromot_discount_type()).equals("1"))? "checked":"" %>/>減價
-	</td>
+			<%=promotionsVO.getPromot_discount_type().equals("0")? "打折":"減價" %>
+		</td>
 	</tr>
-			<tr>
-				<td>折數%:</td>
-				<td><input type="TEXT" name="promot_discount" size="45"
-					value="<%=promotionsVO.getPromot_discount()%>" /></td>
-			</tr>
-			<tr>
-				<td>減價:</td>
-				<td><input type="TEXT" name="promot_reduce" size="45"
-					value="<%=promotionsVO.getPromot_reduce()%>" /></td>
-			</tr>
+		<tr>
+			<td>折扣數值:</td>
+			<td>
+				<%=promotionsVO.getPromot_discount_type().equals("0")? "打折":"減價" %>
+				<%=promotionsVO.getPromot_discount()%>
+				<%=promotionsVO.getPromot_discount_type().equals("0")? "%":"元" %>
+			</td>
+		</tr>
 			<tr>
 				<td>活動描述:</td>
 				<td><input type="TEXT" name="promot_comment" size="45"
 					value="<%=promotionsVO.getPromot_comment()%>" /></td>
 			</tr>
-			<td>活動圖片:</td>
-			<td><!-- 上傳圖片 --> <%
- 	for (int i = 1; i <= count; i++) {
- %> <br> <input type="file" name="promot_photo"
-				onchange="PreviewImage<%=i%>(this)"> <%--      <input type="file" name="promot_photo<%=i%>" onchange="PreviewImage<%=i%>(this)"> --%>
-				<%
-					}
-				%>
-			</td>
-
-
-			<jsp:useBean id="promotionsSvc" scope="page"
-				class="com.promotions.model.PromotionsService" />
-		</table>
-
-		<table>
 			<tr>
-				<%
-					for (int i = 1; i <= count; i++) {
-				%>
-				<td><div id="imgPreview<%=i%>"
-						style="width: 133px; height: 100px; overflow: hidden;"></div></td>
-				<%
-					}
-				%>
+				<td height="200px">活動banner1</td>
+				<td>
+			        <input type="file" name="banner1" id="promo_banner1" onchange="PreviewImage(event, 'banner1')"  accept=".jpeg, .jpg">
+				</td>
+				<td>
+					<c:if test="${empty photoMap['banner1'] }">
+						<img id="banner1_Preview" src="<%=request.getContextPath()%>/PromoPhotos?promoNo=${promotionsVO.promot_no}&functionName=banner1" width="300px">	
+					</c:if>
+					<c:if test="${not empty photoMap['banner1'] }">
+						<img id="banner1_Preview" src="${photoMap['banner1'].base64Str }" width="300px"/>
+					</c:if>
+				</td>
 			</tr>
+			<tr>
+				<td height="200px">活動banner2</td>
+				<td>
+			        <input type="file" name="banner2" id="promo_banner2" onchange="PreviewImage(event, 'banner2')" accept=".jpeg, .jpg">
+				</td>
+				<td>
+					<c:if test="${empty photoMap['banner2'] }">
+						<img id="banner2_Preview" src="<%=request.getContextPath()%>/PromoPhotos?promoNo=${promotionsVO.promot_no}&functionName=banner2" width="300px">	
+					</c:if>
+					<c:if test="${not empty photoMap['banner2'] }">
+						<img id="banner2_Preview" src="${photoMap['banner2'].base64Str }" width="300px"/>
+					</c:if>
+				</td>
+			</tr>
+			<tr>
+				<td height="200px">活動banner3</td>
+				<td>
+			        <input type="file" name="banner3" id="promo_banner3" onchange="PreviewImage(event, 'banner3')"  accept=".jpeg, .jpg">
+				</td>
+				<td>
+					<c:if test="${empty photoMap['banner3'] }">
+						<img id="banner3_Preview" src="<%=request.getContextPath()%>/PromoPhotos?promoNo=${promotionsVO.promot_no}&functionName=banner3" width="300px">	
+					</c:if>
+					<c:if test="${not empty photoMap['banner3'] }">
+						<img id="banner3_Preview" src="${photoMap['banner3'].base64Str }" width="300px"/>
+					</c:if>
+				</td>
+			</tr>
+			<tr>
+				<td height="200px">活動迎賓廣告</td>
+				<td>
+			        <input type="file" name="custPhoto" id="promo_custPhoto" onchange="PreviewImage(event, 'custPhoto')"  accept=".jpeg, .jpg">
+				</td>
+				<td>
+					<c:if test="${empty photoMap['custPhoto'] }">
+						<img id="custPhoto_Preview" src="<%=request.getContextPath()%>/PromoPhotos?promoNo=${promotionsVO.promot_no}&functionName=custPhoto" width="300px">			
+					</c:if>
+					<c:if test="${not empty photoMap['custPhoto'] }">
+						<img id="custPhoto_Preview" src="${photoMap['custPhoto'].base64Str }" width="300px"/>
+					</c:if>
+				</td>
+			</tr>
+			<jsp:useBean id="promotionsSvc" scope="page" class="com.promotions.model.PromotionsService" />
 		</table>
 
-
-		<br> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="promot_no"
-			value="<%=promotionsVO.getPromot_no()%>"> <input
-			type="submit" value="送出修改">
+		<br> 
+		<input type="hidden" name="action" value="update"> 
+		<input type="hidden" name="promot_no" value="<%=promotionsVO.getPromot_no()%>">
+		<input type="submit" value="送出修改">
 	</FORM>
 	<script type="text/javascript">
-	<%for (int i = 1; i <= count; i++) {%>
-  		function PreviewImage<%=i%>(imgFile) {
-		var pattern = /(\.*.jpg$)|(\.*.png$)|(\.*.jpeg$)|(\.*.gif$)|(\.*.bmp$)/;
-		if (!pattern.test(imgFile.value)) {
-		alert("只支援jpg/jpeg/png/gif/bmp之格式檔案");
-		imgFile.focus();
-	} else {
-		var path;
-		if (document.all) { // IE
-			imgFile.select();
-			imgFile.blur();
-			path = document.selection.createRange().text;
-			document.getElementById("imgPreview<%=i%>").style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\""+ path + "\")";// 濾鏡
-		} else { // FF 或 Chrome 等
-			path = URL.createObjectURL(imgFile.files[0]);
-			document.getElementById("imgPreview<%=i%>").innerHTML = "<img src='"+ path +"'  width='143' height='100'/>";
-		}
-	}
-   }
-<%}%>
-</script>
+		function PreviewImage(event, photoId) {
+		    var output = document.getElementById(photoId+"_Preview");
+		    output.src = URL.createObjectURL(event.target.files[0]);
+		    output.onload = function() {
+		      URL.revokeObjectURL(output.src) // free memory
+		    }
+	  	};
+	</script>
 </body>
 
 

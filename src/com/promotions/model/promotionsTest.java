@@ -11,14 +11,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class promotionsTest {
+public class PromotionsTest {
 
 	public static void main(String[] args) {
 		// 實作DAO
-		promotionsDAO_interface dao = new promotionsDAO();
+		PromotionsDAO_interface dao = new PromotionsDAO();
 
 		// 新增
-		promotionsVO promotions1 = new promotionsVO();// promotionsVO()
+		PromotionsVO promotions1 = new PromotionsVO();// promotionsVO()
 //		promotions1.setPromot_no(4);//自動生成流水號
 		promotions1.setPromot_name("盛大開幕期間限定大Fun送");
 		promotions1.setPromot_date_start(java.sql.Date.valueOf("2021-09-16"));

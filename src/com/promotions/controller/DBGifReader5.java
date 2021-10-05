@@ -21,7 +21,7 @@ public class DBGifReader5 extends HttpServlet {
 		try {
 			      String promot_photo = req.getParameter("promot_photo");//拿來用
 			      PromotionsService promotionsSvc = new PromotionsService();
-			      promotionsVO promotionsVO = promotionsSvc.getOnePromotions(new Integer(promot_photo));
+			      PromotionsVO promotionsVO = promotionsSvc.getOnePromotions(new Integer(promot_photo));
 			      byte[] b = promotionsVO.getPromot_photo();
 				  out.write(b);//裝滿送
 

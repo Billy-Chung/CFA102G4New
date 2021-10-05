@@ -1,168 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>CFA102G4</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  
-  <resource-ref>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>CFA102G4</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<resource-ref>
 		<description>DB Connection</description>
 		<res-ref-name>jdbc/David</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
-	</resource-ref>  
- 
-  <servlet>
-  	<servlet-name>AdoptPet</servlet-name>
-  	<servlet-class>com.adoptPet.controller.AdoptPetServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>AdoptPet</servlet-name>
-  	<url-pattern>/adoptPet/addPet.do</url-pattern>
-  </servlet-mapping>  
-  
-   <servlet>
-  	<servlet-name>AdoptPetPhoto</servlet-name>
-  	<servlet-class>com.adoptPetPhoto.controller.AdoptPetPhotoServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>AdoptPetPhoto</servlet-name>
-  	<url-pattern>/adoptPet/addPetPhoto.do</url-pattern>
-  </servlet-mapping> 
-  
-  <servlet>
-  	<servlet-name>AdoptMeb</servlet-name>
-  	<servlet-class>com.adoptMember.controller.AdoptMemberServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>AdoptMeb</servlet-name>
-  	<url-pattern>/adoptMeb/adoptMeb.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  	<servlet-name>reservePet</servlet-name>
-  	<servlet-class>com.reservePet.controller.ReservePetServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>reservePet</servlet-name>
-  	<url-pattern>/adoptPet/reservePet.do</url-pattern>
-  </servlet-mapping>  
-  
-   <servlet>
-  	<servlet-name>petClass</servlet-name>
-  	<servlet-class>com.petClass.controller.PetClassServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>petClass</servlet-name>
-  	<url-pattern>/petClass/petClass.do</url-pattern>
-  </servlet-mapping> 
-  
-    <servlet>
-  	<servlet-name>AdoptMebNews</servlet-name>
-  	<servlet-class>com.adoptMemberNews.controller.AdoptMemberNewsServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>AdoptMebNews</servlet-name>
-  	<url-pattern>/adoptMeb/adoptMebNews.do</url-pattern>
-  </servlet-mapping> 
-  
-  
-  
- 
- <servlet>
-  	<servlet-name>promotions</servlet-name>
-  	<servlet-class>com.promotions.controller.PromotionsServlet</servlet-class>
-  </servlet>
-   <servlet-mapping>
-  	<servlet-name>promotions</servlet-name>
-  	<url-pattern>/promotions/promotions.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-	<servlet-name>GeneralMemberServlet</servlet-name>
-	<servlet-class>com.generalMember.controller.GeneralMemberServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-	<servlet-name>GeneralMemberServlet</servlet-name>
-	<url-pattern>/gm/gm.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-	<servlet-name>GeneralMemberPetServlet</servlet-name>
-	<servlet-class>com.generalMemberPet.controller.GeneralMemberPetServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-	<servlet-name>GeneralMemberPetServlet</servlet-name>
-	<url-pattern>/gmp/gmp.do</url-pattern>
-  </servlet-mapping>
-  
-  
-  <servlet>
-	<servlet-name>GeneralMemberPetPhotosServlet</servlet-name>
-	<servlet-class>com.generalMemberPetPhotos.controller.GeneralMemberPetPhotosServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-	<servlet-name>GeneralMemberPetPhotosServlet</servlet-name>
-	<url-pattern>/gmpp/gmpp.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>Shopping_cartServlet</servlet-name>
-    <servlet-class>com.shopping_cart.controller.Shopping_cartServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Shopping_cartServlet</servlet-name>
-    <url-pattern>/shopping_cart/shoppingCart.html</url-pattern>
-  </servlet-mapping>
-  
-    <servlet>
-    <servlet-name>productServlet</servlet-name>
-    <servlet-class>com.product.controller.productServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>productServlet</servlet-name>
-    <url-pattern>/product/product.do</url-pattern>
-  </servlet-mapping>
-  
-  <filter>
-    <filter-name>loginFilter</filter-name>
-    <filter-class>com.filters.LoginFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>loginFilter</filter-name>
-    <url-pattern>/back_end/adopt/*</url-pattern>
-    <url-pattern>/back_end/adoptMember/*</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>INCLUDE</dispatcher>
-    <dispatcher>ERROR</dispatcher>
-    <dispatcher>ASYNC</dispatcher>
-  </filter-mapping>
-  
-  
-  <filter>
-    <filter-name>GmloginFilter</filter-name>
-    <filter-class>com.generalMember.filters.GeneralMemberFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>GmloginFilter</filter-name>
-    <url-pattern>/front_end/GeneralMember/updatePassword.jsp</url-pattern>
-    <url-pattern>/front_end/GeneralMember/forgotPassword.jsp</url-pattern>
-    <url-pattern>/front_end/adoptPet/reservePet.jsp</url-pattern>
-    <url-pattern>/front_end/GeneralMember/genMeb.jsp</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>INCLUDE</dispatcher>
-    <dispatcher>ERROR</dispatcher>
-    <dispatcher>ASYNC</dispatcher>
-  </filter-mapping>
-  
-  
+	</resource-ref>
+
+	<servlet>
+		<servlet-name>AdoptPet</servlet-name>
+		<servlet-class>com.adoptPet.controller.AdoptPetServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdoptPet</servlet-name>
+		<url-pattern>/adoptPet/addPet.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AdoptPetPhoto</servlet-name>
+		<servlet-class>com.adoptPetPhoto.controller.AdoptPetPhotoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdoptPetPhoto</servlet-name>
+		<url-pattern>/adoptPet/addPetPhoto.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AdoptMeb</servlet-name>
+		<servlet-class>com.adoptMember.controller.AdoptMemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdoptMeb</servlet-name>
+		<url-pattern>/adoptMeb/adoptMeb.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>reservePet</servlet-name>
+		<servlet-class>com.reservePet.controller.ReservePetServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>reservePet</servlet-name>
+		<url-pattern>/adoptPet/reservePet.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>petClass</servlet-name>
+		<servlet-class>com.petClass.controller.PetClassServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>petClass</servlet-name>
+		<url-pattern>/petClass/petClass.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AdoptMebNews</servlet-name>
+		<servlet-class>com.adoptMemberNews.controller.AdoptMemberNewsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdoptMebNews</servlet-name>
+		<url-pattern>/adoptMeb/adoptMebNews.do</url-pattern>
+	</servlet-mapping>
+
+
+
+
+	<servlet>
+		<servlet-name>promotions</servlet-name>
+		<servlet-class>com.promotions.controller.PromotionsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>promotions</servlet-name>
+		<url-pattern>/promotions/promotions.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>GeneralMemberServlet</servlet-name>
+		<servlet-class>com.generalMember.controller.GeneralMemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GeneralMemberServlet</servlet-name>
+		<url-pattern>/gm/gm.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>GeneralMemberPetServlet</servlet-name>
+		<servlet-class>com.generalMemberPet.controller.GeneralMemberPetServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GeneralMemberPetServlet</servlet-name>
+		<url-pattern>/gmp/gmp.do</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>GeneralMemberPetPhotosServlet</servlet-name>
+		<servlet-class>com.generalMemberPetPhotos.controller.GeneralMemberPetPhotosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GeneralMemberPetPhotosServlet</servlet-name>
+		<url-pattern>/gmpp/gmpp.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Shopping_cartServlet</servlet-name>
+		<servlet-class>com.shopping_cart.controller.Shopping_cartServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Shopping_cartServlet</servlet-name>
+		<url-pattern>/shopping_cart/shoppingCart.html</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>productServlet</servlet-name>
+		<servlet-class>com.product.controller.productServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>productServlet</servlet-name>
+		<url-pattern>/product/product.do</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>com.filters.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/back_end/adopt/*</url-pattern>
+		<url-pattern>/back_end/adoptMember/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
+
+	<filter>
+		<filter-name>GmloginFilter</filter-name>
+		<filter-class>com.generalMember.filters.GeneralMemberFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>GmloginFilter</filter-name>
+		<url-pattern>/front_end/GeneralMember/updatePassword.jsp</url-pattern>
+		<url-pattern>/front_end/GeneralMember/forgotPassword.jsp</url-pattern>
+		<url-pattern>/front_end/adoptPet/reservePet.jsp</url-pattern>
+		<url-pattern>/front_end/GeneralMember/genMeb.jsp</url-pattern>
+		<url-pattern>/front_end/shopping_cart/Checkout.jsp</url-pattern>
+		<url-pattern>/order_form/order_form.do</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
+
+	<servlet>
+		<servlet-name>order_form</servlet-name>
+		<servlet-class>com.order_form.controller.Order_formServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>order_form</servlet-name>
+		<url-pattern>/order_form/order_form.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>order_detail</servlet-name>
+		<servlet-class>com.order_detail.controller.Order_detailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>order_detail</servlet-name>
+		<url-pattern>/order_detail/order_detail.do</url-pattern>
+	</servlet-mapping>
 </web-app>
 
     

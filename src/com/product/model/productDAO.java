@@ -30,7 +30,7 @@ public class productDAO implements productDAO_interface {
 	}
 
 	@Override
-	public void insert(productVO pVO) {
+	public void insert(ProductVO pVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
@@ -69,7 +69,7 @@ public class productDAO implements productDAO_interface {
 	}
 
 	@Override
-	public void update(productVO pVO) {
+	public void update(ProductVO pVO) {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		
@@ -144,11 +144,11 @@ public class productDAO implements productDAO_interface {
 	}
 
 	@Override
-	public productVO findByPrimaryKey(Integer PRODUCT_NO) {
+	public ProductVO findByPrimaryKey(Integer PRODUCT_NO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		productVO pVO = null;
+		ProductVO pVO = null;
 		
 		try {
 			con = DriverManager.getConnection(URL,USER,PASSWORD);
@@ -157,7 +157,7 @@ public class productDAO implements productDAO_interface {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				pVO = new productVO();
+				pVO = new ProductVO();
 				pVO.setProduct_no(PRODUCT_NO);
 				pVO.setProduct_type_no(rs.getInt("PRODUCT_TYPE_NO"));
 				pVO.setProduct_name(rs.getString("PRODUCT_NAME"));
@@ -200,11 +200,11 @@ public class productDAO implements productDAO_interface {
 	}
 
 	@Override
-	public List<productVO> getAll() {
+	public List<ProductVO> getAll() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List <productVO> pList = new ArrayList<>();
+		List <ProductVO> pList = new ArrayList<>();
 		
 		try {
 			
@@ -213,7 +213,7 @@ public class productDAO implements productDAO_interface {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				productVO pVO = new productVO();
+				ProductVO pVO = new ProductVO();
 				pVO.setProduct_no(rs.getInt("PRODUCT_NO"));
 				pVO.setProduct_type_no(rs.getInt("PRODUCT_TYPE_NO"));
 				pVO.setProduct_name(rs.getString("PRODUCT_NAME"));

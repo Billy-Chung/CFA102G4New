@@ -58,11 +58,9 @@
 			</a>
 				<ul aria-expanded="false">
 					<li><a
-						href="#">訂單管理</a></li>
+						href="<%=request.getContextPath()%>/back_end/order_form/listAllOrder_form.jsp">訂單管理</a></li>
 					<li><a
-						href="#">訂單明細管理</a></li>
-					<li><a
-						href="#">行銷活動管理</a></li>
+						href="<%=request.getContextPath()%>/back_end/promotions/promotionsSelect_page.jsp">行銷活動管理</a></li>
 
 				</ul></li>
 		</ul>

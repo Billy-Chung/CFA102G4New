@@ -9,7 +9,7 @@ public static void main(String[] args) {
 		productDAO pdao = new productDAO();
 		
 		//新增
-		productVO p1 = new productVO();
+		ProductVO p1 = new ProductVO();
 		p1.setProduct_no(7021);
 		p1.setProduct_type_no(2);
 		p1.setProduct_name("B牌貓咪飼料");
@@ -23,7 +23,7 @@ public static void main(String[] args) {
 		System.out.println("---------------------");
 		
 		//更新
-		productVO p2 = new productVO();
+		ProductVO p2 = new ProductVO();
 		p2.setProduct_no(7021);
 		p2.setProduct_type_no(2);
 		p2.setProduct_name("A牌貓咪飼料");
@@ -42,7 +42,7 @@ public static void main(String[] args) {
 		System.out.println("---------------------");
 		
 		//查詢單一
-		productVO p3 = pdao.findByPrimaryKey(7001);
+		ProductVO p3 = pdao.findByPrimaryKey(7001);
 		System.out.print(p3.getProduct_no() + ",");
 		System.out.print(p3.getProduct_type_no() + ",");
 		System.out.print(p3.getProduct_name() + ",");
@@ -55,8 +55,8 @@ public static void main(String[] args) {
 		System.out.println("---------------------");
 		
 		//查詢全部
-		List<productVO> list = pdao.getAll();
-		for (productVO p4 : list) {
+		List<ProductVO> list = pdao.getAll();
+		for (ProductVO p4 : list) {
 			System.out.print(p4.getProduct_no() + ",");
 			System.out.print(p4.getProduct_type_no() + ",");
 			System.out.print(p4.getProduct_name() + ",");

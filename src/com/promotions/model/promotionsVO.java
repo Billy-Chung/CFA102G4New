@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 //VO，Value Object 值物件，每個表格對應一個VO，Java Bean
-public class promotionsVO implements Serializable {//implements實作 Serializable序列化，將物件永久保存，空介面
+public class PromotionsVO implements Serializable {//implements實作 Serializable序列化，將物件永久保存，空介面
 	private Integer promot_no;
 	private String promot_name;	
 	private Date promot_date_start;

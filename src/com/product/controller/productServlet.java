@@ -1,25 +1,16 @@
 package com.product.controller;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.adoptMemberNews.model.AdoptMemberNewService;
-import com.adoptMemberNews.model.AdoptMemberNewsVo;
 import com.product.model.productService;
-import com.product.model.productVO;
-import com.productPhotos.model.productPhotosService;
-import com.productPhotos.model.productPhotosVO;
-
-import oracle.net.aso.e;
+import com.product.model.ProductVO;
 
 public class productServlet extends HttpServlet {
 
@@ -129,7 +120,10 @@ public class productServlet extends HttpServlet {
 					errorMsgs.put("product_all_comments", "商品價格: 只能是數字!!");
 				}
 
-				productVO apVO = new productVO();
+
+
+				
+				ProductVO apVO = new ProductVO();
 				apVO.setProduct_type_no(product_type_no);
 				apVO.setProduct_name(product_name);
 				apVO.setProduct_price(product_price);
@@ -147,8 +141,7 @@ public class productServlet extends HttpServlet {
 				}
 
 				productService productSvc = new productService();
-				productSvc.addproduct(product_type_no, product_name, product_price, product_comment, product_status,
-						product_all_stars, product_all_comments);
+				productSvc.addproduct(product_type_no, product_name, product_price, product_comment, product_status, product_all_stars, product_all_comments);
 
 				String url = "/front_end/product/product.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp

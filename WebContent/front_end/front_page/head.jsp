@@ -22,7 +22,7 @@
               <div class="main-menu">
                 <ul>
                   <li class="has-children">
-                    <a href="#">寵物商城</a>
+                    <a href="<%=request.getContextPath()%>/front_end/shopping_cart/ProductList.jsp">寵物商城</a>
                   </li>
 
                   <li class="has-children position-static">
