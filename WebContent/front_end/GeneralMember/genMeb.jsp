@@ -18,7 +18,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Amber - Pet Care Bootstrap 5 Template</title>
+<title>寵一而忠</title>
 
 
 <link rel="shortcut icon" href="assets/images/favicon.ico">
@@ -155,9 +155,10 @@
                                         查看預約</a>
                                     <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Orders</a>
                                     <a href="#download" data-bs-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a>
-                                    <a href="<%=request.getContextPath()%>/gm/gm.do/update_gm_input.jsp" ></i> address</a>
-                                    <a href="<%=request.getContextPath()%>/front_end/GeneralMemberPet/GeneralMemberPet.jsp" ><i class="fa fa-credit-card"></i>寵物清單</a>
-                                    <a href="#password-info" data-bs-toggle="tab"><i class="fa fa-password"></i>修改密碼</a>
+                                    <a href="<%=request.getContextPath()%>/front_end/GeneralMemberPet/addGeneralMemberPet.jsp"><i class="fa fa-credit-card"></i> 新增寵物</a>
+                                    <a href="<%=request.getContextPath()%>/front_end/GeneralMemberPet/GeneralMemberPet.jsp"><i class="fa fa-credit-card"></i> 寵物清單</a>
+                                    <a href="<%=request.getContextPath()%>/gm/gm.do?action=getOne_For_Update&gmno=${meb.getGer_meb_no()}" ><i class="fa fa-user"></i> 修改會員資料</a>
+                                    <a href="<%=request.getContextPath()%>/front_end/GeneralMember/updatePassword.jsp" ><i class="fa fa-user"></i> 修改密碼</a>
                                     <a href="<%=request.getContextPath()%>/LoginServlet?action=logout"><i class="fa fa-sign-out"></i> Logout</a>
                                 </div>
                             </div>

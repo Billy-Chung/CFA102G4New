@@ -9,5 +9,6 @@ public interface GeneralMemberPetDAO_Interface {
 	public GeneralMemberPetVO findByGeneralMemberPetNoPK(Integer ger_meb_pet_no);
 	public GeneralMemberPetVO findByPrimaryKey(Integer gmpno);
 	public List<GeneralMemberPetVO> findByGeneralMemberPetNo(Integer adopt_pet_no);
+	public List<GeneralMemberPetVO> findByGeneralMemberNo(Integer gen_meb_no);
 	public List<GeneralMemberPetVO> getAll();
 }

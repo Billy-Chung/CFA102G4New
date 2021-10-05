@@ -49,7 +49,6 @@ public class GeneralMemberPetServlet extends HttpServlet {
 		
 		
 		if("addGenMebPet".equals(action)) { 
-			System.out.println(action);
 			Map<String,String> errorMsgs = new LinkedHashMap<>();
 			req.setAttribute("errorMsgs",errorMsgs);
 			
@@ -75,9 +74,11 @@ public class GeneralMemberPetServlet extends HttpServlet {
 				//System.out.println(adoptPetNo);
 				
 				//一般會員FK
-				if(req.getParameter("gmno").trim().isEmpty()) {
-					genMebNo = 1;
-				}
+//				if(req.getParameter("gmno").trim().isEmpty()) {
+//					genMebNo = 1;
+//				}
+				
+				genMebNo = Integer.valueOf(req.getParameter("gmno"));
 				
 				//寵物品種
 				if(genMebPetBreeds.trim().length() == 0) {
@@ -142,18 +143,7 @@ public class GeneralMemberPetServlet extends HttpServlet {
 				gmpVO.setGen_pet_color(genMebPetColor);
 				gmpVO.setGen_pet_comment(genMebPetComment);
 				gmpVO.setGen_pet_state(genMebPetState);
-				
-				System.out.println(adoptPetNo);
-				System.out.println(genMebNo);
-				System.out.println(genMebPetBreeds);
-				System.out.println(genMebPetGender);
-				System.out.println(genMebPetChip);
-				System.out.println(genMebPetSteril);
-				System.out.println(genMebPetColor);
-				System.out.println(genMebPetComment);
-				System.out.println(genMebPetState);
-				
-				
+					
 				
 				//錯誤處理
 				if(!errorMsgs.isEmpty()) {

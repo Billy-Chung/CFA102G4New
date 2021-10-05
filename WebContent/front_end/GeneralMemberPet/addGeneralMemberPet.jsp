@@ -28,14 +28,12 @@
 <meta property="og:image" content="social-image.png" />
 <meta name="format-detection" content="telephone=no">
 
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/back_end/back_CSS/vendor/star-rating/star-rating-svg.css">
-<link
-	href="<%=request.getContextPath()%>/back_end/back_CSS/vendor/jquery-nice-select/css/nice-select.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/back_end/back_CSS/css/style.css"
-	rel="stylesheet">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/vendor/vendor.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/plugins/plugins.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/style.min.css">
 
 <style>
 .myright {
@@ -48,7 +46,7 @@
 
 	<div id="main-wrapper">
 		<%@ include file="../front_page/head.jsp"%>
-		<%@ include file="../front_page/Sidebar.jsp"%>
+		
 		<div class="content-body">
 			<div class="container-fluid">
 				<c:if test="${not empty errorMsgs}">
@@ -86,7 +84,7 @@
 										action="<%=request.getContextPath()%>/gmp/gmp.do"
 										name="newPet">
 										<input type="hidden" name="adpno" value=""> <input
-											type="hidden" name="gmno" value="">
+											type="hidden" name="gmno" value="${meb.ger_meb_no}">
 
 
 										<div class="mb-3 row">
@@ -258,17 +256,13 @@
 				
 				
 	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/global/global.min.js"></script>
+		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/vendor.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/plugins.min.js"></script>
+
+	<!--Main JS-->
 	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/js/custom.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/js/deznav-init.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/js/demo.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/js/styleSwitcher.js"></script>
+		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/main.js"></script>
 </body>
 
 </html>

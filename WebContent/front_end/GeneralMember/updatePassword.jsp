@@ -17,7 +17,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/style.min.css">
 
-<title>修改密碼 </title>
+<title>寵一而忠</title>
 
 <style>
   table#table-1 {
@@ -81,17 +81,17 @@
 					<form action="<%=request.getContextPath()%>/LoginServlet" method="post" >
 						
 						<div class="single-input-item m-b-10">
-							會員帳號:<input type="TEXT" name="account" size="16" value="<%=(gmVO==null) ? "" :gmVO.getAccount()%>" placeholder="請輸入帳號" >
+							會員帳號:<input type="account" name="account" size="16" value="<%=(gmVO==null) ? "" :gmVO.getAccount()%>" placeholder="請輸入帳號" >
 						</div>
 						<div class="single-input-item m-b-10">
-							舊密碼:<input type="TEXT" name="password" size="16" value="<%=(gmVO==null) ? "" :gmVO.getPassword()%>" placeholder="請輸入舊密碼" >
+							舊密碼:<input type="password" name="password" size="16" value="<%=(gmVO==null) ? "" :gmVO.getPassword()%>" placeholder="請輸入舊密碼" >
 						</div>
 						<div class="single-input-item m-b-10">
-							新密碼:<input type="TEXT" name="newpassword" size="16"  placeholder="請輸入新密碼" >
+							新密碼:<input type="Tpassword" name="newpassword" size="16"  placeholder="請輸入新密碼" >
 						</div>
 
 						<div class="single-input-item m-b-10">
-							確認新密碼:<input type="TEXT" name="newpassword1" size="16"  placeholder="再次確認新密碼" >
+							確認新密碼:<input type="password" name="newpassword1" size="16"  placeholder="再次確認新密碼" >
 						</div>
 
 						

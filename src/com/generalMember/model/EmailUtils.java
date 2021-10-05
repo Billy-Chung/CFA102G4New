@@ -5,9 +5,16 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.Properties;
 
+import javax.mail.Address;
+import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 
 
-import sun.rmi.transport.Transport;
 
 public class EmailUtils {
 	private static final String FROM = "awye.chou@gmail.com";
@@ -15,15 +22,15 @@ public class EmailUtils {
 	
 	
 	//重設密碼
-	public static void sendResetPasswordEmail(GeneralMemberVO gmpVO) {
+	public static void sendResetPasswordEmail(GeneralMemberVO gmVO) {
 		Session session = getSession();
-		MimeMessge message = new MimeMessage(session);
+		MimeMessage message = new MimeMessage(session);
 		try {
-			messge.setSubject("找回您的帳號與密碼");
+			message.setSubject("找回您的帳號與密碼");
 			message.setSentDate(new Date());
 			message.setFrom(new InternetAddress(FROM));
-			message.setRecipient(RecipientType.TO,new InternetAddress(gmpVO.getEmail()));
-			message.setContent("要使用新的密碼,請使用以下連結啟用密碼<br/><a href=""+ GenerateLinkUtils.generateResetPwdLink() +"">點擊重新設定密碼</a>","text/html;charset=utf-8");
+			message.setRecipient(RecipientType.TO,new InternetAddress(gmVO.getEmail()));
+			message.setContent("要使用新的密碼,請使用以下連結啟用密碼<br/><a href="+ GenerateLinkUtils.generateResetPwdLink(gmVO) +">點擊重新設定密碼</a>","text/html;charset=utf-8");
 			//發送郵件
 			Transport.send(message);
 		} catch(Exception e) {
@@ -37,7 +44,7 @@ public class EmailUtils {
 		props.setProperty("mail.smtp.host", "smtp.gmail.com");
 		props.setProperty("mail.smtp.port","587");
 		props.setProperty("mail.smtp.auth","true");
-		Session session = Session.getInstance(props,new Authenticator()) {
+		Session session = Session.getInstance(props,new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				String password = null;
 				InputStream is = EmailUtils.class.getResourceAsStream("password.dat");

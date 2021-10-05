@@ -15,6 +15,8 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/style.min.css">
 
+<title>寵一而忠</title>
+
 <style>
   table#table-1 {
 	background-color: #CCCCFF;

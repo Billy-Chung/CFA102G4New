@@ -65,6 +65,13 @@ public class GeneralMemberPetService {
 		return gmpList;
 	}
 	
+	public List<GeneralMemberPetVO> findByGenMebNo(Integer gen_meb_no) {
+
+		List<GeneralMemberPetVO> gmpList = dao.findByGeneralMemberNo(gen_meb_no);
+
+		return gmpList;
+	}
+	
 	public void deleteGeneralMemberPet(Integer gen_meb_pet_no) {
 		dao.delete(gen_meb_pet_no);
 	}

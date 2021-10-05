@@ -31,6 +31,7 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 	public static final String GET_ALL_SQL = "SELECT * FROM GENERAL_MEMBER_PET";
 	public static final String FIND_BY_PK = "SELECT * FROM GENERAL_MEMBER_PET WHERE GEN_MEB_PET_NO = ?";
 	public static final String FIND_BY_FK = "SELECT * FROM GENERAL_MEMBER_PET WHERE ADOPT_PET_NO = ?";
+	public static final String FIND_BY_FK2 = "SELECT * FROM GENERAL_MEMBER_PET WHERE GEN_MEB_NO = ?";
 	
 	private static DataSource ds = null;
 	static {
@@ -148,6 +149,31 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 			conn = ds.getConnection();
 			PreparedStatement pst = conn.prepareStatement(FIND_BY_FK);
 			pst.setInt(1,adopt_pet_no);
+			ResultSet rs = pst.executeQuery();
+			gmpList = selectGeneralMemberPetByMebNo(gmpList,rs);
+		} catch(SQLException se) {
+			throw new RuntimeException("A datebase error occured :" +se.getMessage());
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		
+		return gmpList;
+	}
+	
+	public List<GeneralMemberPetVO> findByGeneralMemberNo(Integer gen_meb_no) {
+		Connection conn = null;
+		List<GeneralMemberPetVO> gmpList = new ArrayList<>();
+		
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pst = conn.prepareStatement(FIND_BY_FK2);
+			pst.setInt(1,gen_meb_no);
 			ResultSet rs = pst.executeQuery();
 			gmpList = selectGeneralMemberPetByMebNo(gmpList,rs);
 		} catch(SQLException se) {
@@ -324,7 +350,6 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 		if(gmp.getAdopt_pet_no()==0) {
 			pst.setNull(1, Types.NULL);
 		} else {
-			
 			pst.setInt(1,gmp.getAdopt_pet_no());
 		}
 		
@@ -340,7 +365,7 @@ public class GeneralMemberPetDAO implements GeneralMemberPetDAO_Interface {
 		return pst;
 	}
 	
-private PreparedStatement createUpdatePreparedStatement(Connection conn , GeneralMemberPetVO gmp,String SQL) throws SQLException {
+	private PreparedStatement createUpdatePreparedStatement(Connection conn , GeneralMemberPetVO gmp,String SQL) throws SQLException {
 		
 		PreparedStatement pst = conn.prepareStatement(SQL);
 		if(gmp.getAdopt_pet_no()==0) {

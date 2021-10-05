@@ -3,11 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.generalMemberPet.model.*"%>
+<%@ page import="com.generalMember.model.*"%>
 <%@ page import="com.generalMemberPetPhotos.model.*"%>
 
 <%
 	GeneralMemberPetDAO dao = new GeneralMemberPetDAO();
-	List<GeneralMemberPetVO> list = dao.getAll();
+	HttpSession session2 = request.getSession();
+	GeneralMemberVO member= (GeneralMemberVO)session2.getAttribute("meb");
+	List<GeneralMemberPetVO> list = dao.findByGeneralMemberNo(member.getGer_meb_no());
 	pageContext.setAttribute("list", list);
 %>
 
@@ -17,15 +20,12 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 
-<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/back_end/back_CSS/vendor/star-rating/star-rating-svg.css">
-<link
-	href="<%=request.getContextPath()%>/back_end/back_CSS/vendor/jquery-nice-select/css/nice-select.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/back_end/back_CSS/css/style.css"
-	rel="stylesheet">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/vendor/vendor.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/plugins/plugins.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/style.min.css">
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
 <style>
@@ -57,7 +57,7 @@
 		<!--**********************************
             Nav header start
         ***********************************-->
-		
+		<%@ include file="../front_page/head.jsp"%>
 		<!--**********************************
             Nav header end
         ***********************************-->
@@ -76,7 +76,7 @@
 		<!--**********************************
             Header start
         ***********************************-->
-		<%@ include file="../front_page/head.jsp"%>
+		
 		<!--**********************************
             Header end ti-comment-alt
         ***********************************-->
@@ -84,7 +84,7 @@
 		<!--**********************************
             Sidebar start
         ***********************************-->
-		<%@ include file="../front_page/Sidebar.jsp"%>
+		
 		<!--**********************************
             Sidebar end
         ***********************************-->
@@ -110,7 +110,7 @@
 					<!--**********************************
             Footer start
         ***********************************-->
-					<%@ include file="../front_page/footer.jsp"%>
+					<%@ include file="../front_page/footer2.jsp"%>
 					<!--**********************************
             Footer end
         ***********************************-->
@@ -133,17 +133,13 @@
 
 	<!-- Rating -->
 	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/global/global.min.js"></script>
+		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/vendor.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/plugins.min.js"></script>
+
+	<!--Main JS-->
 	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/js/custom.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/js/deznav-init.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/js/demo.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/js/styleSwitcher.js"></script>
+		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/main.js"></script>
 
 </body>
 </html>

@@ -17,14 +17,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>一般會員寵物資料修改 - update_generalmemberpet_input.jsp</title>
 
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/back_end/back_CSS/vendor/star-rating/star-rating-svg.css">
-<link
-	href="<%=request.getContextPath()%>/back_end/back_CSS/vendor/jquery-nice-select/css/nice-select.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/back_end/back_CSS/css/style.css"
-	rel="stylesheet">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/vendor/vendor.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/plugins/plugins.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/style.min.css">
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
 <style>
   table#table-1 {
@@ -59,14 +58,8 @@
 </style>
 
 </head>
-<body bgcolor='white'>
-
-<table id="table-1">
-	<tr><td>
-		 <h3>一般會員寵物資料修改 - update_generalmemberpet_input.jsp</h3>
-
-	</td></tr>
-</table>
+<body>
+<%@ include file="../front_page/head.jsp"%>
 
 				<c:if test="${not empty errorMsgs}">
 					<div class="col-xl-6 inmid2">
@@ -286,7 +279,7 @@
 
 										<input type="hidden" name="action" value="update"> <input
 											type="hidden" name="genMebPetNo"
-											value="<%=gmpVO.getGen_meb_no()%>"> <input
+											value="<%=gmpVO.getGen_meb_pet_no()%>"> <input
 											type="hidden" name="requestURL"
 											value="<%=request.getParameter("requestURL")%>">
 										<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
@@ -306,19 +299,15 @@
 						</div>
 					</div>
 
-
+<%@ include file="../front_page/footer2.jsp"%>
 <script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/global/global.min.js"></script>
+		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/vendor.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/plugins.min.js"></script>
+
+	<!--Main JS-->
 	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/js/custom.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/js/deznav-init.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/js/demo.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back_end/back_CSS/js/styleSwitcher.js"></script>
+		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/main.js"></script>
 </body>
 
 </html>

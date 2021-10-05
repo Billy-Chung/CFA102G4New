@@ -18,6 +18,8 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/style.min.css">
 
+<title>寵一而忠</title>
+
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -152,7 +154,7 @@
 </div>
 <!-- Register Section End -->
 
-<%@ include file="../front_page/footer.jsp"%>
+<%@ include file="../front_page/footer2.jsp"%>
 
 <script
 		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/vendor.min.js"></script>
