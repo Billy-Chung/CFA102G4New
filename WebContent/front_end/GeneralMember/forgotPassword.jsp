@@ -112,7 +112,7 @@
 
 
 
-<%@ include file="../front_page/footer.jsp"%>
+<%@ include file="../front_page/footer2.jsp"%>
 
 <script
 		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/vendor.min.js"></script>
