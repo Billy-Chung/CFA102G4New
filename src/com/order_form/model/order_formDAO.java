@@ -24,7 +24,7 @@ public class Order_formDAO implements Order_formDAO_interface {
 	private static final String DELETE_STMT = "delete from ORDER_FORM where order_no=?";
 	private static final String FIND_BY_PK = "select * from ORDER_FORM where order_no=?";
 	private static final String GET_ALL = "select * from ORDER_FORM order by ORDER_NO desc";
-	private static final String GET_ORDERLIST_BY_MEMBERNO = "SELECT * FROM ORDER_FORM where GEN_MEB_NO = ?";  
+	private static final String GET_ORDERLIST_BY_MEMBERNO = "select * from ORDER_FORM where GEN_MEB_NO =? order by order_no desc";  
 
 	static {
 		try {

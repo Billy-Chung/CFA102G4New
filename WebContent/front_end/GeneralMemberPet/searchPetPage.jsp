@@ -25,7 +25,7 @@
 <meta property="og:image" content="social-image.png" />
 <meta name="format-detection" content="telephone=no">
 <title>Insert title here</title>
-
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/front_end/front_page/images/favicon.ico" />
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/back_end/back_CSS/vendor/star-rating/star-rating-svg.css">
 <link
@@ -86,7 +86,7 @@
 					<!--**********************************
             Footer start
         ***********************************-->
-					<%@ include file="../front_page/footer.jsp"%>
+					<%@ include file="../front_page/footer2.jsp"%>
 
 				</div>
 

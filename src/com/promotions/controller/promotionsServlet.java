@@ -182,7 +182,7 @@ public class PromotionsServlet extends HttpServlet {//
 					errorMsgs.add("請輸入活動結束日期!");
 				}
 
-				String promot_status = req.getParameter("promot_status").trim();			
+				String promot_status = req.getParameter("promot_status").trim();
 				if (promot_status == null || promot_status.trim().length() == 0) {
 					errorMsgs.add("活動狀態請勿空白");
 				}
@@ -196,7 +196,7 @@ public class PromotionsServlet extends HttpServlet {//
 				req.getSession().setAttribute("photoMap", oriMap);
 				
 				Map<String, PromoPhotoVO> photoMap = getPhotoMap(req,errorMsgs);
-
+				promotionsVO.setPromot_no(promot_no);
 				promotionsVO.setPromot_name(promot_name);
 				promotionsVO.setPromot_date_start(promot_date_start);
 				promotionsVO.setPromot_date_end(promot_date_end);
@@ -216,6 +216,106 @@ public class PromotionsServlet extends HttpServlet {//
 
 				/*************************** 2.開始修改資料 *****************************************/
 				promotionsSvc.updatePromotion(promotionsVO, photoMap);
+				req.getSession().removeAttribute("photoMap");
+				
+				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("promotionsVO", promotionsVO); // 資料庫update成功後,正確的的promotionsVO物件,存入req
+				String url = "/back_end/promotions/listOnePromotions.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOnePromotions.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+//			} catch (Exception e) {
+//				errorMsgs.add("修改資料失敗:" + e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/back_end/promotions/update_promotions_input.jsp");
+//				failureView.forward(req, res);
+//			}
+		}
+		
+		if ("update_bt".equals(action)) { // 來自update_promotions_input.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+//			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				Integer promot_no = new Integer(req.getParameter("promot_no").trim());// 資料轉換
+				PromotionsVO promotionsVO = promotionsSvc.getOnePromotions(promot_no);
+				
+				String promot_name = req.getParameter("promot_name");
+				String promot_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+				if (promot_name == null || promot_name.trim().length() == 0) {
+					errorMsgs.add("活動名稱: 請勿空白");
+				} else if (!promot_name.trim().matches(promot_nameReg)) { // 以下練習正則(規)表示式(regular-expression)
+					errorMsgs.add("活動名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
+				}
+
+				java.sql.Date promot_date_start = null;// 開始日期不為空
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String promot_date_startStr = req.getParameter("promot_date_start");
+				if (promot_date_startStr == null || promot_date_startStr.trim().isEmpty()) {
+					errorMsgs.add("未填寫時間起始日");
+				} else {
+					try {
+						// 將時間字串用 SimpleDateFormat 轉型成 java.util.Date型別
+						java.util.Date utilDate = sdf.parse(promot_date_startStr);
+
+						// 用 java.util.Date 的 getTime()方法取得毫秒數
+						long milliSec = utilDate.getTime(); // 毫秒在手
+
+						// 將毫秒數 注入 java.sql.Date(long) 建構子，產生 java.sql.Date 物件
+						promot_date_start = new java.sql.Date(milliSec);
+					} catch (Exception e) {
+						promot_date_start = new java.sql.Date(System.currentTimeMillis());
+						errorMsgs.add("請輸入活動開始日期!");
+					}
+				}
+
+				java.sql.Date promot_date_end = null;// 結束日期不為空
+				try {
+					promot_date_end = java.sql.Date.valueOf(req.getParameter("promot_date_end").trim());
+				} catch (IllegalArgumentException e) {
+					promot_date_end = new java.sql.Date(System.currentTimeMillis());
+					errorMsgs.add("請輸入活動結束日期!");
+				}
+
+				String promot_status = req.getParameter("promot_status").trim();
+				if (promot_status == null || promot_status.trim().length() == 0) {
+					errorMsgs.add("活動狀態請勿空白");
+				}
+
+				String promot_comment = req.getParameter("promot_comment").trim();
+				if (promot_comment == null || promot_comment.trim().length() == 0) {
+					errorMsgs.add("活動描述請勿空白");
+				}
+	
+				Map<String, PromoPhotoVO> oriMap= photoSvc.getPromoPhotoVOMap(promot_no);
+				req.getSession().setAttribute("photoMap", oriMap);
+				
+				Map<String, PromoPhotoVO> photoMap = getPhotoMap(req,errorMsgs);
+				promotionsVO.setPromot_no(promot_no);
+				promotionsVO.setPromot_name(promot_name);
+				promotionsVO.setPromot_date_start(promot_date_start);
+				promotionsVO.setPromot_date_end(promot_date_end);
+				promotionsVO.setPromot_status(promot_status);
+				promotionsVO.setPromot_comment(promot_comment);
+				promotionsVO.setPromot_photo(null);
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("promotionsVO", promotionsVO); // 含有輸入格式錯誤的promotionsVO物件,也存入req
+
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back_end/promotions/update_promotions_input.jsp");
+					failureView.forward(req, res);
+					return; // 程式中斷
+				}
+
+				/*************************** 2.開始修改資料 *****************************************/
+				promotionsSvc.updatePromotion2(promotionsVO, photoMap);
 				req.getSession().removeAttribute("photoMap");
 				
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/

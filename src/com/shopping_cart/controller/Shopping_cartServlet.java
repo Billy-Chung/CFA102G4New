@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.order_detail.model.OrderDetailVO;
 import com.product.model.ProductVO;
 import com.product.model.productService;
@@ -203,7 +205,14 @@ public class Shopping_cartServlet extends HttpServlet {
 			}
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.print("success");
+			int cartNum = cart.size();
+			Gson gson = new Gson();
+			Map<String, String> result = new HashMap<>();
+			result.put("result", "success");
+			result.put("cartNum", Objects.toString(cartNum));
+			String resultStr = gson.toJson(result);
+			
+			out.print(resultStr);
 
 		} else {
 			System.out.println("還沒設計情境, action: " + action);

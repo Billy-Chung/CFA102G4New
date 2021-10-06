@@ -12,7 +12,7 @@
 <html>
 <head>
 <title>所有行銷活動- listAllProductPromotions.jsp</title>
-
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/back_end/backend_page/images/favicon.ico" />
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -45,16 +45,14 @@
     text-align: center;
   }
 </style>
-
 </head>
-<body bgcolor='white'>
 
+
+<body bgcolor='white'>
+ 
 <table id="table-1">
-	<tr><td>
-		 <h3>所有行銷活動 - listAllPromotions.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back_end/promotions/listAllPromotions.jsp"><img src="<%=request.getContextPath()%>/back_end/promotions/images/back1.gif" width="100" height="32" border="0">回所有行銷活動</a></h4>
-	</td></tr>
-</table>
+<h4><img src="<%=request.getContextPath()%>/back_end/promotions/images/cat.png" width="600"></h2>
+<h2><a href="<%=request.getContextPath()%>/back_end/promotions/listAllPromotions.jsp">回全部行銷活動</a></h1>
 
 
 行銷活動

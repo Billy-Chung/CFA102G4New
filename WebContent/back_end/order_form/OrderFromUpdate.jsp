@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>訂單狀態修改 - OrderFromUpdate.jsp</title>
-
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/back_end/backend_page/images/favicon.ico" />
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -49,13 +49,10 @@ th, td {
 </head>
 
 <body bgcolor='white'>
-<table id="table-1">
-	<tr><td>
-		 <h3>所有訂單 - listAllOrder_form.jsp</h3>
-		 										   
-		 <h4><a href="<%=request.getContextPath()%>/back_end/order_form/listAllOrder_form.jsp"><img src="<%=request.getContextPath()%>/back_end/order_form/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<h4><img src="<%=request.getContextPath()%>/back_end/promotions/images/cat.png" width="600"></h2>
+<h2><a href="<%=request.getContextPath()%>/back_end/promotions/promotions/listAllPromotions.jsp">回全部行銷活動</a></h1>
+
+
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">

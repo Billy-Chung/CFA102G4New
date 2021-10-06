@@ -12,9 +12,14 @@ function addToCart(productNo){
     //在request物件的onload方法，設定傳回後的反應
     xhttp.onload = function () {
         const response =this.responseText;
+        console.log(response)
+        const result=  JSON.parse(response);
+        console.log(result)
+        const ajaxResult= result['result'];
         
-        if(response==="success"){
+        if(ajaxResult==="success"){
             alert("商品已加入購物車")
+            document.getElementById("cartNum").innerHTML = result['cartNum'];
         }
 
     }

@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/vendor/vendor.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/plugins/plugins.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/style.min.css">
-
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/front_end/front_page/images/favicon.ico" />
 <style>
 .myTop {
 	margin-top: 10%;
@@ -144,7 +144,7 @@ div.center_{
 	<p>                   
     <form name="checkoutForm" action="<%=request.getContextPath()%>/shopping_cart/shoppingCart.html" method="POST">
     	<!--action送出請求到控制器(Shopping_cartServlet.java)結果會是字串CHECKOUT -->
-        <input type="hidden" name="action"	value="CHECKOUT">        
+        <input type="hidden" name="action"	value="CHECKOUT"> 
         <input type="submit" value="我要付款結帳">   
     </form>
 </c:if>

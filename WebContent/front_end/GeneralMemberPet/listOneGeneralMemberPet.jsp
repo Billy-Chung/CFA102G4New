@@ -9,7 +9,7 @@
 <html>
 <head>
 <title>一般會員寵物資料 - listOneEmp.jsp</title>
-
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/front_end/front_page/images/favicon.ico" />
 <style>
   table#table-1 {
 	background-color: #CCCCFF;

@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>忘記密碼 - forgotPassword.jsp</title>
-
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/front_end/front_page/images/favicon.ico" />
 <style>
   table#table-1 {
 	background-color: #CCCCFF;

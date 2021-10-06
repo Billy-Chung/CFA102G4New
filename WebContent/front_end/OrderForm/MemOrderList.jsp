@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/vendor/vendor.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/plugins/plugins.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/style.min.css">
-
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/front_end/front_page/images/favicon.ico" />
 <style>
 .myTop {
 	margin-top: 10%;
@@ -101,8 +101,8 @@ div.center_{
 				<th><div align="center">訂單狀態</div></th>
 				<th><div align="center">訂單明細</div></th>
 				<th><div align="center">取消訂單</div></th>
+				<th><div align="center">收貨</div></th>
 		</tr>
-
 		<c:forEach var="order_formVO" items="${list}" >
 		<tr>
 			<td><div align="center">${order_formVO.order_no}</div></td>
@@ -110,29 +110,19 @@ div.center_{
 			<td><div align="center">${order_formVO.order_name}</div></td>
 			<td><div align="center">${order_formVO.getOrder_phone()}</div></td>
 			<td><div align="center">${order_formVO.delivery_address}</div></td>
-			<td><div align="center"><fmt:formatDate value="${order_formVO.order_time}" pattern="yyyy-MM-dd" /></div></td>
+			<td><div align="center"><fmt:formatDate value="${order_formVO.order_time}" pattern="yyyy-MM-dd hh:mm:ss" /></div></td>
 			<td><div align="center">${order_formVO.getOrderStatusStr()}</div></td>
 
-<!-- 			-1取消訂單/0待出貨/1已出貨/2完成訂單 -->
-<%-- 			<c:choose>			 --%>
-<%-- 			　　<c:when test="${order_formVO.order_status == -1}">取消訂單</c:when> --%>
-<%-- 			　　<c:when test="${order_formVO.order_status == 0}">待出貨</c:when> --%>
-<%-- 			　　<c:when test="${order_formVO.order_status == 1}">已出貨</c:when> --%>
-<%-- 			   <c:when test="${order_formVO.order_status == 2}">完成訂單</c:when> --%>
-<%-- 			　　<c:otherwise>完成訂單</c:otherwise> --%>
-<%-- 			</c:choose> --%>
-								
-<!-- 			<td> -->
-<%-- 				${order_formVO.order_status eq -1?"取消訂單":"待出貨"} --%>
-<%-- 				${order_formVO.order_status eq 1?"已出貨":"完成訂單"} --%>
-<!-- 			</td> -->
-			<td>
-			  	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order_detail/order_detail.do" style="margin-bottom: 0px;">
-			    	<input type="submit" value="查詢">
-			     	<input type="hidden" name="order_no"  value="${order_formVO.order_no}">
-			     	<input type="hidden" name="action"	value="frontEndOrderDetail">
-			     </FORM>
-			</td>
+		<td>
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order_detail/order_detail.do" style="margin-bottom: 0px;">
+			   	<input type="submit" value="查詢">
+			    <input type="hidden" name="order_no"  value="${order_formVO.order_no}">
+			    <input type="hidden" name="action"	value="frontEndOrderDetail">
+			 </FORM>
+		</td>
+			
+			
+			<!-- -1取消訂單/0待出貨/1已出貨/2完成訂單 -->
 			<td>
 				<c:choose>
 				    <c:when test="${order_formVO.orderStatusStr == '待出貨' }">
@@ -149,8 +139,25 @@ div.center_{
 					            商品已出貨不可取消
 					</c:otherwise>
 				</c:choose>
-				
 			</td>
+			<td>
+				<c:choose>
+				    <c:when test="${order_formVO.orderStatusStr == '已出貨' }">
+				        <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order_form/order_form.do" style="margin-bottom: 0px;">
+					    	<input type="submit" value="收貨">
+					     	<input type="hidden" name="order_no"  value="${order_formVO.order_no}">
+					     	<input type="hidden" name="action"	value="doneOrderForm">
+					    </FORM>
+				    </c:when>
+	  		    
+				    <c:when test="${order_formVO.orderStatusStr == '完成訂單' }">
+				    	<button disabled="disabled">收貨</button>
+				    </c:when>
+					<c:otherwise>
+					
+					</c:otherwise>
+				</c:choose>
+			</td>	
 		</tr>
 	</c:forEach>
 </table>

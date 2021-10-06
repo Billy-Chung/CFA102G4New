@@ -14,13 +14,13 @@ public class PromotionsDAO implements PromotionsDAO_interface {// implements實�
 //	private static final String SQL = "";
 	private static final String INSERT_STMT = "insert into PROMOTIONS(promot_name, promot_date_start, promot_date_end, promot_status, promot_type, PROMOT_DISCOUNT_TYPE, promot_discount, promot_reduce, promot_comment , promot_photo) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 //	promot_no,自動生成流水號不用
-	private static final String UPDATE_STMT = "update PROMOTIONS set promot_name=?, promot_date_start=?, promot_date_end=?, promot_status=?, promot_type=?, PROMOT_DISCOUNT_TYPE=?, promot_discount=?, promot_reduce=?, promot_comment=?, promot_photo=? WHERE promot_no=?";
+	private static final String UPDATE_STMT = "update PROMOTIONS set promot_name=?, promot_date_start=?, promot_date_end=?, promot_status=?, promot_type=?, PROMOT_DISCOUNT_TYPE=?, promot_discount=?, promot_reduce=?, promot_comment=? WHERE promot_no=?";
 //  圖片
 	private static final String DELETE_STMT = "delete from PROMOTIONS where promot_no = ?";
 	private static final String FIND_BY_PK = "select * from PROMOTIONS where promot_no = ?";
 	private static final String GET_ALL = "select * from PROMOTIONS order by PROMOT_NO desc";
 	
-	private static final String FIND_CURRENT_PROMOTION = "SELECT * FROM PROMOTIONS where PROMOT_STATUS = '0' order by PROMOT_NO desc";
+	private static final String FIND_CURRENT_PROMOTION = "SELECT * FROM CFA_102_04.PROMOTIONS where PROMOT_STATUS = '0' order by PROMOT_NO desc";
 	
 	static {
 		try {
@@ -110,7 +110,7 @@ public class PromotionsDAO implements PromotionsDAO_interface {// implements實�
 			pstmt.setInt(i++, promotions.getPromot_discount());
 			pstmt.setInt(i++, promotions.getPromot_reduce());
 			pstmt.setString(i++, promotions.getPromot_comment());
-			pstmt.setBytes(i++, promotions.getPromot_photo());
+//			pstmt.setBytes(i++, promotions.getPromot_photo());
 			pstmt.setInt(i++, promotions.getPromot_no());// WHERE 條件
 			pstmt.executeUpdate();// 執行
 			// Handle any driver errors

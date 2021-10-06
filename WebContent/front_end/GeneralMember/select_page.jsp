@@ -4,7 +4,7 @@
 <html>
 <head>
 <title>IBM GeneralMember: Home</title>
-
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/front_end/front_page/images/favicon.ico" />
 <style>
   table#table-1 {
 	width: 450px;

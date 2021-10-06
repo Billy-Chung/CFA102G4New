@@ -3,7 +3,7 @@
 
     <div class="nav-header">
       <a href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp" class="brand-logo">
-         <img class="myIcon" src="<%=request.getContextPath()%>/back_end/backend_page/images/pet.jpg" width="203" height="68">
+         <img class="myIcon" src="<%=request.getContextPath()%>/back_end/backend_page/images/back_end.png" width="203" height="68">
         
       </a>
       <div class="nav-control">

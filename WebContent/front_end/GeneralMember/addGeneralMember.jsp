@@ -17,7 +17,7 @@
 	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/plugins/plugins.min.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/style.min.css">
-
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/front_end/front_page/images/favicon.ico" />
 <style>
   table#table-1 {
 	background-color: #CCCCFF;

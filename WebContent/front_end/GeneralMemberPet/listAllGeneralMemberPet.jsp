@@ -12,6 +12,7 @@
 <html>
 <head>
 <title>所有一般會員寵物資料</title>
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/front_end/front_page/images/favicon.ico" />
 <style>
   table#table-1 {
 	background-color: #CCCCFF;

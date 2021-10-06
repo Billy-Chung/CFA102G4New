@@ -12,7 +12,7 @@
 <html>
 <head>
 <title>所有訂單- listAllOrder_form.jsp</title>
-
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/back_end/backend_page/images/favicon.ico" />
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -48,13 +48,8 @@
 </head>
 
 <body bgcolor='white'>
-<table id="table-1">
-	<tr><td>
-		 <h3>訂單管理</h3>
-		 										   
-		 <h4><a href="<%=request.getContextPath()%>/back_end/adopt/adoptPet.jsp"><img src="<%=request.getContextPath()%>/back_end/order_form/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<h4><img src="<%=request.getContextPath()%>/back_end/promotions/images/cat.png" width="600"></h4>
+<h2><a href="<%=request.getContextPath()%>/back_end/adopt/adoptPet.jsp">回首頁</a></h2>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -77,8 +72,8 @@
 		<th>訂單產生時間</th>
 		<th>訂單狀態</th>
 		<th>訂單明細</th>
-<!-- 		<th>修改</th> -->
-<!-- 		<th>取消</th> -->
+		<th>取消訂單</th>
+		<th>出貨</th>
 	</tr>
 
 	<%@ include file="page1.file" %> 
@@ -92,18 +87,8 @@
 			
 			<td>${order_formVO.getOrder_phone()}</td>
 			<td>${order_formVO.delivery_address}</td>
-			<td><fmt:formatDate value="${order_formVO.order_time}" pattern="yyyy-MM-dd" /></td>
-			<td>${order_formVO.order_status}</td>
-			
-<!-- 			<td> -->
-<!-- 			<select> -->
-<!--     			<option>-1取消訂單</option> -->
-<!--     			<option>0待出貨</option> -->
-<!--     			<option>1已出貨</option> -->
-<!--     			<option>2完成訂單</option> -->
-<!-- 			</select> -->
-<!-- 			</td> -->
-
+			<td><fmt:formatDate value="${order_formVO.order_time}" pattern="yyyy-MM-dd hh:mm:ss" /></td>
+			<td>${order_formVO.getOrderStatusStr()}</td>
 
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order_detail/order_detail.do" style="margin-bottom: 0px;">
@@ -112,28 +97,50 @@
 			     <input type="hidden" name="action"	value="getOne_For_Display"></FORM>
 			</td>
 			
-<!-- 			<td> -->
-<%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order_detail/order_detail.do" style="margin-bottom: 0px;"> --%>
-<!-- 			     <input type="submit" value="修改"> -->
-<%-- 			     <input type="hidden" name="order_no"  value="${order_formVO.order_no}"> --%>
-<!-- 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM> -->
-<!-- 			</td> -->
-		
-<!-- 			<td> -->
-<%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order_detail/order_detail.do" style="margin-bottom: 0px;"> --%>
-<!-- 			     <input type="submit" value="取消"> -->
-<%-- 			     <input type="hidden" name="order_no"  value="${order_formVO.order_no}"> --%>
-<!-- 			     <input type="hidden" name="action"	value="cancel"></FORM> -->
-<!-- 			</td> -->
 			
+			<!-- -1取消訂單/0待出貨/1已出貨/2完成訂單 -->
+			<td>
+				<c:choose>
+				    <c:when test="${order_formVO.orderStatusStr == '待出貨' }">
+				        <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order_form/order_form.do" style="margin-bottom: 0px;">
+					    	<input type="submit" value="取消訂單">
+					     	<input type="hidden" name="order_no"  value="${order_formVO.order_no}">
+					     	<input type="hidden" name="action"	value="cancelBackOrderForm">
+					    </FORM>
+				    </c:when>
+	  		    
+				    <c:when test="${order_formVO.orderStatusStr == '取消訂單' }">
+				    	<button disabled="disabled">取消訂單</button>
+				    </c:when>
+					<c:otherwise>
+					            商品已出貨不可取消
+					</c:otherwise>
+				</c:choose>
+			</td>
+			<td>
+				<c:choose>
+				    <c:when test="${order_formVO.orderStatusStr == '待出貨' }">
+				        <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/order_form/order_form.do" style="margin-bottom: 0px;">
+					    	<input type="submit" value="出貨">
+					     	<input type="hidden" name="order_no"  value="${order_formVO.order_no}">
+					     	<input type="hidden" name="action"	value="deliverOrderForm">
+					    </FORM>
+				    </c:when>
+	  		    
+				    <c:when test="${order_formVO.orderStatusStr == '已出貨' }">
+				    	<button disabled="disabled ">出貨</button>
+				    	
+				    	
+				    </c:when>
+					<c:otherwise>
 					
-			
-			
-			
-						
+					</c:otherwise>
+				</c:choose>
+			</td>		
 		</tr>
 	</c:forEach>
 </table>
+
 <%@ include file="page2.file" %>
 </body>
 </html>

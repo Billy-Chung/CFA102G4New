@@ -16,6 +16,8 @@ import com.product.model.ProductVO;
 import com.product.model.productService;
 import com.product_promotions_detail.model.ProductPromotionService;
 import com.product_promotions_detail.model.ProductPromotionsDetailVO;
+import com.promotions.model.PromotionsService;
+import com.promotions.model.PromotionsVO;
 
 /**
  * Servlet implementation class ProductPromoDetailServlet
@@ -38,17 +40,19 @@ public class ProductPromoDetailServlet extends HttpServlet {
 		
 		if("listProductPromos".equals(action)) {
 			//取得請求參數
-			Integer promoNo = new Integer(req.getParameter("promot_no"));
+			Integer promot_no = new Integer(req.getParameter("promot_no"));
 			
 			//使用 service 拿取資料
-			List<ProductPromotionsDetailVO> promoProudctList= productPromotionSvc.findProductPromoDetailsByPromoNo(promoNo);
+			List<ProductPromotionsDetailVO> promoProudctList= productPromotionSvc.findProductPromoDetailsByPromoNo(promot_no);
 			
 			List<ProductVO> productList = productSvc.getAll();
 
 			req.setAttribute("list", promoProudctList);
 			req.setAttribute("productList", productList);
 			
-			
+			PromotionsService promotionsService = new PromotionsService();
+			PromotionsVO promotionsVO = promotionsService.getOnePromotions(promot_no);
+			req.setAttribute("promotionsVO", promotionsVO);
 			//將資料導向
 			String path ="/back_end/promotions/listAllProductPromotions.jsp";
 			RequestDispatcher dispatch = req.getRequestDispatcher(path);

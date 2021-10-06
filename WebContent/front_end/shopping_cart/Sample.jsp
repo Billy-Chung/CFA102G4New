@@ -40,7 +40,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Amber - Pet Care Bootstrap 5 Template</title>
-
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/front_end/front_page/images/favicon.ico" />
 
 <link rel="shortcut icon" href="assets/images/favicon.ico">
 <link rel="stylesheet"

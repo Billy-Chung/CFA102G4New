@@ -20,7 +20,7 @@
 <title>寵一而忠登入頁</title>
 
 <!-- FAVICONS ICON -->
-<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/back_end/backend_page/images/favicon.ico" />
 <link
 	href="<%=request.getContextPath()%>/back_end/back_CSS/css/style.css"
 	rel="stylesheet">

@@ -58,8 +58,9 @@ public class Order_formServlet extends HttpServlet {
 		if ("fillform".equals(action)) { // 來自Checkout.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
 			Integer genMebNo = Integer.valueOf(req.getParameter("genMebNo"));
+			req.setAttribute("errorMsgs", errorMsgs);
+
 			Integer order_amount = null;
 			try {
 				System.out.println(req.getParameter("order_amount"));
@@ -158,11 +159,9 @@ public class Order_formServlet extends HttpServlet {
 
 		} else if ("getMemOrderList".equals(action)) {
 			GeneralMemberVO memVO = (GeneralMemberVO) req.getSession().getAttribute("meb");
-			Order_formService order_formSvc = new Order_formService();		
+			Order_formService order_formSvc = new Order_formService();
 			List<OrderFormVO> orderList = order_formSvc.getMemberOrdForm(memVO.getGer_meb_no());
-			for (OrderFormVO vvv : orderList) {
-				System.out.println(vvv.getOrder_name());
-			}
+
 			req.setAttribute("list", orderList);
 
 			String path = "/front_end/OrderForm/MemOrderList.jsp";
@@ -173,12 +172,40 @@ public class Order_formServlet extends HttpServlet {
 			OrderFormVO orderFormVO = order_formSvc.getOneOrder_form(orderNo);
 			orderFormVO.setOrder_status("-1");
 			order_formSvc.updateOrderForm(orderFormVO);
-			
+		
 			String path = "/order_form/order_form.do?action=getMemOrderList";
 			RequestDispatcher dispatch = req.getRequestDispatcher(path);
+			dispatch.forward(req, res);	
+		} else if ("doneOrderForm".equals(action)) {
+			Integer orderNo = new Integer(req.getParameter("order_no"));
+			OrderFormVO orderFormVO = order_formSvc.getOneOrder_form(orderNo);
+			orderFormVO.setOrder_status("2");
+			order_formSvc.updateOrderForm(orderFormVO);
+		
+			String path = "/order_form/order_form.do?action=getMemOrderList";
+			RequestDispatcher dispatch = req.getRequestDispatcher(path);
+			dispatch.forward(req, res);	
+			
+		}	else if ("cancelBackOrderForm".equals(action)) {
+			Integer orderNo = new Integer(req.getParameter("order_no"));
+			OrderFormVO orderFormVO = order_formSvc.getOneOrder_form(orderNo);
+			orderFormVO.setOrder_status("-1");
+			order_formSvc.updateOrderForm(orderFormVO);
+			
+			String path = "/back_end/order_form/listAllOrder_form.jsp";
+			RequestDispatcher dispatch = req.getRequestDispatcher(path);
 			dispatch.forward(req, res);
-		} else {
-			throw new RuntimeException("還沒設計");
+		}else if ("deliverOrderForm".equals(action)) {
+			Integer orderNo = new Integer(req.getParameter("order_no"));
+			OrderFormVO orderFormVO = order_formSvc.getOneOrder_form(orderNo);
+			orderFormVO.setOrder_status("1");
+			order_formSvc.updateOrderForm(orderFormVO);
+			
+			String path = "/back_end/order_form/listAllOrder_form.jsp";
+			RequestDispatcher dispatch = req.getRequestDispatcher(path);
+			dispatch.forward(req, res);
+		}else {
+			System.out.println("還沒設計...");
 		}
 	}
 

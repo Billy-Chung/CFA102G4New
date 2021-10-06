@@ -6,7 +6,7 @@
 <head>
 
 <title>Pet Promotions: Home</title>
-
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/back_end/backend_page/images/favicon.ico" />
 <style>
   table#table-1 {
 	width: 450px;
@@ -30,19 +30,11 @@
 
 </head>
 <body bgcolor='white'>
+<h4><img src="<%=request.getContextPath()%>/back_end/promotions/images/cat.png" width="600"></h4>
+<h2><a href="<%=request.getContextPath()%>/back_end/adopt/adoptPet.jsp">回首頁</a></h2>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>行銷活動管理</h3>
-		 										   
-		 <h4><a href="<%=request.getContextPath()%>/back_end/adopt/adoptPet.jsp"><img src="<%=request.getContextPath()%>/back_end/order_form/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
 
-<p>This is the Home page for Pet Promotions: Home</p>
-
-<h3>資料查詢:</h3>
-	
+<h3>資料查詢:</h3>	
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -104,6 +96,8 @@
 <ul>
   <li><a href='addPromotions.jsp'>Add</a> a new Promotion.</li>
 </ul>
+
+
 
 </body>
 </html>

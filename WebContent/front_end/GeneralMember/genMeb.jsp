@@ -21,7 +21,7 @@
 <title>寵一而忠</title>
 
 
-<link rel="shortcut icon" href="assets/images/favicon.ico">
+<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/front_end/front_page/images/favicon.ico" />
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/vendor/vendor.min.css">
 <link rel="stylesheet"

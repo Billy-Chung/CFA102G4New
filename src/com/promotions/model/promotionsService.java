@@ -46,7 +46,7 @@ public class PromotionsService {
 	// 更新
 	public PromotionsVO updatepromotions(Integer promot_no, String promot_name, java.sql.Date promot_date_start,
 			java.sql.Date promot_date_end, String promot_status, String promot_type, String promot_discount_type,
-			Integer promot_discount, Integer promot_reduce, String promot_comment, byte[] promot_photo) {
+			Integer promot_discount, Integer promot_reduce, String promot_comment) {
 
 		PromotionsVO promotionsVO = new PromotionsVO();// promotionsVO()
 		promotionsVO.setPromot_no(promot_no);
@@ -59,7 +59,6 @@ public class PromotionsService {
 		promotionsVO.setPromot_discount(promot_discount);
 		promotionsVO.setPromot_reduce(promot_reduce);
 		promotionsVO.setPromot_comment(promot_comment);
-		promotionsVO.setPromot_photo(promot_photo);
 		dao.update(promotionsVO);
 		return promotionsVO;
 	}
@@ -171,6 +170,17 @@ public class PromotionsService {
 			photoService.updatePhoto(promoPhotoVO);
 		}
 
+	}
+	public void updatePromotion2(PromotionsVO promotionsVO, Map<String, PromoPhotoVO> photoMap) {
+		// 取得所有行銷商品明細
+		
+		updatepromotions(promotionsVO.getPromot_no(), promotionsVO.getPromot_name(), promotionsVO.getPromot_date_start(), promotionsVO.getPromot_date_end(), promotionsVO.getPromot_status(), promotionsVO.getPromot_type(), promotionsVO.getPromot_discount_type(), promotionsVO.getPromot_discount(), promotionsVO.getPromot_reduce(), promotionsVO.getPromot_comment());
+		
+		for (PromoPhotoVO promoPhotoVO : photoMap.values()) {
+			promoPhotoVO.setPromot_no(promotionsVO.getPromot_no());
+			photoService.updatePhoto(promoPhotoVO);
+		}
+		
 	}
 
 	// 設計折扣類型的方法
