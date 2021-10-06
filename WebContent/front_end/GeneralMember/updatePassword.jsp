@@ -4,6 +4,8 @@
 
 <%
   GeneralMemberVO gmVO = (GeneralMemberVO) request.getAttribute("gmVO");
+  HttpSession session2 = request.getSession();
+  GeneralMemberVO member = (GeneralMemberVO) session2.getAttribute("meb");
 %>
 
 <html>
@@ -81,10 +83,10 @@
 					<form action="<%=request.getContextPath()%>/LoginServlet" method="post" >
 						
 						<div class="single-input-item m-b-10">
-							會員帳號:<input type="account" name="account" size="16" value="<%=(gmVO==null) ? "" :gmVO.getAccount()%>" placeholder="請輸入帳號" >
+							會員帳號:<input type="account" name="account" size="16" value="<%=member.getAccount()%>" placeholder="請輸入帳號" >
 						</div>
 						<div class="single-input-item m-b-10">
-							舊密碼:<input type="password" name="password" size="16" value="<%=(gmVO==null) ? "" :gmVO.getPassword()%>" placeholder="請輸入舊密碼" >
+							舊密碼:<input type="password" name="password" size="16" value="<%=member.getPassword()%>" placeholder="請輸入舊密碼" >
 						</div>
 						<div class="single-input-item m-b-10">
 							新密碼:<input type="password" name="newpassword" size="16"  placeholder="請輸入新密碼" >

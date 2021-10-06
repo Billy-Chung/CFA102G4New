@@ -110,6 +110,28 @@
 					<!--**********************************
             Footer start
         ***********************************-->
+        			<c:if test="${not empty errorMsgs}">
+					<div class="col-xl-6 inmid2">
+						<div
+							class="alert alert-danger left-icon-big alert-dismissible fade show">
+							<button type="button" class="btn-close" data-bs-dismiss="alert"
+								aria-label="btn-close">
+								<span><i class="mdi mdi-btn-close"></i></span>
+							</button>
+							<div class="media">
+								<div class="alert-left-icon-big">
+									<span><i class="mdi mdi-alert"></i></span>
+								</div>
+								<div class="media-body">
+									<h5 class="mt-1 mb-2">請修正以下錯誤:</h5>
+									<c:forEach var="message" items="${errorMsgs}">
+										<p class="mb-0">${message.value}</p>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
 					<%@ include file="../front_page/footer2.jsp"%>
 					<!--**********************************
             Footer end

@@ -17,7 +17,7 @@ import javax.servlet.http.Part;
 
 import com.generalMember.model.GeneralMemberService;
 import com.generalMember.model.GeneralMemberVO;
-import com.promotions.model.promotionsVO;
+
 
 @javax.servlet.annotation.MultipartConfig
 public class GeneralMemberServlet extends HttpServlet {
@@ -182,37 +182,25 @@ public class GeneralMemberServlet extends HttpServlet {
 					errorMsgs.add("會員信箱請勿空白");
 				}
 				
-				String account = req.getParameter("account").trim();
-				if(account == null || account.trim().length()==0) {
-					errorMsgs.add("會員帳號請勿空白");
-				}
 				
-				String password = req.getParameter("password").trim();
-				if(password == null || password.trim().length()==0) {
-					errorMsgs.add("會員密碼請勿空白");
-				}
 				
 				String[] gender1 = req.getParameterValues("gender");
 				String gender = null;
 				for(int i = 0;i < gender1.length;i++) {
 					if(gender1[i].equals("0")) {
-						gender="0";
+						gender="女";
 					}
 					else {
-						gender="1";
+						gender="男";
 					}
 				}
 				
 				GeneralMemberService gmSvc = new GeneralMemberService();
+				GeneralMemberVO gmVO3 = gmSvc.getOneGeneralMember(gmno);
+				String account = gmVO3.getAccount();
+				String password = gmVO3.getPassword();
+				Integer meb_money = gmVO3.getMeb_money() ;
 				
-				
-				Integer meb_money =0;
-				try {
-					GeneralMemberVO gmVO = gmSvc.getOneGeneralMember(gmno);
-					meb_money = gmVO.getMeb_money();
-				}catch(NumberFormatException e) {
-					errorMsgs.add("儲存金額請填數字");
-				}
 				
 				String post_permission = null;
 				if(post_permission == null || post_permission.trim().length()==0) {
@@ -230,8 +218,8 @@ public class GeneralMemberServlet extends HttpServlet {
 					in.read(photo);
 					in.close();
 				}else {
-					GeneralMemberVO gmVO = gmSvc.getOneGeneralMember(gmno);
-					photo = gmVO.getPhoto();
+					GeneralMemberVO gmVO2 = gmSvc.getOneGeneralMember(gmno);
+					photo = gmVO2.getPhoto();
 				}
 				
 				
@@ -263,7 +251,7 @@ public class GeneralMemberServlet extends HttpServlet {
 						,comment, address, email, account, password, gender, meb_money, post_permission, gmno);
 			
 				req.setAttribute("gmVO",gmVO);
-				String url = "/front_end/GeneralMember/genMeb.jsp";
+				String url = "/front_end/GeneralMember/listOneGeneralMember.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req,res);
 				

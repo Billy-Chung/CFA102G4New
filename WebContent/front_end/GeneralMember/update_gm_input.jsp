@@ -119,13 +119,6 @@
 							EMAIL:<input type="TEXT" name="email" size="30" value="<%=gmVO.getEmail()%>" placeholder="email" >
 						</div>
 
-						<div class="single-input-item m-b-10">
-							帳號:<input type="TEXT" name="account" size="16" value="<%=gmVO.getAccount()%>" placeholder="帳號" >
-						</div>
-
-						<div class="single-input-item m-b-10">
-							密碼:<input type="password" name="password" size="16" value="<%=gmVO.getPassword()%>" placeholder="密碼" >
-						</div>
 
 						<div>
 							性別:<input type="radio" name="gender" value="1" checked />男

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.generalMember.model.*"%>
-<%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
   GeneralMemberVO gmVO = (GeneralMemberVO) request.getAttribute("gmVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
@@ -8,8 +8,18 @@
 
 <html>
 <head>
-<title>員工資料 - listOneEmp.jsp</title>
-<link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/front_end/front_page/images/favicon.ico" />
+<title>寵一而忠</title>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/vendor/vendor.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/plugins/plugins.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/style.min.css">
+
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -44,48 +54,100 @@
 </style>
 
 </head>
-<body bgcolor='white'>
+<body>
+
+<%@ include file="../front_page/head.jsp"%>
+
+<div class="section section-margin">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-7 col-md-8 m-auto">
+				<div class="login-wrapper">
+
+					<!-- Register Title & Content Start -->
+					<div class="section-content text-center m-b-30">
+						<h2 class="title m-b-10">會員資料</h2>
+					</div>
+					<!-- Register Title & Content End -->
+
+					<!-- Form Action Start -->
+					<form action="" method="post" >
+
+						<!-- Input First Name Start -->
+						<div class="single-input-item m-b-10">
+							會員編號: ${gmVO.ger_meb_no}
+						</div>
+						<!-- Input First Name End -->
+						<div class="single-input-item m-b-10">
+							會員姓名: <input type="TEXT" name="meb_name" size="10" value="${gmVO.meb_name}" disabled>
+						</div>
+						<!-- Input Last Name Start -->
+						<div class="single-input-item m-b-10">
+							會員手機: <input type="TEXT"  name="phone" size="10"	value="${gmVO.phone}" disabled>
+						</div>
+						<!-- Input Last Name End -->
+						
+
+						<!-- Input Email Start -->
+						<div class="single-input-item m-b-10">
+							會員生日: <input name="birthday" id="f_date1" type="text" value="${gmVO.birthday}" disabled>
+						</div>
+						<!-- Input Email End -->
+
+						<!-- Input Password Start -->
+						<div class="single-input-item m-b-10">
+							會員簡介: <input type="TEXT" name="comment" size="65" value="${gmVO.comment}" disabled >
+						</div>
+
+						<div class="single-input-item m-b-10">
+							會員地址: <input type="TEXT" name="address" size="65" value="${gmVO.address}" disabled >
+						</div>
+
+						<div class="single-input-item m-b-10">
+							EMAIL: <input type="TEXT" name="email" size="30" value="${gmVO.email}" disabled >
+						</div>
+
+						<div>
+							性別: ${gmVO.gender}
+						</div><p>
+						
+						<!-- Button/Forget Password Start -->
+						
+						<!-- Button/Forget Password End -->
+
+					</form>
+					<!-- Form Action End -->
+					
+					<%-- 錯誤表列 --%>
+					<c:if test="${not empty errorMsgs}">
+						<font style="color:red">請修正以上錯誤:</font>
+						<ul>
+							<c:forEach var="message" items="${errorMsgs}">
+								<li style="color:red">${message}</li>
+							</c:forEach>
+						</ul>
+</c:if>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
-<table id="table-1">
-	<tr><td>
-		 <h3>會員資料 - ListOneGeneralMember.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/front_end/GeneralMember/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+	
 
-<table>
-	<tr>
-		<th>會員編號</th>
-		<th>會員姓名</th>
-		<th>會員手機</th>
-		<th>會員生日</th>
-		<th>會員照片</th>
-		<th>會員簡介</th>
-		<th>會員地址</th>
-		<th>EMAIL</th>
-		<th>帳號</th>
-		<th>密碼</th>
-		<th>性別</th>
-		<th>現今帳戶餘額</th>
-		<th>發文權限</th>
-	</tr>
-	<tr>
-		<td>${gmVO.ger_meb_no}</td>
-		<td>${gmVO.meb_name}</td>
-		<td>${gmVO.phone}</td>
-		<td>${gmVO.birthday}</td>
-		<td>${gmVO.photo}</td>
-		<td>${gmVO.comment}</td>
-		<td>${gmVO.address}</td>
-		<td>${gmVO.email}</td>
-		<td>${gmVO.account}</td>
-		<td>${gmVO.password}</td>
-		<td>${gmVO.gender}</td>
-		<td>${gmVO.meb_money}</td>
-		<td>${gmVO.post_permission}</td>
-	</tr>
-</table>
+<%@ include file="../front_page/footer2.jsp"%>
+
+<script
+		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/vendor.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/plugins.min.js"></script>
+
+	<!--Main JS-->
+	<script
+		src="<%=request.getContextPath()%>/front_end/front_CSS/assets/js/main.js"></script>
+
 
 </body>
 </html>
