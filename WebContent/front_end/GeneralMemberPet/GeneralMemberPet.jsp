@@ -93,7 +93,12 @@
             Content body start
         ***********************************-->
 		<div class="content-body">
-			
+			<div class="row page-titles">
+					<a href="<%=request.getContextPath()%>/front_end/GeneralMember/genMeb.jsp"><button
+							type="button" class="btn light btn-dark">
+							返回會員中心<span class="btn-icon-end"><i class="fa fa-star"></i></span>
+						</button></a>
+				</div>
 
 			<div class="container-fluid">
 				

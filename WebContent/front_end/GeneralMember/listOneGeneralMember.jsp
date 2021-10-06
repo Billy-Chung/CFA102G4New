@@ -67,6 +67,12 @@
 					<!-- Register Title & Content Start -->
 					<div class="section-content text-center m-b-30">
 						<h2 class="title m-b-10">會員資料</h2>
+						<div class="row page-titles">
+						<a href="<%=request.getContextPath()%>/front_end/GeneralMember/genMeb.jsp"><button
+							type="button" class="btn light btn-dark">
+							返回會員中心<span class="btn-icon-end"><i class="fa fa-star"></i></span>
+						</button></a>
+				</div>
 					</div>
 					<!-- Register Title & Content End -->
 
