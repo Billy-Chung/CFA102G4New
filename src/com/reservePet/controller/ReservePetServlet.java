@@ -43,8 +43,13 @@ public class ReservePetServlet extends HttpServlet {
 						Map<String, String> jsonMap = new HashMap();
 						jsonMap.put("title", "預約者姓名: " + thisReserve.getReserve_people_name() + " ---------- 預約者電話: "
 								+ thisReserve.getReserve_people_phone());
-						jsonStartDateTime = whichDate + "T" + i + ":00:00";
-						jsonEndDateTime = whichDate + "T" + (i + 1) + ":00:00";
+						if(i<10) {
+							jsonStartDateTime = whichDate + "T0" + i + ":00:00";
+							jsonEndDateTime = whichDate + "T" + (i + 1) + ":00:00";
+						}else {
+							jsonStartDateTime = whichDate + "T" + i + ":00:00";
+							jsonEndDateTime = whichDate + "T" + (i + 1) + ":00:00";
+						}
 						jsonMap.put("start", jsonStartDateTime);
 						jsonMap.put("end", jsonEndDateTime);
 						jsonMap.put("id", thisReserve.getReserve_pet_no().toString());
