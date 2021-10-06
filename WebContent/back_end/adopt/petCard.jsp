@@ -98,7 +98,7 @@
 										<button type="submit"
 											class="btn btn-rounded btn-outline-success">
 											<span class="btn-icon-start text-success"><i
-												class="fa fa-plus color-info"></i> </span>修改為以領養
+												class="fa fa-plus color-info"></i> </span>修改為已領養
 										</button>
 									</c:if>
 									<c:if test="${AdoptPetVO.adopt_pet_state == 1}">
