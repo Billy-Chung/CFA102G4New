@@ -125,6 +125,7 @@
 						<div class="single-input-item">
 							<div class="login-reg-form-meta m-b-n15">
 								<input type="hidden" name="action" value="insert">
+								<input type="hidden" name="PK" value="${param.PK}">
 								<button align="center" class="btn btn btn-gray-deep btn-hover-primary m-b-15">Create</button>
 							</div>
 						</div>

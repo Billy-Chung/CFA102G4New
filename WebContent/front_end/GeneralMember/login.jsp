@@ -101,7 +101,7 @@
                                     <input type="hidden" name="action" value="login">
                                     <input type="hidden" name="PK" value="${PK}">
                                     <button class="btn btn btn-gray-deep btn-hover-primary m-b-15">送出</button>
-                                    <a href="<%=request.getContextPath()%>/front_end/GeneralMember/addGeneralMember.jsp" class="forget-pwd m-b-15">會員註冊</a>
+                                    <a href="<%=request.getContextPath()%>/front_end/GeneralMember/addGeneralMember.jsp?PK=${PK}" class="forget-pwd m-b-15">會員註冊</a>
                                     <a href="<%=request.getContextPath()%>/front_end/GeneralMember/forgotPassword.jsp" class="forget-pwd m-b-15">忘記密碼</a>
                                 </div>
                             </div>

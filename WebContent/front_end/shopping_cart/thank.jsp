@@ -125,7 +125,7 @@ div.center_{
 		<td width="200"><div align="center"><img class="fit-image" src="<%=request.getContextPath() %>/prodPhoto?prodNo=${order_detailVO.product_no}"/></div></td>
 <%-- 		<td><div align="center">${order_detailVO.product_no}</div></td> --%>
 		<td><div align="center">${order_detailVO.order_product_number}</div></td>
-		<td><div align="center">$${amount}</div></td>
+		<td><div align="center">$${order_detailVO.product_price}</div></td>
 		<td><div align="center">${order_detailVO.product_name}</div></td>
 		<td><div align="center">${order_detailVO.product_pro_detail_no}</div></td>
 		<td><div align="center">${order_detailVO.promot_name}</div></td>
