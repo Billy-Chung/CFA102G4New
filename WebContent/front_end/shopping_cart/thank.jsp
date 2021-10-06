@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>thank.jsp</title>
+<title>寵一而忠</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/vendor/vendor.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/plugins/plugins.min.css">

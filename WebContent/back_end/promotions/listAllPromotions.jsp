@@ -14,7 +14,7 @@
 
 <html>
 <head>
-<title>所有行銷活動- listAllPromotions.jsp</title>
+<title>寵一而忠</title>
 <link rel="shortcut icon" type="image/png" href="<%=request.getContextPath()%>/back_end/backend_page/images/favicon.ico" />
 <style>
   table#table-1 {

@@ -5,7 +5,7 @@
 <%@ page import="com.order_form.model.*"%>
 <html>
 <head>
-<title>所有訂單- listAllOrder_form.jsp</title>
+<title>寵一而忠</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front_end/front_CSS/assets/css/vendor/vendor.min.css">

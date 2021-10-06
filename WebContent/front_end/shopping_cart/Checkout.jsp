@@ -10,7 +10,7 @@
 
 <html>
 <head>
-<title>Checkout.jsp</title>
+<title>寵一而忠</title>
 <script src="<%=request.getContextPath()%>/front_end/shopping_cart/zipCode.js"></script>
 <script src="<%=request.getContextPath()%>/front_end/shopping_cart/zipcodeAddr.js"></script>
 

@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>shoppingCartUpdate</title>
+<title>寵一而忠</title>
 
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />

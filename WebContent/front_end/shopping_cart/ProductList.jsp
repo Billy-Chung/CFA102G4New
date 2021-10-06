@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>商品資料</title>
+<title>寵一而忠</title>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
