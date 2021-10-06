@@ -274,7 +274,11 @@ public class GeneralMemberServlet extends HttpServlet {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				//Integer gmno = new Integer (req.getParameter("gmno").trim()); 
 				String meb_name = req.getParameter("meb_name");
-				Integer PK = Integer.valueOf(req.getParameter("PK"));
+				if(req.getParameter("PK").trim().length() != 0) {
+					Integer PK = Integer.valueOf(req.getParameter("PK"));
+					req.setAttribute("PK", PK);
+				}
+				
 				String gmnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (meb_name == null || meb_name.trim().length() == 0) {
 					errorMsgs.add("員工姓名: 請勿空白");
@@ -378,7 +382,7 @@ public class GeneralMemberServlet extends HttpServlet {
 									
 									/***************************3.新增完成,準備轉交(Send the Success view)***********/
 					String url = "/front_end/GeneralMember/login.jsp";
-					req.setAttribute("PK", PK);
+					
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllGeneralMember.jsp
 					successView.forward(req, res);				
 									

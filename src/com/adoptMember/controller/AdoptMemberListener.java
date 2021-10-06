@@ -26,7 +26,7 @@ public class AdoptMemberListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce)  { 
     	timer = new Timer();
     	logger.info("新增預約表資料");
-    	timer.schedule(new AdoptMemberTimer(), 1000, 86400000);
+    	timer.schedule(new AdoptMemberTimer(), 1000, 10000);
     }
     
 	
