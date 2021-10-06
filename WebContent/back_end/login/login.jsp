@@ -44,7 +44,7 @@
 							<div class="col-xl-12">
 								<div class="auth-form">
 									<div class="text-center mb-3">
-										 <a href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp" > <img class="return" src="<%=request.getContextPath()%>/back_end/backend_page/images/pet.jpg"></a>
+										 <a href="<%=request.getContextPath()%>/front_end/adoptPet/adoptPet.jsp" > <img class="return" src="<%=request.getContextPath()%>/front_end/front_page/images/front_end.png"></a>
 									</div>
 
 									<h4 class="text-center mb-4">後台登入</h4>
