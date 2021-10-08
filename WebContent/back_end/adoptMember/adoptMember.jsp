@@ -227,7 +227,7 @@
 									<div class="col-sm-9">
 										<input type="text" class="form-control"
 											name="adopt_meb_account" placeholder="請填入領養機構帳號"
-											value="<%=(adoptMebFail != null) ? adoptMebFail.getAdopt_meb_account() : adoptMeb.getAdopt_meb_account()%>">
+											value="<%=(adoptMebFail != null) ? adoptMebFail.getAdopt_meb_account() : adoptMeb.getAdopt_meb_account()%>" disabled>
 									</div>
 								</div>
 
